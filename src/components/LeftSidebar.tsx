@@ -4,7 +4,7 @@ import { nav_items } from "../../data/navigation-items";
 
 export const LeftSidebar = () => {
   return (
-    <section className="fixed w-62 h-screen flex flex-col items-stretch justify-between text-xl">
+    <section className="fixed h-screen flex flex-col items-stretch justify-between text-xl">
    <div className="flex flex-col items-stretch justify-start">
    <Link href={'/'} className="px-3 text-3xl mb-1 mt-2">
         <BsTwitter/>
@@ -18,7 +18,7 @@ export const LeftSidebar = () => {
         <div className="text-3xl">
           <nav_item.icon/>
         </div>
-        <div>{nav_item.title}</div>
+        <div className="none md:min-w-full">{nav_item.title}</div>
         </Link>
       ))
     }
