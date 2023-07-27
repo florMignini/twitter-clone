@@ -1,5 +1,8 @@
 import { LeftSidebar } from "@/components/LeftSidebar";
-import { BsDot } from "react-icons/bs";
+import { AiOutlineHeart, AiOutlineRetweet } from "react-icons/ai";
+import { BsChat, BsDot, BsThreeDots } from "react-icons/bs";
+import { IoMdStats } from 'react-icons/io'
+import { MdOutlineIosShare } from 'react-icons/md'
 
 
 export default function Home() {
@@ -57,13 +60,22 @@ export default function Home() {
                     <div>
                       <div className=" flex flex-col items-center">
                         {/* twit header */}
-                        <div className=" w-full flex items-center content-center">
-                          <p className="font-bold text-md">La_Florineta</p>
-                          <p className="font-thin text-md mx-1">@mariflor_la</p>
-                          <div>
-                            <BsDot />
+                        <div className="w-full flex items-center justify-evenly pr-1">
+                          <div className=" w-full flex items-center content-center">
+                            <p className="font-bold text-md">La_Florineta</p>
+                            <p className="font-thin text-md mx-1">@mariflor_la</p>
+                            <div className="flex">
+                              <BsDot />
+                            </div>
+                            <p className="font-thin text-sm mx-1">37m</p>
                           </div>
-                          <p className="font-thin text-sm mx-1">37m</p>
+                          <div className="w-8 flex items-center
+                          rounded-full h-8  font-bold
+                          text-md justify-center hover:bg-blue-800/20 
+                          hover:text-blue-600
+                          transition duration-200 text-xl">
+                            <BsThreeDots />
+                          </div>
                         </div>
                         {/* twit text */}
                         <div className="text-white text-sm pt-1">
@@ -72,14 +84,55 @@ export default function Home() {
                         {/* media content */}
                         <div className="bg-slate-400 aspect-square w-full h-96 rounded-xl m-1"></div>
                       </div>
+                      <div className="flex items-center justify-around space-x-2 w-full cursor-pointer">
+                        <div className="flex 
+                      rounded-full h-8 w-8  font-bold
+                      text-md
+ items-center justify-center hover:bg-blue-800/20 
+                      hover:text-blue-600
+                      transition duration-200
+                      ">
+                          <BsChat />
+                        </div>
+                        <div className="flex items-center justify-center 
+                        font-bold
+                        transition duration-200
+                        text-md
+                        hover:bg-green-400/20
+                      hover:text-green-600
+                      rounded-full h-8 w-8">
+                          <AiOutlineRetweet />
+                        </div>
+                        <div className="flex items-center justify-center
+                        font-bold
+                        transition duration-200
+                        text-md
+                        hover:bg-red-400/20
+                      hover:text-red-600
+                      rounded-full h-8 w-8">
+                          <AiOutlineHeart />
+                        </div>
+                        <div className="flex items-center justify-center 
+                        font-bold
+                        transition duration-200
+                        text-md
+                        hover:bg-blue-400/20
+                      hover:text-blue-600
+                      rounded-full h-8 w-8">
+                          <IoMdStats />
+                        </div>
+                        <div className="flex items-center justify-center 
+                        font-bold
+                        transition duration-200
+                        text-md
+                        hover:bg-blue-400/20
+                      hover:text-blue-600
+                      rounded-full h-8 w-8">
+                          <MdOutlineIosShare />
+                        </div>
+                      </div>{/* bottom icons */}
                     </div>{/* twitt content */}
-                    <div className="flex items-center space-x-2 w-full">
-                      <div></div>
-                      <div></div>
-                      <div></div>
-                      <div></div>
-                      <div></div>
-                    </div>{/* bottom icons */}
+
                   </div> //twitt container
                 ))
               }
