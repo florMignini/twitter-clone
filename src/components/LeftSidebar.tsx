@@ -4,7 +4,7 @@ import { nav_items } from "../../data/navigation-items";
 
 export const LeftSidebar = () => {
   return (
-    <section className="fixed h-screen flex flex-col items-stretch justify-between text-xl">
+    <section className="fixed h-screen w-42 flex flex-col justify-between text-xl">
    <div className="flex flex-col items-stretch justify-start">
    <Link href={'/'} className="px-3 text-3xl mb-1 mt-2">
         <BsTwitter/>
