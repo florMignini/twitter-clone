@@ -6,7 +6,7 @@ import { MdOutlineIosShare } from 'react-icons/md'
 export const MainSection = () => {
     return (
         <main className="w-full h-full min-h-screen border-l-[0.3px] border-r-[0.3px] border-gray-600">
-            <h1 className="flex text-2xl font-bold p-4 backdrop-blur bg-black/10 sticky top-0">Home</h1>
+            <h1 className="flex bg-blur-lg text-2xl font-bold bg-black/30 p-4 sticky top-0">Home</h1>
             <div className="border-b-[0.3px] border-t-[0.3px] px-4 py-4 border-gray-600 relative grid grid-cols-[8%_92%] gap-1">
                 {/* Avatar */}
 

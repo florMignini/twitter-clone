@@ -4,14 +4,14 @@ import { nav_items } from "../../data/navigation-items";
 
 export const LeftSidebar = () => {
   return (
-    <section className="fixed h-screen w-42 flex flex-col justify-between text-xl">
+    <section className="fixed h-screen w-42 flex flex-col justify-between text-xl   lg:py-2">
    <div className="flex flex-col items-stretch justify-start">
-   <Link href={'/'} className="px-3 text-3xl mb-1 mt-2">
+   <Link href={'/'} className="px-3 text-3xl mb-1 lg:mb-2 mt-2">
         <BsTwitter/>
     </Link>
     {
       nav_items.map((nav_item)=>(
-        <Link className="hover:bg-white/10 flex items-center w-fit h-fit justify-start space-x-5 rounded-3xl px-3 py-3"
+        <Link className="hover:bg-white/10 flex items-center w-fit h-fit justify-start space-x-5 rounded-3xl px-3 py-3 lg:py-4"
         href={`${nav_item.title.toLowerCase()}`}
         key={nav_item.title}
         >
@@ -29,9 +29,9 @@ export const LeftSidebar = () => {
    <button className="w-full flex items-center justify-around space-x-2 rounded-full py-2 hover:bg-white/10
    transition duration-200 p-1 my-4">
     <div className="rounded-full bg-slate-400 w-10 h-10">{/* Avatar */}</div>
-    <div className="flex flex-col text-xs text-left">
-      <div className="text-semibold">La_Florineta</div>
-      <div>@mariflor_la</div>
+    <div className="flex flex-col text-xs lg:text-[14px] text-left">
+      <div className="font-semibold lg:font-bold">La_Florineta</div>
+      <div className="lg:font-thin">@mariflor_la</div>
     </div>
     <div className="text-sm text-right">
       <BsThreeDots/>
