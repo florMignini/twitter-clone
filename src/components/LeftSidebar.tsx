@@ -4,14 +4,14 @@ import { nav_items } from "../../data/navigation-items";
 
 export const LeftSidebar = () => {
   return (
-    <section className="fixed h-screen w-42 flex flex-col justify-between text-xl   lg:py-2">
-   <div className="flex flex-col items-stretch justify-start">
+    <section className="fixed h-screen w-60 flex flex-col justify-between text-xl   lg:py-2">
+   <div className="flex flex-col items-stretch justify-end">
    <Link href={'/'} className="px-3 text-3xl mb-1 lg:mb-2 mt-2">
         <BsTwitter/>
     </Link>
     {
       nav_items.map((nav_item)=>(
-        <Link className="hover:bg-white/10 flex items-center w-fit h-fit justify-start space-x-5 rounded-3xl px-3 py-3 lg:py-4"
+        <Link className="hover:bg-white/10 flex items-center w-fit h-fit justify-start space-x-5 rounded-3xl px-2 py-3 lg:py-4"
         href={`${nav_item.title.toLowerCase()}`}
         key={nav_item.title}
         >
@@ -26,10 +26,10 @@ export const LeftSidebar = () => {
       Tweet
     </button>
    </div>
-   <button className="w-full flex items-center justify-around space-x-2 rounded-full py-2 hover:bg-white/10
-   transition duration-200 p-1 my-4">
+   <button className="w-full flex items-center justify-around space-x-1 rounded-full p-2 hover:bg-white/10
+   transition duration-200 my-4">
     <div className="rounded-full bg-slate-400 w-10 h-10">{/* Avatar */}</div>
-    <div className="flex flex-col text-xs lg:text-[14px] text-left">
+    <div className="flex w-4/6 flex-col text-xs lg:text-[14px] text-left">
       <div className="font-semibold lg:font-bold">La_Florineta</div>
       <div className="lg:font-thin">@mariflor_la</div>
     </div>
