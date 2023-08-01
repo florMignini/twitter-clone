@@ -4,8 +4,8 @@ import { nav_items } from "../../data/navigation-items";
 
 export const LeftSidebar = () => {
   return (
-    <section className="fixed h-screen w-60 flex flex-col justify-between text-xl   lg:py-2">
-   <div className="flex flex-col items-stretch justify-end">
+    <section className="fixed h-screen w-60 flex flex-col justify-between text-xl lg:py-2">
+   <div className=" xl:w-48 flex flex-col items-stretch justify-end">
    <Link href={'/'} className="px-3 text-3xl mb-1 lg:mb-2 mt-2">
         <BsTwitter/>
     </Link>
@@ -26,7 +26,7 @@ export const LeftSidebar = () => {
       Tweet
     </button>
    </div>
-   <button className="w-full flex items-center justify-around space-x-1 rounded-full p-2 hover:bg-white/10
+   <button className="w-full xl:w-48 flex items-center justify-around space-x-1 rounded-full p-2 hover:bg-white/10
    transition duration-200 my-4">
     <div className="rounded-full bg-slate-400 w-10 h-10">{/* Avatar */}</div>
     <div className="flex w-4/6 flex-col text-xs lg:text-[14px] text-left">

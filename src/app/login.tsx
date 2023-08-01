@@ -10,6 +10,7 @@ export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const router = useRouter()
+
   const supabase = createClientComponentClient<Database>()
 
   const handleSignUp = async () => {
