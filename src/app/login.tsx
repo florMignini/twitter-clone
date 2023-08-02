@@ -8,44 +8,59 @@ import type { Database } from '@/lib/supabase.types'
 import AuthModal from './ui/modal/AuthModal'
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Checkbox, Input, Link } from '@nextui-org/react'
 import { MailIcon, LockIcon } from './ui/modal'
+import { toast } from 'react-toastify'
 
 export default function Login() {
   const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [username, setUsername] = useState('')
+
   const router = useRouter()
   //modal stateHandler
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const supabase = createClientComponentClient<Database>()
 
- useEffect(() => {
+  useEffect(() => {
     //getting session
-  supabase.auth.getSession().then((res) => {
-    //if there is not session open modal for authentication step
-    if ( !res.data.session) {
-      onOpen()
-    }
-  })
- }, [])
- 
+    supabase.auth.getSession().then((res) => {
+      //if there is not session open modal for authentication step
+      if (!res.data.session) {
+        onOpen()
+      }
+    })
+  }, [])
+
 
   const handleSignUp = async () => {
-    await supabase.auth.signUp({
-      email,
-      password,
+
+    //checking in db if the user exist
+  const {data, error} =  await supabase.from('profiles').select().eq('username', username.trim())
+
+    data && data?.length > 0 ? toast.error("the username already exist", {
+      position: toast.POSITION.TOP_CENTER
+    }) : 
+    console.log(username)
+     await supabase.auth.signInWithOtp({
+      email: email.trim(),
       options: {
-        emailRedirectTo: `${location.origin}/auth/callback`,
+        data: {
+          username,
+        },
       },
     })
     router.refresh()
   }
 
-  const handleSignIn = async () => {
-    await supabase.auth.signInWithPassword({
-      email,
-      password,
-    })
-    router.refresh()
-  }
+  /*  const handleSignIn = async () => {
+     const { data, error } = await supabase.auth.signInWithOtp({
+       email: 'example@email.com',
+       options: {
+         data: {
+           username,
+         },
+       },
+     })
+     router.refresh()
+   } */
 
   const handleSignOut = async () => {
     await supabase.auth.signOut()
@@ -53,22 +68,12 @@ export default function Login() {
   }
 
   return (
-    /*  <>
-       <input name="email" onChange={(e) => setEmail(e.target.value)} value={email} />
-       <input
-         type="password"
-         name="password"
-         onChange={(e) => setPassword(e.target.value)}
-         value={password}
-       />
-       <button onClick={handleSignUp}>Sign up</button>
-       <button onClick={handleSignIn}>Sign in</button>
-       <button onClick={handleSignOut}>Sign out</button>
-     </> */
     <Modal
       isOpen={isOpen}
       onOpenChange={onOpenChange}
       placement="top-center"
+      backdrop='blur'
+      className='bg-neutral-800'
     >
       <ModalContent>
         {(onClose) => (
@@ -76,38 +81,25 @@ export default function Login() {
             <ModalHeader className="flex flex-col gap-1">Log in</ModalHeader>
             <ModalBody className='backdrop-blur-md'>
 
-               <Input
-                  autoFocus
-                  endContent={
-                    <MailIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
-                  }
-                  label="Email"
-                  placeholder="Enter your email"
-                  variant="bordered"
-                  className='text-black'
-                />
-                <Input
-                  endContent={
-                    <LockIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
-                  }
-                  label="Password"
-                  placeholder="Enter your password"
-                  type="password"
-                  variant="bordered"
-                  className='text-black'
-                />
-                <div className="flex py-2 px-1 justify-between">
-                  <Checkbox
-                    classNames={{
-                      label: "text-small",
-                    }}
-                  >
-                    Remember me
-                  </Checkbox>
-                  <Link color="primary" href="#" size="sm">
-                    Forgot password?
-                  </Link>
-                </div>
+              <Input
+                autoFocus
+                endContent={
+                  <MailIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
+                }
+                label="Email"
+                placeholder="Enter your email"
+                variant="bordered"
+                className='text-blue-500'
+                onChange={({target}) => setEmail(target.value)}
+              />
+              <Input
+                label="Username"
+                placeholder="Enter your username"
+                type="text"
+                variant="bordered"
+                className='text-blue-500'
+                onChange={({target}) => setUsername(target.value)}
+              />
 
             </ModalBody>
             <ModalFooter>
