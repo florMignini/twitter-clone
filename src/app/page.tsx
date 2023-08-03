@@ -27,7 +27,6 @@ console.log(data)
             </div>
           </div>
         ) : (
-
           <Login />
         )
       }
