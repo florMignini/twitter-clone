@@ -7,7 +7,7 @@ const Home = async () => {
   const supabase = createServerComponentClient({ cookies })
   const { data, error } = await supabase.auth.getUser()
 
-console.log(data)
+
   return (
     <div className="w-full h-full justify-center items-center relative bg-black xl:px-8 2xl:px-40">
       {

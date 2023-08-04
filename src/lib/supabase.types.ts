@@ -202,7 +202,7 @@ export interface Database {
         Insert: {
           created_at?: string
           id: string
-          profile_id: string
+          profile_id: string | undefined
           text: string
           updated_at?: string
         }
