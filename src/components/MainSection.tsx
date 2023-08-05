@@ -8,7 +8,7 @@ export const MainSection = () => {
     return (
         <main className="w-full overflow-visible h-full min-h-screen border-l-[0.3px] border-r-[0.3px] border-gray-600">
 
-            <h1 className="text-2xl text-left px-5 py-3 font-bold backdrop-blur-sm sticky w-full h-32 bg-black/10 top-0 bg-black">Home</h1>
+            <h1 className="text-2xl z-10 text-left px-5 py-3 font-bold backdrop-blur-sm sticky w-full h-32 bg-black/10 top-0 bg-black">Home</h1>
 
             {/* Avatar */}
             <div className="border-b-[0.3px] border-t-[0.3px] px-4 py-4 border-gray-600 relative grid grid-cols-[8%,92%] gap-1">
