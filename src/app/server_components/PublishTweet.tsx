@@ -10,18 +10,19 @@ const PublishTweet = () => {
         'use server'
         const supabase = createServerComponentClient<Database>({cookies})
 
+        console.log(formData)
         //getting user info
         const {data, error} = await supabase.auth.getUser()
         const tweetToPublish = formData.get('tweet')
+
         //clear input
-         formData.set('tweet', ' ')
         if(!tweetToPublish) return
-        console.log(data)
         await supabase.from("tweets").insert({
             profile_id: data.user?.id,
             text: tweetToPublish.toString(),
             id: randomUUID()
         })
+        formData.set('tweet', ' ')
     }
     return (
         <form action={addTweet}>

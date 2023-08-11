@@ -195,21 +195,21 @@ export interface Database {
         Row: {
           created_at: string
           id: string
-          profile_id: string
+          profile_id: string | undefined
           text: string
           updated_at: string
         }
         Insert: {
           created_at?: string
           id: string
-          profile_id: string
+          profile_id: string | undefined
           text: string
           updated_at?: string
         }
         Update: {
           created_at?: string
           id?: string
-          profile_id?: string
+          profile_id: string | undefined
           text?: string
           updated_at?: string
         }
