@@ -23,8 +23,8 @@ const PublishTweet = () => {
             text: tweetToPublish.toString(),
             id: randomUUID()
         })
+        formData.set('tweet',' ')
         revalidatePath('/')
-
     }
     return (
         <form action={addTweet}>
