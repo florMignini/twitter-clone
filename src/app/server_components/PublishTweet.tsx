@@ -31,7 +31,7 @@ const PublishTweet = () => {
         <form action={addTweet}>
             <div className="h-62 mx-1">
                 <div>{/*  border-gray-600 */}</div>
-                <input type="text" name='tweet' placeholder="What is happening?!"
+                <input type="text" name='tweet' placeholder="What is happening?!" autoComplete="off"
                     className=" w-full h-62 bg-transparent 
         placeholder:text-gray-600
         outline-none border-none border-b-[0.5px] px-2 py-2 text-xl font-light"
