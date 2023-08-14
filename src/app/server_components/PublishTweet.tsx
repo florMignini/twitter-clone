@@ -16,14 +16,15 @@ const PublishTweet = () => {
         const { data, error } = await supabase.auth.getUser()
         const tweetToPublish = formData.get('tweet')
 
-        //clear input
         if (!tweetToPublish) return
         await supabase.from("tweets").insert({
             profile_id: data.user?.id,
             text: tweetToPublish.toString(),
             id: randomUUID()
         })
+        //clear input
         formData.set('tweet',' ')
+        // getting updated data
         revalidatePath('/')
     }
     return (
