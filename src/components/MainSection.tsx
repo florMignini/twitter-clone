@@ -1,10 +1,20 @@
 import PublishTweet from "@/app/server_components/PublishTweet";
+
 import { AiOutlineHeart, AiOutlineRetweet } from "react-icons/ai";
 import { BsChat, BsDot, BsThreeDots } from "react-icons/bs";
 import { IoMdStats } from 'react-icons/io'
 import { MdOutlineIosShare } from 'react-icons/md'
 
-export const MainSection = () => {
+// dayjs import 
+import dayjs from "dayjs";
+import relativeTime from 'dayjs/plugin/relativeTime'
+import { getTweets } from "@/app/helpers/getTweets";
+dayjs.extend(relativeTime)
+
+export const MainSection = async () => {
+    //fetching all tweets
+    const allTweets = await getTweets()
+
     return (
         <main className="w-full overflow-visible h-full min-h-screen border-l-[0.3px] border-r-[0.3px] border-gray-600">
 
@@ -24,10 +34,11 @@ export const MainSection = () => {
 
             {/* Twit content */}
             <div className="flex flex-col ">
+                {allTweets?.error ? <h1>Something goes wrong with server</h1> : null}
                 {
-                    Array.from({ length: 5 }).map((_, i) => (
+                   allTweets?.data && allTweets?.data.map((tweet) => (
                         <div
-                            key={i}
+                            key={tweet.id}
                             className="relative grid grid-cols-[8%_92%] gap-2
       border-b-[0.3px] border-t-[0.3px] p-3
       ">
@@ -39,12 +50,12 @@ export const MainSection = () => {
                                     {/* twit header */}
                                     <div className="w-full flex items-center justify-evenly pr-1">
                                         <div className=" w-full flex items-center content-center">
-                                            <p className="font-bold text-md">La_Florineta</p>
-                                            <p className="font-thin text-md mx-1">@mariflor_la</p>
+                                            <p className="font-bold text-md">{tweet.profiles.full_name || ''}</p>
+                                            <p className="font-thin text-md mx-1">@{tweet.profiles.username}</p>
                                             <div className="flex">
                                                 <BsDot />
                                             </div>
-                                            <p className="font-thin text-sm mx-1">37m</p>
+                                            <p className="font-thin text-sm mx-1">{dayjs(tweet.created_at).fromNow()}</p>
                                         </div>
                                         <div className="w-8 flex items-center
               rounded-full h-8  font-bold
@@ -55,8 +66,8 @@ export const MainSection = () => {
                                         </div>
                                     </div>
                                     {/* twit text */}
-                                    <div className="text-white text-sm pt-1">
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, aspernatur earum. Maxime ab quisquam, possimus, dignissimos mollitia, facere nisi illum aliquid sint repellendus nemo. Odit fugit ut voluptatum eaque dolore?
+                                    <div className="w-full text-white text-start text-sm pt-1 pl-1">
+                                      {tweet.text}
                                     </div>
                                     {/* media content */}
                                     <div className="bg-slate-400 aspect-square w-full h-96 rounded-xl m-1"></div>

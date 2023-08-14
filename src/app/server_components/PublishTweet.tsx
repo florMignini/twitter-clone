@@ -1,28 +1,30 @@
 import { Database } from '@/lib/supabase.types'
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { randomUUID } from 'crypto'
+import { revalidatePath } from 'next/cache'
 
 import { cookies } from 'next/headers'
-import React from 'react'
+
 
 const PublishTweet = () => {
+
     async function addTweet(formData: FormData) {
         'use server'
-        const supabase = createServerComponentClient<Database>({cookies})
+        const supabase = createServerComponentClient<Database>({ cookies })
 
-        console.log(formData)
         //getting user info
-        const {data, error} = await supabase.auth.getUser()
+        const { data, error } = await supabase.auth.getUser()
         const tweetToPublish = formData.get('tweet')
 
         //clear input
-        if(!tweetToPublish) return
+        if (!tweetToPublish) return
         await supabase.from("tweets").insert({
             profile_id: data.user?.id,
             text: tweetToPublish.toString(),
             id: randomUUID()
         })
-        formData.set('tweet', ' ')
+        revalidatePath('/')
+
     }
     return (
         <form action={addTweet}>
@@ -32,13 +34,15 @@ const PublishTweet = () => {
                     className=" w-full h-62 bg-transparent 
         placeholder:text-gray-600
         outline-none border-none border-b-[0.5px] px-2 py-2 text-xl font-light"
+        id='tweetInput'
                 />
             </div>
             <div>{/* everyone can reply */}</div>
             <div className=" w-full justify-between items-center flex">
                 <div></div>
                 <div className="p-2">
-                    <button className="w-full rounded-3xl bg-blue-600 py-1 px-4 text-md hover:bg-opacity-70 transition duration-200">
+                    <button className="w-full rounded-3xl bg-blue-600 py-1 px-4 text-md hover:bg-opacity-70 transition duration-200"
+                    >
                         Tweet
                     </button>
                 </div>

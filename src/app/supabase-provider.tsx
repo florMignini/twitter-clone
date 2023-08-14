@@ -61,7 +61,6 @@ export default function SupabaseProvider({
         // checking if the user exist in DB
         const { data, error } = await supabase.from('profiles').select().eq('username', username.trim())
         if (data && data?.length > 0) {
-            console.log(data)
             toast.error(`username already exist, please take another one `)
         }
 
@@ -76,7 +75,6 @@ export default function SupabaseProvider({
         })
     }
 
-console.log(user)
     return (
         <Context.Provider value={{ supabase }}>
             <>
@@ -94,10 +92,6 @@ console.log(user)
                                 <ModalBody className='backdrop-blur-md flex justify-center items-center'>
 
                                     <form className='flex flex-col w-full h-full items-center justify-evenly'
-                                        onSubmit={(e) => {
-                                            e.preventDefault()
-
-                                        }} 
                                     >
                                         <Input
                                             autoFocus
