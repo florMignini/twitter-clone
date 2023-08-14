@@ -6,7 +6,6 @@ import { cookies } from "next/headers";
 const Home = async () => {
   const supabase = createServerComponentClient<Database>({ cookies })
   const { data, error } = await supabase.auth.getSession ()
-console.log(data)
 
   return (
     <div className="w-full h-full justify-center items-center relative bg-black xl:px-8 2xl:px-40">
