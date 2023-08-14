@@ -76,7 +76,7 @@ export default function SupabaseProvider({
         })
     }
 
-
+console.log(user)
     return (
         <Context.Provider value={{ supabase }}>
             <>
