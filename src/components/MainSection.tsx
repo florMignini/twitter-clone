@@ -2,6 +2,7 @@ import PublishTweet from "@/app/server_components/PublishTweet";
 import { getTweets } from "@/app/helpers/getTweets";
 import Tweet from "@/app/client_components/Tweet";
 
+
 export const MainSection = async () => {
     //fetching all tweets
     const allTweets = await getTweets()

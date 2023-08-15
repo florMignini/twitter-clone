@@ -1,3 +1,4 @@
+
 import { Database } from '@/lib/supabase.types'
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { randomUUID } from 'crypto'
@@ -22,8 +23,6 @@ const PublishTweet = () => {
             text: tweetToPublish.toString(),
             id: randomUUID()
         })
-        //clear input
-        formData.set('tweet',' ')
         // getting updated data
         revalidatePath('/')
     }

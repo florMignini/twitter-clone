@@ -1,4 +1,3 @@
-'use server'
 
 import React from 'react'
 import { BsChat, BsDot, BsThreeDots } from "react-icons/bs";
@@ -10,7 +9,7 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 import { GetTweets } from '../../../interfaces/getTweets.interface';
 import { AiOutlineRetweet } from 'react-icons/ai';
 import LikeButton from './LikeButton';
-import { getTweetLikes } from '../helpers';
+import { getTweetLikes, sessionLikes } from '../helpers';
 
 
 
@@ -21,8 +20,9 @@ type TweetProp = {
 }
 
 const Tweet = async({ tweet }: TweetProp) => {
-const tweetLikes = await getTweetLikes(tweet.id)
-console.log(tweetLikes)
+    const tweetLikes = await getTweetLikes(tweet.id)
+    const currentSessionLikes = await sessionLikes(tweet.id, tweet.profile_id)
+
     return (
         <div
             key={tweet.id}
@@ -82,6 +82,7 @@ items-center justify-center hover:bg-blue-800/20
                         tweetId={tweet.id}
                         profileId={tweet.profile_id}
                         likes={tweetLikes.count}
+                        currentSessionLikes={currentSessionLikes}
                     />
                     <div className="flex items-center justify-center 
             font-bold

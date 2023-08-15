@@ -1,26 +1,45 @@
 'use client'
 import React, { useTransition } from 'react'
-import { addLike } from '../helpers'
-import { AiOutlineHeart } from 'react-icons/ai'
+import { addLike, removeLike } from '../helpers'
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
+
 type LikeProps = {
-    tweetId: string,
-    profileId: string,
-    likes: number | null
+  tweetId: string,
+  profileId: string,
+  likes: number | null
+  currentSessionLikes: boolean
 }
-const LikeButton = ({tweetId, profileId, likes}: LikeProps) => {
-    const [isLikingPending, startTransition] = useTransition()
+const LikeButton = ({ tweetId, profileId, likes, currentSessionLikes }: LikeProps) => {
+  const [isLikingPending, startTransition] = useTransition()
   return (
-      <button
-          onClick={() => startTransition(() => addLike(tweetId,profileId))}
-          className="flex items-center justify-center
+    <button
+      onClick={() => startTransition(() => currentSessionLikes
+         ? removeLike(tweetId, profileId) 
+         : addLike(tweetId, profileId)
+         )}
+      className="flex items-center justify-center
             font-bold
             transition duration-200
             text-md
             hover:bg-red-400/20
           hover:text-red-600
           rounded-full h-8 w-8">
+      {
+        currentSessionLikes ?
+          (
+            <div className=' text-red-500 '>
+              {likes && likes > 0 ? (
+                <div className='flex items-center justify-center gap-1 ' >
+                  <AiFillHeart />
+                  <p className='text-sm'>{likes}</p>
+                </div>
+              ) : null
+              }
+            </div>
+          ) :
           <AiOutlineHeart />
-      </button>
+      }
+    </button >
   )
 }
 
