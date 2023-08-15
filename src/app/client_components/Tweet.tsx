@@ -1,7 +1,6 @@
-'use client'
+'use server'
 
-import React, { useTransition } from 'react'
-import { AiOutlineHeart, AiOutlineRetweet } from "react-icons/ai";
+import React from 'react'
 import { BsChat, BsDot, BsThreeDots } from "react-icons/bs";
 import { IoMdStats } from 'react-icons/io'
 import { MdOutlineIosShare } from 'react-icons/md'
@@ -9,7 +8,10 @@ import { MdOutlineIosShare } from 'react-icons/md'
 import dayjs from "dayjs";
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { GetTweets } from '../../../interfaces/getTweets.interface';
-import { addLike } from '../helpers';
+import { AiOutlineRetweet } from 'react-icons/ai';
+import LikeButton from './LikeButton';
+import { getTweetLikes } from '../helpers';
+
 
 
 dayjs.extend(relativeTime)
@@ -18,8 +20,9 @@ type TweetProp = {
     tweet: GetTweets
 }
 
-const Tweet = ({ tweet }: TweetProp) => {
-const [isLikingPending, startTransition] = useTransition()
+const Tweet = async({ tweet }: TweetProp) => {
+const tweetLikes = await getTweetLikes(tweet.id)
+console.log(tweetLikes)
     return (
         <div
             key={tweet.id}
@@ -75,17 +78,11 @@ items-center justify-center hover:bg-blue-800/20
           rounded-full h-8 w-8">
                         <AiOutlineRetweet />
                     </div>
-                    <button
-                        onClick={() => startTransition(() => addLike(tweet.id, tweet.profile_id))}
-                        className="flex items-center justify-center
-            font-bold
-            transition duration-200
-            text-md
-            hover:bg-red-400/20
-          hover:text-red-600
-          rounded-full h-8 w-8">
-                        <AiOutlineHeart />
-                    </button>
+                    <LikeButton
+                        tweetId={tweet.id}
+                        profileId={tweet.profile_id}
+                        likes={tweetLikes.count}
+                    />
                     <div className="flex items-center justify-center 
             font-bold
             transition duration-200
