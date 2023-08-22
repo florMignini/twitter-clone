@@ -1,6 +1,6 @@
 'use client'
 import React, { useTransition } from 'react'
-import { addLike, removeLike } from '../helpers'
+import { addLike, removeLike } from '../../helpers'
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
 
 type LikeProps = {

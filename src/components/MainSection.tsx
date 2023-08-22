@@ -1,5 +1,5 @@
 import PublishTweet from "@/app/server_components/PublishTweet";
-import { getTweets } from "@/app/helpers/getTweets";
+import { getTweets } from "@/helpers/getTweets";
 import Tweet from "@/app/client_components/Tweet";
 
 

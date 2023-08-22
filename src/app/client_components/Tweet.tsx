@@ -9,7 +9,7 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 import { GetTweets } from '../../../interfaces/getTweets.interface';
 import { AiOutlineRetweet } from 'react-icons/ai';
 import LikeButton from './LikeButton';
-import { getTweetLikes, sessionLikes } from '../helpers';
+import { getTweetLikes, sessionLikes } from '../../helpers';
 
 
 

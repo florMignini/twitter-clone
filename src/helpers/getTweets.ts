@@ -1,6 +1,6 @@
 'use server'
 
-import { GetTweets } from "../../../interfaces/getTweets.interface"
+import { GetTweets } from "../../interfaces/getTweets.interface"
 import { useSupabaseClient } from "./useSupabaseClient"
 
 export const getTweets = async () => {
