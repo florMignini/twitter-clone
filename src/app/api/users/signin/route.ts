@@ -1,29 +1,31 @@
 import { connectDB } from "@/db/config";
-import User from "../../../../../models/user";
+
 import { NextRequest, NextResponse } from "next/server";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { ConsoleLogWriter } from "drizzle-orm";
+
+import User from "../../../../../models/user";
+
 
 connectDB();
 
 export const POST = async (req: NextRequest) => {
   try {
     const body = await req.json();
-console.log(body)
+
     const { email, password } = body;
 
     // checking if user exist in DB
-    const user = await User.findOne({ email });
-    console.log(user)
-    if (!user) {
+    const userRes = await User.findOne({ email });
+ 
+    if (!userRes) {
       return NextResponse.json(
-        { error: `User with email ${email} doesn't registered` },
+        { error: `User with email ${email} is not registered` },
         { status: 400 }
       );
     }
     // if user is found verify the passsword
-    const validUserPassword = await bcryptjs.compare(password, user.password!);
+    const validUserPassword = await bcryptjs.compare(password, userRes.password!);
     if (!validUserPassword) {
       return NextResponse.json(
         {
@@ -34,9 +36,9 @@ console.log(body)
     }
     //if everything is ok proceed to create token
     const data = {
-      id: user._id,
-      username: user.username,
-      email: user.email,
+      id: userRes._id,
+      username: userRes.username,
+      email: userRes.email,
     };
     const sessionToken = await jwt.sign(data, process.env.TOKEN_SECRET!, {
       expiresIn: "7d",

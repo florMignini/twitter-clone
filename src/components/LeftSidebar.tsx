@@ -1,42 +1,69 @@
+'use client'
 import Link from "next/link";
-import {BsThreeDots, BsTwitter} from 'react-icons/bs'
+import axios from 'axios';
+import { useRouter } from "next/navigation";
+import { BsTwitter } from "react-icons/bs";
+import { AiOutlineLogout } from "react-icons/ai";
 import { nav_items } from "../../data/navigation-items";
+import UserAvatar from "./UserAvatar";
+import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/react";
 
 export const LeftSidebar = () => {
+  const router = useRouter();
+  const logOut = async () => {
+    try {
+      const logout = await axios.get('/api/users/logout')
+      router.push('/signin')
+    } catch (error) {
+      console.log(error)
+    }
+  };
   return (
     <section className="w-40 fixed h-screen lg:w-60 flex flex-col justify-between text-xl lg:py-2">
-   <div className="w-[90%] items-start justify-center md:w-48 flex flex-col xl:items-stretch xl:justify-end">
-   <Link href={'/'} className="px-3 mx-9 lg:m-0 text-3xl mb-1 lg:mb-2 mt-2">
-        <BsTwitter/>
-    </Link>
-    {
-      nav_items.map((nav_item)=>(
-        <Link className="hover:bg-white/10 mx-auto md:mx-0 flex items-center w-fit h-fit justify-start space-x-5 rounded-3xl px-2 py-3 lg:py-4"
-        href={`${nav_item.title.toLowerCase()}`}
-        key={nav_item.title}
+      <div className="w-[90%] items-start justify-center md:w-48 flex flex-col xl:items-stretch xl:justify-end">
+        <Link
+          href={"/"}
+          className="px-3 mx-9 lg:m-0 text-3xl mb-1 lg:mb-2 mt-2"
         >
-          <div className="w-full mx-9 lg:mx-0 text-3xl">
-          <nav_item.icon/>
-        </div>
-        <div className="hidden lg:flex md:min-w-full">{nav_item.title}</div>
+          <BsTwitter />
         </Link>
-      ))
-    }
-    <button className=" w-[60%] mx-5 sm:w-[70%] lg:mx-2 lg:w-[80%] rounded-3xl bg-blue-500 py-2 text-xl hover:bg-opacity-70 transition duration-200 my-4">
-      Tweet
-    </button>
-   </div>
-      <button className="w-[90%] md:w-fit xl:w-48 flex items-center justify-around space-x-1 rounded-full lg:p-2 hover:bg-white/10
-   transition duration-200 my-4">
-    <div className="rounded-full bg-slate-400 w-10 h-10">{/* Avatar */}</div>
-        <div className="hidden md:flex w-4/6 flex-col text-xs md:text-[14px] text-left">
-          <div className="hidden md:flex md:font-semibold xl:font-bold">La_Florineta</div>
-          <div className="hidden md:flex md:font-thin">@mariflor_la</div>
-    </div>
-        <div className="hidden md:flex md:text-sm text-right">
-      <BsThreeDots/>
-    </div>
-   </button>
-</section>
-  )
-}
+        {nav_items.map((nav_item) => (
+          <Link
+            className="hover:bg-white/10 mx-auto md:mx-0 flex items-center w-fit h-fit justify-start space-x-5 rounded-3xl px-2 py-3 lg:py-4"
+            href={`${nav_item.title.toLowerCase()}`}
+            key={nav_item.title}
+          >
+            <div className="w-full mx-9 lg:mx-0 text-3xl">
+              <nav_item.icon />
+            </div>
+            <div className="hidden lg:flex md:min-w-full">{nav_item.title}</div>
+          </Link>
+        ))}
+        <button className=" w-[60%] mx-5 sm:w-[70%] lg:mx-2 lg:w-[80%] rounded-3xl bg-blue-500 py-2 text-xl hover:bg-opacity-70 transition duration-200 my-4">
+          Tweet
+        </button>
+      </div>
+      <div className="w-[90%] flex flex-col">
+        <Dropdown
+        closeOnSelect={true}
+        className="w-[90%] bg-black border-solid border-2 border-white hover:bg-none"
+        >
+          <DropdownTrigger>
+          <div
+          className="w-[90%] md:w-[100%] xl:w-48 flex items-center justify-around space-x-1 rounded-full lg:p-1 hover:bg-white/10
+   transition duration-200 my-4 cursor-pointer"
+        >
+          <UserAvatar />
+        </div>
+          </DropdownTrigger>
+          <DropdownMenu
+            className=" text-white">
+            <DropdownItem
+             onClick={logOut}
+            >Log out</DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
+      </div>
+    </section>
+  );
+};
