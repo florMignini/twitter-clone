@@ -45,6 +45,7 @@
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
+    "@types/jsonwebtoken": "^9.0.2",
     "@types/pg-pool": "^2.0.3",
     "drizzle-kit": "^0.19.12",
     "encoding": "^0.1.13"

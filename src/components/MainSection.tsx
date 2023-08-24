@@ -20,13 +20,13 @@ export const MainSection = async () => {
                 {/* Input */}
                 <div className="">
                     {/* input & everyone can reply section*/}
-                    <PublishTweet />
+                    {/* <PublishTweet /> */}
                 </div>
             </div>
 
             {/* Twit content */}
             <div className="flex flex-col ">
-                {allTweets?.error ? <h1>Something goes wrong with server</h1> : null}
+                {/* {allTweets?.error ? <h1>Something goes wrong with server</h1> : null}
                 {
                    allTweets?.data && allTweets?.data.map((tweet) => (
                        <Tweet
@@ -34,7 +34,7 @@ export const MainSection = async () => {
                         tweet={tweet}
                        />
                    ))
-                }
+                } */}
             </div>
         </main>
     )

@@ -1,5 +1,5 @@
 
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
+
 import { randomUUID } from 'crypto'
 import { revalidatePath } from 'next/cache'
 
@@ -10,20 +10,7 @@ const PublishTweet = () => {
 
     async function addTweet(formData: FormData) {
         'use server'
-        const supabase = createServerComponentClient({ cookies })
-
-        //getting user info
-        const { data, error } = await supabase.auth.getUser()
-        const tweetToPublish = formData.get('tweet')
-
-        if (!tweetToPublish) return
-        await supabase.from("tweets").insert({
-            profile_id: data.user?.id,
-            text: tweetToPublish.toString(),
-            id: randomUUID()
-        })
-        // getting updated data
-        revalidatePath('/')
+       
     }
     return (
         <form action={addTweet}>
@@ -52,6 +39,4 @@ const PublishTweet = () => {
 
 export default PublishTweet
 
-function createServerComponentSupabaseClient<T>(arg0: { cookies: () => import("next/dist/server/web/spec-extension/adapters/request-cookies").ReadonlyRequestCookies }) {
-    throw new Error('Function not implemented.')
-}
+

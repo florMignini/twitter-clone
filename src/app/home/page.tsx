@@ -1,10 +1,9 @@
 import { LeftSidebar, MainSection, RightSidebar } from "@/components";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+
 import { cookies } from "next/headers";
 
 const Home = async () => {
-  const supabase = createServerComponentClient({ cookies })
-  const { data, error } = await supabase.auth.getSession ()
+ 
 
   return (
     <div className="w-full h-full justify-center items-center relative bg-black xl:px-8 2xl:px-40">

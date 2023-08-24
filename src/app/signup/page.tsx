@@ -19,15 +19,6 @@ const LoginPage = () => {
     password: '',
   });
 
-  const handleInputChange = ({target}:any) => {
-    console.log(target)
-    const { name, value } = target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
   const onSignUp = async() =>{
       try {
         const res = await axios.post("/api/users/signup", formData);

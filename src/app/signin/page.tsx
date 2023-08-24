@@ -2,20 +2,26 @@
 
 import { Input } from "@nextui-org/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import axios from "axios";
 
 const SigninPage = () => {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
-  const handleInputChange = ({ target }: any) => {
-    const { name, value } = target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+  
+  const onSignIn = async () => {
+    try {
+      const res = await axios.post("/api/users/signin", formData);
+      console.log(res.data);
+      router.push("/home");
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div className="w-full h-screen flex items-center bg-black justify-center">
@@ -29,43 +35,48 @@ const SigninPage = () => {
             {/* email section */}
             <div className="w-[80%] h-[100px] rounded-md flex flex-col">
               <Input
+                className="text-white"
                 type="email"
                 variant={"underlined"}
                 label="Email"
                 value={formData.email}
                 placeholder="Enter your email"
-                onChange={handleInputChange}
+                onChange={(e) => setFormData({...formData, email: e.target.value})}
                 color="default"
               />
             </div>
             {/* password section */}
             <div className="w-[80%] h-[100px] rounded-md flex flex-col">
               <Input
+                className="text-white"
                 type="password"
                 variant={"underlined"}
                 label="Password"
                 value={formData.password}
                 placeholder="Enter your password"
-                onChange={handleInputChange}
+                onChange={(e) => setFormData({...formData, password: e.target.value})}
                 color="default"
               />
             </div>
           </div>
           <div className="w-[80%] h-[10%] flex p-1 items-center justify-start">
             <h2 className="text-blue-100/30 m-1 text-sm">
-              You have no account? <Link 
-              className="ml-3 font-bold underline"
-              href="/signup">Register</Link>{" "}
+              You have no account?{" "}
+              <Link className="ml-3 font-bold underline" href="/signup">
+                Register
+              </Link>{" "}
             </h2>
           </div>
-            <button
-              className="w-[80%] text-center text-blue-100/30 font-semibold text-xl rounded-full p-1 border-solid border-1 border-blue-100/30 
+          <button
+            type="submit"
+            className="w-[80%] text-center text-blue-100/30 font-semibold text-xl rounded-full p-1 border-solid border-1 border-blue-100/30 
               hover:bg-white/10
               "
-            >
-              {" "}
-              Sign In
-            </button>
+            onClick={onSignIn}
+          >
+            {" "}
+            Sign In
+          </button>
         </div>
         {/* //inner modal */}
       </div>
