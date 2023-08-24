@@ -24,10 +24,10 @@ const LoginPage = () => {
     }));
   };
   return (
-    <div className='w-full h-screen flex items-center justify-center bg-white/10'>
+    <div className='w-full h-screen flex items-center justify-center bg-black backdrop-blur-lg '>
         <div className="w-[80%] h-[55%] p-5 bg-blue-100/10 rounded-2xl flex items-start justify-center ">
           <div className="w-[90%] h-full flex items-center justify-center flex-col my-auto">
-          <h2 className="w-[80%] h-[10%] flex items-center justify-center text-3xl mb-8 font-semibold text-blue-600 m-3">Join X-Clone Today</h2>
+          <h2 className="w-[80%] h-[10%] flex items-center justify-center text-3xl mb-8 font-semibold text-blue-100/30 m-3">Join X-Clone Today</h2>
           {/* form section */}
           <div className="w-[100%] h-[50%] flex flex-col items-center justify-start">
             {/* email section */}
@@ -36,7 +36,7 @@ const LoginPage = () => {
           value={formData.email}
           label="Email" placeholder="Enter your email" 
           onChange={handleInputChange}
-          color="primary"
+          color="default"
           />
           </div>
           {/* username section */}
@@ -45,7 +45,7 @@ const LoginPage = () => {
           value={formData.username}
           label="Username" placeholder="Enter your username" 
           onChange={handleInputChange}
-          color="primary"
+          color="default"
           />
           </div>
           {/* password section */}
@@ -54,20 +54,25 @@ const LoginPage = () => {
           value={formData.password}
           label="Password" placeholder="Enter your password" 
           onChange={handleInputChange}
-          color="primary"
+          color="default"
           />
           </div>
           </div>
-          <div className="w-[80%] h-[30%] flex flex-col p-1 items-start justify-center">
-              <h2 className="text-blue-600 ml-2 mb-3 text-xl">Already member?</h2>
-              <Link
-              href='/signin'
-              className="w-full text-center text-blue-600 text-xl font-semibold rounded-full p-1 border-solid border-1 border-blue-600 
+          <div className="w-[80%] h-[10%] flex p-1 items-center justify-start">
+            <h2 className="text-blue-100/30 m-2 text-sm">
+              already registered? <Link 
+              className="ml-3 font-bold underline"
+              href="/signin">Sign In</Link>{" "}
+            </h2>
+          </div>
+            <button
+              className="w-[80%] text-center text-blue-100/30 font-semibold text-xl rounded-full p-1 border-solid border-1 border-blue-100/30 
               hover:bg-white/10
               "
-              type="submit"
-              > Sign In</Link>
-          </div>
+            >
+              {" "}
+              Sign Up
+            </button>
           </div>{/* //inner modal */}
         </div>{/* //modal */}
     </div>//body
