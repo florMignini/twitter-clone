@@ -1,5 +1,4 @@
 
-import { Database } from '@/lib/supabase.types'
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { randomUUID } from 'crypto'
 import { revalidatePath } from 'next/cache'
@@ -11,7 +10,7 @@ const PublishTweet = () => {
 
     async function addTweet(formData: FormData) {
         'use server'
-        const supabase = createServerComponentClient<Database>({ cookies })
+        const supabase = createServerComponentClient({ cookies })
 
         //getting user info
         const { data, error } = await supabase.auth.getUser()
