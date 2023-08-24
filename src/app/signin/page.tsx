@@ -52,7 +52,7 @@ const SigninPage = () => {
             </div>
           </div>
           <div className="w-[80%] h-[10%] flex p-1 items-center justify-start">
-            <h2 className="text-blue-100/30 m-2 text-sm">
+            <h2 className="text-blue-100/30 m-1 text-sm">
               You have no account? <Link 
               className="ml-3 font-bold underline"
               href="/signup">Register</Link>{" "}

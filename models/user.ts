@@ -13,17 +13,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, `Please provide a email`],
         unique: true,
-        trim: true,
-        minlength: 6,
-        maxlength: 50
     },
     password: {
         type: String,
         required: [true, `Please provide a password`],
         unique: true,
-        trim: true,
-        minlength: 6,
-        maxlength: 50
     },
     bio: {
         type: String,
