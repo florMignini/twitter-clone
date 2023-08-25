@@ -46,11 +46,11 @@ export const LeftSidebar = () => {
       <div className="w-[90%] flex flex-col">
         <Dropdown
         closeOnSelect={true}
-        className="w-[90%] bg-black border-solid border-2 border-white hover:bg-none"
+        className="w-[90%] bg-black border-solid border-2 border-white"
         >
           <DropdownTrigger>
           <div
-          className="w-[90%] md:w-[100%] xl:w-48 flex items-center justify-around space-x-1 rounded-full lg:p-1 hover:bg-white/10
+          className="w-[90%] md:w-[90%] xl:w-48 flex items-center justify-around space-x-1 rounded-full lg:p-1 hover:bg-white/10
    transition duration-200 my-4 cursor-pointer"
         >
           <UserAvatar />
