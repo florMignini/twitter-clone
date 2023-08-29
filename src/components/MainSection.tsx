@@ -24,7 +24,7 @@ export const MainSection = async () => {
                 </div>
             </div>
 
-            {/* Twit content */}
+            {/* Main content */}
             <div className="flex flex-col ">
                 {/* {allTweets?.error ? <h1>Something goes wrong with server</h1> : null}
                 {
