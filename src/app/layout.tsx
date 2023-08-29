@@ -17,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-gray-500">
+      <body >
         <Providers>
           <div className="w-full h-full justify-center items-center relative bg-black xl:px-8 2xl:px-40">
             <div className=" w-full h-full grid grid-cols-[20%,80%] xl:grid-cols-[20%,50%,30%] gap-1 relative md:px-4 2xl:px-40">

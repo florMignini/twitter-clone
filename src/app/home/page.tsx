@@ -1,31 +1,42 @@
-import { LeftSidebar, MainSection, RightSidebar } from "@/components";
+import PublishTweet from "@/app/server_components/PublishTweet";
+import { getTweets } from "@/helpers/getTweets";
+import Tweet from "@/app/client_components/Tweet";
 
-import { cookies } from "next/headers";
 
 const Home = async () => {
- 
+    //fetching all tweets
+    const allTweets = await getTweets()
 
-  return (
-    // <div className="w-full h-full justify-center items-center relative bg-black xl:px-8 2xl:px-40">
+    return (
+        <main className="w-full overflow-visible h-full min-h-screen border-l-[0.3px] border-r-[0.3px] border-gray-600">
 
-    //   <div className=" w-full h-full grid grid-cols-[20%,80%] xl:grid-cols-[20%,50%,30%] gap-1 relative md:px-4 2xl:px-40">
-    //     {/* Sidebar and notification section */}
-    //     <div className="">
-    //       <LeftSidebar />
-    //     </div>
-    //     {/* Main content ---> Twitts */}
-    //     <div className="">
-           <MainSection />
-    //     </div>
-    //     {/* What's happening & Who to follow section*/}
-    //     <div className="">
-    //       <RightSidebar />
-    //     </div>
-    //   </div>
+            <h1 className="text-2xl z-10 text-left px-5 py-3 font-bold backdrop-blur-md sticky w-full h-32 bg-black/10 top-0 bg-black">Home</h1>
 
+            {/* Avatar */}
+            <div className="border-b-[0.3px] border-t-[0.3px] px-4 py-4 border-gray-600 relative grid grid-cols-[8%,92%] gap-1">
 
+                <div className="w-10 h-10 rounded-full bg-slate-400 px-3"></div>
 
-    // </div>
-  )
+                {/* Input */}
+                <div className="">
+                    {/* input & everyone can reply section*/}
+                    {/* <PublishTweet /> */}
+                </div>
+            </div>
+
+            {/* Main content */}
+            <div className="flex flex-col ">
+                {/* {allTweets?.error ? <h1>Something goes wrong with server</h1> : null}
+                {
+                   allTweets?.data && allTweets?.data.map((tweet) => (
+                       <Tweet
+                       key={tweet.id}
+                        tweet={tweet}
+                       />
+                   ))
+                } */}
+            </div>
+        </main>
+    )
 }
 export default Home;

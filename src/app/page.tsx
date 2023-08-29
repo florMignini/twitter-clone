@@ -1,14 +1,10 @@
-
-
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
-
-const Page = async () => {
-  
-
-  return (
-    <div className="w-full h-full justify-center items-center relative bg-black xl:px-8 2xl:px-40">
-    </div>
-  )
+import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
+ 
+export default function Page() {
+  const cookieStore = cookies()
+  const isSession = cookieStore.get('sessionToken')
+  if (isSession) {
+    redirect('/home')
+  }
 }
-export default Page;

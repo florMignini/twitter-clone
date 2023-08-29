@@ -5,7 +5,7 @@ const profile = () => {
     <div
     className='w-full h-screen bg-black'
     >
-
+        
     </div>
   )
 }
