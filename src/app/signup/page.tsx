@@ -5,6 +5,7 @@ import Link from "next/link"
 import { Input } from "@nextui-org/react"
 import { useRouter } from "next/navigation"
 import axios from "axios"
+import Image from "next/image"
 
 interface FormType {
 username: string,
@@ -29,8 +30,15 @@ const LoginPage = () => {
       }
   }
   return (
-    <div className='w-full h-screen flex items-center justify-center bg-black backdrop-blur-lg '>
-        <div className="w-[80%] h-[55%] p-5 bg-blue-100/10 rounded-2xl flex items-start justify-center ">
+    <div className='w-full h-screen grid grid-cols-2 bg-black '>
+        <Image
+      src='https://images.pexels.com/photos/13240228/pexels-photo-13240228.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+      width={800}
+      height={1000}
+      alt="XPicture"
+      className="w-[90%] h-screen flex items-center justify-center m-auto  object-contain"
+      />
+        <div className="w-[100%] md:w-[80%] h-[90%] m-auto bg-blue-100/10 rounded-2xl flex items-start justify-center ">
           <div className="w-[90%] h-full flex items-center justify-center flex-col my-auto">
           <h2 className="w-[80%] h-[10%] flex items-center justify-center text-3xl mb-8 font-semibold text-blue-100/30 m-3">Join X-Clone</h2>
           {/* form section */}
