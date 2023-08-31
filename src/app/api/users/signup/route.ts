@@ -10,7 +10,7 @@ export const POST = async (req: NextRequest) => {
     try {
         const body = await req.json()
         const { username, email, password } = body;
-        console.log(body)
+
 
         // checking if user is already in db
         const alreadyExist = await User.findOne({ email })
@@ -30,8 +30,6 @@ export const POST = async (req: NextRequest) => {
             email,
             password: passwordHashed
         }).save()
-
-        console.log(newUser)
 
         return NextResponse.json({message: `user ${(await newUser).username} successfully created`},{status: 201})
 

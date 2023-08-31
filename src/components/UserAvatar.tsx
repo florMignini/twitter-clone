@@ -12,12 +12,12 @@ export default function UserAvatar() {
   }
   return (
     <User   
-      name="John Dorie"
+      name="Bulbasor"
       description={(
         <Link size="sm"
         onClick={getProfile}
         >
-          @JohnDorie
+          @Bulbasor
         </Link>
       )}
       avatarProps={{
