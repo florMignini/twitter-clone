@@ -20,8 +20,8 @@ type TweetProp = {
 }
 
 const Tweet = async({ tweet }: TweetProp) => {
-    const tweetLikes = await getTweetLikes(tweet.id)
-    const currentSessionLikes = await sessionLikes(tweet.id, tweet.profile_id)
+    // const tweetLikes = await getTweetLikes(tweet.id)
+    // const currentSessionLikes = await sessionLikes(tweet.id, tweet.profile_id)
 
     return (
         <div
@@ -78,12 +78,12 @@ items-center justify-center hover:bg-blue-800/20
           rounded-full h-8 w-8">
                         <AiOutlineRetweet />
                     </div>
-                    <LikeButton
+                    {/* <LikeButton
                         tweetId={tweet.id}
                         profileId={tweet.profile_id}
                         likes={tweetLikes.count}
                         currentSessionLikes={currentSessionLikes}
-                    />
+                    /> */}
                     <div className="flex items-center justify-center 
             font-bold
             transition duration-200

@@ -1,6 +1,4 @@
 
-
-import { cookies } from "next/headers";
 import { AiOutlinePicture } from "react-icons/ai";
 
 const PublishTweet = () => {
@@ -27,7 +25,7 @@ const PublishTweet = () => {
       <div className=" w-full justify-between items-center flex">
         <div></div>
         <div className="w-[100%] h-[10%] flex items-center justify-between p-2">
-          <button className="w-10 h-10 flex items-end justify-center text-blue-600 rounded-full hover:bg-blue-800/20">
+          <button className="w-8 h-8 flex items-center justify-center text-blue-600 rounded-full hover:bg-blue-800/20">
             <input className="hidden" type="file" id="image-upload" accept="image/*" />
           <AiOutlinePicture 
           className="w-[50%] h-[50%]" 
