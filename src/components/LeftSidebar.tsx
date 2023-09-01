@@ -39,7 +39,7 @@ export const LeftSidebar = () => {
             <div className="hidden lg:flex md:min-w-full">{nav_item.title}</div>
           </Link>
         ))}
-        <button className=" w-[60%] mx-5 sm:w-[70%] lg:mx-2 lg:w-[80%] rounded-3xl bg-blue-500 py-2 text-xl hover:bg-opacity-70 transition duration-200 my-4">
+        <button className=" w-[60%] mx-5 sm:w-[60%] lg:mx-2 lg:w-[80%] rounded-3xl bg-blue-500 py-2 text-xl hover:bg-opacity-70 transition duration-200 my-4">
           Tweet
         </button>
       </div>
