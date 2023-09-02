@@ -7,6 +7,7 @@ import { useState } from "react";
 import axios from "axios";
 
 import Image from "next/image";
+import { FcGoogle } from "react-icons/fc";
 
 const SigninPage = () => {
   const router = useRouter();
@@ -67,13 +68,19 @@ const SigninPage = () => {
               />
             </div>
           </div>
-          <div className="w-[80%] h-[10%] flex p-1 items-center justify-start">
-            <h2 className="text-blue-100/30 m-1 text-sm">
+          <div className="w-[80%] h-[10%] flex items-center justify-between">
+            <h2 className="text-blue-100/30 mr-1 text-sm">
               You have no account?{" "}
-              <Link className="ml-3 font-bold underline" href="/signup">
+              <Link className="font-bold underline" href="/signup">
                 Register
               </Link>{" "}
             </h2>
+            <button className="w-[30%] h-7 p-1 flex items-center justify-between bg-blue-700 rounded-md">
+              <h6 className="w-[80%] text-xs font-bold ">Sign in with</h6>
+              <FcGoogle
+              className="w-[20%]"
+              />
+            </button>
           </div>
           <button
             type="submit"
