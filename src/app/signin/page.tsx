@@ -29,13 +29,13 @@ const SigninPage = () => {
       <Image
       src='https://images.pexels.com/photos/13240228/pexels-photo-13240228.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
       width={800}
-      height={1000}
+      height={800}
       alt="XPicture"
-      className="w-[90%] h-screen flex items-center justify-center m-auto  object-contain"
+      className="w-[90%] h-[90%] flex items-center justify-center m-auto  object-contain"
       />
-      <div className="w-[100%] md:w-[80%] h-[90%] m-auto bg-blue-100/10 rounded-2xl flex items-start justify-center ">
-        <div className="w-[90%] h-full flex items-center justify-center flex-col my-auto">
-          <h2 className="w-[80%] h-[10%] flex items-center justify-center text-3xl mb-8 font-semibold text-blue-100/30 m-1">
+      <div className="w-[100%] md:w-[80%] h-[45%] m-auto bg-blue-100/10 rounded-2xl flex items-start justify-center ">
+        <div className="w-[90%] h-[85%] flex items-center justify-center flex-col my-auto">
+          <h2 className="w-[80%] h-[10%] flex items-center justify-center text-2xl mb-4 font-semibold text-blue-100/30 m-1">
             Welcome back to X-Clone
           </h2>
           {/* form section */}
