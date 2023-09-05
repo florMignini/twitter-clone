@@ -1,33 +1,42 @@
 import { connectDB } from "@/db/config";
-
-import { NextRequest, NextResponse } from "next/server";
-import bcryptjs from 'bcryptjs';
 import Tweet from "../../../../../models/tweet";
 
-connectDB()
+import { NextRequest, NextResponse } from "next/server";
+
+import { getUserData } from "@/helpers/getUserData";
+
+
+connectDB();
+
+interface DecodedToken {
+    id: string,
+  username: string,
+  email: string,
+  iat: number,
+  exp: number
+}
+
 
 
 export const POST = async (req: NextRequest) => {
-    try {
-        const body = await req.json()
-        // const { username, email, password } = body;
-        console.log(body)
 
-/* 
-        // create new user
-        const newUser = new User({
-            username,
-            email,
-            password: passwordHashed
+  
+  const userQuery = await getUserData(req)
+  console.log(userQuery.id)
+  try {
+    const { tweetContent, tweetImage } = await req.json();
+
+    console.log(tweetContent, tweetImage);
+
+    /* 
+        // create new Twitter
+        const newTweet = new Tweet({
+            content: tweetContent,
+            author: userQuery.id,
         }).save()
 
-        return NextResponse.json({message: `user ${(await newUser).username} successfully created`},{status: 201}) */
-
-
-
-
-    } catch (error: any) {
-        return NextResponse.json({ error: error.message },
-            { status: 500 })
-    }
-}
+        return NextResponse.json({message: `tweet successfully created`},{status: 201}) */
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+};

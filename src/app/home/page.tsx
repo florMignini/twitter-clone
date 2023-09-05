@@ -1,11 +1,10 @@
-import PublishTweet from "@/app/server_components/PublishTweet";
-import { getTweets } from "@/helpers/getTweets";
+import PublishTweet from "@/components/PublishTweet";
+
 import Tweet from "@/app/client_components/Tweet";
 
 
 const Home = async () => {
-    //fetching all tweets
-    const allTweets = await getTweets()
+    
 
     return (
         <main className="w-full  overflow-visible h-full min-h-screen border-l-[0.3px] border-r-[0.3px] border-gray-600">

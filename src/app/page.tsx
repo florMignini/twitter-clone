@@ -6,5 +6,7 @@ export default function Page() {
   const isSession = cookieStore.get('sessionToken')
   if (isSession) {
     redirect('/home')
+  }else{
+    redirect('/signin')
   }
 }
