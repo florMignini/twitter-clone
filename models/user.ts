@@ -31,6 +31,7 @@ const userSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
+    tweets: { type: mongoose.Schema.Types.ObjectId, ref: 'Tweet', required: true },
     forgot_password_token: String,
     forgot_password_token_expired: Date,
     verify_token: String,

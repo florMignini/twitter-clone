@@ -1,11 +1,13 @@
+'use client'
 import PublishTweet from "@/components/PublishTweet";
 
 import Tweet from "@/app/client_components/Tweet";
+import { useGetTweets } from "@/helpers";
 
 
-const Home = async () => {
-    
-
+const Home = () => {
+    const {data, error} = useGetTweets()
+console.log(error)
     return (
         <main className="w-full  overflow-visible h-full min-h-screen border-l-[0.3px] border-r-[0.3px] border-gray-600">
 
@@ -25,15 +27,16 @@ const Home = async () => {
 
             {/* Main content */}
             <div className="flex flex-col ">
-                {/* {allTweets?.error ? <h1>Something goes wrong with server</h1> : null}
+                {error ? <h1>Something goes wrong with server</h1> : null}
                 {
-                   allTweets?.data && allTweets?.data.map((tweet) => (
+                   data?.data.allTweets && data?.data.allTweets.map
+                   /* cambiar el any */((tweet:any) => (
                        <Tweet
-                       key={tweet.id}
+                       key={tweet._id}
                         tweet={tweet}
                        />
                    ))
-                } */}
+                }
             </div>
         </main>
     )

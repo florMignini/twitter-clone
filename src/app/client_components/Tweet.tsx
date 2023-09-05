@@ -9,23 +9,21 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 import { GetTweets } from '../../../interfaces/getTweets.interface';
 import { AiOutlineRetweet } from 'react-icons/ai';
 import LikeButton from './LikeButton';
-import { getTweetLikes, sessionLikes } from '../../helpers';
+
 
 
 
 dayjs.extend(relativeTime)
 
-type TweetProp = {
-    tweet: GetTweets
-}
 
-const Tweet = async({ tweet }: TweetProp) => {
+/* cambiar any */
+const Tweet = ({ tweet }: any) => {
     // const tweetLikes = await getTweetLikes(tweet.id)
     // const currentSessionLikes = await sessionLikes(tweet.id, tweet.profile_id)
-
+console.log(tweet)
     return (
         <div
-            key={tweet.id}
+            key={tweet._id}
             className="relative grid grid-cols-[8%_92%] gap-2
       border-b-[0.3px] border-t-[0.3px] p-3
       ">
@@ -37,8 +35,8 @@ const Tweet = async({ tweet }: TweetProp) => {
                     {/* twit header */}
                     <div className="w-full flex items-center justify-evenly pr-1">
                         <div className=" w-full flex items-center content-center">
-                            <p className="font-bold text-md">{tweet.profiles.full_name || ''}</p>
-                            <p className="font-thin text-md mx-1">@{tweet.profiles.username}</p>
+                            {/* <p className="font-bold text-md">{tweet.profiles.full_name || ''}</p>
+                            <p className="font-thin text-md mx-1">@{tweet.profiles.username}</p> */}
                             <div className="flex">
                                 <BsDot />
                             </div>

@@ -26,16 +26,14 @@ export const POST = async (req: NextRequest) => {
   try {
     const { tweetContent, tweetImage } = await req.json();
 
-    console.log(tweetContent, tweetImage);
-
-    /* 
         // create new Twitter
         const newTweet = new Tweet({
             content: tweetContent,
-            author: userQuery.id,
+            userId: userQuery.id,
         }).save()
 
-        return NextResponse.json({message: `tweet successfully created`},{status: 201}) */
+        return NextResponse.json({message: `tweet successfully created`},{status: 201})
+        
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
