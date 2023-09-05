@@ -9,9 +9,9 @@ connectDB();
 export const GET = async (req: NextRequest) => {
   try {
     // const profile = await getUserData(req);
-    const allTweets = await Tweet.find({}).select(
-      "-__v"
-    ).populate('userId')
+    const allTweets = await Tweet.find({})
+      .select("-__v")
+      .populate("userId", "-password -__v");
     // console.log(allTweets);
     return NextResponse.json({ allTweets }, { status: 200 });
   } catch (error: any) {
@@ -19,4 +19,3 @@ export const GET = async (req: NextRequest) => {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 };
- 

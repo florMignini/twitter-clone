@@ -6,12 +6,8 @@ import { MdOutlineIosShare } from 'react-icons/md'
 // dayjs import 
 import dayjs from "dayjs";
 import relativeTime from 'dayjs/plugin/relativeTime'
-import { GetTweets } from '../../../interfaces/getTweets.interface';
 import { AiOutlineRetweet } from 'react-icons/ai';
 import LikeButton from './LikeButton';
-
-
-
 
 dayjs.extend(relativeTime)
 
@@ -35,8 +31,8 @@ console.log(tweet)
                     {/* twit header */}
                     <div className="w-full flex items-center justify-evenly pr-1">
                         <div className=" w-full flex items-center content-center">
-                            {/* <p className="font-bold text-md">{tweet.profiles.full_name || ''}</p>
-                            <p className="font-thin text-md mx-1">@{tweet.profiles.username}</p> */}
+                            <p className="font-bold text-md">{tweet.userId.username || ''}</p>
+                            <p className="font-thin text-md mx-1">@{tweet.userId.username}</p>
                             <div className="flex">
                                 <BsDot />
                             </div>
@@ -52,7 +48,7 @@ console.log(tweet)
                     </div>
                     {/* twit text */}
                     <div className="w-full text-white text-start text-sm pt-1 pl-1">
-                        {tweet.text}
+                        {tweet.content}
                     </div>
                     {/* media content */}
                     <div className="bg-slate-400 aspect-square w-full h-96 rounded-xl m-1"></div>
@@ -76,11 +72,11 @@ items-center justify-center hover:bg-blue-800/20
           rounded-full h-8 w-8">
                         <AiOutlineRetweet />
                     </div>
-                    {/* <LikeButton
-                        tweetId={tweet.id}
-                        profileId={tweet.profile_id}
-                        likes={tweetLikes.count}
-                        currentSessionLikes={currentSessionLikes}
+                   {/*  <LikeButton
+                        tweetId={tweet._id}
+                        profileId={tweet.userId.username}
+                        // likes={tweetLikes.count}
+                        // currentSessionLikes={currentSessionLikes}
                     /> */}
                     <div className="flex items-center justify-center 
             font-bold
