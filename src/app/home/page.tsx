@@ -7,7 +7,7 @@ import { useGetTweets } from "@/helpers";
 
 const Home = () => {
     const {data, error} = useGetTweets()
-console.log(error)
+console.log(data)
     return (
         <main className="w-full  overflow-visible h-full min-h-screen border-l-[0.3px] border-r-[0.3px] border-gray-600">
 

@@ -1,8 +1,16 @@
 import mongoose from "mongoose";
+/* import User from "./user";
+import Tweet from "./tweet"; */
 
 const likeSchema = new mongoose.Schema({
-  user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-  tweet: { type: mongoose.Schema.Types.ObjectId, ref: "Tweet", required: true },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
+  tweetId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Tweet",
+  },
   timestamp: { type: Date, default: Date.now },
 });
 

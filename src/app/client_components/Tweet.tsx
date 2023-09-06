@@ -6,17 +6,23 @@ import { MdOutlineIosShare } from 'react-icons/md'
 // dayjs import 
 import dayjs from "dayjs";
 import relativeTime from 'dayjs/plugin/relativeTime'
-import { AiOutlineRetweet } from 'react-icons/ai';
-import LikeButton from './LikeButton';
+import { AiOutlineHeart, AiOutlineRetweet } from 'react-icons/ai';
+import axios from 'axios';
+import useGetLikes from '@/helpers/useGetLikes';
+import { revalidatePath } from 'next/cache';
 
 dayjs.extend(relativeTime)
 
 
 /* cambiar any */
 const Tweet = ({ tweet }: any) => {
-    // const tweetLikes = await getTweetLikes(tweet.id)
-    // const currentSessionLikes = await sessionLikes(tweet.id, tweet.profile_id)
-console.log(tweet)
+    const likeTweet = async (userId:string, tweetId:string) => {
+        const liked = await axios.post('/api/likes/like', { userId, tweetId }) 
+        revalidatePath('/home')
+    }
+    const { data, error } = useGetLikes()
+    // console.log(data?.data.allLikes)
+    const allLikes = data?.data.allLikes;
     return (
         <div
             key={tweet._id}
@@ -73,11 +79,33 @@ items-center justify-center hover:bg-blue-800/20
                         <AiOutlineRetweet />
                     </div>
                    {/*  <LikeButton
-                        tweetId={tweet._id}
-                        profileId={tweet.userId.username}
-                        // likes={tweetLikes.count}
-                        // currentSessionLikes={currentSessionLikes}
+
                     /> */}
+                     <button
+      onClick={()=>likeTweet(tweet.userId._id, tweet._id)}
+      className="flex items-center justify-center
+            font-bold
+            transition duration-200
+            text-md
+            hover:bg-red-400/20
+          hover:text-red-600
+          rounded-full h-8 w-8">
+      {/* {
+        allLikes.includes() ?
+          (
+            <div className=' text-red-500 '>
+              {likes && likes > 0 ? (
+                <div className='flex items-center justify-center gap-1 ' >
+                  <AiFillHeart />
+                  <p className='text-sm'>{likes}</p>
+                </div>
+              ) : null
+              }
+            </div>
+          ) :
+        } */}
+        <AiOutlineHeart />
+    </button >
                     <div className="flex items-center justify-center 
             font-bold
             transition duration-200

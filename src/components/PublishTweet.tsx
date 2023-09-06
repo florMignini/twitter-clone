@@ -1,6 +1,8 @@
 'use client'
 
 import axios from "axios";
+import { revalidatePath } from "next/cache";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { AiOutlinePicture } from "react-icons/ai";
 interface FormData {
@@ -8,7 +10,7 @@ interface FormData {
   tweetImage: string
 }
 const PublishTweet = () => {
-
+const router = useRouter()
  
     const [formData, setFormData] = useState<FormData>({
       tweetContent: "",
@@ -21,11 +23,16 @@ const PublishTweet = () => {
     try {
       const res = await axios.post('/api/tweets/publish', formData)
       console.log(res)
+      setFormData({
+        tweetContent: "",
+        tweetImage: ""
+      })
     } catch (error) {
       console.log(error)
     }
-      
-    };
+    router.replace('/')
+    
+  };
   return (
     <form onSubmit={handleSubmit}>
       <div className="h-62 mx-1 overflow-y-auto">
