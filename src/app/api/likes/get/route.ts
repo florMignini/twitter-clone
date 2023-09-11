@@ -7,7 +7,6 @@ connectDB();
 
 export const GET = async (req: NextRequest) => {
   try {
-    // const profile = await getUserData(req);
     const allLikes = await Like.find({}).select("-__v");
     return NextResponse.json({ allLikes }, { status: 200 });
   } catch (error: any) {

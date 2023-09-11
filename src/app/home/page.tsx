@@ -1,13 +1,20 @@
 'use client'
 import PublishTweet from "@/components/PublishTweet";
 
-import Tweet from "@/app/client_components/Tweet";
+import Tweet, { Like } from "@/app/client_components/Tweet";
 import { useGetTweets } from "@/helpers";
 
+export interface Tweet {
+    comments: Comment[],
+    content: string,
+    likes: Like[],
+    timestamp: string,
+    _id: string
+}
 
 const Home = () => {
     const {data, error} = useGetTweets()
-console.log(data)
+
     return (
         <main className="w-full  overflow-visible h-full min-h-screen border-l-[0.3px] border-r-[0.3px] border-gray-600">
 
@@ -30,7 +37,7 @@ console.log(data)
                 {error ? <h1>Something goes wrong with server</h1> : null}
                 {
                    data?.data.allTweets && data?.data.allTweets.map
-                   /* cambiar el any */((tweet:any) => (
+                   /* cambiar el any */((tweet:Tweet) => (
                        <Tweet
                        key={tweet._id}
                         tweet={tweet}

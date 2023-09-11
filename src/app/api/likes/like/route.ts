@@ -15,12 +15,11 @@ export const POST = async (req: NextRequest) => {
       userId,
       tweetId,
     }).save();
-    // console.log(newLike);
     const likedTweet = await Tweet.findOne({
       _id: tweetId,
     });
     //pushing to Tweet.likes arr the new user-tweet like
-    await likedTweet.likes.push(newLike._id);
+    const res = await likedTweet.likes.unshift(newLike._id);
     likedTweet.save();
 
     return NextResponse.json(

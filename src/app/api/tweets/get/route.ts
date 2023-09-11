@@ -12,8 +12,8 @@ export const GET = async (req: NextRequest) => {
     const allTweets = await Tweet.find({})
       .select("-__v")
       .populate("userId", "-password -__v")
-      .populate("likes");
-    // console.log(allTweets);
+      .populate("likes", "-tweetId -__v ");
+
     return NextResponse.json({ allTweets }, { status: 200 });
   } catch (error: any) {
     console.log(error);

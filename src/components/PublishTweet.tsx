@@ -19,10 +19,10 @@ const router = useRouter()
 
     const handleSubmit = async(e: { preventDefault: () => void; }) => {
       e.preventDefault();
-  console.log(formData)
+  // console.log(formData)
     try {
       const res = await axios.post('/api/tweets/publish', formData)
-      console.log(res)
+      // console.log(res)
       setFormData({
         tweetContent: "",
         tweetImage: ""

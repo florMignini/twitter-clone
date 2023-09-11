@@ -6,23 +6,40 @@ import { MdOutlineIosShare } from 'react-icons/md'
 // dayjs import 
 import dayjs from "dayjs";
 import relativeTime from 'dayjs/plugin/relativeTime'
-import { AiOutlineHeart, AiOutlineRetweet } from 'react-icons/ai';
+import { AiFillHeart, AiOutlineHeart, AiOutlineRetweet } from 'react-icons/ai';
 import axios from 'axios';
 import useGetLikes from '@/helpers/useGetLikes';
 import { revalidatePath } from 'next/cache';
+import { useGetSessionData } from '@/helpers';
+
 
 dayjs.extend(relativeTime)
-
+export interface Like {
+    timestamp: string,
+    tweetId: string,
+    userId: string,
+    _id: string
+}
 
 /* cambiar any */
 const Tweet = ({ tweet }: any) => {
+    
+    //bringing user session data for like assing
+    const userQuery = useGetSessionData()
+    // console.log(userQuery.data?.data.profileInfo._id)
+
     const likeTweet = async (userId:string, tweetId:string) => {
-        const liked = await axios.post('/api/likes/like', { userId, tweetId }) 
+     await axios.post('/api/likes/like', { userId, tweetId }) 
         revalidatePath('/home')
     }
     const { data, error } = useGetLikes()
-    // console.log(data?.data.allLikes)
+    // console.log(tweet.likes)
+    const result = tweet.likes?.filter((like: Like) => like.userId === userQuery.data?.data.profileInfo._id)[0]?.userId;
+
     const allLikes = data?.data.allLikes;
+    console.log(allLikes)
+    
+ 
     return (
         <div
             key={tweet._id}
@@ -78,11 +95,8 @@ items-center justify-center hover:bg-blue-800/20
           rounded-full h-8 w-8">
                         <AiOutlineRetweet />
                     </div>
-                   {/*  <LikeButton
-
-                    /> */}
                      <button
-      onClick={()=>likeTweet(tweet.userId._id, tweet._id)}
+      onClick={()=>likeTweet(userQuery.data?.data.profileInfo._id, tweet._id)}
       className="flex items-center justify-center
             font-bold
             transition duration-200
@@ -90,21 +104,22 @@ items-center justify-center hover:bg-blue-800/20
             hover:bg-red-400/20
           hover:text-red-600
           rounded-full h-8 w-8">
-      {/* {
-        allLikes.includes() ?
+      {
+        result ?
           (
-            <div className=' text-red-500 '>
-              {likes && likes > 0 ? (
-                <div className='flex items-center justify-center gap-1 ' >
+                <div className='flex items-center justify-center gap-1 text-red-500' >
                   <AiFillHeart />
-                  <p className='text-sm'>{likes}</p>
                 </div>
-              ) : null
-              }
-            </div>
+
           ) :
-        } */}
-        <AiOutlineHeart />
+          <AiOutlineHeart />
+                        }
+                        {
+                            tweet.likes?.length > 0 ? (
+                                <p className='text-sm'>{tweet.likes?.length}</p>
+                            )
+                                : ""
+                        }
     </button >
                     <div className="flex items-center justify-center 
             font-bold
