@@ -6,6 +6,7 @@ const likeSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
+    unique: true,
   },
   tweetId: {
     type: mongoose.Schema.Types.ObjectId,

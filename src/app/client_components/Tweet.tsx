@@ -26,18 +26,26 @@ const Tweet = ({ tweet }: any) => {
     
     //bringing user session data for like assing
     const userQuery = useGetSessionData()
-    // console.log(userQuery.data?.data.profileInfo._id)
 
-    const likeTweet = async (userId:string, tweetId:string) => {
-     await axios.post('/api/likes/like', { userId, tweetId }) 
+
+    const likeTweet = async (userId: string, tweetId: string) => {
+        await axios.post('/api/likes/like', { userId, tweetId })
         revalidatePath('/home')
     }
+    
+    const unLikeTweet = async(userId: string, tweetId: string) => {
+        console.log('clickeado')
+        await axios.post('/api/likes/unlike', { userId, tweetId })
+        revalidatePath('/home' )
+    }
+    //get all likes
     const { data, error } = useGetLikes()
-    // console.log(tweet.likes)
-    const result = tweet.likes?.filter((like: Like) => like.userId === userQuery.data?.data.profileInfo._id)[0]?.userId;
+    // console.log(tweet)
 
-    const allLikes = data?.data.allLikes;
-    console.log(allLikes)
+    //bring the userId from session like if it exist
+    const result = tweet.likes?.filter((like: Like) => like.userId === userQuery.data?.data.profileInfo._id)[0]?.userId;
+    // console.log(result)
+
     
  
     return (
@@ -95,8 +103,8 @@ items-center justify-center hover:bg-blue-800/20
           rounded-full h-8 w-8">
                         <AiOutlineRetweet />
                     </div>
-                     <button
-      onClick={()=>likeTweet(userQuery.data?.data.profileInfo._id, tweet._id)}
+                     <div
+      
       className="flex items-center justify-center
             font-bold
             transition duration-200
@@ -107,12 +115,18 @@ items-center justify-center hover:bg-blue-800/20
       {
         result ?
           (
-                <div className='flex items-center justify-center gap-1 text-red-500' >
+                <button className='flex items-center justify-center gap-1 text-red-500'
+                onClick={()=>unLikeTweet(userQuery.data?.data.profileInfo._id, tweet._id)}
+                >
                   <AiFillHeart />
-                </div>
+                </button>
 
-          ) :
+                                ) :<button
+                                
+                                onClick={()=>likeTweet(userQuery.data?.data.profileInfo._id, tweet._id)}>
+                                    
           <AiOutlineHeart />
+                                    </button>
                         }
                         {
                             tweet.likes?.length > 0 ? (
@@ -120,7 +134,7 @@ items-center justify-center hover:bg-blue-800/20
                             )
                                 : ""
                         }
-    </button >
+    </div >
                     <div className="flex items-center justify-center 
             font-bold
             transition duration-200
