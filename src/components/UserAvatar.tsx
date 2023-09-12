@@ -2,22 +2,20 @@
 
 import React from "react";
 import {User , Link} from "@nextui-org/react";
-import axios from "axios";
+import { useGetSessionData } from "@/helpers";
 
 export default function UserAvatar() {
 
-  const getProfile = async() =>{
-    const res = await axios.get('/api/users/profile')
-    console.log(res.data)
-  }
+  const { data, error } = useGetSessionData()
+  
+  let sessionProfile = data?.data.profileInfo
   return (
     <User   
-      name="Bulbasor"
+      name={sessionProfile?.username.toUpperCase()}
       description={(
         <Link size="sm"
-        onClick={getProfile}
         >
-          @Bulbasor
+          @{sessionProfile?.username}
         </Link>
       )}
       avatarProps={{

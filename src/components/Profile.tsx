@@ -35,9 +35,9 @@ const userQuery = useGetSessionData()
           <div className="w-[100%] h-[70%] bg-slate-600 relative">
             <Avatar
             src="https://avatars.githubusercontent.com/u/30373425?v=4"
-            className="w-[20%] h-[70%] lg:w-[15%] 
-            xl:w-[25%]
-            xl:h-[90%] absolute bottom-[-15%] left-3"
+            className="w-[35%] h-[55%] lg:w-[25%] lg:h-[65%]
+            xl:w-[40%]
+            xl:h-[70%] absolute bottom-[-15%] left-3"
             />
           </div>
         </div>

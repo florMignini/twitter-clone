@@ -9,7 +9,7 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 import { AiFillHeart, AiOutlineHeart, AiOutlineRetweet } from 'react-icons/ai';
 import axios from 'axios';
 import useGetLikes from '@/helpers/useGetLikes';
-import { revalidatePath } from 'next/cache';
+import { useRouter } from 'next/navigation';
 import { useGetSessionData } from '@/helpers';
 
 
@@ -23,28 +23,29 @@ export interface Like {
 
 /* cambiar any */
 const Tweet = ({ tweet }: any) => {
-    
+    const router = useRouter()
     //bringing user session data for like assing
     const userQuery = useGetSessionData()
 
 
     const likeTweet = async (userId: string, tweetId: string) => {
+
         await axios.post('/api/likes/like', { userId, tweetId })
-        revalidatePath('/home')
+        router.refresh()
     }
     
     const unLikeTweet = async(userId: string, tweetId: string) => {
         console.log('clickeado')
         await axios.post('/api/likes/unlike', { userId, tweetId })
-        revalidatePath('/home' )
+        router.refresh( )
     }
     //get all likes
     const { data, error } = useGetLikes()
-    // console.log(tweet)
+
 
     //bring the userId from session like if it exist
     const result = tweet.likes?.filter((like: Like) => like.userId === userQuery.data?.data.profileInfo._id)[0]?.userId;
-    // console.log(result)
+
 
     
  

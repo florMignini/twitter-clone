@@ -21,7 +21,7 @@ const Home = () => {
             <h1 className="text-2xl z-10 text-left px-5 py-3 font-bold backdrop-blur-md sticky w-full h-32 bg-black/10 top-0 bg-black">Home</h1>
 
             {/* Avatar */}
-            <div className="border-b-[0.3px] border-t-[0.3px] px-3 pt-3 pb-0 border-gray-600 relative grid grid-cols-[8%,92%] gap-1">
+            <div className="h-[200px] border-b-[0.3px] border-t-[0.3px] px-3 pt-3 pb-0 border-gray-600 relative grid grid-cols-[8%,92%] gap-1">
 
                 <div className="w-10 h-10 rounded-full bg-slate-400 px-3"></div>
 
