@@ -31,13 +31,13 @@ const Tweet = ({ tweet }: any) => {
     const likeTweet = async (userId: string, tweetId: string) => {
 
         await axios.post('/api/likes/like', { userId, tweetId })
-        router.refresh()
+        router.push('/')
     }
     
     const unLikeTweet = async(userId: string, tweetId: string) => {
         console.log('clickeado')
         await axios.post('/api/likes/unlike', { userId, tweetId })
-        router.refresh( )
+        router.push('/')
     }
     //get all likes
     const { data, error } = useGetLikes()
