@@ -9,7 +9,8 @@ export const GET = async (req: NextRequest, context: { params: any }) => {
     const singleTweet = await Tweet.findOne({ _id: context.params.id })
       .select("-__v")
       .populate("userId", "-password -__v")
-      .populate("likes", "-tweetId -__v ");
+      .populate("likes", "-tweetId -__v ")
+      .populate("comments", "-__v ");
 
     return NextResponse.json({ singleTweet }, { status: 200 });
   } catch (error: any) {

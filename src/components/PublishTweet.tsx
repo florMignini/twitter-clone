@@ -20,7 +20,6 @@ const router = useRouter()
       tweetContent: "",
       tweetImage: "",
     });
-console.log(formData)
     const handleSubmit = async(e: { preventDefault: () => void; }) => {
       e.preventDefault();
 

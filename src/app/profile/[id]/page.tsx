@@ -7,12 +7,15 @@ import { Profile, PublishComment } from '@/components'
 import CommentModal from '@/components/CommentModal';
 import { Tweet as TweetType } from '@/app/home/page'
 import { BiArrowBack } from 'react-icons/bi'
+import useGetComments from '@/helpers/useGetComments'
 
 
 
 const SingleTweet = ({ params }: any) => {
 const router = useRouter()
   const {data, error} = useGetTweet(params.id)
+console.log(data)
+  const comments = useGetComments(data?.data.singleTweet._id)
 const onClose = () => {
   console.log(`close clicked`)
 }
@@ -27,6 +30,7 @@ const onPost = () => {
             <PublishComment
             placeholder='Post your reply'
             BtnTitle='Reply'
+            tweet={data?.data.singleTweet}
             />
         </CommentModal>
         {/* top section */}
