@@ -11,6 +11,7 @@ import axios from 'axios';
 import useGetLikes from '@/helpers/useGetLikes';
 import { useRouter } from 'next/navigation';
 import { useGetSessionData } from '@/helpers';
+import useGetTweet from '@/helpers/useGetTweet';
 
 
 dayjs.extend(relativeTime)
@@ -29,25 +30,20 @@ const Tweet = ({ tweet }: any) => {
 
 
     const likeTweet = async (userId: string, tweetId: string) => {
-
         await axios.post('/api/likes/like', { userId, tweetId })
         router.push('/')
     }
     
     const unLikeTweet = async(userId: string, tweetId: string) => {
-        console.log('clickeado')
         await axios.post('/api/likes/unlike', { userId, tweetId })
         router.push('/')
     }
     //get all likes
-    const { data, error } = useGetLikes()
-
+    // const { data, error } = useGetLikes()
+    
 
     //bring the userId from session like if it exist
     const result = tweet.likes?.filter((like: Like) => like.userId === userQuery.data?.data.profileInfo._id)[0]?.userId;
-
-
-    
  
     return (
         <div
@@ -62,14 +58,16 @@ const Tweet = ({ tweet }: any) => {
                 <div className=" flex flex-col items-center">
                     {/* twit header */}
                     <div className="w-full flex items-center justify-evenly pr-1">
-                        <div className=" w-full flex items-center content-center">
+                        <button className=" w-full flex items-center content-center"
+                        onClick={()=> router.push('/profile')}
+                        >
                             <p className="font-bold text-md">{tweet.userId.username || ''}</p>
                             <p className="font-thin text-md mx-1">@{tweet.userId.username}</p>
                             <div className="flex">
                                 <BsDot />
                             </div>
                             <p className="font-thin text-sm mx-1">{dayjs(tweet.created_at).fromNow()}</p>
-                        </div>
+                        </button>
                         <div className="w-8 flex items-center
               rounded-full h-8  font-bold
               text-md justify-center hover:bg-blue-800/20 
@@ -78,12 +76,17 @@ const Tweet = ({ tweet }: any) => {
                             <BsThreeDots />
                         </div>
                     </div>
-                    {/* twit text */}
-                    <div className="w-full text-white text-start text-sm pt-1 pl-1">
+                    <button className='w-[99%] flex flex-col items-start'
+                    /* onClick={} */>
+                         {/* twit text */}
+                        <button
+                            onClick={() => router.push(`/profile/${tweet._id}`)}
+                            className=" text-white text-start text-sm my-2 pt-1 pl-1">
                         {tweet.content}
-                    </div>
-                    {/* media content */}
-                    <div className="bg-slate-400 aspect-square w-full h-96 rounded-xl m-1"></div>
+                    </button>
+                    {/* media content only displayed if it is sent*/}
+                    {/* <div className="bg-slate-400 aspect-square w-full h-96 rounded-xl m-1"></div> */}
+                   </button>
                 </div>
                 <div className="flex items-center justify-around space-x-2 w-full cursor-pointer">
                     <div className="flex 

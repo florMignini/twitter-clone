@@ -30,7 +30,7 @@ export const LeftSidebar = () => {
         {nav_items.map((nav_item) => (
           <Link
             className="hover:bg-white/10 mx-auto md:mx-0 flex items-center w-fit h-fit justify-start space-x-5 rounded-3xl px-2 py-3 lg:py-4"
-            href={`${nav_item.title.toLowerCase()}`}
+            href={`/${nav_item.title.toLowerCase()}`}
             key={nav_item.title}
           >
             <div className="w-full mx-9 lg:mx-0 text-3xl">
