@@ -29,20 +29,20 @@ const userQuery = useGetSessionData()
         </div>
         {/* user section */}
         <div
-        className="w-[100%] h-[100%] flex flex-col items-center justify-between"
+        className="w-[100%] h-[50%] flex flex-col items-center justify-between"
         >
           {/* front page */}
-          <div className="w-[100%] h-[70%] bg-slate-600 relative">
+          <div className="w-[100%] h-[90%] bg-slate-600 relative">
             <Avatar
             src="https://avatars.githubusercontent.com/u/30373425?v=4"
-            className="w-[35%] h-[55%] lg:w-[25%] lg:h-[65%]
+            className="w-[25%] h-[65%] lg:w-[25%] lg:h-[65%]
             xl:w-[40%]
             xl:h-[70%] absolute bottom-[-15%] left-3"
             />
           </div>
         </div>
-        <div className="w-[100%] h-[100%] relative">
-        <div className="absolute top-0 left-2">
+        <div className="w-[100%] h-[40%] relative">
+        <div className="absolute top-10 left-2">
             <h3 className="text-xl">{userQuery.data?.data.profileInfo.username}</h3>
             <p className="font-thin">{`@${userQuery.data?.data.profileInfo.username}`}</p>
             </div>
