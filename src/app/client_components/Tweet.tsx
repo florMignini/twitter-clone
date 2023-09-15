@@ -89,7 +89,7 @@ const Tweet = ({ tweet }: any) => {
                    </button>
                 </div>
                 <div className="flex items-center justify-around space-x-2 w-full cursor-pointer">
-                    <div className="flex 
+                    <button className="flex 
           rounded-full h-8 w-8  font-bold
           text-md
 items-center justify-center hover:bg-blue-800/20 
@@ -97,7 +97,7 @@ items-center justify-center hover:bg-blue-800/20
           transition duration-200
           ">
                         <BsChat />
-                    </div>
+                    </button>
                     <div className="flex items-center justify-center 
             font-bold
             transition duration-200
