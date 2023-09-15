@@ -43,11 +43,11 @@ const Tweet = ({ tweet }: any) => {
     
 
     //bring the userId from session like if it exist
-    const result = tweet.likes?.filter((like: Like) => like.userId === userQuery.data?.data.profileInfo._id)[0]?.userId;
+    const result = tweet?.likes?.filter((like: Like) => like.userId === userQuery.data?.data.profileInfo._id)[0]?.userId;
  
     return (
         <div
-            key={tweet._id}
+            key={tweet?._id}
             className="relative grid grid-cols-[8%_92%] gap-2
       border-b-[0.3px] border-t-[0.3px] p-3
       ">
@@ -61,12 +61,12 @@ const Tweet = ({ tweet }: any) => {
                         <button className=" w-full flex items-center content-center"
                         onClick={()=> router.push('/profile')}
                         >
-                            <p className="font-bold text-md">{tweet.userId.username || ''}</p>
-                            <p className="font-thin text-md mx-1">@{tweet.userId.username}</p>
+                            <p className="font-bold text-md">{tweet?.userId.username || ''}</p>
+                            <p className="font-thin text-md mx-1">@{tweet?.userId.username}</p>
                             <div className="flex">
                                 <BsDot />
                             </div>
-                            <p className="font-thin text-sm mx-1">{dayjs(tweet.created_at).fromNow()}</p>
+                            <p className="font-thin text-sm mx-1">{dayjs(tweet?.created_at).fromNow()}</p>
                         </button>
                         <div className="w-8 flex items-center
               rounded-full h-8  font-bold
@@ -80,9 +80,9 @@ const Tweet = ({ tweet }: any) => {
                     /* onClick={} */>
                          {/* twit text */}
                         <button
-                            onClick={() => router.push(`/profile/${tweet._id}`)}
+                            onClick={() => router.push(`/profile/${tweet?._id}`)}
                             className=" text-white text-start text-sm my-2 pt-1 pl-1">
-                        {tweet.content}
+                        {tweet?.content}
                     </button>
                     {/* media content only displayed if it is sent*/}
                     {/* <div className="bg-slate-400 aspect-square w-full h-96 rounded-xl m-1"></div> */}
@@ -120,20 +120,20 @@ items-center justify-center hover:bg-blue-800/20
         result ?
           (
                 <button className='flex items-center justify-center gap-1 text-red-500'
-                onClick={()=>unLikeTweet(userQuery.data?.data.profileInfo._id, tweet._id)}
+                onClick={()=>unLikeTweet(userQuery.data?.data?.profileInfo._id, tweet?._id)}
                 >
                   <AiFillHeart />
                 </button>
 
                                 ) :<button
                                 
-                                onClick={()=>likeTweet(userQuery.data?.data.profileInfo._id, tweet._id)}>
+                                onClick={()=>likeTweet(userQuery.data?.data.profileInfo._id, tweet?._id)}>
                                     
           <AiOutlineHeart />
                                     </button>
                         }
                         {
-                            tweet.likes?.length > 0 ? (
+                            tweet?.likes?.length > 0 ? (
                                 <p className='text-sm'>{tweet.likes?.length}</p>
                             )
                                 : ""

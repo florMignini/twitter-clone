@@ -13,7 +13,7 @@ export const GET = async (req: NextRequest, context: { params: any }) => {
       .populate("likes", "-tweetId -__v ");
     console.log(singleTweet);
 
-    return NextResponse.json(/* { singleTweet }, */ { status: 200 });
+    return NextResponse.json({ singleTweet }, { status: 200 });
   } catch (error: any) {
     console.log(error);
     return NextResponse.json({ error: error.message }, { status: 500 });
