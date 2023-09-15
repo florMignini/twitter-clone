@@ -12,6 +12,7 @@ import useGetLikes from '@/helpers/useGetLikes';
 import { useRouter } from 'next/navigation';
 import { useGetSessionData } from '@/helpers';
 import useGetTweet from '@/helpers/useGetTweet';
+import Link from 'next/link';
 
 
 dayjs.extend(relativeTime)
@@ -48,7 +49,7 @@ const Tweet = ({ tweet }: any) => {
     return (
         <div
             key={tweet?._id}
-            className="relative grid grid-cols-[8%_92%] gap-2
+            className="w-full relative grid grid-cols-[8%_92%] gap-2
       border-b-[0.3px] border-t-[0.3px] p-3
       ">
             <div>
@@ -89,7 +90,9 @@ const Tweet = ({ tweet }: any) => {
                    </button>
                 </div>
                 <div className="flex items-center justify-around space-x-2 w-full cursor-pointer">
-                    <button className="flex 
+                    <Link
+                    href={`/profile/${tweet?._id}?showModal=y`}
+                    className="flex 
           rounded-full h-8 w-8  font-bold
           text-md
 items-center justify-center hover:bg-blue-800/20 
@@ -97,7 +100,7 @@ items-center justify-center hover:bg-blue-800/20
           transition duration-200
           ">
                         <BsChat />
-                    </button>
+                    </Link>
                     <div className="flex items-center justify-center 
             font-bold
             transition duration-200

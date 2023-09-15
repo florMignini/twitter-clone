@@ -28,7 +28,7 @@ const Home = () => {
                 {/* Input */}
                 <div className="">
                     {/* input & everyone can reply section*/}
-                    <PublishTweet />
+                    <PublishTweet placeholder="What is happening?!" BtnTitle="Post"/>
                 </div>
             </div>
 

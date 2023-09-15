@@ -13,7 +13,7 @@ type Props = {
   placeholder: string,
   BtnTitle: string
 }
-const PublishTweet = ({placeholder, BtnTitle}:Props) => {
+const PublishComment = ({placeholder, BtnTitle}:Props) => {
 const router = useRouter()
  
     const [formData, setFormData] = useState<FormData>({
@@ -78,4 +78,4 @@ console.log(formData)
   );
 };
 
-export default PublishTweet;
+export default PublishComment;

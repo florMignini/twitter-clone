@@ -1,20 +1,34 @@
 'use client'
-import Tweet from '@/app/client_components/Tweet'
-import { Tweet as TweetType } from '@/app/home/page'
-import { Profile } from '@/components'
-import useGetTweet from '@/helpers/useGetTweet'
-import { useRouter } from 'next/navigation'
 import React from 'react'
+import { useRouter } from 'next/navigation'
+import useGetTweet from '@/helpers/useGetTweet'
+import Tweet from '@/app/client_components/Tweet'
+import { Profile, PublishComment } from '@/components'
+import CommentModal from '@/components/CommentModal';
+import { Tweet as TweetType } from '@/app/home/page'
 import { BiArrowBack } from 'react-icons/bi'
+
 
 
 const SingleTweet = ({ params }: any) => {
 const router = useRouter()
   const {data, error} = useGetTweet(params.id)
-  console.log(data?.data.singleTweet)
+const onClose = () => {
+  console.log(`close clicked`)
+}
+const onPost = () => {
+  console.log(`post clicked` )
+}
   return (
     <div className="w-full h-screen flex flex-col ">
       <div className="sticky w-[100%] h-[10%] flex items-start justify-start py-1 px-2">
+        {/* modal section */}
+        <CommentModal tweet={data?.data.singleTweet} onClose={onClose} onPost={onPost}>
+            <PublishComment
+            placeholder='Post your reply'
+            BtnTitle='Reply'
+            />
+        </CommentModal>
         {/* top section */}
         <button 
         className="w-5 h-10 mr-4 cursor-pointer"
