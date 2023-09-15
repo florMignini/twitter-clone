@@ -57,7 +57,7 @@ const Tweet = ({ tweet }: any) => {
             </div> {/* avatar section */}
             <div>
                 <div className=" flex flex-col items-center">
-                    {/* twit header */}
+                    {/* tweet header */}
                     <div className="w-full flex items-center justify-evenly pr-1">
                         <button className=" w-full flex items-center content-center"
                         onClick={()=> router.push('/profile')}
