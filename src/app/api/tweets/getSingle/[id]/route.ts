@@ -6,12 +6,10 @@ connectDB();
 
 export const GET = async (req: NextRequest, context: { params: any }) => {
   try {
-    // console.log(context.params.id);
     const singleTweet = await Tweet.findOne({ _id: context.params.id })
       .select("-__v")
       .populate("userId", "-password -__v")
       .populate("likes", "-tweetId -__v ");
-    console.log(singleTweet);
 
     return NextResponse.json({ singleTweet }, { status: 200 });
   } catch (error: any) {
