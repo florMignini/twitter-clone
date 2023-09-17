@@ -41,15 +41,15 @@ const modal: JSX.Element | null = showModal === 'y' ? (
   //main modal structure
   <dialog
   ref={modalRef}
-  className="fixed top-50 left-50 -translate-x-50 -translate-y-50 z-10 rounded-2xl backdrop-blur-md bg-slate-400"
+  className="fixed top-50 left-50 -translate-x-50 -translate-y-50 rounded-2xl z-10 backdrop-blur-xl  bg-slate-900"
   >
     {/* main content */}
-    <div className="w-[500px] max-w-full flex flex-col ">
+    <div className="w-[600px] max-w-full flex flex-col text-white ">
       <div className="flex flex-col items-center justify-center">
         <div className="w-full h-[40px] flex items-start pl-5 pt-2">
         <button
       onClick={closeModal}
-      className="w-[10px] h-[10px] border-spacing-1 flex items-start bg-transparent border-black text-lg text-black " 
+      className="w-[10px] h-[10px] border-spacing-1 flex items-start bg-transparent border-black text-lg " 
       >
         X
       </button>

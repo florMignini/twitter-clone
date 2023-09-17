@@ -16,7 +16,7 @@ const Home = () => {
     const {data, error} = useGetTweets()
 
     return (
-        <main className="w-full  overflow-visible h-full min-h-screen border-l-[0.1px] border-r-[0.1px] border-slate-700">
+        <main className="w-full overflow-visible h-full min-h-screen border-l-[0.1px] border-r-[0.1px] border-slate-700">
 
             <h1 className="text-2xl z-10 text-left px-5 py-3 font-bold backdrop-blur-md sticky w-full h-32 bg-black/10 top-0 bg-black">Home</h1>
 

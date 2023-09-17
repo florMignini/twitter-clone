@@ -49,7 +49,7 @@ const router = useRouter()
     <form onSubmit={handleSubmit}
     className="h-[190px] flex flex-col items-start justify-between"
     >
-      <div className="mx-1 overflow-y-auto">
+      <div className="w-[95%] mx-1 overflow-y-clip">
         <input
           type="text"
           name="commentContent"
