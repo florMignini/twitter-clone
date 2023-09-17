@@ -37,9 +37,9 @@ const router = useRouter()
   };
   return (
     <form onSubmit={handleSubmit}
-    className="h-[190px] flex flex-col items-start justify-between"
+    className="h-[190px] flex flex-col items-start justify-between "
     >
-      <div className="mx-1 overflow-y-auto">
+      <div className="w-full mx-1 overflow-clip">
         <input
           type="text"
           name="tweetContent"
@@ -47,8 +47,8 @@ const router = useRouter()
           placeholder={placeholder}
           autoComplete="off"
           className=" w-full h-[90%] bg-transparent 
-        placeholder:text-gray-600
-        outline-none border-none border-b-[0.5px] px-2 py-2 text-xl font-light "
+        placeholder:text-gray-600 overflow-clip
+        outline-none border-none border-b-[0.1px] px-2 py-2 text-xl font-light"
           id="tweetInput"
           onChange={(e) => setFormData({...formData, tweetContent: e.target.value})}
         />

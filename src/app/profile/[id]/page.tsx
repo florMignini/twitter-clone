@@ -7,9 +7,8 @@ import { Profile, PublishComment } from "@/components";
 import CommentModal from "@/components/CommentModal";
 import { Tweet as TweetType } from "@/app/home/page";
 import { BiArrowBack } from "react-icons/bi";
-import useGetComments from "@/helpers/useGetComments";
 import Comment from "@/components/Comment";
-import useGetUserInfo from "@/helpers/useGetUserInfo";
+
 
 export interface CommentInterface {
   content: string;
@@ -23,8 +22,8 @@ export interface CommentInterface {
 const SingleTweet = ({ params }: any) => {
   const router = useRouter();
   const { data, error } = useGetTweet(params.id);
-console.log(data?.data.singleTweet)
-  const comments = useGetComments(data?.data.singleTweet._id);
+// console.log(data?.data.singleTweet)
+
   const onClose = () => {
     console.log(`close clicked`);
   };
@@ -58,7 +57,7 @@ console.log(data?.data.singleTweet)
       {error ? <h1>Something goes wrong with server</h1> : null}
 
       <Tweet tweet={data?.data.singleTweet} />
-      <h6>Replies to @{data?.data.singleTweet.userId.username}</h6>
+      <h6 className="p-2">Replies to @{data?.data.singleTweet.userId.username}</h6>
       {data?.data.singleTweet.comments.map((comment: CommentInterface) => (
         <Comment
           key={comment._id} content={comment.content} image={comment.image} timestamp={comment.timestamp} tweetId={comment.tweetId} userId={comment.userId} _id={comment._id}         

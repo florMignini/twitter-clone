@@ -1,5 +1,6 @@
 'use client'
 
+import { useGetSessionData } from "@/helpers";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -22,9 +23,12 @@ const router = useRouter()
       commentContent: "",
       commentImage: "",
     });
+    //session user information
+    const sessionUser = useGetSessionData()
+
     //apending data for comment creation
     formData.tweetId = tweet?._id
-    formData.userId = tweet?.userId?._id
+    formData.userId = sessionUser?.data?.data.profileInfo._id
 
     const handleSubmit = async(e: { preventDefault: () => void; }) => {
       e.preventDefault();

@@ -49,8 +49,8 @@ const Tweet = ({ tweet }: any) => {
     return (
         <div
             key={tweet?._id}
-            className="w-full relative grid grid-cols-[8%_92%] gap-2
-      border-b-[0.3px] border-t-[0.3px] p-3
+            className="w-[95%] relative grid grid-cols-[8%_92%] gap-2
+      bg-slate-900 rounded-xl p-3 mb-4
       ">
             <div>
                 <div className="w-10 h-10 bg-slate-600 rounded-full" />

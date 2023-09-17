@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 
 
 const useGetUserInfo = (userId:string) => {
+  // console.log(userId)
     const userSessionQuery = useQuery({
         queryKey: ['userInfo'],
         queryFn: async () => {
@@ -11,7 +12,7 @@ const useGetUserInfo = (userId:string) => {
           return response
         },
       });
-    //   console.log(userSessionQuery.data?.data)
+      // console.log(userSessionQuery.data?.data)
       return userSessionQuery.data?.data
 }
 

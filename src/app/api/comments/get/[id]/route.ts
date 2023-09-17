@@ -10,7 +10,7 @@ export const GET = async (req: NextRequest, context: { params: any }) => {
 
     const allComments = await Comment.find({ tweetId: context.params.id }).select("-__v");
     // console.log(allComments)
-    return NextResponse.json({message: `todo marcha bien Milhouse`},{ status: 200 });
+    return NextResponse.json({allComments},{ status: 200 });
   } catch (error: any) {
     console.log(error);
     return NextResponse.json({ error: error.message }, { status: 500 });
