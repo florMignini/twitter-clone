@@ -31,7 +31,7 @@ const SingleTweet = ({ params }: any) => {
     console.log(`post clicked`);
   };
   return (
-    <div className="w-full h-screen flex flex-col ">
+    <div className="w-full h-full flex flex-col ">
       <div className="sticky w-[100%] h-[10%] flex items-start justify-start py-1 px-2">
         {/* modal section */}
         <CommentModal
@@ -60,7 +60,7 @@ const SingleTweet = ({ params }: any) => {
       <h6 className="p-2">Replies to @{data?.data.singleTweet.userId.username}</h6>
       {data?.data.singleTweet.comments.map((comment: CommentInterface) => (
         <Comment
-          key={comment._id} content={comment.content} image={comment.image} timestamp={comment.timestamp} tweetId={comment.tweetId} userId={comment.userId} _id={comment._id}         
+          key={comment._id} content={comment.content} image={comment.image} timestamp={comment.timestamp} tweetId={comment.tweetId} userId={comment.userId} _id={comment._id}        
         />
       ))}
     </div>

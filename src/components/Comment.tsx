@@ -1,11 +1,11 @@
 "use client";
-import { CommentInterface } from "@/app/profile/[id]/page";
-import { getUserData, useGetSessionData } from "@/helpers";
-import useGetUserInfo from "@/helpers/useGetUserInfo";
-import axios from "axios";
-import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import axios from "axios";
+import { CommentInterface } from "@/app/profile/[id]/page";
+
 import { BsDot, BsThreeDots } from "react-icons/bs";
+import dayjs from "dayjs";
 
 const Comment = ({
   content,
@@ -13,25 +13,20 @@ const Comment = ({
   timestamp,
   tweetId,
   userId,
-  _id,
+  _id
 }: CommentInterface) => {
   //comment user info
   const [
    userInfo , setUserInfo
   ] = useState("")
-  //tweet user information
-  // const userInfo = useGetUserInfo(userId);
-  // console.log(userInfo)
-  //user session information
-  // console.log(userInfo)
+
   useEffect(() => {
       axios.get(`/api/users/info/${userId}`).then((res) => {
       setUserInfo(res.data.profileInfo.username)
     })
   }, [userId])
   
-  const sessionUser = useGetSessionData()
-  // console.log(sessionUser?.data?.data.profileInfo)
+  
   const router = useRouter();
   return (
     <div className="w-full flex items-center justify-start p-4">
@@ -55,7 +50,7 @@ const Comment = ({
             <div className="flex">
               <BsDot />
             </div>
-            {/*  <p className="font-thin text-sm mx-1">{dayjs(tweet?.created_at).fromNow()}</p> */}
+             <p className="font-thin text-sm mx-1">{dayjs(timestamp).fromNow()}</p>
           </button>
           <div
             className="w-8 flex items-center

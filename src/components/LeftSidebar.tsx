@@ -29,7 +29,7 @@ export const LeftSidebar = () => {
         </Link>
         {nav_items.map((nav_item) => (
           <Link
-            className="hover:bg-white/10 md:mx-0 flex items-center w-[60%] lg:w-[90%] h-fit justify-start space-x-5 rounded-3xl px-2 py-3 lg:py-4"
+            className="hover:bg-slate-900 md:mx-0 flex items-center w-[60%] lg:w-[90%] h-fit justify-start space-x-5 rounded-3xl px-2 py-3 lg:py-4"
             href={`/${nav_item.title.toLowerCase()}`}
             key={nav_item.title}
           >
@@ -39,7 +39,7 @@ export const LeftSidebar = () => {
             <div className="hidden lg:flex md:min-w-full">{nav_item.title}</div>
           </Link>
         ))}
-        <button className=" w-[50%] mx-2 sm:w-[60%] lg:mx-2 lg:w-[90%] x:w-[100%] rounded-3xl bg-blue-500 py-2 text-xl hover:bg-opacity-70 transition duration-200 my-4">
+        <button className="flex items-center justify-center mx-2 w-[80%] lg:mx-2 lg:w-[70%] xl:w-[70%] rounded-3xl bg-blue-500 py-2 text-xl hover:bg-opacity-70 transition duration-200 my-4">
           Tweet
         </button>
       </div>

@@ -29,7 +29,6 @@ const Tweet = ({ tweet }: any) => {
     //bringing user session data for like assing
     const userQuery = useGetSessionData()
 
-
     const likeTweet = async (userId: string, tweetId: string) => {
         await axios.post('/api/likes/like', { userId, tweetId })
         router.push('/')
@@ -39,9 +38,6 @@ const Tweet = ({ tweet }: any) => {
         await axios.post('/api/likes/unlike', { userId, tweetId })
         router.push('/')
     }
-    //get all likes
-    // const { data, error } = useGetLikes()
-    
 
     //bring the userId from session like if it exist
     const result = tweet?.likes?.filter((like: Like) => like.userId === userQuery.data?.data.profileInfo._id)[0]?.userId;
@@ -50,7 +46,7 @@ const Tweet = ({ tweet }: any) => {
         <div
             key={tweet?._id}
             className="w-[95%] relative grid grid-cols-[8%_92%] gap-2
-      bg-slate-900 rounded-xl p-3 mb-4
+      bg-slate-900 rounded-xl p-3 my-3
       ">
             <div>
                 <div className="w-10 h-10 bg-slate-600 rounded-full" />
@@ -67,7 +63,7 @@ const Tweet = ({ tweet }: any) => {
                             <div className="flex">
                                 <BsDot />
                             </div>
-                            <p className="font-thin text-sm mx-1">{dayjs(tweet?.created_at).fromNow()}</p>
+                            <p className="font-thin text-sm mx-1">{dayjs(tweet?.timestamp).fromNow()}</p>
                         </button>
                         <div className="w-8 flex items-center
               rounded-full h-8  font-bold
@@ -100,6 +96,9 @@ items-center justify-center hover:bg-blue-800/20
           transition duration-200
           ">
                         <BsChat />
+                        {
+                            tweet?.comments.length > 0 ? <p className='ml-1 text-xs'>{tweet?.comments.length}</p> : " "
+                        }
                     </Link>
                     <div className="flex items-center justify-center 
             font-bold
@@ -137,7 +136,7 @@ items-center justify-center hover:bg-blue-800/20
                         }
                         {
                             tweet?.likes?.length > 0 ? (
-                                <p className='text-sm'>{tweet.likes?.length}</p>
+                                <p className='ml-1 text-xs'>{tweet.likes?.length}</p>
                             )
                                 : ""
                         }
