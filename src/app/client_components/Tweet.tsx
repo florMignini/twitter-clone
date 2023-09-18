@@ -2,7 +2,7 @@
 import React from 'react'
 import { BsChat, BsDot, BsThreeDots } from "react-icons/bs";
 import { IoMdStats } from 'react-icons/io'
-import { MdOutlineIosShare } from 'react-icons/md'
+import { BsBookmark } from "react-icons/bs";
 // dayjs import 
 import dayjs from "dayjs";
 import relativeTime from 'dayjs/plugin/relativeTime'
@@ -38,7 +38,10 @@ const Tweet = ({ tweet }: any) => {
         await axios.post('/api/likes/unlike', { userId, tweetId })
         router.push('/')
     }
-
+    const addBookmark = async(userId:string, tweetId:string) => {
+        await axios.post('/api/bookmarks/add', { userId, tweetId })
+        // router.push('/')
+    }
     //bring the userId from session like if it exist
     const result = tweet?.likes?.filter((like: Like) => like.userId === userQuery.data?.data.profileInfo._id)[0]?.userId;
  
@@ -149,15 +152,17 @@ items-center justify-center hover:bg-blue-800/20
           rounded-full h-8 w-8">
                         <IoMdStats />
                     </div>
-                    <div className="flex items-center justify-center 
+                    <button 
+                    onClick={()=> addBookmark(userQuery.data?.data.profileInfo._id,tweet?._id)}
+                    className="flex items-center justify-center 
             font-bold
             transition duration-200
             text-md
             hover:bg-blue-400/20
           hover:text-blue-600
           rounded-full h-8 w-8">
-                        <MdOutlineIosShare />
-                    </div>
+                        <BsBookmark />
+                    </button>
                 </div>{/* bottom icons */}
             </div>{/* twitt content */}
 
