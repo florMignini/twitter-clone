@@ -1,4 +1,4 @@
-
+'use client'
 import React from 'react'
 import { BsChat, BsDot, BsThreeDots } from "react-icons/bs";
 import { IoMdStats } from 'react-icons/io'
@@ -55,8 +55,8 @@ const Tweet = ({ tweet }: any) => {
                 <div className=" flex flex-col items-center">
                     {/* tweet header */}
                     <div className="w-full flex items-center justify-evenly pr-1">
-                        <button className=" w-full flex items-center content-center"
-                        onClick={()=> router.push('/profile')}
+                        <Link className=" w-full flex items-center content-center"
+                        href='/profile'
                         >
                             <p className="font-bold text-md">{tweet?.userId.username || ''}</p>
                             <p className="font-thin text-md mx-1">@{tweet?.userId.username}</p>
@@ -64,7 +64,7 @@ const Tweet = ({ tweet }: any) => {
                                 <BsDot />
                             </div>
                             <p className="font-thin text-sm mx-1">{dayjs(tweet?.timestamp).fromNow()}</p>
-                        </button>
+                        </Link>
                         <div className="w-8 flex items-center
               rounded-full h-8  font-bold
               text-md justify-center hover:bg-blue-800/20 
@@ -73,17 +73,16 @@ const Tweet = ({ tweet }: any) => {
                             <BsThreeDots />
                         </div>
                     </div>
-                    <button className='w-[99%] flex flex-col items-start'
-                    /* onClick={} */>
+                    
                          {/* twit text */}
-                        <button
-                            onClick={() => router.push(`/profile/${tweet?._id}`)}
-                            className=" text-white text-start text-sm my-2 pt-1 pl-1">
+                        <Link
+                            href={`/profile/${tweet?._id}`}
+                            className="w-[99%] flex flex-col items-start text-white text-start text-sm my-2 pt-1 pl-1">
                         {tweet?.content}
-                    </button>
+                
                     {/* media content only displayed if it is sent*/}
                     {/* <div className="bg-slate-400 aspect-square w-full h-96 rounded-xl m-1"></div> */}
-                   </button>
+                   </Link>
                 </div>
                 <div className="flex items-center justify-around space-x-2 w-full cursor-pointer">
                     <Link

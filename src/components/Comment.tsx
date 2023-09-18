@@ -6,6 +6,7 @@ import { CommentInterface } from "@/app/profile/[id]/page";
 
 import { BsDot, BsThreeDots } from "react-icons/bs";
 import dayjs from "dayjs";
+import Link from "next/link";
 
 const Comment = ({
   content,
@@ -34,9 +35,9 @@ const Comment = ({
       <div className="w-[98%] flex flex-col items-center bg-slate-900 rounded-xl p-2">
         {/* comment header */}
         <div className="w-full flex items-center justify-evenly pr-1">
-          <button
+          <Link
             className=" w-full flex items-center content-center"
-            onClick={() => router.push("/profile")}
+            href="/profile"
           >
             {/* avatar section */}
             <div className="w-10 h-10 m-2 bg-slate-600 rounded-full" />
@@ -51,7 +52,7 @@ const Comment = ({
               <BsDot />
             </div>
              <p className="font-thin text-sm mx-1">{dayjs(timestamp).fromNow()}</p>
-          </button>
+          </Link>
           <div
             className="w-8 flex items-center
               rounded-full h-8  font-bold

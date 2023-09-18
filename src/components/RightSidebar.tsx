@@ -11,7 +11,7 @@ export const RightSidebar = () => {
             className="flex items-center justify-center">
             <BsSearch className="w-5 h-5" />
           </label>
-          <div>
+ 
             <input
               type="text"
               placeholder="Search Twitter"
@@ -19,7 +19,7 @@ export const RightSidebar = () => {
                   w-full
                   "
             />
-          </div>
+    
         </div>
       </div>
       {/* Who to Follow */}

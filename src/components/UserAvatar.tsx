@@ -14,6 +14,7 @@ export default function UserAvatar() {
       name={sessionProfile?.username.toUpperCase()}
       description={(
         <Link size="sm"
+        href="/profile"
         >
           @{sessionProfile?.username}
         </Link>
