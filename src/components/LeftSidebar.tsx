@@ -19,17 +19,17 @@ export const LeftSidebar = () => {
     }
   };
   return (
-    <section className="w-50 fixed h-screen lg:w-60 flex flex-col justify-between text-xl lg:py-2">
-      <div className="w-[90%] items-start justify-center md:w-48 flex flex-col xl:items-stretch xl:justify-end">
+    <section className="w-[20%] md:w-[150px] lg:w-[190px] fixed h-screen my-2 rounded-xl flex flex-col justify-between text-xl lg:py-2 bg-slate-400/10">
+      <div className="md:w-[90%] items-center justify-center flex flex-col mx-auto py-2">
         <Link
           href={"/"}
-          className="px-3 mx-9 lg:m-0 text-3xl mb-1 lg:mb-2 mt-2"
+          className="px-3 mx-9 lg:m-0 text-3xl mb-3 lg:mb-2 mt-2"
         >
           <BsTwitter />
         </Link>
         {nav_items.map((nav_item) => (
           <Link
-            className="hover:bg-slate-900 md:mx-0 flex items-center w-[60%] lg:w-[90%] h-fit justify-start space-x-5 rounded-3xl px-2 py-3 lg:py-4"
+            className="hover:bg-slate-900 flex items-center w-[90%] h-fit justify-start space-x-5 rounded-3xl px-2 py-3 lg:py-4"
             href={`/${nav_item.title.toLowerCase()}`}
             key={nav_item.title}
           >
@@ -39,19 +39,19 @@ export const LeftSidebar = () => {
             <div className="hidden lg:flex md:min-w-full">{nav_item.title}</div>
           </Link>
         ))}
-        <button className="flex items-center justify-center mx-2 w-[80%] lg:mx-2 lg:w-[70%] xl:w-[70%] rounded-3xl bg-blue-500 py-2 text-xl hover:bg-opacity-70 transition duration-200 my-4">
+        <button className="flex items-center justify-center mx-0 w-[70%] lg:mx-2 rounded-3xl bg-blue-500 py-2 text-xl hover:bg-opacity-70 transition duration-200 my-4">
           Tweet
         </button>
       </div>
-      <div className="w-[90%] flex flex-col">
+      <div className="w-[100%] flex flex-col">
         <Dropdown
         closeOnSelect={true}
         className="w-[90%] bg-black border-solid border-2 border-white"
         >
           <DropdownTrigger>
           <div
-          className="w-[90%] md:w-[90%] xl:w-48 flex items-center justify-around space-x-1 rounded-full lg:p-1 hover:bg-white/10
-   transition duration-200 my-4 cursor-pointer"
+          className="w-[100%] flex items-center justify-around space-x-1 rounded-full hover:bg-white/10
+   transition duration-200 my-5 cursor-pointer"
         >
           <UserAvatar />
         </div>
