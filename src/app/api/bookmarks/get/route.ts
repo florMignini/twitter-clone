@@ -12,7 +12,14 @@ export const GET = async (req: NextRequest) => {
     const allBookmarks = await Bookmark.find({})
       .select("-__v")
       .populate("userId", "-password -__v")
-      .populate("tweets", "-__v ");
+      .populate({
+        path: "tweets",
+        select: "-__v",
+        populate: {
+          path: "userId",
+          select: "-password -__v"
+        }
+      })
 
     return NextResponse.json({ allBookmarks }, { status: 200 });
   } catch (error: any) {

@@ -5,6 +5,7 @@ import Tweet from "../../../../../../models/tweet";
 connectDB();
 
 export const GET = async (req: NextRequest, context: { params: any }) => {
+  // console.log(context.params.id)
   try {
     const singleTweet = await Tweet.findOne({ _id: context.params.id })
       .select("-__v")
