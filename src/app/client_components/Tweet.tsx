@@ -59,7 +59,7 @@ const Tweet = ({ tweet }: any) => {
                     {/* tweet header */}
                     <div className="w-full flex items-center justify-evenly pr-1">
                         <Link className=" w-full flex items-center content-center"
-                        href='/profile'
+                        href={`/profile?profileId=${tweet.userId._id}`}
                         >
                             <p className="font-bold text-md">{tweet?.userId.username || ''}</p>
                             <p className="font-thin text-md mx-1">@{tweet?.userId.username}</p>

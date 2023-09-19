@@ -7,8 +7,12 @@ import { AiOutlineLogout } from "react-icons/ai";
 import { nav_items } from "../../data/navigation-items";
 import UserAvatar from "./UserAvatar";
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/react";
+import { useGetSessionData } from "@/helpers";
 
 export const LeftSidebar = () => {
+  const userQuery = useGetSessionData()
+  const userProfileId = userQuery.data?.data?.profileInfo._id
+  // console.log(userQuery.data?.data?.profileInfo._id)
   const router = useRouter();
   const logOut = async () => {
     try {
@@ -19,7 +23,7 @@ export const LeftSidebar = () => {
     }
   };
   return (
-    <section className="w-[20%] md:w-[150px] lg:w-[190px] fixed h-screen my-2 rounded-xl flex flex-col justify-between text-xl lg:py-2 bg-slate-400/10">
+    <section className="w-[20%] md:w-[160px] lg:w-[190px] xl:w-[240px] fixed h-screen my-2 rounded-xl flex flex-col justify-between text-xl lg:py-2 bg-slate-900">
       <div className="md:w-[90%] items-center justify-center flex flex-col mx-auto py-2">
         <Link
           href={"/"}
@@ -30,7 +34,7 @@ export const LeftSidebar = () => {
         {nav_items.map((nav_item) => (
           <Link
             className="hover:bg-slate-900 flex items-center w-[90%] h-fit justify-start space-x-5 rounded-3xl px-2 py-3 lg:py-4"
-            href={`/${nav_item.title.toLowerCase()}`}
+            href={`/${nav_item.title.toLowerCase()}?profileId=${userProfileId}`}
             key={nav_item.title}
           >
             <div className="w-full mx-9 lg:mx-0 text-3xl">

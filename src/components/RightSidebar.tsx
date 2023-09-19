@@ -4,7 +4,7 @@ export const RightSidebar = () => {
   return (
     <section className="hidden xl:flex xl:fixed top-2 overflow-visible flex-col px-5 my-4" >
       {/* Search bar section */}
-      <div className="sticky h-15 top-0 rounded-full bg-neutral-900/90 backdrop-blur-lg text-gray-600 mt-1">
+      <div className="sticky h-15 top-0 rounded-full bg-slate-900 backdrop-blur-lg text-gray-600 mt-1">
         <div className="h-full w-full relative grid grid-cols-[10%,90%] gap-4 p-3 text-sm">
           <label
             htmlFor="searchItem"
@@ -23,7 +23,7 @@ export const RightSidebar = () => {
         </div>
       </div>
       {/* Who to Follow */}
-      <div className="w-fill flex flex-col rounded-2xl  bg-neutral-900/90 mt-2">
+      <div className="w-fill flex flex-col rounded-2xl  bg-slate-900 mt-2">
         <h3 className="text-xl font-bold py-3 px-4">Who to Follow</h3>
         <div>
           {
@@ -47,7 +47,7 @@ export const RightSidebar = () => {
         </div>
       </div>
       {/* What's happening */}
-      <div className="flex flex-col rounded-2xl  bg-neutral-900/90 mt-4">
+      <div className="flex flex-col rounded-2xl  bg-slate-900 mt-4">
         <h3 className="text-xl font-bold p-4">What's happening</h3>
         <div>
           {

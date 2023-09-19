@@ -1,17 +1,24 @@
-import React, { useEffect, useState } from "react";
-import { BookmarkInterface, Tweet } from "../../interfaces";
-import axios from "axios";
-import { BsBookmark, BsChat, BsDot, BsThreeDots } from "react-icons/bs";
+import React from "react";
+import { BsChat, BsDot, BsThreeDots } from "react-icons/bs";
+import { LikeInterface, Profile } from "../../interfaces";
 import dayjs from "dayjs";
-import Link from "next/link";
-import result from "postcss/lib/result";
-import ClipLoader from "react-spinners/ClipLoader"
+import Link from "next/link"
 import { AiOutlineRetweet, AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { IoMdStats } from "react-icons/io";
+import { useSearchParams } from "next/navigation";
 
+export interface bookmark_type {
+    _id: string,
+    content: string,
+    userId: Profile,
+    likes: LikeInterface[],
+    comments: Comment[],
+    timestamp: string
+  }
 
-const Bookmark = ({bookmark}:any) => {
-
+const Bookmark = (bookmark:bookmark_type) => {
+    const searchParams = useSearchParams();
+    const profileId = searchParams.get("profileId");
   return (
     <div
     className="w-[95%] relative grid grid-cols-[8%_92%] gap-2
@@ -25,7 +32,7 @@ bg-slate-900 rounded-xl p-3 my-3
             {/* tweet header */}
             <div className="w-full flex items-center justify-evenly pr-1">
                 <Link className=" w-full flex items-center content-center"
-                href='/profile'
+                href={`/profile?profileId=${bookmark?.userId._id}`}
                 >
                     <p className="font-bold text-md">{bookmark?.userId?.username || ''}</p>
                     <p className="font-thin text-md mx-1">@{bookmark?.userId?.username}</p>
