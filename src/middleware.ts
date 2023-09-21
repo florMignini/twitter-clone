@@ -8,7 +8,7 @@ export function middleware(request: NextRequest) {
 
   //getting token session if it exist
   const token = request.cookies.get("sessionToken")?.value || "";
-  
+
   //redirect logged user
   if (publicPaths && token) {
     return NextResponse.redirect(new URL("/home", request.nextUrl));

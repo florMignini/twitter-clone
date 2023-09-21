@@ -1,7 +1,6 @@
 
 import "./globals.css";
 import type { Metadata } from "next";
-import {Toaster, toast } from "sonner"
 import { Providers } from "./providers";
 import { LeftSidebar, RightSidebar } from "@/components";
 import { cookies } from "next/headers";
@@ -27,8 +26,7 @@ export default function RootLayout({
       <body>
       
         <Providers>
-          <Toaster position="top-right"/>
-          <div className="w-full h-full justify-center items-center relative bg-black xl:px-8 2xl:px-40">
+        <div className="w-full h-full justify-center items-center relative bg-black xl:px-8 2xl:px-40">
             {!isSession ? (
               <>{children}</>
             ) : (
@@ -48,7 +46,6 @@ export default function RootLayout({
               </>
             )}
           </div>
-
         </Providers>
 
       </body>

@@ -4,13 +4,18 @@ import { Input } from "@nextui-org/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { signIn, useSession } from "next-auth/react";
 import axios from "axios";
-import { ColorRing, InfinitySpin } from "react-loader-spinner";
+import { InfinitySpin } from "react-loader-spinner";
 import Image from "next/image";
 import { FcGoogle } from "react-icons/fc";
-import { toast } from "sonner";
 
 const SigninPage = () => {
+
+//next auth session hook
+ const {data: session } = useSession()
+// console.log(session)
+  //form state
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -34,15 +39,15 @@ const SigninPage = () => {
   };
   return (
     <>
-      <div className="w-full h-screen grid grid-cols-2 bg-black ">
+      <div className="w-full h-screen flex items-center justify-center lg:grid lg:grid-cols-2 bg-black ">
         <Image
           src="https://images.pexels.com/photos/13240228/pexels-photo-13240228.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
           width={800}
           height={800}
           alt="XPicture"
-          className="w-[90%] h-[100%] flex items-center justify-center m-auto  object-contain"
+          className="hidden w-[90%] h-[100%] lg:flex items-center justify-center m-auto  object-contain"
         />
-        <div className="w-[100%] md:w-[80%] h-[45%] m-auto bg-blue-100/10 rounded-2xl flex flex-col items-center justify-center ">
+        <div className="w-[90%] h-[80%] md:w-[80%] lg:h-[45%] lg:m-auto bg-blue-100/10 rounded-2xl flex flex-col items-center justify-center ">
           {error ? (
             <h6 className="text-[#f9070f] text-center p-2 font-thin text-xs">
               {error}
@@ -50,7 +55,7 @@ const SigninPage = () => {
           ) : (
             ""
           )}
-          <div className="w-[90%] h-[85%] flex items-center justify-start flex-col mt-2">
+          <div className="w-[95%] h-[95%] flex items-center justify-center flex-col">
             <h2 className="w-[80%] h-[10%] flex items-center justify-center text-2xl mb-4 font-semibold text-blue-100/30 m-1">
               Welcome back to X-Clone
             </h2>
@@ -94,7 +99,9 @@ const SigninPage = () => {
                   Register
                 </Link>{" "}
               </h2>
-              <button className="w-[30%] h-7 p-2 flex items-center justify-between bg-blue-700 rounded-md">
+              <button className="w-[30%] h-7 p-2 flex items-center justify-between bg-blue-700 rounded-md"
+                onClick={() => signIn('google', { callbackUrl: '/home' })}
+              >
                 <h6 className="w-[80%] text-xs font-bold ">Sign in with</h6>
                 <FcGoogle className="w-[20%]" />
               </button>
