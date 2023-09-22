@@ -11,10 +11,9 @@ import Image from "next/image";
 import { FcGoogle } from "react-icons/fc";
 
 const SigninPage = () => {
-
-//next auth session hook
- const {data: session } = useSession()
-// console.log(session)
+  //next auth session hook
+  const { data: session } = useSession();
+  // console.log(session)
   //form state
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -28,8 +27,8 @@ const SigninPage = () => {
     setLoading(true);
     try {
       const res = await axios.post("/api/users/signin", formData);
-      // redirect('/')
       router.push("/");
+      router.refresh();
     } catch (error: any) {
       console.log(error?.response?.data.error);
       setTimeout(() => {
@@ -100,8 +99,9 @@ const SigninPage = () => {
                   Register
                 </Link>{" "}
               </h2>
-              <button className="w-[30%] h-7 p-2 flex items-center justify-between bg-blue-700 rounded-md"
-                onClick={() => signIn('google', { callbackUrl: '/' })}
+              <button
+                className="w-[30%] h-7 p-2 flex items-center justify-between bg-blue-700 rounded-md"
+                onClick={() => signIn("google", { callbackUrl: "/" })}
               >
                 <h6 className="w-[80%] text-xs font-bold ">Sign in with</h6>
                 <FcGoogle className="w-[20%]" />

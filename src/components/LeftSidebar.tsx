@@ -1,7 +1,7 @@
 'use client'
 import Link from "next/link";
 import axios from 'axios';
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { BsTwitter } from "react-icons/bs";
 import { AiOutlineLogout } from "react-icons/ai";
 import { nav_items } from "../../data/navigation-items";
@@ -17,6 +17,7 @@ export const LeftSidebar = () => {
   const logOut = async () => {
     try {
       const logout = await axios.get('/api/users/logout')
+      router.refresh()
       router.push('/signin')
     } catch (error) {
       console.log(error)
