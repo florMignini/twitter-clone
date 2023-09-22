@@ -5,7 +5,7 @@ import useGetTweet from "@/helpers/useGetTweet";
 import Tweet from "@/app/client_components/Tweet";
 import { Profile, PublishComment } from "@/components";
 import CommentModal from "@/components/CommentModal";
-import { Tweet as TweetType } from "@/app/home/page";
+import { Tweet as TweetType } from "@/app/page";
 import { BiArrowBack } from "react-icons/bi";
 import Comment from "@/components/Comment";
 

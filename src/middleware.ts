@@ -14,7 +14,7 @@ export function middleware(request: NextRequest) {
 
   //redirect logged user
   if (publicPaths && token /* && session */) {
-    return NextResponse.redirect(new URL("/home", request.nextUrl));
+    return NextResponse.redirect(new URL("/", request.nextUrl));
   }
   //otherwise
   if (!publicPaths && !token /* && !session */) {
@@ -24,5 +24,5 @@ export function middleware(request: NextRequest) {
 
 
 export const config = {
-  matcher: ["/home", "/signin", "/signup"],
+  matcher: ["/", "/signin", "/signup"],
 };

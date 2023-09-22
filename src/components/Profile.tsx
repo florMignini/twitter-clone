@@ -27,7 +27,7 @@ const Profile = () => {
         >
           <BiArrowBack className="w-5 h-5" />
         </button>
-        <h1 className="text-2xl font-semibold">{profileInfo.username}</h1>
+        <h1 className="text-2xl font-semibold">{profileInfo?.username}</h1>
       </div>
       {/* user section */}
       <div className="w-[100%] h-[50%] flex flex-col items-center justify-between">
@@ -43,8 +43,8 @@ const Profile = () => {
       </div>
       <div className="w-[100%] h-[40%] relative">
         <div className="absolute top-10 left-2">
-          <h3 className="text-xl">{profileInfo.username}</h3>
-          <p className="font-thin">{`@${profileInfo.username}`}</p>
+          <h3 className="text-xl">{profileInfo?.username}</h3>
+          <p className="font-thin">{`@${profileInfo?.username}`}</p>
         </div>
       </div>
       {/* user twitter section */}

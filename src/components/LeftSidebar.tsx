@@ -23,7 +23,7 @@ export const LeftSidebar = () => {
     }
   };
   return (
-    <section className="w-[20%] md:w-[160px] lg:w-[190px] xl:w-[210px] fixed h-screen my-2 rounded-xl flex flex-col justify-between text-xl lg:py-2 bg-slate-900">
+    <section className="w-[20%] md:w-[160px] lg:w-[190px] xl:w-[210px] fixed h-screen my-2 rounded-xl flex flex-col justify-between text-xl lg:py-2 ">
       <div className="md:w-[90%] items-center justify-center flex flex-col mx-auto py-2">
         <Link
           href={"/"}

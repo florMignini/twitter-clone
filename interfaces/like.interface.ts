@@ -1,4 +1,4 @@
-import { Tweet } from "@/app/home/page";
+import { Tweet } from "@/app/page";
 import { Profile } from ".";
 
 export interface LikeInterface {

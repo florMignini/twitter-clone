@@ -2,7 +2,7 @@
 
 import { Input } from "@nextui-org/react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { useState } from "react";
 import { signIn, useSession } from "next-auth/react";
 import axios from "axios";
@@ -28,7 +28,8 @@ const SigninPage = () => {
     setLoading(true);
     try {
       const res = await axios.post("/api/users/signin", formData);
-      router.push("/home");
+      // redirect('/')
+      router.push("/");
     } catch (error: any) {
       console.log(error?.response?.data.error);
       setTimeout(() => {
@@ -100,7 +101,7 @@ const SigninPage = () => {
                 </Link>{" "}
               </h2>
               <button className="w-[30%] h-7 p-2 flex items-center justify-between bg-blue-700 rounded-md"
-                onClick={() => signIn('google', { callbackUrl: '/home' })}
+                onClick={() => signIn('google', { callbackUrl: '/' })}
               >
                 <h6 className="w-[80%] text-xs font-bold ">Sign in with</h6>
                 <FcGoogle className="w-[20%]" />
