@@ -2,10 +2,9 @@ import { useSession } from "next-auth/react";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-// This function can be marked `async` if using `await` inside
 export function middleware(request: NextRequest) {
   //google session
- /*  const { data: session } = useSession()
+/*   const { data: session } = useSession()
   console.log(session) */
   const path = request.nextUrl.pathname;
   const publicPaths = path === "/signin" || path === "/signup";
@@ -23,7 +22,7 @@ export function middleware(request: NextRequest) {
   }
 }
 
-// See "Matching Paths" below to learn more
+
 export const config = {
   matcher: ["/home", "/signin", "/signup"],
 };
