@@ -8,11 +8,10 @@ import dayjs from "dayjs";
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { AiFillHeart, AiOutlineHeart, AiOutlineRetweet } from 'react-icons/ai';
 import axios from 'axios';
-import useGetLikes from '@/helpers/useGetLikes';
 import { useRouter } from 'next/navigation';
 import { useGetSessionData } from '@/helpers';
-import useGetTweet from '@/helpers/useGetTweet';
 import Link from 'next/link';
+import { Tweet as tweetType} from '../../../interfaces';
 
 
 dayjs.extend(relativeTime)
@@ -23,24 +22,24 @@ export interface Like {
     _id: string
 }
 
-/* cambiar any */
-const Tweet = ({ tweet }: any) => {
+const Tweet = ( tweet : tweetType) => {
+
     const router = useRouter()
     //bringing user session data for like assing
     const userQuery = useGetSessionData()
 
     const likeTweet = async (userId: string, tweetId: string) => {
         await axios.post('/api/likes/like', { userId, tweetId })
-        router.push('/')
+        router.refresh()
     }
     
     const unLikeTweet = async(userId: string, tweetId: string) => {
         await axios.post('/api/likes/unlike', { userId, tweetId })
-        router.push('/')
+        router.refresh()
     }
     const addBookmark = async(userId:string, tweetId:string) => {
         await axios.post('/api/bookmarks/add', { userId, tweetId })
-        // router.push('/')
+         router.refresh()
     }
     //bring the userId from session like if it exist
     const result = tweet?.likes?.filter((like: Like) => like.userId === userQuery.data?.data.profileInfo._id)[0]?.userId;
@@ -99,7 +98,7 @@ items-center justify-center hover:bg-blue-800/20
           ">
                         <BsChat />
                         {
-                            tweet?.comments.length > 0 ? <p className='ml-1 text-xs'>{tweet?.comments.length}</p> : " "
+                            tweet?.comments?.length > 0 ? <p className='ml-1 text-xs'>{tweet?.comments.length}</p> : " "
                         }
                     </Link>
                     <div className="flex items-center justify-center 

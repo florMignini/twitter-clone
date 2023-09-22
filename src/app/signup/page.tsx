@@ -33,7 +33,7 @@ const LoginPage = () => {
       }
   }
   return (
-    <div className='w-full h-screen lg:grid lg:grid-cols-2 bg-black '>
+    <div className='w-full h-screen flex items-center justify-center lg:grid lg:grid-cols-2 bg-black '>
         <Image
       src='https://helios-i.mashable.com/imagery/articles/078aX2gLMgAlz2tiIeZdVVL/hero-image.fill.size_1248x702.v1691114328.jpg'
       width={800}
@@ -41,11 +41,11 @@ const LoginPage = () => {
       alt="XPicture"
       className="hidden w-[90%] lg:flex h-screen items-center justify-center m-auto object-contain"
       />
-        <div className="w-[90%] md:w-[80%] h-[75%] m-auto rounded-2xl flex items-start justify-center ">
+        <div className="w-[100%] h-[80%] md:w-[80%] lg:w-[100%] lg:h-[55%] lg:m-auto  rounded-2xl lg:flex lg:flex-col items-center justify-center ">
           <div className="w-[100%] h-[95%] flex items-center justify-center flex-col my-auto">
-          <h1 className="w-[90%] h-[10%] flex items-center justify-center text-3xl mb-4 font-semibold text-white m-3">Join X-Clone</h1>
+          <h1 className="w-[100%] h-[10%] flex items-center justify-center text-3xl mb-4 font-semibold text-white m-3">Join X-Clone</h1>
           {/* form section */}
-          <div className="w-[100%] h-[50%] flex flex-col items-center justify-start">
+          <div className="w-[90%] h-[50%] flex flex-col items-center justify-start">
             {/* email section */}
           <div className="w-[80%] h-[100px] rounded-md flex flex-col">
           <Input
@@ -89,7 +89,7 @@ const LoginPage = () => {
               className="font-bold underline"
               href="/signin">Sign In</Link>{" "}
             </h2>
-            <button className="w-[35%] h-7 p-1 flex items-center justify-center bg-blue-700 rounded-md">
+            <button className="w-[30%] h-7 p-1 flex items-center justify-center bg-blue-700 rounded-md">
               <h6 className="w-[80%] text-xs font-bold ">Sign up with</h6>
               <FcGoogle
               className="w-[20%]"

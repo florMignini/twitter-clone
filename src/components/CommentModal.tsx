@@ -54,7 +54,7 @@ const modal: JSX.Element | null = showModal === 'y' ? (
         X
       </button>
         </div>
-        <Tweet tweet={tweet} />
+        <Tweet {...tweet} />
       </div>
       <div className="p-2">
         {children}

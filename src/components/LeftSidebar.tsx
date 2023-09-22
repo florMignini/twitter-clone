@@ -1,9 +1,8 @@
 'use client'
 import Link from "next/link";
 import axios from 'axios';
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { BsTwitter } from "react-icons/bs";
-import { AiOutlineLogout } from "react-icons/ai";
 import { nav_items } from "../../data/navigation-items";
 import UserAvatar from "./UserAvatar";
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/react";
@@ -12,7 +11,7 @@ import { useGetSessionData } from "@/helpers";
 export const LeftSidebar = () => {
   const userQuery = useGetSessionData()
   const userProfileId = userQuery.data?.data?.profileInfo._id
-  // console.log(userQuery.data?.data?.profileInfo._id)
+
   const router = useRouter();
   const logOut = async () => {
     try {
@@ -34,7 +33,7 @@ export const LeftSidebar = () => {
         </Link>
         {nav_items.map((nav_item) => (
           <Link
-            className="hover:bg-slate-900 flex items-center w-[90%] h-fit justify-start space-x-5 rounded-3xl px-2 py-3 lg:py-4"
+            className="hover:bg-slate-900 flex items-center w-[100%] h-fit justify-start space-x-5 rounded-3xl px-2 py-3 lg:py-4"
             href={`/${nav_item.title.toLowerCase()}?profileId=${userProfileId}`}
             key={nav_item.title}
           >
@@ -55,7 +54,7 @@ export const LeftSidebar = () => {
         >
           <DropdownTrigger>
           <div
-          className="w-[100%] flex items-center justify-around space-x-1 rounded-full hover:bg-white/10
+          className="w-[80%] flex items-center justify-around space-x-1 rounded-full hover:bg-white/10
    transition duration-200 my-5 cursor-pointer"
         >
           <UserAvatar />

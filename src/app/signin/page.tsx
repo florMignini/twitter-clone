@@ -60,7 +60,7 @@ const SigninPage = () => {
               Welcome back to X-Clone
             </h1>
             {/* form section */}
-            <div className="w-[100%] h-[40%] flex flex-col items-center justify-start">
+            <div className="w-[90%] h-[40%] flex flex-col items-center justify-start">
               {/* email section */}
               <div className="w-[80%] h-[100px] rounded-md flex flex-col">
                 <Input

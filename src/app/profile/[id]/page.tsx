@@ -18,11 +18,21 @@ export interface CommentInterface {
   userId: string;
   _id: string;
 }
+interface Params {
+  params: {
+    id: string
+  },
+searchParams: {
+  showModal: string
+}
+}
 
-const SingleTweet = ({ params }: any) => {
-  const router = useRouter();
-  const { data, error } = useGetTweet(params.id);
-// console.log(data?.data.singleTweet)
+const SingleTweet = ( {params}:Params ) => {
+  const {id} = params
+  const router = useRouter(); 
+  
+  const { data, error } = useGetTweet(id);
+
 
   const onClose = () => {
     console.log(`close clicked`);
@@ -56,11 +66,11 @@ const SingleTweet = ({ params }: any) => {
       </div>
       {error ? <h1>Something goes wrong with server</h1> : null}
 
-      <Tweet tweet={data?.data.singleTweet} />
+      <Tweet {...data?.data.singleTweet} />
       <h6 className="p-2">Replies to @{data?.data.singleTweet.userId.username}</h6>
       {data?.data.singleTweet.comments.map((comment: CommentInterface) => (
         <Comment
-          key={comment._id} content={comment.content} image={comment.image} timestamp={comment.timestamp} tweetId={comment.tweetId} userId={comment.userId} _id={comment._id}        
+          key={comment._id} {...comment}        
         />
       ))}
     </div>
