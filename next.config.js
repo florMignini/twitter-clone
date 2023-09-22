@@ -8,6 +8,7 @@ const nextConfig = {
     domains: [
       "images.pexels.com",
       "www.vecteezy.com",
+      "helios-i.mashable.com"
     ],
   },
 }

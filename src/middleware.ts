@@ -1,8 +1,12 @@
+import { useSession } from "next-auth/react";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 // This function can be marked `async` if using `await` inside
 export function middleware(request: NextRequest) {
+  //google session
+ /*  const { data: session } = useSession()
+  console.log(session) */
   const path = request.nextUrl.pathname;
   const publicPaths = path === "/signin" || path === "/signup";
 
@@ -10,11 +14,11 @@ export function middleware(request: NextRequest) {
   const token = request.cookies.get("sessionToken")?.value || "";
 
   //redirect logged user
-  if (publicPaths && token) {
+  if (publicPaths && token /* && session */) {
     return NextResponse.redirect(new URL("/home", request.nextUrl));
   }
   //otherwise
-  if (!publicPaths && !token) {
+  if (!publicPaths && !token /* && !session */) {
     return NextResponse.redirect(new URL("/signin", request.nextUrl));
   }
 }

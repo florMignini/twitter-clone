@@ -41,13 +41,13 @@ const SigninPage = () => {
     <>
       <div className="w-full h-screen flex items-center justify-center lg:grid lg:grid-cols-2 bg-black ">
         <Image
-          src="https://images.pexels.com/photos/13240228/pexels-photo-13240228.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+          src="https://helios-i.mashable.com/imagery/articles/078aX2gLMgAlz2tiIeZdVVL/hero-image.fill.size_1248x702.v1691114328.jpg"
           width={800}
           height={800}
           alt="XPicture"
           className="hidden w-[90%] h-[100%] lg:flex items-center justify-center m-auto  object-contain"
         />
-        <div className="w-[90%] h-[80%] md:w-[80%] lg:h-[45%] lg:m-auto bg-blue-100/10 rounded-2xl flex flex-col items-center justify-center ">
+        <div className="w-[100%] h-[80%] md:w-[80%] lg:w-[100%] lg:h-[55%] lg:m-auto  rounded-2xl lg:flex lg:flex-col items-center justify-center ">
           {error ? (
             <h6 className="text-[#f9070f] text-center p-2 font-thin text-xs">
               {error}
@@ -55,10 +55,10 @@ const SigninPage = () => {
           ) : (
             ""
           )}
-          <div className="w-[95%] h-[95%] flex items-center justify-center flex-col">
-            <h2 className="w-[80%] h-[10%] flex items-center justify-center text-2xl mb-4 font-semibold text-blue-100/30 m-1">
+          <div className="w-[90%] h-[95%] flex items-center justify-center flex-col">
+            <h1 className="w-[80%] h-[10%] flex items-center justify-center text-3xl mb-4 font-semibold text-white m-1">
               Welcome back to X-Clone
-            </h2>
+            </h1>
             {/* form section */}
             <div className="w-[100%] h-[40%] flex flex-col items-center justify-start">
               {/* email section */}
@@ -93,7 +93,7 @@ const SigninPage = () => {
               </div>
             </div>
             <div className="w-[80%] h-[10%] flex items-center justify-between">
-              <h2 className="text-blue-100/30 mr-1 text-sm">
+              <h2 className="text-white mr-1 text-sm">
                 You have no account?{" "}
                 <Link className="font-bold underline" href="/signup">
                   Register

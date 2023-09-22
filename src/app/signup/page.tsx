@@ -33,17 +33,17 @@ const LoginPage = () => {
       }
   }
   return (
-    <div className='w-full h-screen grid grid-cols-2 bg-black '>
+    <div className='w-full h-screen lg:grid lg:grid-cols-2 bg-black '>
         <Image
-      src='https://images.pexels.com/photos/13240228/pexels-photo-13240228.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+      src='https://helios-i.mashable.com/imagery/articles/078aX2gLMgAlz2tiIeZdVVL/hero-image.fill.size_1248x702.v1691114328.jpg'
       width={800}
       height={1000}
       alt="XPicture"
-      className="w-[90%] h-screen flex items-center justify-center m-auto  object-contain"
+      className="hidden w-[90%] lg:flex h-screen items-center justify-center m-auto object-contain"
       />
-        <div className="w-[100%] md:w-[80%] h-[45%] m-auto bg-blue-100/10 rounded-2xl flex items-start justify-center ">
-          <div className="w-[90%] h-[95%] flex items-center justify-center flex-col my-auto">
-          <h2 className="w-[80%] h-[10%] flex items-center justify-center text-2xl mb-4 font-semibold text-blue-100/30 m-3">Join X-Clone</h2>
+        <div className="w-[90%] md:w-[80%] h-[75%] m-auto rounded-2xl flex items-start justify-center ">
+          <div className="w-[100%] h-[95%] flex items-center justify-center flex-col my-auto">
+          <h1 className="w-[90%] h-[10%] flex items-center justify-center text-3xl mb-4 font-semibold text-white m-3">Join X-Clone</h1>
           {/* form section */}
           <div className="w-[100%] h-[50%] flex flex-col items-center justify-start">
             {/* email section */}
@@ -84,7 +84,7 @@ const LoginPage = () => {
           </div>
           </div>
           <div className="w-[80%] h-[10%] flex p-1 items-center justify-between">
-            <h2 className="text-blue-100/30 m-1 text-sm">
+            <h2 className="text-white m-1 text-sm md:text-xs">
               Already registered? <Link 
               className="font-bold underline"
               href="/signin">Sign In</Link>{" "}
