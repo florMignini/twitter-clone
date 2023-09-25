@@ -6,9 +6,8 @@ import { useGetSessionData } from "@/helpers";
 
 export default function UserAvatar() {
 
-  const { data, error } = useGetSessionData()
+  const sessionProfile = useGetSessionData()
   
-  let sessionProfile = data?.data.profileInfo
   return (
     <div className="w-[80%] h-[10%] m-1 flex items-center justify-center">
       <User   

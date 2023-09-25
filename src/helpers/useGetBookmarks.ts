@@ -1,15 +1,15 @@
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 
-const useGetBookmarks = () => {
+const useGetBookmarks = (userId:string) => {
   const allBookmarksQuery = useQuery({
     queryKey: ["allBookmarks"],
     queryFn: async () => {
-      const response = await axios.get("/api/bookmarks/get");
+      const response = await axios.get(`/api/bookmarks/getAllByUser/${userId}`);
       return response;
     },
   });
-//   console.log(allBookmarksQuery?.data?.data)
+
   return allBookmarksQuery;
 };
 

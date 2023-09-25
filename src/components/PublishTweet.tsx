@@ -29,12 +29,12 @@ const router = useRouter()
         tweetContent: "",
         tweetImage: ""
       })
-      router.refresh()
-      router.push('/')
     } catch (error) {
       console.log(error)
     }
     
+    router.refresh()
+    router.push('/')
   };
   return (
     <form onSubmit={handleSubmit}

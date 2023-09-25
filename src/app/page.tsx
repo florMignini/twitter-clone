@@ -5,6 +5,7 @@ import Tweet, { Like } from "@/app/client_components/Tweet";
 import PublishTweet from "@/components/PublishTweet";
 import { Profile } from "../../interfaces";
 import { Tweet as tweetType } from "../../interfaces";
+import { TailSpin } from "react-loader-spinner";
 
 export interface Tweet {
   comments: Comment[];
@@ -16,7 +17,7 @@ export interface Tweet {
 }
 
 const page = () => {
-  const { data, error } = useGetTweets();
+  const { data, error, isLoading } = useGetTweets();
 
   return (
     <main className="w-full h-full min-h-screen border-l-[0.1px] border-r-[0.1px] border-slate-700">
@@ -34,15 +35,25 @@ const page = () => {
           <PublishTweet placeholder="What is happening?!" BtnTitle="Post" />
         </div>
       </div>
-
-      {/* Main content */}
-      <div className="flex flex-col items-center justify-center my-4">
-        {error ? <h1>Something goes wrong with server</h1> : null}
-        {data?.data.allTweets &&
-          data?.data.allTweets.map((tweet: tweetType) => (
-            <Tweet key={tweet._id} {...tweet} />
-          ))}
-      </div>
+      {isLoading ? (
+        <div className="w-full h-screen flex pt-[50%] items-start justify-center">
+          <TailSpin
+            height="40"
+            width="40"
+            color="#319bf0"
+            radius="1"
+            visible={true}
+          />
+        </div>
+      ) : (
+        <div className="flex flex-col items-center justify-center my-4">
+          {error ? <h1>Something goes wrong with server</h1> : null}
+          {data?.data.allTweets &&
+            data?.data.allTweets.map((tweet: tweetType) => (
+              <Tweet key={tweet._id} {...tweet} />
+            ))}
+        </div>
+      )}
     </main>
   );
 };

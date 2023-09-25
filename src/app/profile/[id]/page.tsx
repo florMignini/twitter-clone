@@ -35,7 +35,7 @@ const SingleTweet = ( {params}:Params ) => {
 
 
   const onClose = () => {
-    console.log(`close clicked`);
+    router.push(`/profile/${id}`)
   };
   const onPost = () => {
     console.log(`post clicked`);

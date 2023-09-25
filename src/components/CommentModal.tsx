@@ -39,9 +39,10 @@ const clickPost = () => {
 
 const modal: JSX.Element | null = showModal === 'y' ? (
   //main modal structure
-  <dialog
+    <div className="absolute top-0 left-0 w-full h-screen backdrop-blur-md">
+      <dialog
   ref={modalRef}
-  className="fixed top-50 left-50 -translate-x-50 -translate-y-50 rounded-2xl z-10 backdrop-blur-xl  bg-slate-900"
+  className="fixed top-50 backdrop-blur-xl left-50 -translate-x-50 -translate-y-50 rounded-2xl z-10 bg-slate-900"
   >
     {/* main content */}
     <div className="w-[600px] max-w-full flex flex-col text-white ">
@@ -54,13 +55,14 @@ const modal: JSX.Element | null = showModal === 'y' ? (
         X
       </button>
         </div>
-        <Tweet {...tweet} />
+        {/* <Tweet {...tweet} /> */}
       </div>
       <div className="p-2">
         {children}
       </div>
     </div>
   </dialog>
+    </div>
 )
  : null
 

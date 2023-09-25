@@ -2,16 +2,16 @@ import { connectDB } from "@/db/config";
 
 import { NextRequest, NextResponse } from "next/server";
 
-import Bookmark from "../../../../../models/bookmark";
+import Bookmark from "../../../../../../models/bookmark";
 
 connectDB();
 
-export const GET = async (req: NextRequest) => {
+export const GET = async (req: NextRequest, context: { params: any }) => {
   try {
-
-    const allBookmarks = await Bookmark.find({})
+    
+    const bookmarkByUser = await Bookmark.find({ userId: context.params.id })
       .select("-__v")
-      .populate("userId", "-password -__v")
+      // .populate("userId", "-password -__v")
       .populate({
         path: "tweets",
         select: "-__v",
@@ -20,8 +20,7 @@ export const GET = async (req: NextRequest) => {
           select: "-password -__v"
         }
       })
-
-    return NextResponse.json({ allBookmarks }, { status: 200 });
+    return NextResponse.json({ bookmarkByUser }, { status: 200 });
   } catch (error: any) {
     console.log(error);
     return NextResponse.json({ error: error.message }, { status: 500 });

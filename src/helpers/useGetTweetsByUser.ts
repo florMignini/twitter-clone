@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 
-const useGetTweetsByUser = (tweetId: any) => {
+const useGetTweetsByUser = (tweetId: string) => {
   const tweetsByUserQuery = useQuery({
     queryKey: ["tweetsByUser"],
     queryFn: async () => {

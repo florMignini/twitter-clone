@@ -7,11 +7,11 @@ import { nav_items } from "../../data/navigation-items";
 import UserAvatar from "./UserAvatar";
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/react";
 import { useGetSessionData } from "@/helpers";
+import { AiOutlineHome } from "react-icons/ai";
 
 export const LeftSidebar = () => {
   const userQuery = useGetSessionData()
-  const userProfileId = userQuery.data?.data?.profileInfo._id
-
+  
   const router = useRouter();
   const logOut = async () => {
     try {
@@ -31,10 +31,20 @@ export const LeftSidebar = () => {
         >
           <BsTwitter />
         </Link>
+        <Link
+            className="hover:bg-slate-900 flex items-center w-[100%] h-fit justify-start space-x-5 rounded-3xl px-2 py-3 lg:py-4"
+            href={`/`}
+            key="home"
+          >
+            <div className="w-full mx-9 lg:mx-0 text-3xl">
+              <AiOutlineHome />
+            </div>
+            <div className="hidden lg:flex md:min-w-full">Home</div>
+          </Link>
         {nav_items.map((nav_item) => (
           <Link
             className="hover:bg-slate-900 flex items-center w-[100%] h-fit justify-start space-x-5 rounded-3xl px-2 py-3 lg:py-4"
-            href={`/${nav_item.title.toLowerCase()}?profileId=${userProfileId}`}
+            href={`/${nav_item.title.toLowerCase()}?profileId=${userQuery?._id}`}
             key={nav_item.title}
           >
             <div className="w-full mx-9 lg:mx-0 text-3xl">

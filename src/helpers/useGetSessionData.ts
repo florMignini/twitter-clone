@@ -12,7 +12,7 @@ const useGetSessionData = () => {
         },
       });
       // console.log(userSessionQuery)
-      return userSessionQuery
+      return userSessionQuery.data?.data?.profileInfo
 }
 
 export default useGetSessionData

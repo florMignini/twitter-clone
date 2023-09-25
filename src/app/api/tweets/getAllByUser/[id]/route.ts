@@ -13,7 +13,7 @@ export const GET = async (req: NextRequest, context: { params: any }) => {
       .populate("userId", "-password -__v")
       .populate("likes", "-tweetId -__v ")
       .populate("comments", "-__v ");
-console.log(tweetsByUser)
+
     return NextResponse.json({ tweetsByUser }, { status: 200 });
   } catch (error: any) {
     console.log(error);
