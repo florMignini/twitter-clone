@@ -25,7 +25,7 @@ export interface Like {
 
 const Tweet = (tweet: tweetType) => {
   const router = useRouter();
-  //bringing user session data 
+  //bringing user session data
   const userQuery = useGetSessionData();
 
   const { data } = useGetBookmarks(userQuery?._id);
@@ -44,23 +44,30 @@ const Tweet = (tweet: tweetType) => {
   const deleteBookmark = async (userId: string, tweetId: string) => {
     await axios.post("/api/bookmarks/deleteBookmark", { userId, tweetId });
   };
+  const addView = async(userId: string, tweetId: string) => {
+    await axios.post("/api/tweets/addView", { userId, tweetId });
+  };
   //bring the userId from session like if it exist
   const likesResult = tweet?.likes?.filter(
     (like: Like) => like.userId === userQuery._id
   )[0]?.userId;
   //bring the userId from session like if it exist
-   const bookmarksResult = bookmarkData?.tweets
+  const bookmarksResult = bookmarkData?.tweets
     ?.filter((bookmark: any) => bookmark._id === tweet?._id)
     .map((bookmarkId: any) => {
       return bookmarkId?._id;
     });
-
+// const views = 
   return (
-    <div
+    <button
       key={tweet?._id}
       className="w-[95%] relative grid grid-cols-[8%_92%] gap-2
       bg-slate-900 rounded-xl p-3 my-3
       "
+      onClick={() => {
+        addView(userQuery._id, tweet?._id);
+        window.location.reload();
+      }}
     >
       <div>
         <div className="w-10 h-10 bg-slate-600 rounded-full" />
@@ -132,6 +139,7 @@ items-center justify-center hover:bg-blue-800/20
             font-bold
             transition duration-200
             text-md
+            p-1
             hover:bg-green-400/20
           hover:text-green-600
           rounded-full h-8 w-8"
@@ -143,6 +151,7 @@ items-center justify-center hover:bg-blue-800/20
             font-bold
             transition duration-200
             text-md
+            p-1
             hover:bg-red-400/20
           hover:text-red-600
           rounded-full h-8 w-8"
@@ -151,10 +160,7 @@ items-center justify-center hover:bg-blue-800/20
               <button
                 className="flex items-center justify-center gap-1 text-red-500"
                 onClick={() => {
-                  unLikeTweet(
-                    userQuery._id,
-                    tweet?._id
-                  );
+                  unLikeTweet(userQuery._id, tweet?._id);
                   window.location.reload();
                 }}
               >
@@ -177,56 +183,64 @@ items-center justify-center hover:bg-blue-800/20
             )}
           </div>
           <div
-            className="flex items-center justify-center 
-            font-bold
-            transition duration-200
-            text-md
-            hover:bg-blue-400/20
-          hover:text-blue-600
-          rounded-full h-8 w-8"
-          >
-            <IoMdStats />
-          </div>
+        className="flex items-center justify-center 
+        font-bold
+        transition duration-200
+        text-md
+        p-1
+        hover:bg-blue-400/20
+      hover:text-blue-600
+      rounded-full h-8 w-8"
+      >
           {
-             bookmarksResult?.includes(tweet?._id) ? (
-              <button
-                onClick={() => {
-                  deleteBookmark(userQuery._id, tweet?._id);
-                  window.location.reload();
-                }}
-                className="flex items-center justify-center 
-            font-bold
-            transition duration-200
-            text-md
-            hover:bg-blue-400/20
-          hover:text-blue-600
-          rounded-full h-8 w-8"
-              >
-                <BsBookmarkFill />
-              </button>
+           tweet?.views && tweet?.views.length > 0 ? (
+            <>
+            <IoMdStats />
+            <p className="ml-1 text-xs">{tweet?.views.length}</p>
+            </>
             ) : (
-              <button
-                onClick={() => {
-                  addBookmark(userQuery._id, tweet?._id);
-                  window.location.reload();
-                }}
-                className="flex items-center justify-center 
-            font-bold
-            transition duration-200
-            text-md
-            hover:bg-blue-400/20
-          hover:text-blue-600
-          rounded-full h-8 w-8"
-              >
-                <BsBookmark />
-              </button>
+              <IoMdStats />
             )
           }
+          </div>
+          {bookmarksResult?.includes(tweet?._id) ? (
+            <button
+              onClick={() => {
+                deleteBookmark(userQuery._id, tweet?._id);
+                window.location.reload();
+              }}
+              className="flex items-center justify-center 
+            font-bold
+            transition duration-200
+            text-md
+            hover:bg-blue-400/20
+          hover:text-blue-600
+          rounded-full h-8 w-8"
+            >
+              <BsBookmarkFill />
+            </button>
+          ) : (
+            <button
+              onClick={() => {
+                addBookmark(userQuery._id, tweet?._id);
+                window.location.reload();
+              }}
+              className="flex items-center justify-center 
+            font-bold
+            transition duration-200
+            text-md
+            hover:bg-blue-400/20
+          hover:text-blue-600
+          rounded-full h-8 w-8"
+            >
+              <BsBookmark />
+            </button>
+          )}
         </div>
         {/* bottom icons */}
       </div>
       {/* twitt content */}
-    </div> //twitt container
+    </button> //twitt container
   );
 };
 

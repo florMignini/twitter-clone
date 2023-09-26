@@ -33,8 +33,7 @@ const router = useRouter()
       console.log(error)
     }
     
-    router.refresh()
-    router.push('/')
+    window.location.reload();
   };
   return (
     <form onSubmit={handleSubmit}

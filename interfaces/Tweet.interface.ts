@@ -8,4 +8,5 @@ export interface Tweet {
   likes: Like[];
   comments: Comment;
   timestamp: string;
+  views: Profile[]
 }
