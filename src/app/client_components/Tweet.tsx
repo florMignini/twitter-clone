@@ -49,7 +49,7 @@ const Tweet = (tweet: tweetType) => {
   };
   //bring the userId from session like if it exist
   const likesResult = tweet?.likes?.filter(
-    (like: Like) => like.userId === userQuery._id
+    (like: Like) => like.userId === userQuery?._id
   )[0]?.userId;
   //bring the userId from session like if it exist
   const bookmarksResult = bookmarkData?.tweets
@@ -66,7 +66,6 @@ const Tweet = (tweet: tweetType) => {
       "
       onClick={() => {
         addView(userQuery._id, tweet?._id);
-        window.location.reload();
       }}
     >
       <div>

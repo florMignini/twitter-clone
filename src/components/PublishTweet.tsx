@@ -1,43 +1,46 @@
-'use client'
+"use client";
 
 import axios from "axios";
-import { revalidatePath } from "next/cache";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { AiOutlinePicture } from "react-icons/ai";
 interface FormData {
-  tweetContent: string,
-  tweetImage: string
+  tweetContent: string;
+  tweetImage: any;
 }
 type Props = {
-  placeholder: string,
-  BtnTitle: string
-}
-const PublishTweet = ({placeholder, BtnTitle}:Props) => {
-const router = useRouter()
- 
-    const [formData, setFormData] = useState<FormData>({
-      tweetContent: "",
-      tweetImage: "",
-    });
-    const handleSubmit = async(e: { preventDefault: () => void; }) => {
-      e.preventDefault();
+  placeholder: string;
+  BtnTitle: string;
+};
+const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
+  const router = useRouter();
+
+  const [formData, setFormData] = useState<FormData>({
+    tweetContent: "",
+    tweetImage: null,
+  });
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
 
     try {
-      const res = await axios.post('/api/tweets/publish', formData)
+      const content = await axios.post("/api/tweets/publish", formData.tweetContent);
+      const image = await axios.post("/api/tweets/upload", formData.tweetImage);
+      console.log(image)
       setFormData({
         tweetContent: "",
-        tweetImage: ""
-      })
+        tweetImage: null
+      });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-    
-    window.location.reload();
+
+    // window.location.reload();
   };
+// console.log(formData.tweetImage)
   return (
-    <form onSubmit={handleSubmit}
-    className="h-[190px] flex flex-col items-start justify-between "
+    <form
+      onSubmit={handleSubmit}
+      className="h-[190px] flex flex-col items-start justify-between "
     >
       <div className="w-full mx-1 overflow-clip">
         <input
@@ -50,25 +53,35 @@ const router = useRouter()
         placeholder:text-gray-600 overflow-clip
         outline-none border-none border-b-[0.1px] px-2 py-2 text-xl font-light"
           id="tweetInput"
-          onChange={(e) => setFormData({...formData, tweetContent: e.target.value})}
+          onChange={(e) =>
+            setFormData({ ...formData, tweetContent: e.target.value })
+          }
         />
       </div>
       <div>{/* everyone can reply */}</div>
       <div className=" w-full justify-between items-center flex">
         <div></div>
-        <div className="w-[100%] h-[10%] flex items-center justify-between p-2">
-          <button className="w-8 h-8 flex items-center justify-center text-blue-600 rounded-full hover:bg-blue-800/20">
-            <input className="hidden" name="tweetImage" type="file" id="image-upload" accept="image/*"
-          value={formData.tweetImage}
-          onChange={(e) => setFormData({...formData, tweetImage: e.target.value})}
+        <div className="w-[100%] h-[100%] flex items-center justify-between p-2">
+          <div
+            className="w-8 h-8 flex items-center justify-center text-blue-600 rounded-full hover:bg-blue-800/20"
+          >
+            <label htmlFor="files">
+              <AiOutlinePicture className="w-[100%] h-[100%]" />
+            </label>
+            <input
+              className="hidden w-8 h-8"
+              id="files"
+              type="file"
+              onChange={(e) => {
+                if (!e.target.files) return;
+                setFormData({ ...formData, tweetImage: e.target.files[0] });
+              }}
             />
-          <AiOutlinePicture 
-          className="w-[50%] h-[50%]" 
-          />
-          </button>
-          <button 
-          type="submit"
-          className="w-[20%] rounded-3xl bg-blue-600 mb-1 py-1 px-4 text-md hover:bg-opacity-70 transition duration-200">
+          </div>
+          <button
+            type="submit"
+            className="w-[20%] rounded-3xl bg-blue-600 mb-1 py-1 px-4 text-md hover:bg-opacity-70 transition duration-200"
+          >
             {BtnTitle}
           </button>
         </div>

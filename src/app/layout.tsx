@@ -17,6 +17,7 @@ export default function RootLayout({
 }) {
   const cookieStore = cookies();
   const isSession = cookieStore.get("sessionToken");
+  const isGoogleSession = cookieStore.get("next-auth.session-token");
 
   return (
     <html lang="en"
@@ -24,7 +25,7 @@ export default function RootLayout({
     >
       <body>
         <Providers>
-          {!isSession ? (
+          {!isSession && !isGoogleSession ? (
              <>{children}</>
           ) : (
             <div className=" w-full h-screen grid grid-cols-[20%,80%] xl:grid-cols-[20%,50%,30%] gap-1 relative md:px-4 2xl:px-40">

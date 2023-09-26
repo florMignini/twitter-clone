@@ -18,7 +18,7 @@ interface DecodedToken {
 export const POST = async (req: NextRequest) => {
   const userQuery = await getUserData(req);
   try {
-    const { tweetContent, tweetImage } = await req.json();
+    const { tweetContent} = await req.json();
 
     // create new Twitter
     const newTweet = new Tweet({
