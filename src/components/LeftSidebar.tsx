@@ -8,6 +8,7 @@ import UserAvatar from "./UserAvatar";
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/react";
 import { useGetSessionData } from "@/helpers";
 import { AiOutlineHome } from "react-icons/ai";
+import { signOut } from "next-auth/react";
 
 export const LeftSidebar = () => {
   const userQuery = useGetSessionData()
@@ -16,6 +17,7 @@ export const LeftSidebar = () => {
   const logOut = async () => {
     try {
       const logout = await axios.get('/api/users/logout')
+      signOut()
       router.refresh()
       router.push('/signin')
     } catch (error) {
@@ -73,7 +75,7 @@ export const LeftSidebar = () => {
           <DropdownMenu
             className=" text-white">
             <DropdownItem
-             onClick={logOut}
+              onClick={logOut}
             >Log out</DropdownItem>
           </DropdownMenu>
         </Dropdown>
