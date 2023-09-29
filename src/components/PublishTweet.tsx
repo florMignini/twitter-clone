@@ -1,6 +1,7 @@
 "use client";
 
 import axios from "axios";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { AiOutlinePicture } from "react-icons/ai";
@@ -19,15 +20,15 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
     tweetContent: "",
     tweetImage: null,
   });
+
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-let axiosConfig = {
-  headers: { "Content-Type": "multipart/form-data" },
-};
+// let axiosConfig = {
+//   headers: { "Content-Type": "multipart/form-data" },
+// };
     try {
-      const content = await axios.post("/api/tweets/publish", formData.tweetContent);
-      const image = await axios.post("/api/tweets/upload", formData.tweetImage, axiosConfig);
-      console.log(image)
+      const content = await axios.post("/api/tweets/publish", formData);
+     /*  const image = await axios.post("/api/tweets/upload", formData.tweetImage, axiosConfig); */
       setFormData({
         tweetContent: "",
         tweetImage: null

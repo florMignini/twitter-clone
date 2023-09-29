@@ -3,13 +3,13 @@ import User from "../../../../../models/user";
 import { NextRequest, NextResponse } from "next/server";
 
 import { getUserData } from "@/helpers/getUserData";
+import { getSession } from "next-auth/react"
 
 connectDB();
 
 export const GET = async (req: NextRequest) => {
   try {
     const profile = await getUserData(req);
-    console.log(profile);
     if (profile) {
       const profileInfo = await User.findOne({ _id: profile.id! }).select(
         "-password"

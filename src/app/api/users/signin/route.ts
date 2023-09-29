@@ -8,7 +8,7 @@ import User from "../../../../../models/user";
 
 connectDB();
 
-export const POST = async (req: NextRequest) => {
+export const POST = async (req: NextRequest, response:NextResponse) => {
   try {
     const body = await req.json();
 
@@ -69,11 +69,20 @@ export const POST = async (req: NextRequest) => {
         email,
         isGoogleSession: true,
       }).save();
-      NextResponse.json(
-        { message: `google session user successfully created` },
+     NextResponse.json(
+        { newUser },
         { status: 201 }
-      );
+      )
+      return newUser
     }
+    const googleResponse = NextResponse.json(
+      { userRes },
+      { status: 200 }
+      );
+      //setting google user session data in cookies
+      googleResponse.cookies.set("GoogleSessionEmail", JSON.stringify(userRes))
+      return googleResponse;
+  
   } catch (error: any) {
     NextResponse.json(
       {

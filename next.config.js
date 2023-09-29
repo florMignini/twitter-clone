@@ -1,9 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    experimental: {
-        serverActions: true
-    },
-    reactStrictMode: true,
+  experimental: {
+    serverActions: true,
+  },
+  reactStrictMode: true,
   images: {
     domains: [
       "https:/lh3.googleusercontent.com",
@@ -13,7 +13,7 @@ const nextConfig = {
       "www.vecteezy.com",
       "helios-i.mashable.com",
     ],
-  },
-}
+  }
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
