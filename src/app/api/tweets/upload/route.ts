@@ -3,20 +3,15 @@ import Tweet from "../../../../../models/tweet";
 
 import { NextRequest, NextResponse } from "next/server";
 
-
 connectDB();
 
 export const POST = async (req: any) => {
-
   try {
-    const data = await req.json();
+    const data = await req.formData();
 
-    console.log(data)
+    console.log(data);
 
-    return NextResponse.json(
-      { message: `image uploaded` },
-      { status: 201 }
-    );
+    return NextResponse.json({ message: `image uploaded` }, { status: 201 });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }

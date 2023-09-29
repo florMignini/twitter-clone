@@ -31,9 +31,6 @@ const SigninPage = () => {
       router.refresh();
     } catch (error: any) {
       console.log(error?.response?.data.error);
-      setTimeout(() => {
-        setError(error?.response?.data.error);
-      }, 2000);
     }
     setLoading(false);
   };

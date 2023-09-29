@@ -12,25 +12,24 @@ export default function UserAvatar() {
   const sessionProfile = useGetSessionData();
   //google account session
   const { data: session, status } = useSession();
-console.log(sessionProfile)
-  console.log(session)
+
   const userImage = session?.user?.image!;
   const avatar = "https://avatars.githubusercontent.com/u/30373425?v=4";
   return (
     <div className="w-[100%] h-[10%] m-1 flex items-center justify-center">
       {session && (
-        <div className=" w-[100%] flex items-center justify-between">
+        <div className="w-[100%] grid grid-cols-[20%,80%] items-center content-center gap-3">
           <Image 
           width={50}
           height={50}
-          className="rounded-full"
+          className="rounded-full flex items-center justify-center"
           alt="userAvatar"
           src={ userImage } />
-          <div className="flex flex-col items-center justify-end w-[100%]">
-              <p className="w-[100%] text-sm text-right font-thin">
+          <div className="flex flex-col items-center justify-start w-[100%] ">
+              <p className="w-[100%] text-sm font-thin">
               {`${session?.user?.name}`}
               </p>
-            <Link className="w-[100%] text-sm text-right text-blue-300" href="/profile">
+            <Link className="w-[100%] text-sm text-blue-300" href="/profile">
                 {`@${session.user?.name}`}
               </Link>
           </div>
@@ -45,7 +44,7 @@ console.log(sessionProfile)
           className="rounded-full"
           alt="userAvatar"
           src={ avatar} />
-          <div className="flex flex-col items-center justify-end w-[100%]">
+          <div className="flex flex-col items-center justify-center w-[100%]">
               <p className="w-[100%] text-sm text-right font-thin">
               {`${sessionProfile?.username}`}
               </p>

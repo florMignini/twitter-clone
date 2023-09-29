@@ -21,10 +21,12 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
   });
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-
+let axiosConfig = {
+  headers: { "Content-Type": "multipart/form-data" },
+};
     try {
       const content = await axios.post("/api/tweets/publish", formData.tweetContent);
-      const image = await axios.post("/api/tweets/upload", formData.tweetImage);
+      const image = await axios.post("/api/tweets/upload", formData.tweetImage, axiosConfig);
       console.log(image)
       setFormData({
         tweetContent: "",

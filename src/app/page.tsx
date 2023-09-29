@@ -1,11 +1,14 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { useGetTweets } from "@/helpers";
 import Tweet, { Like } from "@/app/client_components/Tweet";
 import PublishTweet from "@/components/PublishTweet";
 import { Profile } from "../../interfaces";
 import { Tweet as tweetType } from "../../interfaces";
 import { TailSpin } from "react-loader-spinner";
+import { useSession } from "next-auth/react";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 export interface Tweet {
   comments: Comment[];
@@ -16,9 +19,17 @@ export interface Tweet {
   userId: Profile;
 }
 
-const page = () => {
+const Page = () => {
   const { data, error, isLoading } = useGetTweets();
-
+  const { data:session } = useSession()
+const router = useRouter()
+// console.log(session?.user)
+  useEffect(() => {
+    const res = axios.post("/api/users/signin", session?.user);
+    router.push("/");
+    router.refresh();
+  }, [session, router])
+  
   return (
     <main className="w-full h-full min-h-screen border-l-[0.1px] border-r-[0.1px] border-slate-700">
       <h1 className="text-2xl z-10 text-left px-5 py-3 font-bold backdrop-blur-md sticky w-full h-32 bg-black/10 top-0 bg-black">
@@ -58,4 +69,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

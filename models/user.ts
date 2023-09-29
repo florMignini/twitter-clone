@@ -3,7 +3,6 @@ import mongoose, { Schema } from "mongoose";
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
-    required: [true, `Please provide a username`],
     unique: true,
     trim: true,
     minlength: 6,
@@ -11,13 +10,15 @@ const userSchema = new mongoose.Schema({
   },
   email: {
     type: String,
-    required: [true, `Please provide a email`],
     unique: true,
   },
   password: {
     type: String,
-    required: [true, `Please provide a password`],
     unique: true,
+  },
+  isGoogleSession: {
+    type: Boolean,
+    default: false,
   },
   is_verify: {
     type: Boolean,
