@@ -11,7 +11,7 @@ const useGetSessionData = () => {
           return response
         },
       });
-      // console.log(userSessionQuery)
+
       return userSessionQuery.data?.data?.profileInfo
 }
 

@@ -10,6 +10,7 @@ export const GET = async () => {
     res.cookies.delete("next-auth.session-token");
     res.cookies.delete("next-auth.callback-url");
     res.cookies.delete("next-auth.csrf-token");
+    res.cookies.delete("GoogleSessionEmail");
     return res;
   } catch (error: any) {
     return NextResponse.json(

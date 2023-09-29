@@ -27,34 +27,14 @@ export default function UserAvatar() {
           src={ userImage } />
           <div className="flex flex-col items-center justify-start w-[100%] ">
               <p className="w-[100%] text-sm font-thin">
-              {`${session?.user?.name}`}
+              {`${sessionProfile?.username}`}
               </p>
             <Link className="w-[100%] text-sm text-blue-300" href="/profile">
-                {`@${session.user?.name}`}
+                {`@${sessionProfile?.username}`}
               </Link>
           </div>
         </div>
       )}
-      {
-        sessionProfile && (
-          <div className=" w-[100%] flex items-center justify-between">
-          <Image 
-          width={50}
-          height={50}
-          className="rounded-full"
-          alt="userAvatar"
-          src={ avatar} />
-          <div className="flex flex-col items-center justify-center w-[100%]">
-              <p className="w-[100%] text-sm text-right font-thin">
-              {`${sessionProfile?.username}`}
-              </p>
-            <Link className="w-[100%] text-sm text-right text-blue-300" href="/profile">
-              { `@${sessionProfile?.username}`}
-              </Link>
-          </div>
-        </div>
-        )
-      }
     </div>
   );
 }
