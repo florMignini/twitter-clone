@@ -12,7 +12,6 @@ import { signOut } from "next-auth/react";
 
 export const LeftSidebar = () => {
   const userQuery = useGetSessionData()
-  
   const router = useRouter();
   const logOut = async () => {
     try {

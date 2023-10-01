@@ -75,12 +75,25 @@ export const POST = async (req: NextRequest, response:NextResponse) => {
       )
       return newUser
     }
-    const googleResponse = NextResponse.json(
-      { userRes },
-      { status: 200 }
+    
+       //if everything is ok proceed to create token
+       const data = {
+        id: userRes._id,
+        username: userRes.username,
+        email: userRes.email,
+      };
+      const googleSessionToken = await jwt.sign(data, process.env.TOKEN_SECRET!, {
+        expiresIn: "7d",
+      });
+      //setting user session cookie
+      const googleResponse = NextResponse.json(
+        { message: `user successfully logged` },
+        { status: 200 }
       );
       //setting google user session data in cookies
-      googleResponse.cookies.set("GoogleSessionEmail", JSON.stringify(userRes))
+      googleResponse.cookies.set("googleSessionToken", googleSessionToken, {
+        httpOnly: true,
+      })
       return googleResponse;
   
   } catch (error: any) {

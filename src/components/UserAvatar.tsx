@@ -17,14 +17,14 @@ export default function UserAvatar() {
   const avatar = "https://avatars.githubusercontent.com/u/30373425?v=4";
   return (
     <div className="w-[100%] h-[10%] m-1 flex items-center justify-center">
-      {session && (
+      {sessionProfile && (
         <div className="w-[100%] grid grid-cols-[20%,80%] items-center content-center gap-3">
           <Image 
           width={50}
           height={50}
           className="rounded-full flex items-center justify-center"
           alt="userAvatar"
-          src={ userImage } />
+          src={ userImage || avatar } />
           <div className="flex flex-col items-center justify-start w-[100%] ">
               <p className="w-[100%] text-sm font-thin">
               {`${sessionProfile?.username}`}
