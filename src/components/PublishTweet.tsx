@@ -2,9 +2,11 @@
 
 import axios from "axios";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { AiOutlinePicture } from "react-icons/ai";
+import image from "../../preview/download.jpeg"
 interface FormData {
   tweetContent: string;
   tweetImage: any;
@@ -26,7 +28,7 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
       const formDataImage = new FormData()
       formDataImage.append('tweet-image', formData.tweetImage)
       const tweetImage = await axios.post(`/api/tweets/upload`, formDataImage) 
-      // console.log(formData.tweetImage)
+
     } catch (error) {
       console.log(error)
     }
@@ -51,9 +53,9 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="h-[190px] flex flex-col items-start justify-between "
+      className="h-auto flex flex-col items-start justify-between "
     >
-      <div className="w-full mx-1 overflow-clip">
+      <div className="w-full h-auto mx-1 overflow-clip">
         <input
           type="text"
           name="tweetContent"
@@ -70,8 +72,24 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
         />
       </div>
       <div>{/* everyone can reply */}</div>
-      <div className=" w-full justify-between items-center flex">
-        <div></div>
+      <div className=" w-full justify-between items-center flex flex-col">
+        <div className="px-2 py-6 m-auto">
+        {
+            image ? (
+              <div>
+                 <Image
+                src={image}
+                alt="imagePreview"
+                width={500}
+                  height={400}
+                  className="object-contain"
+              />
+                </div>
+            ) : (
+                null
+)
+          }
+        </div>
         <div className="w-[100%] h-[100%] flex items-center justify-between p-2">
           <div
             className="w-8 h-8 flex items-center justify-center text-blue-600 rounded-full hover:bg-blue-800/20"
@@ -89,8 +107,8 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
               }}
               onClick={imageStorage}
             />
+         
           </div>
-
           {/* upload button */}
           <button
             type="submit"
@@ -99,6 +117,7 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
             {BtnTitle}
           </button>
         </div>
+       
       </div>
     </form>
   );

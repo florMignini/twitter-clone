@@ -16,7 +16,7 @@ const Profile = () => {
   const profileId = searchParams.get("profileId");
 
   const profileInfoQuery = useGetUserInfo(profileId!);
-  const profileTweets = useGetTweetsByUser(profileId);
+  const profileTweets = useGetTweetsByUser(profileId!);
   
   const profileInfo = profileInfoQuery?.profileInfo;
 

@@ -37,7 +37,7 @@ const router = useRouter()
       </h1>
 
       {/* Avatar */}
-      <div className="h-[200px] border-b-[0.3px] border-t-[0.3px] px-3 pt-3 pb-0 border-slate-700 relative grid grid-cols-[8%,92%] gap-1 bg-slate-900">
+      <div className="h-auto border-b-[0.3px] border-t-[0.3px] px-3 pt-3 pb-0 border-slate-700 relative grid grid-cols-[8%,92%] gap-1 bg-slate-900">
         <div className="w-10 h-10 rounded-full bg-slate-400 px-3"></div>
 
         {/* Input */}

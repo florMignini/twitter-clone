@@ -1,7 +1,9 @@
 import { connectDB } from "@/db/config";
 import Tweet from "../../../../../models/tweet";
+import { writeFile } from "fs/promises";
 
 import { NextRequest, NextResponse } from "next/server";
+import path from "path";
 
 connectDB();
 
@@ -14,8 +16,12 @@ export const POST = async (req: any) => {
         status: 400,
       });
     }
-
-    return NextResponse.json({ message: `image uploaded` }, { status: 201 });
+    const bytes = await imageToStorage.arrayBuffer();
+    const buffer = Buffer.from(bytes);
+    //keep in file system for preview
+    const filePath = path.join(process.cwd(), "preview", imageToStorage.name);
+    await writeFile(filePath, buffer);
+    return NextResponse.json(filePath, { status: 201 });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
