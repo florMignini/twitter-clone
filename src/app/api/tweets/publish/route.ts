@@ -20,16 +20,15 @@ export const POST = async (req: NextRequest) => {
   
   try {
     const userQuery = await getUserData(req);
-    const googleMail:any = req.cookies.get("GoogleSessionEmail")?.value
-    const googleUserId = JSON.parse(googleMail)?._id
+
 
     const { tweetContent} = await req.json();
 console.log(tweetContent)
-    // create new Twitter
-
+    
+// create new Twitter
     const newTweet = new Tweet({
       content: tweetContent,
-      userId: userQuery ? userQuery.id : googleUserId,
+      userId:  userQuery.id,
     }).save();
    
    

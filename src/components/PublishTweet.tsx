@@ -21,18 +21,26 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
     tweetImage: null,
   });
 
+  const imageStorage = async(e: { preventDefault: () => void }) => {
+    try {
+      const formDataImage = new FormData()
+      formDataImage.append('tweet-image', formData.tweetImage)
+      const tweetImage = await axios.post(`/api/tweets/upload`, formDataImage) 
+      // console.log(formData.tweetImage)
+    } catch (error) {
+      console.log(error)
+    }
+  }
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-// let axiosConfig = {
-//   headers: { "Content-Type": "multipart/form-data" },
-// };
+    
     try {
-      const content = await axios.post("/api/tweets/publish", formData);
-     /*  const image = await axios.post("/api/tweets/upload", formData.tweetImage, axiosConfig); */
+      /* const content = await axios.post("/api/tweets/publish", formData);
       setFormData({
         tweetContent: "",
         tweetImage: null
-      });
+      }); */
+
     } catch (error) {
       console.log(error);
     }
@@ -79,8 +87,11 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
                 if (!e.target.files) return;
                 setFormData({ ...formData, tweetImage: e.target.files[0] });
               }}
+              onClick={imageStorage}
             />
           </div>
+
+          {/* upload button */}
           <button
             type="submit"
             className="w-[20%] rounded-3xl bg-blue-600 mb-1 py-1 px-4 text-md hover:bg-opacity-70 transition duration-200"

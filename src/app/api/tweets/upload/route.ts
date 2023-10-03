@@ -8,8 +8,12 @@ connectDB();
 export const POST = async (req: any) => {
   try {
     const data = await req.formData();
-
-    console.log(data);
+    const imageToStorage = data.get("tweet-image");
+    if (!imageToStorage) {
+      return NextResponse.json(`no image to storage`, {
+        status: 400,
+      });
+    }
 
     return NextResponse.json({ message: `image uploaded` }, { status: 201 });
   } catch (error: any) {
