@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { AiOutlinePicture } from "react-icons/ai";
-import image from "../../preview/download.jpeg"
+// import image from "../../preview/download.jpeg"
 interface FormData {
   tweetContent: string;
   tweetImage: any;
@@ -17,17 +17,29 @@ type Props = {
 };
 const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
   const router = useRouter();
-
+  const [previewImage, setPreviewImage] = useState<any>(null) //cambiar tipo
   const [formData, setFormData] = useState<FormData>({
     tweetContent: "",
     tweetImage: null,
   });
 
-  const imageStorage = async(e: { preventDefault: () => void }) => {
+  const imagePreview = async(e: { preventDefault: () => void }) => {
     try {
       const formDataImage = new FormData()
       formDataImage.append('tweet-image', formData.tweetImage)
-      const tweetImage = await axios.post(`/api/tweets/upload`, formDataImage) 
+      const tweetImage = await axios.post(`/api/tweets/preview`, formDataImage) 
+setPreviewImage(tweetImage.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const removePreview = async (public_id:string) => {
+    try {
+      const deleteImagePreview = await axios.post(`/api/tweets/deletePreview`, {public_id}) 
+      if (deleteImagePreview) {
+        setPreviewImage(null) 
+      }
 
     } catch (error) {
       console.log(error)
@@ -75,15 +87,18 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
       <div className=" w-full justify-between items-center flex flex-col">
         <div className="px-2 py-6 m-auto">
         {
-            image ? (
-              <div>
+          previewImage ? (
+              <div className="relative">
                  <Image
-                src={image}
+                src={previewImage.secure_url}
                 alt="imagePreview"
                 width={500}
                   height={400}
-                  className="object-contain"
-              />
+                  className="relative object-contain"
+                />
+                <button 
+                onClick={() => removePreview(previewImage.public_id)}
+                  className="w-7 h-7 flex items-center justify-center rounded-full font-bold absolute top-2 right-4 border-2 border-gray-600 text-gray-600 bg-gray-500/80">X</button>
                 </div>
             ) : (
                 null
@@ -105,7 +120,7 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
                 if (!e.target.files) return;
                 setFormData({ ...formData, tweetImage: e.target.files[0] });
               }}
-              onClick={imageStorage}
+              onClick={imagePreview}
             />
          
           </div>
