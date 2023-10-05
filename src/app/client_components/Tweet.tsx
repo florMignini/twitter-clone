@@ -14,6 +14,7 @@ import Link from "next/link";
 import { Tweet as tweetType } from "../../../interfaces";
 import useGetBookmarks from "@/helpers/useGetBookmarks";
 import { bookmark_type } from "@/components/Bookmark";
+import Image from "next/image";
 
 dayjs.extend(relativeTime);
 export interface Like {
@@ -27,7 +28,7 @@ const Tweet = (tweet: tweetType) => {
   const router = useRouter();
   //bringing user session data
   const userQuery = useGetSessionData();
-
+  
   const { data } = useGetBookmarks(userQuery?._id);
   const bookmarkData = data?.data?.bookmarkByUser[0];
 
@@ -57,17 +58,18 @@ const Tweet = (tweet: tweetType) => {
     .map((bookmarkId: any) => {
       return bookmarkId?._id;
     });
-// const views = 
+
+    // console.log(tweet)
   return (
     <button
-      key={tweet?._id}
-      className="w-[95%] relative grid grid-cols-[8%_92%] gap-2
+    key={tweet?._id}
+    className="w-[95%] relative grid grid-cols-[8%_92%] gap-2
       bg-slate-900 rounded-xl p-3 my-3
       "
       onClick={() => {
         addView(userQuery._id, tweet?._id);
       }}
-    >
+      >
       <div>
         <div className="w-10 h-10 bg-slate-600 rounded-full" />
       </div>{" "}
@@ -107,16 +109,27 @@ const Tweet = (tweet: tweetType) => {
           {/* twit text */}
           <Link
             href={`/profile/${tweet?._id}`}
-            className="w-[99%] flex flex-col items-start text-white text-start text-sm my-2 pt-1 pl-1"
+            className="w-[99%] flex flex-col items-start text-white text-start text-sm my-2 p-1 pl-1"
           >
+            <div className="p-2">
             {tweet?.content}
+           </div>
 
-            {/* media content only displayed if it is sent*/}
-            {/* <div className=" aspect-square w-full h-96 rounded-xl m-1">
-              {
-                tweet?.
-              }
-            </div> */}
+            {/* media content only displayed if it exist*/}
+            {
+              tweet?.image ? (
+                
+                <Image
+                    src={tweet?.image!}
+                    alt="tweetImage"
+                    width={550}
+                  height={550}
+                  className="rounded-2xl"
+                  />
+                
+              ) :
+                null
+           }
           </Link>
         </div>
         <div className="flex items-center justify-around space-x-2 w-full cursor-pointer">

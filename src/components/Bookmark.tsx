@@ -6,10 +6,12 @@ import Link from "next/link"
 import { AiOutlineRetweet, AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { IoMdStats } from "react-icons/io";
 import { useSearchParams } from "next/navigation";
+import Image from "next/image";
 
 export interface bookmark_type {
     _id: string,
     content: string,
+    image?: string,
     userId: Profile,
     likes: LikeInterface[],
     comments: Comment[],
@@ -56,8 +58,21 @@ bg-slate-900 rounded-xl p-3 my-3
                     className="w-[99%] flex flex-col items-start text-white text-start text-sm my-2 pt-1 pl-1">
                 {bookmark?.content}
         
-            {/* media content only displayed if it is sent*/}
-             {/* <div className="bg-slate-400 aspect-square w-full h-96 rounded-xl m-1"></div> */}
+             {/* media content only displayed if it exist*/}
+             {
+              bookmark?.image ? (
+                
+                <Image
+                    src={bookmark?.image!}
+                    alt="tweetImage"
+                    width={550}
+                  height={550}
+                  className="rounded-2xl"
+                  />
+                
+              ) :
+                null
+           }
             </Link>
         </div>
         <div className="flex items-center justify-around space-x-2 w-full cursor-pointer">

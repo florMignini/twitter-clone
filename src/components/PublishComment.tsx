@@ -28,7 +28,7 @@ const router = useRouter()
 
     //apending data for comment creation
     formData.tweetId = tweet?._id
-    formData.userId = sessionUser?.data?.data.profileInfo._id
+    formData.userId = sessionUser?._id
 
     const handleSubmit = async(e: { preventDefault: () => void; }) => {
       e.preventDefault();
