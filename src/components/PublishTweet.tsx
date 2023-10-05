@@ -47,21 +47,24 @@ setPreviewImage(tweetImage.data)
   }
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    
+    const tweetContent = {
+      tweetContent: formData.tweetContent,
+      tweetImage: previewImage.secure_url
+    }
     try {
-      /* const content = await axios.post("/api/tweets/publish", formData);
+      const content = await axios.post("/api/tweets/publish", tweetContent);
       setFormData({
         tweetContent: "",
         tweetImage: null
-      }); */
-
+      });
+      setPreviewImage(null)
     } catch (error) {
       console.log(error);
     }
 
-    // window.location.reload();
+    window.location.reload();
   };
-// console.log(formData.tweetImage)
+// console.log(previewImage)
   return (
     <form
       onSubmit={handleSubmit}

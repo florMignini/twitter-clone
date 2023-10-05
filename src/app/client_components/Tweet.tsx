@@ -112,7 +112,11 @@ const Tweet = (tweet: tweetType) => {
             {tweet?.content}
 
             {/* media content only displayed if it is sent*/}
-            {/* <div className="bg-slate-400 aspect-square w-full h-96 rounded-xl m-1"></div> */}
+            {/* <div className=" aspect-square w-full h-96 rounded-xl m-1">
+              {
+                tweet?.
+              }
+            </div> */}
           </Link>
         </div>
         <div className="flex items-center justify-around space-x-2 w-full cursor-pointer">
