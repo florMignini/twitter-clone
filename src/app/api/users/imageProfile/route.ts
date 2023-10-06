@@ -5,6 +5,7 @@ import { v2 as cloudinary } from "cloudinary";
 
 import { NextRequest, NextResponse } from "next/server";
 import path from "path";
+import User from "../../../../../models/user";
 
 connectDB();
 
@@ -16,7 +17,8 @@ cloudinary.config({
 export const POST = async (req: any) => {
   try {
     const data = await req.formData();
-    const imageToStorage = data.get("tweet-image");
+    const imageToStorage = data.get("profile-image");
+    const userId = data.get("profile-id");
     if (!imageToStorage) {
       return NextResponse.json(`no image to storage`, {
         status: 400,
@@ -31,7 +33,14 @@ export const POST = async (req: any) => {
     const imageUploaded = await cloudinary.uploader.upload(filePath);
     // then remove from directory
     await unlink(filePath);
-    return NextResponse.json(imageUploaded, { status: 201 });
+    const userToAddImage = await User.findById(userId);
+    userToAddImage.profile_picture = imageUploaded.secure_url;
+    await userToAddImage.save();
+
+    return NextResponse.json(
+      { message: `profile picture successfully uploaded` },
+      { status: 201 }
+    );
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }

@@ -12,9 +12,9 @@ export default function UserAvatar() {
   const sessionProfile = useGetSessionData();
   //google account session
   const { data: session, status } = useSession();
-
+// google session image
   const userImage = session?.user?.image!;
-  const avatar = "https://avatars.githubusercontent.com/u/30373425?v=4";
+
   return (
     <div className="w-[100%] h-[10%] m-1 flex items-center justify-center">
       {sessionProfile && (
@@ -24,7 +24,7 @@ export default function UserAvatar() {
           height={50}
           className="rounded-full flex items-center justify-center"
           alt="userAvatar"
-          src={ userImage || avatar } />
+          src={ sessionProfile?.profile_picture ? sessionProfile?.profile_picture : userImage } />
           <div className="flex flex-col items-center justify-start w-[100%] ">
               <p className="w-[100%] text-sm font-thin">
               {`${sessionProfile?.username}`}

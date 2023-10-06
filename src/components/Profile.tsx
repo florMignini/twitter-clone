@@ -2,6 +2,7 @@
 import { BiArrowBack } from "react-icons/bi";
 import { Avatar } from "@nextui-org/react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useSession } from "next-auth/react";
 import useGetUserInfo from "@/helpers/useGetUserInfo";
 import useGetTweetsByUser from "@/helpers/useGetTweetsByUser";
 import dayjs from "dayjs";
@@ -9,17 +10,57 @@ import { BsCalendarWeek } from "react-icons/bs";
 import Tweet from "@/app/client_components/Tweet";
 import { Tweet as tweetType } from "../../interfaces";
 import {GiPhotoCamera} from "react-icons/gi"
-const Profile = () =>  {
+import { useState } from "react";
+import axios from "axios";
+
+type FormProfileData = {
+  profileImage: any,
+  coverImage: any;
+}
+
+const Profile = () => {
+  
+  const [formData, setFormData] = useState<FormProfileData>({
+    profileImage: null,
+    coverImage: null,
+  });
+ 
+  
   const router = useRouter();
   const searchParams = useSearchParams();
-
+  
   const profileId = searchParams.get("profileId");
-
+  
   const profileInfoQuery = useGetUserInfo(profileId!);
   const profileTweets = useGetTweetsByUser(profileId!);
-  
+  //google account session
+  const { data: session, status } = useSession();
+// google session image
+  const userImage = session?.user?.image!;
   const profileInfo = profileInfoQuery?.profileInfo;
 
+
+  const handleProfileImage = async() => {
+    try {
+      const formProfileDataImage = new FormData()
+      formProfileDataImage.append('profile-image', formData.profileImage)
+      formProfileDataImage.append('profile-id', profileInfo._id)
+      const profileImage = await axios.post(`/api/users/imageProfile`, formProfileDataImage) 
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  const handleCoverImage = async() => {
+    try {
+      const formCoverDataImage = new FormData()
+      formCoverDataImage.append('cover-image', formData.coverImage)
+      const coverImage = await axios.post(`/api/users/imageCover`, formCoverDataImage) 
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
   return (
     <div className="w-full h-full min-h-screen flex flex-col">
       <div className="sticky w-[100%] h-[10%] flex items-start justify-start py-1 px-2">
@@ -37,21 +78,47 @@ const Profile = () =>  {
         {/* front page */}
         <div className="absolute top-0 w-[100%] h-auto flex flex-col items-start justify-start rounded-md bg-slate-600">
           <Avatar
-            src="https://avatars.githubusercontent.com/u/30373425?v=4"
-            className="w-44 h-44 md:w-70 md:h-70 lg:w-70 lg:h-70
+           src={ profileInfo?.profile_picture ? profileInfo?.profile_picture : userImage }
+            className="w-44 h-44 
+            object-contain
+            md:w-70 md:h-70 lg:w-70 lg:h-70
             xl:w-200
             xl:h-200 rounded-full mt-14 ml-4"
           />
           {/* change user avatar btn */}
-          <button className="w-8 h-8 absolute z-10 bottom-6 left-36 border-1 border-white rounded-full hover:bg-slate-600/25">
+          <button className=" w-8 h-8 absolute z-10 bottom-6 left-36 border-1 border-transparent hover:border-white rounded-full hover:bg-slate-600/25">
+            <label htmlFor="files">
             <GiPhotoCamera
-            className="w-[100%] h-[100%] p-1"
+            className="text-transparent hover:text-white w-[100%] h-[100%] p-1"
+            />
+            </label>
+            <input
+              className="hidden w-8 h-8"
+              id="files"
+              type="file"
+              onChange={(e) => {
+                if (!e.target.files) return;
+                setFormData({ ...formData, profileImage: e.target.files[0] });
+              }}
+              onClick={handleProfileImage}
             />
           </button>
           {/* change cover btn */}
-           <button className="w-8 h-8 absolute z-10 bottom-1 right-5 border-1 border-white rounded-full hover:bg-slate-600/25">
+         <button className=" w-8 h-8 absolute z-10 bottom-6 left-36 border-1 border-transparent hover:border-white rounded-full hover:bg-slate-600/25">
+            <label htmlFor="files">
             <GiPhotoCamera
-            className="w-[100%] h-[100%] p-1"
+            className="text-transparent hover:text-white w-[100%] h-[100%] p-1"
+            />
+            </label>
+            <input
+              className="hidden w-8 h-8"
+              id="files"
+              type="file"
+              onChange={(e) => {
+                if (!e.target.files) return;
+                setFormData({ ...formData, coverImage: e.target.files[0] });
+              }}
+              onClick={handleCoverImage}
             />
           </button>
         </div>

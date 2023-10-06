@@ -23,7 +23,7 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
     tweetImage: null,
   });
 
-  const imagePreview = async(e: { preventDefault: () => void }) => {
+  const imagePreview = async() => {
     try {
       const formDataImage = new FormData()
       formDataImage.append('tweet-image', formData.tweetImage)
