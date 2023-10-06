@@ -49,7 +49,7 @@ setPreviewImage(tweetImage.data)
     e.preventDefault();
     const tweetContent = {
       tweetContent: formData.tweetContent,
-      tweetImage: previewImage.secure_url
+      tweetImage:  previewImage ? previewImage.secure_url : null
     }
     try {
       const content = await axios.post("/api/tweets/publish", tweetContent);
