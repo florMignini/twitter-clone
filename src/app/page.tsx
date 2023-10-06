@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect } from "react";
-import { useGetTweets } from "@/helpers";
+import { useGetSessionData, useGetTweets } from "@/helpers";
 import Tweet, { Like } from "@/app/client_components/Tweet";
 import PublishTweet from "@/components/PublishTweet";
 import { Profile } from "../../interfaces";
@@ -9,6 +9,7 @@ import { TailSpin } from "react-loader-spinner";
 import { useSession } from "next-auth/react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export interface Tweet {
   comments: Comment[];
@@ -21,16 +22,31 @@ export interface Tweet {
 
 const Page = () => {
   const { data, error, isLoading } = useGetTweets();
-  const { data:session } = useSession()
-const router = useRouter()
-// console.log(session?.user)
+  //login session
+  const sessionProfile = useGetSessionData();
+  //google account session
+  const { data: session, status } = useSession();
+  // google session image
+  const userImage = session?.user?.image!;
+  const router = useRouter();
+  // console.log(session?.user)
   useEffect(() => {
     const res = axios.post("/api/users/signin", session?.user);
     router.push("/");
     router.refresh();
-  }, [session, router])
-  
-  return (
+  }, [session, router]);
+
+  return isLoading ? (
+    <div className="w-full h-screen flex pt-[50%] items-start justify-center">
+      <TailSpin
+        height="40"
+        width="40"
+        color="#319bf0"
+        radius="1"
+        visible={true}
+      />
+    </div>
+  ) : (
     <main className="w-full h-full min-h-screen border-l-[0.1px] border-r-[0.1px] border-slate-700">
       <h1 className="text-2xl z-10 text-left px-5 py-3 font-bold backdrop-blur-md sticky w-full h-32 bg-black/10 top-0 bg-black">
         Home
@@ -38,7 +54,17 @@ const router = useRouter()
 
       {/* Avatar */}
       <div className="h-auto border-b-[0.3px] border-t-[0.3px] px-3 pt-3 pb-0 border-slate-700 relative grid grid-cols-[8%,92%] gap-1 bg-slate-900">
-        <div className="w-10 h-10 rounded-full bg-slate-400 px-3"></div>
+        <Image
+          width={50}
+          height={50}
+          className="rounded-full flex items-center justify-center"
+          alt="userAvatar"
+          src={
+            sessionProfile?.profile_picture
+              ? sessionProfile?.profile_picture
+              : userImage
+          }
+        />
 
         {/* Input */}
         <div className="">

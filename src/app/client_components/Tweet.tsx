@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { BsBookmarkFill, BsChat, BsDot, BsThreeDots } from "react-icons/bs";
 import { IoMdStats } from "react-icons/io";
 import { BsBookmark } from "react-icons/bs";
+import { useSession } from "next-auth/react";
 // dayjs import
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -26,9 +27,13 @@ export interface Like {
 
 const Tweet = (tweet: tweetType) => {
   const router = useRouter();
-  //bringing user session data
+  //bringing user session data && login session
   const userQuery = useGetSessionData();
-  
+
+ //google account session
+ const { data: session, status } = useSession();
+// google session image
+ const userImage = session?.user?.image!;
   const { data } = useGetBookmarks(userQuery?._id);
   const bookmarkData = data?.data?.bookmarkByUser[0];
 
@@ -71,7 +76,13 @@ const Tweet = (tweet: tweetType) => {
       }}
       >
       <div>
-        <div className="w-10 h-10 bg-slate-600 rounded-full" />
+      <Image 
+          width={50}
+          height={50}
+          className="rounded-full flex items-center justify-center"
+          alt="userAvatar"
+          src={ userQuery?.profile_picture ? userQuery?.profile_picture : userImage } />
+
       </div>{" "}
       {/* avatar section */}
       <div>

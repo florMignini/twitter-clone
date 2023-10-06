@@ -9,7 +9,7 @@ import { AiOutlinePicture } from "react-icons/ai";
 // import image from "../../preview/download.jpeg"
 interface FormData {
   tweetContent: string;
-  tweetImage: any;
+  tweetImage?: any;
 }
 type Props = {
   placeholder: string;
