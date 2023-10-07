@@ -20,11 +20,12 @@ export const POST = async (req: NextRequest) => {
     const userQuery = await getUserData(req);
 
     const tweetdata = await req.json();
-    console.log(tweetdata);
+
     // create new Twitter
     const newTweet = new Tweet({
       content: tweetdata.tweetContent,
       image: tweetdata.tweetImage || "",
+      userImage: tweetdata.tweetUserImage ? tweetdata.tweetUserImage : null,
       userId: userQuery.id,
     }).save();
 

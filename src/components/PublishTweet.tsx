@@ -1,5 +1,6 @@
 "use client";
 
+import { useGetSessionData } from "@/helpers";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
@@ -10,6 +11,7 @@ import { AiOutlinePicture } from "react-icons/ai";
 interface FormData {
   tweetContent: string;
   tweetImage?: any;
+  tweetUserImage?: string;
 }
 type Props = {
   placeholder: string;
@@ -22,7 +24,12 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
     tweetContent: "",
     tweetImage: null,
   });
+  //google session
+  const { data: session } = useSession()
+ //bringing user session data && login session
+  const userQuery = useGetSessionData();
 
+  //action for getting tweet image preview
   const imagePreview = async() => {
     try {
       const formDataImage = new FormData()
@@ -49,7 +56,8 @@ setPreviewImage(tweetImage.data)
     e.preventDefault();
     const tweetContent = {
       tweetContent: formData.tweetContent,
-      tweetImage:  previewImage ? previewImage.secure_url : null
+      tweetImage:  previewImage ? previewImage.secure_url : null,
+      tweetUserImage:  session ? session?.user?.image : userQuery?.profile_picture,
     }
     try {
       const content = await axios.post("/api/tweets/publish", tweetContent);

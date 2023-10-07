@@ -86,10 +86,10 @@ const Profile = () => {
             xl:h-200 rounded-full mt-14 ml-4"
           />
           {/* change user avatar btn */}
-          <button className=" w-8 h-8 absolute z-10 bottom-6 left-36 border-1 border-transparent hover:border-white rounded-full hover:bg-slate-600/25">
+          <button className=" w-8 h-8 absolute z-10 bottom-6 left-36 border-1 border-transparent hover:border-black rounded-full hover:bg-slate-600/25">
             <label htmlFor="files">
             <GiPhotoCamera
-            className="text-transparent hover:text-white w-[100%] h-[100%] p-1"
+            className="text-transparent hover:text-black w-[100%] h-[100%] p-1"
             />
             </label>
             <input
@@ -104,10 +104,10 @@ const Profile = () => {
             />
           </button>
           {/* change cover btn */}
-         <button className=" w-8 h-8 absolute z-10 bottom-6 left-36 border-1 border-transparent hover:border-white rounded-full hover:bg-slate-600/25">
+         <button className="w-8 h-8 absolute z-10 bottom-2 right-8 border-1 border-transparent hover:border-black rounded-full hover:bg-slate-600/25">
             <label htmlFor="files">
             <GiPhotoCamera
-            className="text-transparent hover:text-white w-[100%] h-[100%] p-1"
+            className="text-transparent hover:text-black w-[100%] h-[100%] p-1"
             />
             </label>
             <input

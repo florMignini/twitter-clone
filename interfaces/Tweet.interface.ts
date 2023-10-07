@@ -5,6 +5,7 @@ export interface Tweet {
   _id: string;
   content: string;
   image?: string;
+  userImage?: string;
   userId: Profile;
   likes: Like[];
   comments: Comment;

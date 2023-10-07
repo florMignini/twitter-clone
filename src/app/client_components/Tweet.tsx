@@ -16,6 +16,7 @@ import { Tweet as tweetType } from "../../../interfaces";
 import useGetBookmarks from "@/helpers/useGetBookmarks";
 import { bookmark_type } from "@/components/Bookmark";
 import Image from "next/image";
+import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/react";
 
 dayjs.extend(relativeTime);
 export interface Like {
@@ -31,7 +32,8 @@ const Tweet = (tweet: tweetType) => {
   const userQuery = useGetSessionData();
 
  //google account session
- const { data: session, status } = useSession();
+  const { data: session, status } = useSession();
+
 // google session image
  const userImage = session?.user?.image!;
   const { data } = useGetBookmarks(userQuery?._id);
@@ -53,6 +55,13 @@ const Tweet = (tweet: tweetType) => {
   const addView = async(userId: string, tweetId: string) => {
     await axios.post("/api/tweets/addView", { userId, tweetId });
   };
+
+  //Follow action
+  const follow = async(userToFollowId:string, userId:string) => {
+
+  }
+
+
   //bring the userId from session like if it exist
   const likesResult = tweet?.likes?.filter(
     (like: Like) => like.userId === userQuery?._id
@@ -64,7 +73,6 @@ const Tweet = (tweet: tweetType) => {
       return bookmarkId?._id;
     });
 
-    // console.log(tweet)
   return (
     <button
     key={tweet?._id}
@@ -81,7 +89,7 @@ const Tweet = (tweet: tweetType) => {
           height={50}
           className="rounded-full flex items-center justify-center"
           alt="userAvatar"
-          src={ userQuery?.profile_picture ? userQuery?.profile_picture : userImage } />
+          src={tweet?.userImage!} />
 
       </div>{" "}
       {/* avatar section */}
@@ -106,15 +114,34 @@ const Tweet = (tweet: tweetType) => {
                 {dayjs(tweet?.timestamp).fromNow()}
               </p>
             </Link>
-            <div
-              className="w-8 flex items-center
+            {/* follow button section */}
+
+              <Dropdown
+        closeOnSelect={true}
+        className="w-[40%] bg-slate-900 border-solid border-2 "
+        >
+          <DropdownTrigger>
+          <div
+           className="w-8 flex items-center
               rounded-full h-8  font-bold
               text-md justify-center hover:bg-blue-800/20 
               hover:text-blue-600
               transition duration-200 text-xl"
-            >
-              <BsThreeDots />
-            </div>
+        >
+           <BsThreeDots />
+        </div>
+          </DropdownTrigger>
+              {
+              tweet?.userId?._id !== userQuery?._id  ? (
+                  <DropdownMenu
+            className=" text-white">
+            <DropdownItem
+              onClick={()=> follow(tweet?.userId?._id, userQuery?._id)}
+            >Follow {tweet?.userId?.username}</DropdownItem>
+          </DropdownMenu>
+                ) : null
+          }
+        </Dropdown>   
           </div>
 
           {/* twit text */}
