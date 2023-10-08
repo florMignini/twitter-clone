@@ -58,7 +58,7 @@ const Tweet = (tweet: tweetType) => {
 
   //Follow action
   const follow = async(userToFollowId:string, userId:string) => {
-
+    await axios.post("/api/users/following", { userToFollowId, userId });
   }
 
 
