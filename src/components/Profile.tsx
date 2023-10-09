@@ -31,8 +31,8 @@ const Profile = () => {
   
   const profileId = searchParams.get("profileId");
   
-  const profileInfoQuery = useGetUserInfo(profileId!);
   const profileTweets = useGetTweetsByUser(profileId!);
+  const profileInfoQuery = useGetUserInfo(profileId!);
   //google account session
   const { data: session, status } = useSession();
 // google session image

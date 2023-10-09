@@ -41,11 +41,11 @@ const LoginPage = () => {
       alt="XPicture"
       className="hidden w-[90%] lg:flex h-screen items-center justify-center m-auto object-contain"
       />
-        <div className="w-[100%] h-[80%] md:w-[80%] lg:w-[100%] lg:h-[55%] lg:m-auto  rounded-2xl lg:flex lg:flex-col items-center justify-center ">
+        <div className="w-[100%] h-[90%] md:w-[80%] lg:w-[100%] lg:h-[55%] lg:m-auto  rounded-2xl lg:flex lg:flex-col items-center justify-center ">
           <div className="w-[100%] h-[95%] flex items-center justify-center flex-col my-auto">
           <h1 className="w-[100%] h-[10%] flex items-center justify-center text-3xl mb-4 font-semibold text-white m-3">Join X-Clone</h1>
           {/* form section */}
-          <div className="w-[90%] h-[50%] flex flex-col items-center justify-start">
+          <div className="w-[90%] h-[65%] flex flex-col items-center justify-start">
             {/* email section */}
           <div className="w-[80%] h-[100px] rounded-md flex flex-col">
           <Input
