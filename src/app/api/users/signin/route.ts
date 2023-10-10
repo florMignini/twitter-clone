@@ -5,14 +5,14 @@ import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 import User from "../../../../../models/user";
+import { useSession } from "next-auth/react";
 
 connectDB();
 
-export const POST = async (req: NextRequest, response:NextResponse) => {
+export const POST = async (req: NextRequest, response: NextResponse) => {
   try {
     const body = await req.json();
-
-    const { name, email, password } = body;
+    const { name, email, password, image } = body;
 
     //db user session
     if (password) {
@@ -67,35 +67,32 @@ export const POST = async (req: NextRequest, response:NextResponse) => {
       const newUser = await new User({
         username: name,
         email,
+        profile_picture: image,
         isGoogleSession: true,
       }).save();
-     NextResponse.json(
-        { newUser },
-        { status: 201 }
-      )
-      return newUser
+      NextResponse.json({ newUser }, { status: 201 });
+      return newUser;
     }
-    
-       //if everything is ok proceed to create token
-       const data = {
-        id: userRes._id,
-        username: userRes.username,
-        email: userRes.email,
-      };
-      const googleSessionToken = await jwt.sign(data, process.env.TOKEN_SECRET!, {
-        expiresIn: "7d",
-      });
-      //setting user session cookie
-      const googleResponse = NextResponse.json(
-        { message: `user successfully logged` },
-        { status: 200 }
-      );
-      //setting google user session data in cookies
-      googleResponse.cookies.set("googleSessionToken", googleSessionToken, {
-        httpOnly: true,
-      })
-      return googleResponse;
-  
+
+    //if everything is ok proceed to create token
+    const data = {
+      id: userRes._id,
+      username: userRes.username,
+      email: userRes.email,
+    };
+    const googleSessionToken = await jwt.sign(data, process.env.TOKEN_SECRET!, {
+      expiresIn: "7d",
+    });
+    //setting user session cookie
+    const googleResponse = NextResponse.json(
+      { message: `user successfully logged` },
+      { status: 200 }
+    );
+    //setting google user session data in cookies
+    googleResponse.cookies.set("googleSessionToken", googleSessionToken, {
+      httpOnly: true,
+    });
+    return googleResponse;
   } catch (error: any) {
     NextResponse.json(
       {

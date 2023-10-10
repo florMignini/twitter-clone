@@ -2,21 +2,20 @@
 
 import { Input } from "@nextui-org/react";
 import Link from "next/link";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { signIn, useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import axios from "axios";
 import { InfinitySpin } from "react-loader-spinner";
 import Image from "next/image";
 import { FcGoogle } from "react-icons/fc";
 
 const SigninPage = () => {
-  //next auth session hook
-  const { data: session } = useSession();
-  // console.log(session)
+  
+  
   //form state
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
   const [formData, setFormData] = useState({
     email: "",
@@ -27,8 +26,10 @@ const SigninPage = () => {
     setLoading(true);
     try {
       const res = await axios.post("/api/users/signin", formData);
-      router.push("/");
-      router.refresh();
+      if (res) {
+        router.push("/");
+        router.refresh()
+      }
     } catch (error: any) {
       console.log(error?.response?.data.error);
     }
@@ -100,7 +101,7 @@ const SigninPage = () => {
                 className="w-[30%] h-7 p-2 flex items-center justify-between bg-blue-700 rounded-md"
                 onClick={() => signIn("google", { callbackUrl: "/" })}
               >
-                <h6 className="w-[80%] text-xs font-bold ">Sign in with</h6>
+                <h6 className="w-[80%] text-xs font-bold ">Log in with</h6>
                 <FcGoogle className="w-[20%]" />
               </button>
             </div>

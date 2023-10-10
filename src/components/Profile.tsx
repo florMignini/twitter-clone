@@ -35,8 +35,7 @@ const Profile = () => {
   const profileInfoQuery = useGetUserInfo(profileId!);
   //google account session
   const { data: session, status } = useSession();
-// google session image
-  const userImage = session?.user?.image!;
+
   const profileInfo = profileInfoQuery?.profileInfo;
 
 
@@ -78,7 +77,7 @@ const Profile = () => {
         {/* front page */}
         <div className="absolute top-0 w-[100%] h-auto flex flex-col items-start justify-start rounded-md bg-slate-600">
           <Avatar
-           src={ profileInfo?.profile_picture ? profileInfo?.profile_picture : userImage }
+           src={ profileInfo?.profile_picture  }
             className="w-44 h-44 
             object-contain
             md:w-70 md:h-70 lg:w-70 lg:h-70
@@ -122,18 +121,22 @@ const Profile = () => {
             />
           </button>
         </div>
-        <div className="absolute top-72 w-[100%] h-[30%] flex flex-col items-start justify-center pl-2 mt-5 mb-10">
+        {
+          profileInfo ? (
+            <div className="absolute top-72 w-[100%] h-[30%] flex flex-col items-start justify-center pl-2 mt-5 mb-10">
            
-              <h3 className="text-xl">{profileInfo?.username}</h3>
-              <p className="font-thin text-xs">{`@${profileInfo?.username}`}</p>
-              <div className="flex items-center justify-center gap-2 pt-2 mb-2">
-                <BsCalendarWeek className="flex items-center justify-center w-4 h-4"/>
-                <p className="font-thin text-md">{`Joined ${dayjs(
-                  profileInfo?.created_at
-                ).format("MMMM YYYY")}`}</p>
-              </div>
-            
-        </div>
+            <h3 className="text-xl">{profileInfo?.username}</h3>
+            <p className="font-thin text-xs">{`@${profileInfo?.username}`}</p>
+            <div className="flex items-center justify-center gap-2 pt-2 mb-2">
+              <BsCalendarWeek className="flex items-center justify-center w-4 h-4"/>
+              <p className="font-thin text-md">{`Joined ${dayjs(
+                profileInfo?.created_at
+              ).format("MMMM YYYY")}`}</p>
+            </div>
+          
+      </div>
+          ) : null
+       }
       </div>
       {/* user twitter section */}
       <div className="relative top-96 w-[90%] flex flex-col items-center justify-center">

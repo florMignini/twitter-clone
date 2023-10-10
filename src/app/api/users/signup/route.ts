@@ -28,6 +28,7 @@ export const POST = async (req: NextRequest) => {
     const newUser = new User({
       username,
       email,
+      profile_picture: `https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png`,
       password: passwordHashed,
     }).save();
 

@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation"
 import axios from "axios"
 import Image from "next/image"
 import {FcGoogle} from 'react-icons/fc'
+import { InfinitySpin } from "react-loader-spinner"
 
 interface FormType {
 username: string,
@@ -15,22 +16,23 @@ password:string,
 }
 const LoginPage = () => {
   const router = useRouter();
+
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     username: '',
     email: '',
     password: '',
   });
 
-  const onSignUp = async() =>{
+  const onSignUp = async () => {
+    setLoading(true)
       try {
         const res = await axios.post("/api/users/signup", formData);
-        console.log(res)
-        if (res) {
-          router.push('/')
-        }
+        router.push('/')      
       } catch (error) {
         console.log(error)
       }
+    setLoading(false) 
   }
   return (
     <div className='w-full h-screen flex items-center justify-center lg:grid lg:grid-cols-2 bg-black '>
@@ -83,18 +85,18 @@ const LoginPage = () => {
           />
           </div>
           </div>
-          <div className="w-[80%] h-[10%] flex p-1 items-center justify-between">
+          <div className="w-[80%] h-[10%] flex items-center justify-between">
             <h2 className="text-white m-1 text-sm md:text-xs">
               Already registered? <Link 
               className="font-bold underline"
               href="/signin">Sign In</Link>{" "}
             </h2>
-            <button className="w-[30%] h-7 p-1 flex items-center justify-center bg-blue-700 rounded-md">
-              <h6 className="w-[80%] text-xs font-bold ">Sign up with</h6>
+           {/*  <button className="w-[30%] h-7 p-1 flex items-center justify-center bg-blue-700 rounded-md">
+              <h6 className="w-[80%] text-xs font-bold ">Register with</h6>
               <FcGoogle
               className="w-[20%]"
               />
-            </button>
+            </button> */}
           </div>
             <button
               className="w-[80%] text-center text-blue-100/30 font-semibold text-xl rounded-full p-1 border-solid border-1 border-blue-100/30 
@@ -102,8 +104,13 @@ const LoginPage = () => {
               "
               onClick={onSignUp}
             >
-              {" "}
-              Sign Up
+                {loading ? (
+                <div className="w-[90%] flex items-center justify-center">
+                  <InfinitySpin width="60" color="#4963f4" />
+                </div>
+              ) : (
+                <h6 className="">Sign In</h6>
+              )}
             </button>
           </div>{/* //inner modal */}
         </div>{/* //modal */}

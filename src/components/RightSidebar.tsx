@@ -19,15 +19,15 @@ type userType = {
 export const RightSidebar = () => {
 //bringing user session data && login session
 const userQuery = useGetSessionData();
-const { data: session, status } = useSession();
+  const { data: session, status } = useSession();
+
 // google session image
   const userImage = session?.user?.image!;
   
   //get all Users
   const {data, isLoading} = useGetUsers()
-  // console.log(data?.data?.allUsers)
- 
- const suggestionsArray = data?.data?.allUsers.filter((user:userType) => user._id !== userQuery._id && !userQuery.following.includes(user._id));
+
+ const suggestionsArray = data?.data?.allUsers?.filter((user:userType) => user._id !== userQuery._id && !userQuery.following.includes(user._id));
 
   //Follow action
   const follow = async(userToFollowId:string, userId:string) => {
@@ -75,7 +75,7 @@ const { data: session, status } = useSession();
             height={50}
             className="rounded-full flex items-center justify-center"
             alt="userAvatar"
-            src={ suggestion?.profile_picture ? suggestion?.profile_picture : userImage } />
+            src={ suggestion?.profile_picture } />
             <div className="flex flex-col items-center justify-start w-[100%] pl-1">
                 <p className="w-[100%] text-sm font-thin">
                 {`${suggestion?.username}`}

@@ -10,6 +10,8 @@ const nextConfig = {
       "res.cloudinary.com",
       "https:/lh3.googleusercontent.com",
       "lh3.googleusercontent.com",
+      "upload.wikimedia.org",
+      "https://upload.wikimedia.org",
       "avatars.githubusercontent.com",
       "images.pexels.com",
       "www.vecteezy.com",

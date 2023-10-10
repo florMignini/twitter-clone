@@ -26,10 +26,9 @@ const Page = () => {
   const sessionProfile = useGetSessionData();
   //google account session
   const { data: session, status } = useSession();
-  // google session image
-  const userImage = session?.user?.image!;
+ 
   const router = useRouter();
-  // console.log(session?.user)
+
   useEffect(() => {
     const res = axios.post("/api/users/signin", session?.user);
     router.push("/");
@@ -61,8 +60,6 @@ const Page = () => {
           alt="userAvatar"
           src={
             sessionProfile?.profile_picture
-              ? sessionProfile?.profile_picture
-              : userImage
           }
         />
 
