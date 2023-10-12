@@ -10,6 +10,7 @@ import { useSession } from "next-auth/react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import GifModal from "@/components/GifModal";
 
 export interface Tweet {
   comments: Comment[];
@@ -28,14 +29,25 @@ const Page = () => {
   const { data: session, status } = useSession();
  
   const router = useRouter();
-
   useEffect(() => {
     const res = axios.post("/api/users/signin", session?.user);
     router.push("/");
     router.refresh();
   }, [session, router]);
+  
+  /* modal states */
+  const onClose = () => {
+    router.push("/")
+  };
+  const onPost = () => {
+    console.log(`post clicked`);
+  };
+
+
+
 
   return isLoading ? (
+   
     <div className="w-full h-screen flex pt-[50%] items-start justify-center">
       <TailSpin
         height="40"
@@ -46,7 +58,12 @@ const Page = () => {
       />
     </div>
   ) : (
-    <main className="w-full h-full min-h-screen border-l-[0.1px] border-r-[0.1px] border-slate-700">
+      <main className="w-full h-full min-h-screen border-l-[0.1px] border-r-[0.1px] border-slate-700">
+        <GifModal onClose={function (): void {
+          throw new Error("Function not implemented.");
+        } } onPost={function (): void {
+          throw new Error("Function not implemented.");
+        } }></GifModal>
       <h1 className="text-2xl z-10 text-left px-5 py-3 font-bold backdrop-blur-md sticky w-full h-32 bg-black/10 top-0 bg-black">
         Home
       </h1>
@@ -89,6 +106,7 @@ const Page = () => {
         </div>
       )}
     </main>
+    
   );
 };
 

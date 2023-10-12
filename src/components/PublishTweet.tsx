@@ -4,9 +4,11 @@ import { useGetSessionData } from "@/helpers";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { AiOutlinePicture } from "react-icons/ai";
+import { BsFiletypeGif } from "react-icons/bs";
 // import image from "../../preview/download.jpeg"
 interface FormData {
   tweetContent: string;
@@ -117,8 +119,11 @@ setPreviewImage(tweetImage.data)
           }
         </div>
         <div className="w-[100%] h-[100%] flex items-center justify-between p-2">
+          {/* buttons section */}
+          <div className="flex items-start justify-center">
+            {/* image section */}
           <div
-            className="w-8 h-8 flex items-center justify-center text-blue-600 rounded-full hover:bg-blue-800/20"
+            className="w-10 h-10 flex items-center justify-center text-blue-600 rounded-full hover:bg-blue-800/20"
           >
             <label htmlFor="files">
               <AiOutlinePicture className="w-[100%] h-[100%]" />
@@ -134,6 +139,28 @@ setPreviewImage(tweetImage.data)
               onClick={imagePreview}
             />
          
+          </div>
+
+          {/* gif section */}
+          <Link
+            href={`/?showModal=y`}
+              className="w-10 h-10 flex items-center justify-center text-blue-600 rounded-full hover:bg-blue-800/20"
+          >
+            <label htmlFor="files">
+              <BsFiletypeGif className="w-[100%] h-[100%]" />
+            </label>
+           {/*  <input
+              className="hidden w-8 h-8"
+              id="files"
+              type="file"
+              onChange={(e) => {
+                if (!e.target.files) return;
+                setFormData({ ...formData, tweetImage: e.target.files[0] });
+              }}
+              onClick={imagePreview}
+            /> */}
+         
+          </Link>
           </div>
           {/* upload button */}
           <button
