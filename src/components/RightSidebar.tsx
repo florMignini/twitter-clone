@@ -80,7 +80,7 @@ const userQuery = useGetSessionData();
                 <p className="w-[100%] text-sm font-thin">
                 {`${suggestion?.username}`}
                 </p>
-              <Link className="w-[100%] text-sm text-blue-300" href="/profile">
+              <Link className="w-[100%] text-sm text-blue-300" href={`/profile?profileId=${suggestion?._id}`}>
                   {`@${suggestion?.username}`}
                 </Link>
             </div>
