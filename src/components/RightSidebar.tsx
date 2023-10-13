@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { BsSearch, BsThreeDots } from "react-icons/bs";
+import { Search } from ".";
 
 type userType = {
   _id: string;
@@ -44,24 +45,7 @@ export const RightSidebar = () => {
   return (
     <section className="hidden xl:flex top-2 overflow-visible flex-col px-5 my-4">
       {/* Search bar section */}
-      <div className="sticky h-15 top-0 rounded-full bg-slate-900 backdrop-blur-lg text-gray-600 mt-1">
-        <div className="h-full w-full relative grid grid-cols-[10%,90%] gap-4 p-3 text-sm">
-          <label
-            htmlFor="searchItem"
-            className="flex items-center justify-center"
-          >
-            <BsSearch className="w-5 h-5" />
-          </label>
-
-          <input
-            type="text"
-            placeholder="Search Twitter"
-            className="bg-transparent outline-none flex border-none items-center justify-center
-                  w-full
-                  "
-          />
-        </div>
-      </div>
+      <Search placeholder="Search Twitter" section="rightSidebar" />
       {/* Who to Follow */}
       {isLoading ? null : (
         <div className="w-fill flex flex-col rounded-2xl  bg-slate-900 mt-2">

@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { AiOutlinePicture } from "react-icons/ai";
 import { BsFiletypeGif } from "react-icons/bs";
-// import image from "../../preview/download.jpeg"
+
 interface FormData {
   tweetContent: string;
   tweetImage?: any;
@@ -21,60 +21,63 @@ type Props = {
 };
 const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
   const router = useRouter();
-  const [previewImage, setPreviewImage] = useState<any>(null) //cambiar tipo
+  const [previewImage, setPreviewImage] = useState<any>(null); //cambiar tipo
   const [formData, setFormData] = useState<FormData>({
     tweetContent: "",
     tweetImage: null,
   });
   //google session
-  const { data: session } = useSession()
- //bringing user session data && login session
+  const { data: session } = useSession();
+  //bringing user session data && login session
   const userQuery = useGetSessionData();
 
   //action for getting tweet image preview
-  const imagePreview = async() => {
+  const imagePreview = async () => {
     try {
-      const formDataImage = new FormData()
-      formDataImage.append('tweet-image', formData.tweetImage)
-      const tweetImage = await axios.post(`/api/tweets/preview`, formDataImage) 
-setPreviewImage(tweetImage.data)
+      const formDataImage = new FormData();
+      formDataImage.append("tweet-image", formData.tweetImage);
+      const tweetImage = await axios.post(`/api/tweets/preview`, formDataImage);
+      setPreviewImage(tweetImage.data);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
-  const removePreview = async (public_id:string) => {
+  const removePreview = async (public_id: string) => {
     try {
-      const deleteImagePreview = await axios.post(`/api/tweets/deletePreview`, {public_id}) 
+      const deleteImagePreview = await axios.post(`/api/tweets/deletePreview`, {
+        public_id,
+      });
       if (deleteImagePreview) {
-        setPreviewImage(null) 
+        setPreviewImage(null);
       }
-
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     const tweetContent = {
       tweetContent: formData.tweetContent,
-      tweetImage:  previewImage ? previewImage.secure_url : null,
-      tweetUserImage:  session ? session?.user?.image : userQuery?.profile_picture,
-    }
+      tweetImage: previewImage ? previewImage.secure_url : null,
+      tweetUserImage: session
+        ? session?.user?.image
+        : userQuery?.profile_picture,
+    };
     try {
       const content = await axios.post("/api/tweets/publish", tweetContent);
       setFormData({
         tweetContent: "",
-        tweetImage: null
+        tweetImage: null,
       });
-      setPreviewImage(null)
+      setPreviewImage(null);
     } catch (error) {
       console.log(error);
     }
 
     window.location.reload();
   };
-// console.log(previewImage)
+  // console.log(previewImage)
   return (
     <form
       onSubmit={handleSubmit}
@@ -99,57 +102,53 @@ setPreviewImage(tweetImage.data)
       <div>{/* everyone can reply */}</div>
       <div className=" w-full justify-between items-center flex flex-col">
         <div className="px-2 py-6 m-auto">
-        {
-          previewImage ? (
-              <div className="relative">
-                 <Image
+          {previewImage ? (
+            <div className="relative">
+              <Image
                 src={previewImage.secure_url}
                 alt="imagePreview"
                 width={500}
-                  height={400}
-                  className="relative object-contain"
-                />
-                <button 
+                height={400}
+                className="relative object-contain"
+              />
+              <button
                 onClick={() => removePreview(previewImage.public_id)}
-                  className="w-7 h-7 flex items-center justify-center rounded-full font-bold absolute top-2 right-4 border-2 border-gray-600 text-gray-600 bg-gray-500/80">X</button>
-                </div>
-            ) : (
-                null
-)
-          }
+                className="w-7 h-7 flex items-center justify-center rounded-full font-bold absolute top-2 right-4 border-2 border-gray-600 text-gray-600 bg-gray-500/80"
+              >
+                X
+              </button>
+            </div>
+          ) : null}
         </div>
         <div className="w-[100%] h-[100%] flex items-center justify-between p-2">
           {/* buttons section */}
           <div className="flex items-start justify-center">
             {/* image section */}
-          <div
-            className="w-10 h-10 flex items-center justify-center text-blue-600 rounded-full hover:bg-blue-800/20"
-          >
-            <label htmlFor="files">
-              <AiOutlinePicture className="w-[100%] h-[100%]" />
-            </label>
-            <input
-              className="hidden w-8 h-8"
-              id="files"
-              type="file"
-              onChange={(e) => {
-                if (!e.target.files) return;
-                setFormData({ ...formData, tweetImage: e.target.files[0] });
-              }}
-              onClick={imagePreview}
-            />
-         
-          </div>
+            <div className="w-10 h-10 flex items-center justify-center text-blue-600 rounded-full hover:bg-blue-800/20">
+              <label htmlFor="files">
+                <AiOutlinePicture className="w-[100%] h-[100%]" />
+              </label>
+              <input
+                className="hidden w-8 h-8"
+                id="files"
+                type="file"
+                onChange={(e) => {
+                  if (!e.target.files) return;
+                  setFormData({ ...formData, tweetImage: e.target.files[0] });
+                }}
+                onClick={imagePreview}
+              />
+            </div>
 
-          {/* gif section */}
-          <Link
-            href={`/?showModal=y`}
+            {/* gif section */}
+            <Link
+              href={`/?showModal=y`}
               className="w-10 h-10 flex items-center justify-center text-blue-600 rounded-full hover:bg-blue-800/20"
-          >
-            <label htmlFor="files">
-              <BsFiletypeGif className="w-[100%] h-[100%]" />
-            </label>
-           {/*  <input
+            >
+              <label htmlFor="files">
+                <BsFiletypeGif className="w-[100%] h-[100%]" />
+              </label>
+              {/*  <input
               className="hidden w-8 h-8"
               id="files"
               type="file"
@@ -159,8 +158,7 @@ setPreviewImage(tweetImage.data)
               }}
               onClick={imagePreview}
             /> */}
-         
-          </Link>
+            </Link>
           </div>
           {/* upload button */}
           <button
@@ -170,7 +168,6 @@ setPreviewImage(tweetImage.data)
             {BtnTitle}
           </button>
         </div>
-       
       </div>
     </form>
   );

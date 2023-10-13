@@ -6,6 +6,7 @@ import { Tweet as TweetInterface } from "../../interfaces";
 import { useGetGiphy } from "@/helpers";
 import { ThreeDots } from "react-loader-spinner";
 import Image from "next/image";
+import { Search } from ".";
 
 interface Props {
   onClose: () => void;
@@ -50,7 +51,7 @@ const GifModal = ({ onClose, onPost /* children */ }: Props) => {
         >
           {/* main content */}
           <div className="w-[700px] max-w-full flex flex-col text-white ">
-            <div className="flex flex-col items-center justify-center">
+            <div className="flex flex-col items-center">
               <div className="w-full h-[40px] flex items-start pl-5 pt-2">
                 <button
                   onClick={closeModal}
@@ -59,6 +60,7 @@ const GifModal = ({ onClose, onPost /* children */ }: Props) => {
                   X
                 </button>
               </div>
+              <Search placeholder="Search Gifs" section="gifModal" />
             </div>
             <div className="p-2">
               {isLoading ? (
