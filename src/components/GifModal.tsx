@@ -3,6 +3,10 @@
 import { useRouter, useSearchParams } from "next/navigation"
 import { useRef, useEffect } from "react"
 import { Tweet as TweetInterface } from "../../interfaces"
+import { useGetGiphy } from "@/helpers"
+import { ThreeDots } from "react-loader-spinner"
+import Image from "next/image"
+
 
 
 interface Props {
@@ -36,13 +40,15 @@ const clickPost = () => {
   onPost()
   closeModal()
 }
-
+  //gif hook
+  const {data, isLoading} = useGetGiphy()
+  // console.log(data?.data?.data)
 const modal: JSX.Element | null = showModal === 'y' ? (
   //main modal structure
-    <div className="absolute z-1000 top-0 left-0 w-full h-screen backdrop-blur-md">
+    <div className="absolute top-0 left-0 w-full h-screen z-10 backdrop-blur-xl">
       <dialog
   ref={modalRef}
-  className="fixed top-50 backdrop-blur-xl left-50 -translate-x-50 -translate-y-50 rounded-2xl z-100 bg-slate-900"
+  className="fixed top-50 left-50 -translate-x-50 -translate-y-50 rounded-2xl z-100 bg-slate-900"
   >
     {/* main content */}
     <div className="w-[600px] max-w-full flex flex-col text-white ">
@@ -55,10 +61,41 @@ const modal: JSX.Element | null = showModal === 'y' ? (
         X
       </button>
         </div>
-
       </div>
       <div className="p-2">
-        <h1>Gif Modal</h1>
+          {
+            isLoading ? (
+              <div className="w-[90%] flex items-center justify-center p-2">
+                <h1>Searching gifs</h1>
+                <ThreeDots 
+height="80" 
+width="80" 
+radius="5"
+color="#4fa94d" 
+ariaLabel="three-dots-loading"
+visible={true}
+ />
+              </div>
+            ) : (
+                <div className="w-[90%] h-auto flex flex-wrap items-center justify-center p-2">
+                 {
+                    data?.data?.data.map((gif: any) => (
+                      <div
+                        key={gif.id}
+                        className="relative "
+                      >
+                        <Image
+                          src={gif.images.original.url}
+                          alt={gif.id}
+                          width={200}
+                          height={200}
+                        />
+                    </div>
+                  ))
+                }
+                </div>
+            )
+        }
       </div>
     </div>
   </dialog>

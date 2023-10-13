@@ -35,7 +35,7 @@ const userQuery = useGetSessionData();
   }
 
   return (
-    <section className="hidden xl:flex xl:fixed top-2 overflow-visible flex-col px-5 my-4" >
+    <section className="hidden xl:flex top-2 overflow-visible flex-col px-5 my-4" >
       {/* Search bar section */}
       <div className="sticky h-15 top-0 rounded-full bg-slate-900 backdrop-blur-lg text-gray-600 mt-1">
         <div className="h-full w-full relative grid grid-cols-[10%,90%] gap-4 p-3 text-sm">
