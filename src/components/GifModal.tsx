@@ -76,7 +76,7 @@ const GifModal = ({ onClose, onPost /* children */ }: Props) => {
                   />
                 </div>
               ) : (
-                <div className="w-[100%] h-auto grid grid-cols-3 gap-1 items-center justify-center p-2">
+                <div className="w-[100%] h-auto grid grid-cols-3 gap-1 items-center justify-center p-2 mt-5">
                   {data?.data?.data.map((gif: any) => (
                     <Image
                       key={gif.id}

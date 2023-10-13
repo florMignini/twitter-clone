@@ -1,17 +1,16 @@
+"use client";
+import { useGetGiphy } from "@/helpers";
 import React, { useState } from "react";
 import { BsSearch } from "react-icons/bs";
 type Props = {
   placeholder: string;
   section: string;
 };
-interface FormData {
-  q: string;
-}
-export const Search = ({ placeholder, section }: Props) => {
-  const [formData, setFormData] = useState<FormData>({
-    q: "",
-  });
 
+export const Search = ({ placeholder, section }: Props) => {
+  const [query, setQuery] = useState<string>("");
+
+  useGetGiphy(query);
   return (
     <div className="sticky h-15 top-0 rounded-full bg-slate-900 backdrop-blur-lg text-gray-600 mt-1">
       <div className="h-full w-full relative grid grid-cols-[10%,90%] gap-4 p-3 text-sm">
@@ -28,10 +27,9 @@ export const Search = ({ placeholder, section }: Props) => {
           className="bg-transparent outline-none flex border-none items-center justify-center
                   w-full
                   "
-          name="q"
-          value={formData.q}
+          name="query"
           autoComplete="off"
-          onChange={(e) => setFormData({ ...formData, q: e.target.value })}
+          onChange={({ target }) => setQuery(target.value)}
         />
       </div>
     </div>
