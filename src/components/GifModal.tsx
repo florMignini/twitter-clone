@@ -40,7 +40,13 @@ const GifModal = ({ onClose, onPost /* children */ }: Props) => {
   };
   //gif hook
   const { data, isLoading } = useGetGiphy();
-  // console.log(data?.data?.data)
+ 
+const sendToLocalStorage = (gif: string) => {
+  localStorage.setItem("gifPreview", gif);
+  closeModal()
+}
+
+
   const modal: JSX.Element | null =
     showModal === "y" ? (
       //main modal structure
@@ -78,14 +84,18 @@ const GifModal = ({ onClose, onPost /* children */ }: Props) => {
               ) : (
                 <div className="w-[100%] h-auto grid grid-cols-3 gap-1 items-center justify-center p-2 mt-5">
                   {data?.data?.data.map((gif: any) => (
-                    <Image
+                    <button
                       key={gif.id}
+                      onClick={() => sendToLocalStorage(gif.images.fixed_width.url)}
+                    >
+                      <Image
                       className="object-cover"
                       src={gif.images.fixed_width.url}
                       alt={gif.id}
                       width={200}
                       height={200}
                     />
+                    </button>
                   ))}
                 </div>
               )}

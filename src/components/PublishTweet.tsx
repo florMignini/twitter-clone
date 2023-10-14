@@ -30,6 +30,7 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
   const { data: session } = useSession();
   //bringing user session data && login session
   const userQuery = useGetSessionData();
+const gifPreview = localStorage.getItem("gifPreview")
 
   //action for getting tweet image preview
   const imagePreview = async () => {
@@ -45,6 +46,7 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
 
   const removePreview = async (public_id: string) => {
     try {
+      console.log(gifPreview)
       const deleteImagePreview = await axios.post(`/api/tweets/deletePreview`, {
         public_id,
       });
@@ -59,7 +61,7 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
     e.preventDefault();
     const tweetContent = {
       tweetContent: formData.tweetContent,
-      tweetImage: previewImage ? previewImage.secure_url : null,
+      tweetImage: previewImage ? previewImage.secure_url : gifPreview,
       tweetUserImage: session
         ? session?.user?.image
         : userQuery?.profile_picture,
@@ -71,13 +73,14 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
         tweetImage: null,
       });
       setPreviewImage(null);
+      localStorage.removeItem("gifPreview")
     } catch (error) {
       console.log(error);
     }
 
     window.location.reload();
   };
-  // console.log(previewImage)
+  
   return (
     <form
       onSubmit={handleSubmit}
@@ -102,17 +105,22 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
       <div>{/* everyone can reply */}</div>
       <div className=" w-full justify-between items-center flex flex-col">
         <div className="px-2 py-6 m-auto">
-          {previewImage ? (
+          {previewImage || gifPreview ? (
             <div className="relative">
               <Image
-                src={previewImage.secure_url}
+                src={previewImage ? previewImage.secure_url : gifPreview }
                 alt="imagePreview"
                 width={500}
                 height={400}
                 className="relative object-contain"
               />
               <button
-                onClick={() => removePreview(previewImage.public_id)}
+                onClick={() => {
+                  if(gifPreview){
+                    localStorage.removeItem("gifPreview")
+                  }
+                  removePreview(previewImage.public_id)
+                }}
                 className="w-7 h-7 flex items-center justify-center rounded-full font-bold absolute top-2 right-4 border-2 border-gray-600 text-gray-600 bg-gray-500/80"
               >
                 X
@@ -148,16 +156,6 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
               <label htmlFor="files">
                 <BsFiletypeGif className="w-[100%] h-[100%]" />
               </label>
-              {/*  <input
-              className="hidden w-8 h-8"
-              id="files"
-              type="file"
-              onChange={(e) => {
-                if (!e.target.files) return;
-                setFormData({ ...formData, tweetImage: e.target.files[0] });
-              }}
-              onClick={imagePreview}
-            /> */}
             </Link>
           </div>
           {/* upload button */}
