@@ -9,7 +9,7 @@ const useGetQuerySearch = (query:string) => {
       return response;
     },
   });
-  console.log(querySearch)
+
   return querySearch;
 };
 

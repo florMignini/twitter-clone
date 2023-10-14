@@ -22,13 +22,17 @@ export const Search = ({ placeholder, section }: Props) => {
   const [searchData, setSearchData] = useState<any>(null);
 
   //gif query action
-  useGetGiphy(query);
+ useGetGiphy(query) 
   //user query action
-  const { data } = useGetQuerySearch(query);
+  const { data, remove } = useGetQuerySearch(query);
   useEffect(() => {
     setSearchData(data?.data?.querySearch);
   }, [data]);
-
+  const clearInput = () => {
+    setQuery("");
+    setSearchData(null);
+    remove();
+  };
   return (
     <div className="w-full h-auto shadow-xl">
       <div className="sticky h-15 top-0 rounded-full bg-slate-900 backdrop-blur-lg text-gray-600 mt-1">
@@ -53,10 +57,7 @@ export const Search = ({ placeholder, section }: Props) => {
           <div className="w-full ">
             {query ? (
               <button
-                onClick={() => {
-                  setSearchData(null);
-                  setQuery("");
-                }}
+                onClick={clearInput}
                 className="w-5 h-5 font-bold mr-2 border-1 border-gray-600 rounded-full flex items-center justify-center"
               >
                 X
@@ -72,9 +73,11 @@ export const Search = ({ placeholder, section }: Props) => {
         {searchData ? (
           <div className="w-[80%] flex items-center justify-center">
             {data?.data?.querySearch.map((user: any) => (
-              <button
+              <Link
                 key={user._id}
+                href={`/profile?profileId=${user?._id}`}
                 className="w-full my-2 flex items-center justify-between space-x-1 px-3 py-1 "
+                onClick={clearInput}
               >
                 <Image
                   width={50}
@@ -87,14 +90,11 @@ export const Search = ({ placeholder, section }: Props) => {
                   <p className="w-[100%] text-sm font-thin">
                     {`${user?.username}`}
                   </p>
-                  <Link
-                    className="w-[100%] text-sm text-blue-300"
-                    href="/profile"
-                  >
+                  <p className="w-[100%] text-sm text-blue-300">
                     {`@${user?.username}`}
-                  </Link>
+                  </p>
                 </div>
-              </button>
+              </Link>
             ))}
           </div>
         ) : null}
