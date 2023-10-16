@@ -6,7 +6,7 @@ import { tmpdir } from 'node:os';
 import { NextRequest, NextResponse } from "next/server";
 
 import User from "../../../../../models/user";
-import path from "path";
+import { join } from "path";
 
 connectDB();
 
@@ -28,8 +28,8 @@ export const POST = async (req: any) => {
     const bytes = await imageToStorage.arrayBuffer();
     const buffer = Buffer.from(bytes);
     //keep in file system for preview
-    const filePath = path.join(process.cwd(), tmpdir(), imageToStorage.name);
-
+    // const filePath = path.join(process.cwd(), tmpdir(), imageToStorage.name);
+    const filePath = join('/', 'tmp', imageToStorage.name)
     await writeFile(filePath, buffer);
     //upload to cloudinary
     const imageUploaded = await cloudinary.uploader.upload(filePath);
