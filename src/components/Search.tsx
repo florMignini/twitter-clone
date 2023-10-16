@@ -21,18 +21,21 @@ export const Search = ({ placeholder, section }: Props) => {
   const [query, setQuery] = useState<string>("");
   const [searchData, setSearchData] = useState<any>(null);
 
-  //gif query action
- useGetGiphy(query) 
-  //user query action
-  const { data, remove } = useGetQuerySearch(query);
+  useGetGiphy(query);
+  // search for people action
   useEffect(() => {
-    setSearchData(data?.data?.querySearch);
-  }, [data]);
+    if (section !== "gifModal") {
+      axios.get(`/api/users/search/${query}`).then((data) => {
+        setSearchData(data?.data?.querySearch);
+      });
+    }
+  }, [query, section]);
+
   const clearInput = () => {
     setQuery("");
     setSearchData(null);
-    remove();
   };
+
   return (
     <div className="w-full h-auto shadow-xl">
       <div className="sticky h-15 top-0 rounded-full bg-slate-900 backdrop-blur-lg text-gray-600 mt-1">
@@ -50,7 +53,7 @@ export const Search = ({ placeholder, section }: Props) => {
             className="bg-transparent outline-none flex border-none items-center justify-center
                   w-full
                   "
-            name="query"
+            value={query}
             autoComplete="off"
             onChange={({ target }) => setQuery(target.value)}
           />
@@ -67,12 +70,12 @@ export const Search = ({ placeholder, section }: Props) => {
         </div>
       </div>
       <div
-        className="w-full flex items-start justify-center hover:bg-white/10
+        className="w-[99%] flex items-start justify-center hover:bg-white/10
                       transition duration-200 m-1 rounded-md"
       >
         {searchData ? (
           <div className="w-[80%] flex items-center justify-center">
-            {data?.data?.querySearch.map((user: any) => (
+            {searchData.map((user: any) => (
               <Link
                 key={user._id}
                 href={`/profile?profileId=${user?._id}`}

@@ -2,7 +2,6 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useRef, useEffect } from "react";
-import { Tweet as TweetInterface } from "../../interfaces";
 import { useGetGiphy } from "@/helpers";
 import { ThreeDots } from "react-loader-spinner";
 import Image from "next/image";
@@ -11,10 +10,9 @@ import { Search } from ".";
 interface Props {
   onClose: () => void;
   onPost: () => void;
-  // children: React.ReactNode
 }
 
-const GifModal = ({ onClose, onPost /* children */ }: Props) => {
+const GifModal = ({ onClose, onPost }: Props) => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const modalRef = useRef<null | HTMLDialogElement>(null);
@@ -40,12 +38,11 @@ const GifModal = ({ onClose, onPost /* children */ }: Props) => {
   };
   //gif hook
   const { data, isLoading } = useGetGiphy();
- 
-const sendToLocalStorage = (gif: string) => {
-  localStorage.setItem("gifPreview", gif);
-  closeModal()
-}
 
+  const sendToLocalStorage = (gif: string) => {
+    localStorage.setItem("gifPreview", gif);
+    closeModal();
+  };
 
   const modal: JSX.Element | null =
     showModal === "y" ? (
@@ -86,15 +83,17 @@ const sendToLocalStorage = (gif: string) => {
                   {data?.data?.data.map((gif: any) => (
                     <button
                       key={gif.id}
-                      onClick={() => sendToLocalStorage(gif.images.fixed_width.url)}
+                      onClick={() =>
+                        sendToLocalStorage(gif.images.fixed_width.url)
+                      }
                     >
                       <Image
-                      className="object-cover"
-                      src={gif.images.fixed_width.url}
-                      alt={gif.id}
-                      width={200}
-                      height={200}
-                    />
+                        className="object-cover"
+                        src={gif.images.fixed_width.url}
+                        alt={gif.id}
+                        width={200}
+                        height={200}
+                      />
                     </button>
                   ))}
                 </div>

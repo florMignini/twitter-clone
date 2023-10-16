@@ -13,7 +13,7 @@ const useGetGiphy = (query?: string) => {
       return response;
     },
   });
-
+console.log(gifsQuery)
   return gifsQuery;
 };
 

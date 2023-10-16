@@ -22,9 +22,6 @@ export const RightSidebar = () => {
   const userQuery = useGetSessionData();
   const { data: session, status } = useSession();
 
-  // google session image
-  const userImage = session?.user?.image!;
-
   //get all Users
   const { data, isLoading } = useGetUsers();
 
@@ -43,9 +40,9 @@ export const RightSidebar = () => {
   };
 
   return (
-    <section className="hidden xl:flex top-2 overflow-visible flex-col px-5 my-4">
+    <section className="hidden fixed xl:flex top-2 overflow-visible flex-col px-5 my-4">
       {/* Search bar section */}
-      <Search placeholder="Search" section="rightSidebar" />
+      <Search placeholder="Search for people" section="rightSidebar" />
       {/* Who to Follow */}
       {isLoading ? null : (
         <div className="w-fill flex flex-col rounded-2xl  bg-slate-900 mt-2">
