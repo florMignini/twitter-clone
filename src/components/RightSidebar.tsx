@@ -17,7 +17,7 @@ type userType = {
   following: string[];
   created_at: string;
 };
-export const RightSidebar = () => {
+const RightSidebar = () => {
   //bringing user session data && login session
   const userQuery = useGetSessionData();
   const { data: session, status } = useSession();
@@ -42,7 +42,7 @@ export const RightSidebar = () => {
   return (
     <section className="hidden fixed xl:flex top-2 overflow-visible flex-col px-5 my-4">
       {/* Search bar section */}
-      <Search placeholder="Search for people" section="rightSidebar" />
+      <Search placeholder="Search for people" section="rightsidebar" />
       {/* Who to Follow */}
       {isLoading ? null : (
         <div className="w-fill flex flex-col rounded-2xl  bg-slate-900 mt-2">
@@ -113,3 +113,5 @@ export const RightSidebar = () => {
     </section>
   );
 };
+
+export default RightSidebar;
