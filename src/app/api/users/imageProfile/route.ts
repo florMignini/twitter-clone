@@ -28,7 +28,7 @@ export const POST = async (req: any) => {
     const buffer = Buffer.from(bytes);
     //keep in file system for preview
     // const filePath = path.join(process.cwd(), tmpdir(), imageToStorage.name);
-    const filePath = await mkdtemp(join(tmpdir(), 'foo-'))
+    const filePath = await mkdtemp(join(tmpdir(), imageToStorage.name))
     await writeFile(filePath, buffer);
     //upload to cloudinary
     const imageUploaded = await cloudinary.uploader.upload(filePath);
