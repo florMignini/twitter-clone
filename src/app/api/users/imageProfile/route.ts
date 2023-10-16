@@ -1,8 +1,8 @@
 import { connectDB } from "@/db/config";
 import Tweet from "../../../../../models/tweet";
-import { unlink, writeFile } from "fs/promises";
+import { unlink, writeFile, mkdtemp } from "fs/promises";
 import { v2 as cloudinary } from "cloudinary";
-
+import { tmpdir } from 'node:os';
 import { NextRequest, NextResponse } from "next/server";
 import path from "path";
 import User from "../../../../../models/user";
@@ -27,7 +27,7 @@ export const POST = async (req: any) => {
     const bytes = await imageToStorage.arrayBuffer();
     const buffer = Buffer.from(bytes);
     //keep in file system for preview
-    const filePath = path.join(process.cwd(), "tmp", imageToStorage.name);
+    const filePath = path.join(process.cwd(), tmpdir(), imageToStorage.name);
     await writeFile(filePath, buffer);
     //upload to cloudinary
     const imageUploaded = await cloudinary.uploader.upload(filePath);
