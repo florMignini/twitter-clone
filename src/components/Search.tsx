@@ -21,8 +21,7 @@ export const Search = ({ placeholder, section }: Props) => {
   const [query, setQuery] = useState<string>("");
   const [searchData, setSearchData] = useState<any>(null);
 
-  useGetGiphy(query);
-  // search for people action
+
   useEffect(() => {
     if (section !== "gifModal") {
       axios.get(`/api/users/search/${query}`).then((data) => {
@@ -74,7 +73,7 @@ export const Search = ({ placeholder, section }: Props) => {
                       transition duration-200 m-1 rounded-md"
       >
         {searchData ? (
-          <div className="w-[80%] flex items-center justify-center">
+          <div className="w-[80%] flex flex-col items-center justify-center">
             {searchData.map((user: any) => (
               <Link
                 key={user._id}
