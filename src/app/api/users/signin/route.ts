@@ -52,8 +52,10 @@ export const POST = async (req: NextRequest, response: NextResponse) => {
         { message: `user successfully logged` },
         { status: 200 }
       );
-      response.cookies.set("sessionToken", sessionToken, {
+      response.cookies.set("sessionToken", sessionToken , {
         httpOnly: true,
+        path: "/",
+        maxAge: 30 * 24 * 60 * 60 * 1000, // 30days
       });
       return response;
     }
@@ -91,6 +93,8 @@ export const POST = async (req: NextRequest, response: NextResponse) => {
     //setting google user session data in cookies
     googleResponse.cookies.set("googleSessionToken", googleSessionToken, {
       httpOnly: true,
+      path: "/",
+      maxAge: 30 * 24 * 60 * 60 * 1000, // 30days
     });
     return googleResponse;
   } catch (error: any) {
