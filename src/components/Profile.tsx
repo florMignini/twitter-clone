@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import { BiArrowBack } from "react-icons/bi";
 import { Avatar } from "@nextui-org/react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -10,7 +11,6 @@ import { BsCalendarWeek } from "react-icons/bs";
 import Tweet from "@/app/client_components/Tweet";
 import { Tweet as tweetType } from "../../interfaces";
 import {GiPhotoCamera} from "react-icons/gi"
-import { useState } from "react";
 import axios from "axios";
 
 type FormProfileData = {
@@ -33,9 +33,11 @@ const Profile = () => {
   
   const profileTweets = useGetTweetsByUser(profileId!);
   const profileInfoQuery = useGetUserInfo(profileId!);
+
+  
   //google account session
   const { data: session, status } = useSession();
-
+  
   const profileInfo = profileInfoQuery?.profileInfo;
 
 
