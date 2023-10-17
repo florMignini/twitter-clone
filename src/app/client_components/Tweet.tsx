@@ -41,24 +41,32 @@ const Tweet = (tweet: tweetType) => {
 
   const likeTweet = async (userId: string, tweetId: string) => {
     await axios.post("/api/likes/like", { userId, tweetId });
+    router.refresh();
   };
 
   const unLikeTweet = async (userId: string, tweetId: string) => {
     await axios.post("/api/likes/unlike", { userId, tweetId });
+    router.refresh();
   };
   const addBookmark = async (userId: string, tweetId: string) => {
     await axios.post("/api/bookmarks/add", { userId, tweetId });
+    router.refresh();
+
   };
   const deleteBookmark = async (userId: string, tweetId: string) => {
     await axios.post("/api/bookmarks/deleteBookmark", { userId, tweetId });
+    router.refresh();
+
   };
   const addView = async(userId: string, tweetId: string) => {
     await axios.post("/api/tweets/addView", { userId, tweetId });
+    router.refresh();
   };
 
   //Follow action
   const follow = async(userToFollowId:string, userId:string) => {
     await axios.post("/api/users/following", { userToFollowId, userId });
+    router.refresh();
   }
 
 
@@ -79,9 +87,7 @@ const Tweet = (tweet: tweetType) => {
     className="w-[95%] relative grid grid-cols-[8%_92%] gap-2
       bg-slate-900 rounded-xl p-3 my-3
       "
-      onClick={() => {
-        addView(userQuery._id, tweet?._id);
-      }}
+     
       >
       <div>
       <Image 
@@ -148,10 +154,15 @@ const Tweet = (tweet: tweetType) => {
           <Link
             href={`/profile/${tweet?._id}`}
             className="w-[99%] flex flex-col items-start text-white text-start text-sm my-2 p-1 pl-1"
+          
           >
-            <div className="p-2">
+            <button className="p-2"
+             onClick={() => {
+              addView(userQuery._id, tweet?._id);
+            }}
+            >
             {tweet?.content}
-           </div>
+           </button>
 
             {/* media content only displayed if it exist*/}
             {
@@ -170,7 +181,9 @@ const Tweet = (tweet: tweetType) => {
            }
           </Link>
         </div>
+        {/* bottom icons */}
         <div className="flex items-center justify-around space-x-2 w-full cursor-pointer">
+          {/* comment button */}
           <Link
             href={`/profile/${tweet?._id}?showModal=y`}
             className="flex 
@@ -188,6 +201,7 @@ items-center justify-center hover:bg-blue-800/20
               " "
             )}
           </Link>
+          {/* retweet button */}
           <div
             className="flex items-center justify-center 
             font-bold
@@ -200,6 +214,7 @@ items-center justify-center hover:bg-blue-800/20
           >
             <AiOutlineRetweet />
           </div>
+          {/* like button */}
           <div
             className="flex items-center justify-center
             font-bold
@@ -215,7 +230,6 @@ items-center justify-center hover:bg-blue-800/20
                 className="flex items-center justify-center gap-1 text-red-500"
                 onClick={() => {
                   unLikeTweet(userQuery._id, tweet?._id);
-                  window.location.reload();
                 }}
               >
                 <AiFillHeart />
@@ -224,7 +238,6 @@ items-center justify-center hover:bg-blue-800/20
               <button
                 onClick={() => {
                   likeTweet(userQuery._id, tweet?._id);
-                  window.location.reload();
                 }}
               >
                 <AiOutlineHeart />
@@ -261,7 +274,6 @@ items-center justify-center hover:bg-blue-800/20
             <button
               onClick={() => {
                 deleteBookmark(userQuery._id, tweet?._id);
-                window.location.reload();
               }}
               className="flex items-center justify-center 
             font-bold
@@ -277,7 +289,6 @@ items-center justify-center hover:bg-blue-800/20
             <button
               onClick={() => {
                 addBookmark(userQuery._id, tweet?._id);
-                window.location.reload();
               }}
               className="flex items-center justify-center 
             font-bold
@@ -291,7 +302,7 @@ items-center justify-center hover:bg-blue-800/20
             </button>
           )}
         </div>
-        {/* bottom icons */}
+
       </div>
       {/* twitt content */}
     </button> //twitt container
