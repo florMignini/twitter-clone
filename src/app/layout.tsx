@@ -33,7 +33,7 @@ export default function RootLayout({
               <div className="">
                 <LeftSidebar />
               </div>
-              {/* Main content ---> Twitts  */}
+              {/* Main content ---> Tweets  */}
               <div className="">{children}</div>
               {/* What's happening & Who to follow section */}
               <div className="">
