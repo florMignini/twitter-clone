@@ -6,8 +6,7 @@ import { Input } from "@nextui-org/react"
 import { useRouter } from "next/navigation"
 import axios from "axios"
 import Image from "next/image"
-import {FcGoogle} from 'react-icons/fc'
-import { InfinitySpin } from "react-loader-spinner"
+import { ThreeDots } from "react-loader-spinner"
 
 interface FormType {
 username: string,
@@ -89,14 +88,8 @@ const LoginPage = () => {
             <h2 className="text-white m-1 text-sm md:text-xs">
               Already registered? <Link 
               className="font-bold underline"
-              href="/signin">Sign In</Link>{" "}
+              href="/signin">Sign Up</Link>{" "}
             </h2>
-           {/*  <button className="w-[30%] h-7 p-1 flex items-center justify-center bg-blue-700 rounded-md">
-              <h6 className="w-[80%] text-xs font-bold ">Register with</h6>
-              <FcGoogle
-              className="w-[20%]"
-              />
-            </button> */}
           </div>
             <button
               className="w-[80%] text-center text-blue-100/30 font-semibold text-xl rounded-full p-1 border-solid border-1 border-blue-100/30 
@@ -106,7 +99,14 @@ const LoginPage = () => {
             >
                 {loading ? (
                 <div className="w-[90%] flex items-center justify-center">
-                  <InfinitySpin width="60" color="#4963f4" />
+                   <ThreeDots
+                    height="40"
+                    width="40"
+                    radius="5"
+                    color="rgb(59 130 246)"
+                    ariaLabel="three-dots-loading"
+                    visible={true}
+                  />
                 </div>
               ) : (
                 <h6 className="">Sign In</h6>

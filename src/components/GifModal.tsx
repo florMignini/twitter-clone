@@ -82,7 +82,7 @@ const GifModal = ({ onClose, onPost }: Props) => {
 
           <input
             type="text"
-            placeholder="Search for people"
+            placeholder="Search for Gifs"
             className="bg-transparent outline-none flex border-none items-center justify-center
                   w-full
                   "

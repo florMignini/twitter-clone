@@ -41,32 +41,32 @@ const Tweet = (tweet: tweetType) => {
 
   const likeTweet = async (userId: string, tweetId: string) => {
     await axios.post("/api/likes/like", { userId, tweetId });
-    router.refresh();
+    window.location.reload()
   };
 
   const unLikeTweet = async (userId: string, tweetId: string) => {
     await axios.post("/api/likes/unlike", { userId, tweetId });
-    router.refresh();
+    window.location.reload()
   };
   const addBookmark = async (userId: string, tweetId: string) => {
     await axios.post("/api/bookmarks/add", { userId, tweetId });
-    router.refresh();
+    window.location.reload()
 
   };
   const deleteBookmark = async (userId: string, tweetId: string) => {
     await axios.post("/api/bookmarks/deleteBookmark", { userId, tweetId });
-    router.refresh();
+    window.location.reload()
 
   };
   const addView = async(userId: string, tweetId: string) => {
     await axios.post("/api/tweets/addView", { userId, tweetId });
-    router.refresh();
+    window.location.reload()
   };
 
   //Follow action
   const follow = async(userToFollowId:string, userId:string) => {
     await axios.post("/api/users/following", { userToFollowId, userId });
-    router.refresh();
+    window.location.reload()
   }
 
 

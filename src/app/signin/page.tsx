@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import axios from "axios";
-import { InfinitySpin } from "react-loader-spinner";
+import { ThreeDots } from "react-loader-spinner";
 import Image from "next/image";
 import { FcGoogle } from "react-icons/fc";
 
@@ -107,14 +107,21 @@ const SigninPage = () => {
             </div>
             <button
               type="submit"
-              className="w-[80%] text-center text-blue-100/30 font-semibold text-xl rounded-full mt-5 p-1 border-solid border-1 border-blue-100/30 
+              className="w-[90%] text-center text-blue-100/30 font-semibold text-xl rounded-full mt-5 p-1 border-solid border-1 border-blue-100/30 
               hover:bg-white/10
               "
               onClick={onSignIn}
             >
               {loading ? (
-                <div className="w-[90%] flex items-center justify-center">
-                  <InfinitySpin width="60" color="#4963f4" />
+                <div className="w-[100%] flex items-center justify-center">
+                  <ThreeDots
+                    height="40"
+                    width="40"
+                    radius="5"
+                    color="rgb(59 130 246)"
+                    ariaLabel="three-dots-loading"
+                    visible={true}
+                  />
                 </div>
               ) : (
                 <h6 className="">Sign In</h6>
