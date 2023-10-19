@@ -115,8 +115,8 @@ const SigninPage = () => {
               {loading ? (
                 <div className="w-[100%] flex items-center justify-center">
                   <ThreeDots
-                    height="40"
-                    width="40"
+                    height="30"
+                    width="30"
                     radius="5"
                     color="rgb(59 130 246)"
                     ariaLabel="three-dots-loading"
