@@ -74,8 +74,14 @@ export const LeftSidebar = () => {
           <DropdownMenu
             className=" text-white">
             <DropdownItem
-              onClick={logOut}
-            >Log out</DropdownItem>
+              // onClick={logOut}
+            >
+              <Link
+              href={'/logout'}
+              >
+              Log out
+              </Link>
+            </DropdownItem>
           </DropdownMenu>
         </Dropdown>
       </div>

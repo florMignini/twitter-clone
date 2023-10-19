@@ -88,28 +88,6 @@ const RightSidebar = () => {
           </div>
         </div>
       )}
-      {/* What's happening */}
-      <div className="flex flex-col rounded-2xl  bg-slate-900 mt-4">
-        <h3 className="text-xl font-bold p-4">What is happening</h3>
-        <div>
-          {Array.from({ length: 3 }).map((_, i) => (
-            <div
-              key={i}
-              className="hover:bg-white/10 transition duration-200 p-3 w-full m-auto"
-            >
-              <div className="text-neutral-500 flex items-center justify-between">
-                <h6 className="text-xs">Trending in Argentina</h6>
-                <BsThreeDots className=" text-md cursor-pointer" />
-              </div>
-              <div className="font-bold text-lg">{`#trending ${i + 1}`}</div>
-              <div className="text-xs text-neutral-500">20.0k</div>
-            </div>
-          ))}
-          <h4 className="text-md text-blue-400 p-4 cursor-pointer hover:bg-gray-800/90 last:rounded-b-2xl">
-            Show more
-          </h4>
-        </div>
-      </div>
     </section>
   );
 };
