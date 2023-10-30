@@ -2,21 +2,25 @@ import mongoose from "mongoose";
 import Tweet from "./tweet";
 import User from "./user";
 
-const tweetBookmarkSchema = new mongoose.Schema({
-  userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: User,
-    required: true,
-  },
-  tweets: [
-    {
+const tweetBookmarkSchema = new mongoose.Schema(
+  {
+    userId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: Tweet,
+      ref: User,
       required: true,
     },
-  ],
-  timestamp: { type: Date, default: Date.now },
-});
+    tweets: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: Tweet,
+        required: true,
+      },
+    ],
+  },
+  {
+    timestamps: true,
+  }
+);
 
 const Bookmark =
   mongoose.models.Bookmark || mongoose.model("Bookmark", tweetBookmarkSchema);

@@ -32,9 +32,12 @@ const SigninPage = () => {
       }
     } catch (error: any) {
       console.log(error?.response?.data.error);
+      setError(error?.response?.data.error)
     }
     setLoading(false);
+
   };
+  console.log(error)
   return (
     <>
       <div className="w-full h-screen flex items-center justify-center lg:grid lg:grid-cols-2 bg-black ">
@@ -47,7 +50,7 @@ const SigninPage = () => {
         />
         <div className="w-[100%] h-[80%] md:w-[80%] lg:w-[100%] lg:h-[55%] lg:m-auto  rounded-2xl lg:flex lg:flex-col items-center justify-center ">
           {error ? (
-            <h6 className="text-[#f9070f] text-center p-2 font-thin text-xs">
+            <h6 className="text-[#f9070f] text-center p-2 font-thin text-md">
               {error}
             </h6>
           ) : (
