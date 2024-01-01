@@ -31,13 +31,18 @@ const SigninPage = () => {
         router.refresh()
       }
     } catch (error: any) {
-      console.log(error?.response?.data.error);
-      setError(error?.response?.data.error)
+      setTimeout(() =>{
+        setError("")
+      },3000)
+      setFormData({
+      email: "",
+      password: "",
+      })
     }
     setLoading(false);
 
   };
-  console.log(error)
+
   return (
     <>
       <div className="w-full h-screen flex items-center justify-center lg:grid lg:grid-cols-2 bg-black ">
@@ -58,12 +63,12 @@ const SigninPage = () => {
           )}
           <div className="w-[90%] h-[95%] flex items-center justify-center flex-col">
             <h1 className="w-[80%] h-[10%] flex items-center justify-center text-3xl mb-4 font-semibold text-white m-1">
-              Welcome back to X-Clone
+              Welcome to X-Clone
             </h1>
             {/* form section */}
             <div className="w-[90%] h-[40%] flex flex-col items-center justify-start">
               {/* email section */}
-              <div className="w-[80%] h-[100px] rounded-md flex flex-col">
+              <div className="w-[90%] h-[100px] rounded-md flex flex-col">
                 <Input
                   className="text-white"
                   type="email"
@@ -78,7 +83,7 @@ const SigninPage = () => {
                 />
               </div>
               {/* password section */}
-              <div className="w-[80%] h-[100px] rounded-md flex flex-col">
+              <div className="w-[90%] h-[100px] rounded-md flex flex-col">
                 <Input
                   className="text-white"
                   type="password"
@@ -110,8 +115,8 @@ const SigninPage = () => {
             </div>
             <button
               type="submit"
-              className="w-[90%] text-center text-blue-100/30 font-semibold text-xl rounded-full mt-5 p-1 border-solid border-1 border-blue-100/30 
-              hover:bg-white/10
+              className="w-[80%] text-center text-blue-600 font-semibold text-xl rounded-full mt-5 p-1 border-solid border-1 border-blue-600
+              hover:bg-blue-600 hover:text-white
               "
               onClick={onSignIn}
             >
@@ -127,7 +132,7 @@ const SigninPage = () => {
                   />
                 </div>
               ) : (
-                <h6 className="">Sign In</h6>
+                <h6 className="">Login</h6>
               )}
             </button>
           </div>

@@ -48,7 +48,7 @@ const LoginPage = () => {
           {/* form section */}
           <div className="w-[90%] h-[65%] flex flex-col items-center justify-start">
             {/* email section */}
-          <div className="w-[80%] h-[100px] rounded-md flex flex-col">
+          <div className="w-[90%] h-[100px] rounded-md flex flex-col">
           <Input
           className="text-white"
           type="email" variant={"underlined"}
@@ -60,7 +60,7 @@ const LoginPage = () => {
           />
           </div>
           {/* username section */}
-          <div className="w-[80%] h-[100px] rounded-md flex flex-col">
+          <div className="w-[90%] h-[100px] rounded-md flex flex-col">
           <Input
           className="text-white"
           type="text" variant={"underlined"}
@@ -72,7 +72,7 @@ const LoginPage = () => {
           />
           </div>
           {/* password section */}
-          <div className="w-[80%] h-[100px] rounded-md flex flex-col">
+          <div className="w-[90%] h-[100px] rounded-md flex flex-col">
           <Input
           className="text-white"
           type="password" variant={"underlined"}
@@ -88,12 +88,12 @@ const LoginPage = () => {
             <h2 className="text-white m-1 text-sm md:text-xs">
               Already registered? <Link 
               className="font-bold underline"
-              href="/signin">Sign Up</Link>{" "}
+              href="/signin">Sign in</Link>{" "}
             </h2>
           </div>
             <button
-              className="w-[80%] text-center text-blue-100/30 font-semibold text-xl rounded-full p-1 border-solid border-1 border-blue-100/30 
-              hover:bg-white/10
+              className="w-[80%] text-center text-blue-600 font-semibold text-xl rounded-full mt-5 p-1 border-solid border-1 border-blue-600
+              hover:bg-blue-600 hover:text-white
               "
               onClick={onSignUp}
             >
