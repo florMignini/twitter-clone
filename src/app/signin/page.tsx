@@ -24,6 +24,12 @@ const SigninPage = () => {
 
   const onSignIn = async () => {
     setLoading(true);
+    if([formData.email, formData.password].includes("")){
+    setError(`All fields are required`)
+    setTimeout(() =>{
+      setError("")
+    },3000)
+    }
     try {
       const res = await axios.post("/api/users/signin", formData);
       if (res) {
@@ -31,6 +37,7 @@ const SigninPage = () => {
         router.refresh()
       }
     } catch (error: any) {
+      setError(error.response.data.error);
       setTimeout(() =>{
         setError("")
       },3000)
@@ -55,7 +62,7 @@ const SigninPage = () => {
         />
         <div className="w-[100%] h-[80%] md:w-[80%] lg:w-[100%] lg:h-[55%] lg:m-auto  rounded-2xl lg:flex lg:flex-col items-center justify-center ">
           {error ? (
-            <h6 className="text-[#f9070f] text-center p-2 font-thin text-md">
+            <h6 className="w-[90%] text-[#f9070f] text-center font-thin text-md">
               {error}
             </h6>
           ) : (

@@ -30,6 +30,7 @@ export const POST = async (req: NextRequest, response: NextResponse) => {
         password,
         userRes.password!
       );
+      console.log(validUserPassword)
       if (!validUserPassword) {
         return NextResponse.json(
           {
