@@ -1,4 +1,5 @@
 import "./globals.css";
+import { EdgeStoreProvider } from "../lib/edgestore";
 import type { Metadata } from "next";
 import { Providers } from "./providers";
 import { LeftSidebar, RightSidebar } from "@/components";
@@ -20,27 +21,27 @@ export default function RootLayout({
   const isGoogleSession = cookieStore.get("next-auth.session-token");
 
   return (
-    <html lang="en"
-    className="bg-black w-full h-screen"
-    >
+    <html lang="en" className="bg-black w-full h-screen">
       <body>
         <Providers>
-          {!isSession && !isGoogleSession ? (
-             <>{children}</>
-          ) : (
-            <div className=" w-full h-screen grid grid-cols-[20%,80%] xl:grid-cols-[20%,50%,30%] gap-1 relative md:px-4 2xl:px-40">
-              {/* Sidebar and notification section  */}
-              <div className="">
-                <LeftSidebar />
+          <EdgeStoreProvider>
+            {!isSession && !isGoogleSession ? (
+              <>{children}</>
+            ) : (
+              <div className=" w-full h-screen grid grid-cols-[20%,80%] xl:grid-cols-[20%,50%,30%] gap-1 relative md:px-4 2xl:px-40">
+                {/* Sidebar and notification section  */}
+                <div className="">
+                  <LeftSidebar />
+                </div>
+                {/* Main content ---> Tweets  */}
+                <div className="">{children}</div>
+                {/* What's happening & Who to follow section */}
+                <div className="">
+                  <RightSidebar />
+                </div>
               </div>
-              {/* Main content ---> Tweets  */}
-              <div className="">{children}</div>
-              {/* What's happening & Who to follow section */}
-              <div className="">
-                <RightSidebar />
-              </div>
-            </div>
-          )}
+            )}
+          </EdgeStoreProvider>
         </Providers>
       </body>
     </html>

@@ -1,14 +1,15 @@
 "use client";
 
 import { useGetSessionData } from "@/helpers";
+import { useEdgeStore } from "@/lib/edgestore";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { AiOutlinePicture } from "react-icons/ai";
 import { BsFiletypeGif } from "react-icons/bs";
+import { SingleImageDropzone } from "./SingleImageDropzone";
 
 interface FormData {
   tweetContent: string;
@@ -26,17 +27,22 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
     tweetContent: "",
     tweetImage: null,
   });
+  const [file, setFile] = useState<File>();
+  // console.log(file)
+  const [url, setUrl] = useState<{ url: string; thumbnail: string | null }>();
+  // console.log(url)
+  const { edgestore } = useEdgeStore();
   //google session
   const { data: session } = useSession();
   //bringing user session data && login session
   const userQuery = useGetSessionData();
-const gifPreview = localStorage.getItem("gifPreview")
+  const gifPreview = localStorage.getItem("gifPreview");
 
   //action for getting tweet image preview
   const imagePreview = async () => {
     try {
       const formDataImage = new FormData();
-      formDataImage.append("tweet-image", formData.tweetImage);
+      formDataImage.append("tweet-image", file);
       const tweetImage = await axios.post(`/api/tweets/preview`, formDataImage);
       setPreviewImage(tweetImage.data);
     } catch (error) {
@@ -46,7 +52,7 @@ const gifPreview = localStorage.getItem("gifPreview")
 
   const removePreview = async (public_id: string) => {
     try {
-      console.log(gifPreview)
+      console.log(gifPreview);
       const deleteImagePreview = await axios.post(`/api/tweets/deletePreview`, {
         public_id,
       });
@@ -73,14 +79,14 @@ const gifPreview = localStorage.getItem("gifPreview")
         tweetImage: null,
       });
       setPreviewImage(null);
-      localStorage.removeItem("gifPreview")
+      localStorage.removeItem("gifPreview");
     } catch (error) {
       console.log(error);
     }
 
     window.location.reload();
   };
-  
+
   return (
     <form
       onSubmit={handleSubmit}
@@ -108,7 +114,7 @@ const gifPreview = localStorage.getItem("gifPreview")
           {previewImage || gifPreview ? (
             <div className="relative">
               <Image
-                src={previewImage ? previewImage.secure_url : gifPreview }
+                src={previewImage ? previewImage?.secure_url : gifPreview}
                 alt="imagePreview"
                 width={500}
                 height={400}
@@ -116,10 +122,10 @@ const gifPreview = localStorage.getItem("gifPreview")
               />
               <button
                 onClick={() => {
-                  if(gifPreview){
-                    localStorage.removeItem("gifPreview")
+                  if (gifPreview) {
+                    localStorage.removeItem("gifPreview");
                   }
-                  removePreview(previewImage.public_id)
+                  removePreview(previewImage.public_id);
                 }}
                 className="w-7 h-7 flex items-center justify-center rounded-full font-bold absolute top-2 right-4 border-2 border-gray-600 text-gray-600 bg-gray-500/80"
               >
@@ -132,21 +138,25 @@ const gifPreview = localStorage.getItem("gifPreview")
           {/* buttons section */}
           <div className="flex items-start justify-center">
             {/* image section */}
-            <div className="w-10 h-10 flex items-center justify-center text-blue-600 rounded-full hover:bg-blue-800/20">
-              <label htmlFor="files">
-                <AiOutlinePicture className="w-[100%] h-[100%]" />
-              </label>
-              <input
+              {/* <input
                 className="hidden w-8 h-8"
                 id="files"
                 type="file"
                 onChange={(e) => {
-                  if (!e.target.files) return;
-                  setFormData({ ...formData, tweetImage: e.target.files[0] });
+                 setFile(e.target.files?.[0])
                 }}
-                onClick={imagePreview}
+                // onClick={imagePreview}
+              /> */}
+              <SingleImageDropzone
+                width={200}
+                height={200}
+                value={file}
+                onChange={(file) => {
+                  setFile(file);
+                }}
               />
-            </div>
+
+
 
             {/* gif section */}
             <Link
@@ -160,7 +170,14 @@ const gifPreview = localStorage.getItem("gifPreview")
           </div>
           {/* upload button */}
           <button
-            type="submit"
+            // type="submit"
+            onClick={async () => {
+              if (file) {
+                const res = await edgestore.publicImages.upload({ file });
+                //send data to database
+                console.log(res);
+              }
+            }}
             className="w-[20%] rounded-3xl bg-blue-600 mb-1 py-1 px-4 text-md hover:bg-opacity-70 transition duration-200"
           >
             {BtnTitle}
