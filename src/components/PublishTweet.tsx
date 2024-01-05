@@ -65,26 +65,26 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
   }, [file]);
 
   // dropzone configuration
-const {
-  getRootProps,
-  getInputProps,
-  acceptedFiles,
-  fileRejections,
-  isFocused,
-  isDragAccept,
-  isDragReject,
-} = useDropzone({
-  accept: { 'image/*': [] },
-  multiple: false,
-  // disabled,
-  onDrop: (acceptedFiles) => {
-    const file = acceptedFiles[0];
-    if (file) {
-      void onChange?.(file);
-    }
-  },
-  // ...dropzoneOptions,
-});
+  const {
+    getRootProps,
+    getInputProps,
+    acceptedFiles,
+    fileRejections,
+    isFocused,
+    isDragAccept,
+    isDragReject,
+  } = useDropzone({
+    accept: { "image/*": [] },
+    multiple: false,
+    // disabled,
+    onDrop: (acceptedFiles) => {
+      const file = acceptedFiles[0];
+      if (file) {
+        void onChange?.(file);
+      }
+    },
+    // ...dropzoneOptions,
+  });
   const [url, setUrl] = useState<{ url: string; thumbnail: string | null }>();
   // console.log(url)
   const { edgestore } = useEdgeStore();
@@ -95,7 +95,7 @@ const {
   const gifPreview = localStorage.getItem("gifPreview");
 
   //action for getting tweet image preview
- /*  const imagePreview = async () => {
+  const imagePreview = async () => {
     try {
       const formDataImage = new FormData();
       formDataImage.append("tweet-image", file);
@@ -104,7 +104,7 @@ const {
     } catch (error) {
       console.log(error);
     }
-  }; */
+  };
 
   const removePreview = async (public_id: string) => {
     try {
@@ -119,7 +119,8 @@ const {
       console.log(error);
     }
   };
-  const handleSubmit = async (e: { preventDefault: () => void }) => {
+  console.log(file);
+/*   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     const tweetContent = {
       tweetContent: formData.tweetContent,
@@ -141,11 +142,20 @@ const {
     }
 
     window.location.reload();
-  };
+  }; */
 
   return (
     <form
-      onSubmit={handleSubmit}
+      onSubmit={async (e) => {
+        e.stopPropagation()
+        e.preventDefault();
+        // console.log(file)
+        if (file) {
+          const res = await edgestore.publicImages.upload( file );
+          //send data to database
+          console.log(res);
+        }
+      }}
       className="h-auto flex flex-col items-start justify-between "
     >
       <div className="w-full h-auto mx-1 overflow-clip">
@@ -176,66 +186,70 @@ const {
                 height={400}
                 className="relative object-contain"
               />
-                       {/* Remove Image Icon */}
-          {imageUrl || gifPreview && (
-            <div
-              className="group absolute right-0 top-0 -translate-y-1/4 translate-x-1/4 transform"
-              onClick={(e) => {
-                e.stopPropagation();
-              }}
-            >
-              <div className="flex h-5 w-5 items-center justify-center rounded-md border border-solid border-gray-500 bg-white transition-all duration-300 hover:h-6 hover:w-6 dark:border-gray-400 dark:bg-black">
-                <Button
-                  className="text-gray-80000 dark:text-gray-400"
-                  width={16}
-                  height={16}
-                >X</Button>
+              {/* Remove Image Icon */}
+              {imageUrl || gifPreview ? (
+                <div
+                  className="group absolute right-0 top-0 -translate-y-1/4 translate-x-1/4 transform"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                  }}
+                >
+                  <div className="flex h-5 w-5 items-center justify-center rounded-md border border-solid border-gray-500 bg-white transition-all duration-300 hover:h-6 hover:w-6 dark:border-gray-400 dark:bg-black">
+                    <Button
+                      className="text-gray-80000 dark:text-gray-400"
+                      width={16}
+                      height={16}
+                    >
+                      X
+                    </Button>
+                  </div>
                 </div>
+              ) : null}
             </div>
-          )}
-        </div>
-
           ) : null}
         </div>
         <div className="w-[100%] h-[100%] flex items-center justify-between p-2">
           {/* buttons section */}
-          <div className="flex items-start justify-center">
-            {/* image section */}
-            <div className="w-10 h-10 flex items-center justify-center text-blue-600 rounded-full hover:bg-blue-800/20">
-              <label htmlFor="files">
-                <AiOutlinePicture className="w-[100%] h-[100%]" />
-              </label>
+          {imageUrl || gifPreview ?  <div className="flex items-start justify-center"/> : (
+            <div className="flex items-start justify-center">
+              {/* image section */}
+              <div className="w-10 h-10 flex items-center justify-center text-blue-600 rounded-full hover:bg-blue-800/20">
+                <label htmlFor="files">
+                  <AiOutlinePicture className="w-[100%] h-[100%]" />
+                </label>
               </div>
-            <input
-              className="hidden w-8 h-8"
-              id="files"
-              type="file"
-              onChange={(e) => {
-                setFile(e.target.files?.[0]);
-              }}
-              // onClick={imagePreview}
-            />
-           
-            {/* gif section */}
-            <Link
-              href={`/?showModal=y`}
-              className="w-10 h-10 flex items-center justify-center text-blue-600 rounded-full hover:bg-blue-800/20"
-            >
-              <label htmlFor="files">
-                <BsFiletypeGif className="w-[100%] h-[100%]" />
-              </label>
-            </Link>
-          </div>
+              <input
+                className="hidden w-8 h-8"
+                id="files"
+                type="file"
+                onChange={(e) => {
+                  setFile(e.target.files?.[0]);
+                }}
+                // onClick={imagePreview}
+              />
+
+              {/* gif section */}
+              <Link
+                href={`/?showModal=y`}
+                className="w-10 h-10 flex items-center justify-center text-blue-600 rounded-full hover:bg-blue-800/20"
+              >
+                <label htmlFor="files">
+                  <BsFiletypeGif className="w-[100%] h-[100%]" />
+                </label>
+              </Link>
+            </div>
+          )}
           {/* upload button */}
           <button
-            // type="submit"
-            onClick={async () => {
+            type="submit"
+            /* onClick={async () => {
+              console.log(file)
               if (file) {
-                const res = await edgestore.publicImages.upload({ file });
+                const res = await edgestore.publicImages.upload( file );
                 //send data to database
                 console.log(res);
               }
-            }}
+            }} */
             className="w-[20%] rounded-3xl bg-blue-600 mb-1 py-1 px-4 text-md hover:bg-opacity-70 transition duration-200"
           >
             {BtnTitle}
@@ -253,17 +267,17 @@ const Button = React.forwardRef<
     <button
       className={twMerge(
         // base
-        'focus-visible:ring-ring inline-flex cursor-pointer items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 disabled:pointer-events-none disabled:opacity-50',
+        "focus-visible:ring-ring inline-flex cursor-pointer items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 disabled:pointer-events-none disabled:opacity-50",
         // color
-        'border border-gray-400 text-gray-400 shadow hover:bg-gray-100 hover:text-gray-500 dark:border-gray-600 dark:text-gray-100 dark:hover:bg-gray-700',
+        "border border-gray-400 text-gray-400 shadow hover:bg-gray-100 hover:text-gray-500 dark:border-gray-600 dark:text-gray-100 dark:hover:bg-gray-700",
         // size
-        'h-6 rounded-md px-2 text-xs',
-        className,
+        "h-6 rounded-md px-2 text-xs",
+        className
       )}
       ref={ref}
       {...props}
     />
   );
 });
-Button.displayName = 'Button';
+Button.displayName = "Button";
 export default PublishTweet;
