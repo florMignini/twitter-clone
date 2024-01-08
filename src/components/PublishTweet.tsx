@@ -119,7 +119,7 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
       console.log(error);
     }
   };
-  console.log(file);
+
 /*   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     const tweetContent = {
@@ -149,9 +149,9 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
       onSubmit={async (e) => {
         e.stopPropagation()
         e.preventDefault();
-        // console.log(file)
+
         if (file) {
-          const res = await edgestore.publicImages.upload( file );
+          const res = await edgestore.publicImages.upload( {file} );
           //send data to database
           console.log(res);
         }
@@ -182,7 +182,7 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
               <Image
                 src={imageUrl ? imageUrl : gifPreview}
                 alt="imagePreview"
-                width={500}
+                width={400}
                 height={400}
                 className="relative object-contain"
               />
