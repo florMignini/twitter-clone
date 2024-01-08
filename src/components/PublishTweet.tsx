@@ -75,7 +75,6 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
   } = useDropzone({
     accept: { "image/*": [] },
     multiple: false,
-
   });
   const [url, setUrl] = useState<string>();
 
@@ -84,35 +83,38 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
   const { data: session } = useSession();
   //bringing user session data && login session
   const userQuery = useGetSessionData();
-  const gifPreview:any = localStorage.getItem("gifPreview");
+  const gifPreview: any = localStorage.getItem("gifPreview");
 
-  /*   const handleSubmit = async (e: { preventDefault: () => void }) => {
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
+    // e.stopPropagation();
+
+    const res = await edgestore.publicImages.upload({ file });
+    //send data to database
     const tweetContent = {
       tweetContent: formData.tweetContent,
-      tweetImage: previewImage ? previewImage.secure_url : gifPreview,
+      tweetImage: res ? res.url : gifPreview,
       tweetUserImage: session
-        ? session?.user?.image
-        : userQuery?.profile_picture,
+      ? session?.user?.image
+      : userQuery?.profile_picture,
     };
+
     try {
       const content = await axios.post("/api/tweets/publish", tweetContent);
       setFormData({
         tweetContent: "",
         tweetImage: null,
       });
-      setPreviewImage(null);
+      setFile("");
       localStorage.removeItem("gifPreview");
     } catch (error) {
       console.log(error);
     }
+  };
 
-    window.location.reload();
-  }; */
-
-useEffect(() => {
-  setUrl(gifPreview)
-}, [gifPreview])
+  useEffect(() => {
+    setUrl(gifPreview);
+  }, [gifPreview]);
 
   return (
     <form className="h-auto flex flex-col items-start justify-between ">
@@ -154,9 +156,9 @@ useEffect(() => {
                     if (file) {
                       setFile("");
                     }
-                    if(url){
-                    localStorage.removeItem("gifPreview")
-                    setUrl("")
+                    if (url) {
+                      localStorage.removeItem("gifPreview");
+                      setUrl("");
                     }
                   }}
                 >
@@ -199,7 +201,6 @@ useEffect(() => {
               <Link
                 href={`/?showModal=y`}
                 className="w-10 h-10 flex items-center justify-center text-blue-600 rounded-full hover:bg-blue-800/20"
-            
               >
                 <label htmlFor="files">
                   <BsFiletypeGif className="w-[100%] h-[100%]" />
@@ -209,15 +210,7 @@ useEffect(() => {
           )}
           {/* upload button */}
           <button
-            onClick={async (e) => {
-              e.stopPropagation();
-              e.preventDefault();
-              if (file) {
-                const res = await edgestore.publicImages.upload({ file });
-                //send data to database
-                console.log(res);
-              }
-            }}
+            onClick={handleSubmit}
             className="w-[20%] rounded-3xl bg-blue-600 mb-1 py-1 px-4 text-md hover:bg-opacity-70 transition duration-200"
           >
             {BtnTitle}

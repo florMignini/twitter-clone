@@ -27,6 +27,7 @@ const nextConfig = {
       "images.pexels.com",
       "www.vecteezy.com",
       "helios-i.mashable.com",
+      "files.edgestore.dev",
     ],
   }
 };
