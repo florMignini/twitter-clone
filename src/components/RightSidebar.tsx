@@ -40,7 +40,7 @@ const RightSidebar = () => {
   };
 
   return (
-    <section className="hidden fixed xl:flex top-2 overflow-visible flex-col px-5 my-4">
+    <section className="hidden fixed lg:flex top-2 overflow-visible flex-col px-5 my-4">
       {/* Search bar section */}
       <Search placeholder="Search for people" section="rightsidebar" />
       {/* Who to Follow */}
