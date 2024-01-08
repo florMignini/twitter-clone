@@ -8,14 +8,11 @@ const es = initEdgeStore.create();
  * This is the main router for the Edge Store buckets.
  */
 const edgeStoreRouter = es.router({
-  publicImages: es.imageBucket()
-  .input(
-    z.object({
-    type: z.enum(["post", "profile"])
-    })
-    )
+  publicImages: es.imageBucket({
+    accept: ['image/*'],
+})
     // metadata path
-    .path(({input})=>[{type: input.type}])
+    // .path(({input})=>[{type: input.type}])
 });
  
 const handler = createEdgeStoreNextHandler({

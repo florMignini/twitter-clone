@@ -9,11 +9,11 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import { BsFiletypeGif } from "react-icons/bs";
-import { SingleImageDropzone } from "./SingleImageDropzone";
 import { DropzoneOptions, useDropzone } from "react-dropzone";
 import { AiOutlinePicture } from "react-icons/ai";
 import { twMerge } from "tailwind-merge";
 import React from "react";
+
 
 const variants = {
   base: "relative rounded-md flex justify-center items-center flex-col cursor-pointer min-h-[150px] min-w-[200px] border border-dashed border-gray-400 dark:border-gray-300 transition-colors duration-200 ease-in-out",
@@ -52,7 +52,7 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
     tweetImage: null,
   });
   const [file, setFile] = useState<File>();
-  // console.log(file)
+
   const imageUrl = useMemo(() => {
     if (typeof file === "string") {
       // in case a url is passed in, use it to display the image
@@ -63,7 +63,6 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
     }
     return null;
   }, [file]);
-
   // dropzone configuration
   const {
     getRootProps,
@@ -76,35 +75,16 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
   } = useDropzone({
     accept: { "image/*": [] },
     multiple: false,
-    // disabled,
-    onDrop: (acceptedFiles) => {
-      const file = acceptedFiles[0];
-      if (file) {
-        void onChange?.(file);
-      }
-    },
-    // ...dropzoneOptions,
+ 
   });
   const [url, setUrl] = useState<{ url: string; thumbnail: string | null }>();
-  // console.log(url)
+
   const { edgestore } = useEdgeStore();
   //google session
   const { data: session } = useSession();
   //bringing user session data && login session
   const userQuery = useGetSessionData();
   const gifPreview = localStorage.getItem("gifPreview");
-
-  //action for getting tweet image preview
-  const imagePreview = async () => {
-    try {
-      const formDataImage = new FormData();
-      formDataImage.append("tweet-image", file);
-      const tweetImage = await axios.post(`/api/tweets/preview`, formDataImage);
-      setPreviewImage(tweetImage.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const removePreview = async (public_id: string) => {
     try {
@@ -143,19 +123,11 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
 
     window.location.reload();
   }; */
+// console.log(file)
+// console.log(imageUrl)
 
   return (
     <form
-      onSubmit={async (e) => {
-        e.stopPropagation()
-        e.preventDefault();
-
-        if (file) {
-          const res = await edgestore.publicImages.upload( {file} );
-          //send data to database
-          console.log(res);
-        }
-      }}
       className="h-auto flex flex-col items-start justify-between "
     >
       <div className="w-full h-auto mx-1 overflow-clip">
@@ -225,7 +197,6 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
                 onChange={(e) => {
                   setFile(e.target.files?.[0]);
                 }}
-                // onClick={imagePreview}
               />
 
               {/* gif section */}
@@ -241,15 +212,15 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
           )}
           {/* upload button */}
           <button
-            type="submit"
-            /* onClick={async () => {
-              console.log(file)
+            onClick={async (e) => {
+              e.stopPropagation()
+              e.preventDefault();
               if (file) {
-                const res = await edgestore.publicImages.upload( file );
+                const res = await edgestore.publicImages.upload( {file} );
                 //send data to database
                 console.log(res);
               }
-            }} */
+            }}
             className="w-[20%] rounded-3xl bg-blue-600 mb-1 py-1 px-4 text-md hover:bg-opacity-70 transition duration-200"
           >
             {BtnTitle}
