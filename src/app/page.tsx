@@ -72,7 +72,7 @@ const Page = () => {
       </h1>
 
       {/* Avatar */}
-      <div className="h-auto border-b-[0.3px] border-t-[0.3px] px-3 pt-3 pb-0 border-slate-700 relative grid grid-cols-[8%,92%] gap-1 bg-slate-900">
+      <div className="h-auto border-b-[0.3px] border-t-[0.3px] px-3 pt-3 pb-0 border-slate-700 relative grid grid-cols-[8%,92%] gap-1 bg-[#16181C]">
         <Image
           width={50}
           height={50}

@@ -37,7 +37,7 @@ export const Search = ({ placeholder, section }: Props) => {
 
   return (
     <div className="w-full h-auto shadow-xl">
-      <div className="sticky h-15 top-0 rounded-full bg-slate-900 backdrop-blur-lg text-gray-600 mt-1">
+      <div className="sticky h-15 top-0 rounded-full bg-[#16181C] backdrop-blur-lg text-gray-600 mt-1">
         <div className="h-full w-full relative grid grid-cols-[10%,80%,10%] gap-2 p-3 text-sm">
           <label
             htmlFor="searchItem"

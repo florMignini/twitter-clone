@@ -45,7 +45,7 @@ const RightSidebar = () => {
       <Search placeholder="Search for people" section="rightsidebar" />
       {/* Who to Follow */}
       {isLoading ? null : (
-        <div className="w-fill flex flex-col rounded-2xl  bg-slate-900 mt-2">
+        <div className="w-fill flex flex-col rounded-2xl  bg-[#16181C] mt-2">
           <h3 className="text-xl font-bold py-3 px-4">Who to Follow</h3>
           <div>
             {suggestionsArray?.map((suggestion: userType) => (
@@ -82,7 +82,7 @@ const RightSidebar = () => {
                 </button>
               </button>
             ))}
-            <h4 className="text-md text-blue-400 p-4 cursor-pointer hover:bg-gray-800/90 last:rounded-b-2xl">
+            <h4 className="text-md text-blue-400 p-4 cursor-pointer hover:bg-black/30 last:rounded-b-2xl">
               Show more
             </h4>
           </div>

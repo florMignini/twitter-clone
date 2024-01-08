@@ -85,7 +85,7 @@ const Tweet = (tweet: tweetType) => {
     <button
     key={tweet?._id}
     className="w-[95%] relative grid grid-cols-[8%_92%] gap-2
-      bg-slate-900 rounded-xl p-3 my-3
+      bg-[#16181C] rounded-xl p-3 my-3
       "
      
       >

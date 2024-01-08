@@ -52,7 +52,7 @@ const SigninPage = () => {
 
   return (
     <>
-      <div className="w-full h-screen flex items-center justify-center lg:grid lg:grid-cols-2 bg-black ">
+      <div className="w-full h-screen flex items-center justify-center lg:grid lg:grid-cols-2 bg-black md:px-24 xl:px-72">
         <Image
           src="https://helios-i.mashable.com/imagery/articles/078aX2gLMgAlz2tiIeZdVVL/hero-image.fill.size_1248x702.v1691114328.jpg"
           width={800}

@@ -40,7 +40,7 @@ const LoginPage = () => {
     setLoading(false);
   };
   return (
-    <div className="w-full h-screen flex items-center justify-center lg:grid lg:grid-cols-2 bg-black ">
+    <div className="w-full h-screen flex items-center justify-center lg:grid lg:grid-cols-2 bg-black md:px-24 xl:px-72">
       <Image
         src="https://helios-i.mashable.com/imagery/articles/078aX2gLMgAlz2tiIeZdVVL/hero-image.fill.size_1248x702.v1691114328.jpg"
         width={800}
@@ -61,7 +61,7 @@ const LoginPage = () => {
             Join X-Clone
           </h1>
           {/* form section */}
-          <div className="w-[90%] h-[65%] flex flex-col items-center justify-start">
+          <div className="w-[90%] h-[65%] md:h-[35%] lg:h-[50%] flex flex-col items-center justify-start">
             {/* email section */}
             <div className="w-[90%] h-[100px] rounded-md flex flex-col">
               <Input
