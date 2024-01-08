@@ -7,13 +7,13 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { BsFiletypeGif } from "react-icons/bs";
 import { DropzoneOptions, useDropzone } from "react-dropzone";
 import { AiOutlinePicture } from "react-icons/ai";
 import { twMerge } from "tailwind-merge";
 import React from "react";
-
+import { undefined } from "zod";
 
 const variants = {
   base: "relative rounded-md flex justify-center items-center flex-col cursor-pointer min-h-[150px] min-w-[200px] border border-dashed border-gray-400 dark:border-gray-300 transition-colors duration-200 ease-in-out",
@@ -51,7 +51,7 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
     tweetContent: "",
     tweetImage: null,
   });
-  const [file, setFile] = useState<File>();
+  const [file, setFile] = useState<File | string>();
 
   const imageUrl = useMemo(() => {
     if (typeof file === "string") {
@@ -75,32 +75,18 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
   } = useDropzone({
     accept: { "image/*": [] },
     multiple: false,
- 
+
   });
-  const [url, setUrl] = useState<{ url: string; thumbnail: string | null }>();
+  const [url, setUrl] = useState<string>();
 
   const { edgestore } = useEdgeStore();
   //google session
   const { data: session } = useSession();
   //bringing user session data && login session
   const userQuery = useGetSessionData();
-  const gifPreview = localStorage.getItem("gifPreview");
+  const gifPreview:any = localStorage.getItem("gifPreview");
 
-  const removePreview = async (public_id: string) => {
-    try {
-      console.log(gifPreview);
-      const deleteImagePreview = await axios.post(`/api/tweets/deletePreview`, {
-        public_id,
-      });
-      if (deleteImagePreview) {
-        setPreviewImage(null);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-/*   const handleSubmit = async (e: { preventDefault: () => void }) => {
+  /*   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     const tweetContent = {
       tweetContent: formData.tweetContent,
@@ -123,13 +109,13 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
 
     window.location.reload();
   }; */
-// console.log(file)
-// console.log(imageUrl)
+
+useEffect(() => {
+  setUrl(gifPreview)
+}, [gifPreview])
 
   return (
-    <form
-      className="h-auto flex flex-col items-start justify-between "
-    >
+    <form className="h-auto flex flex-col items-start justify-between ">
       <div className="w-full h-auto mx-1 overflow-clip">
         <input
           type="text"
@@ -163,7 +149,15 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
                 <div
                   className="group absolute right-0 top-0 -translate-y-1/4 translate-x-1/4 transform"
                   onClick={(e) => {
+                    e.preventDefault();
                     e.stopPropagation();
+                    if (file) {
+                      setFile("");
+                    }
+                    if(url){
+                    localStorage.removeItem("gifPreview")
+                    setUrl("")
+                    }
                   }}
                 >
                   <div className="flex h-5 w-5 items-center justify-center rounded-md border border-solid border-gray-500 bg-white transition-all duration-300 hover:h-6 hover:w-6 dark:border-gray-400 dark:bg-black">
@@ -182,7 +176,9 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
         </div>
         <div className="w-[100%] h-[100%] flex items-center justify-between p-2">
           {/* buttons section */}
-          {imageUrl || gifPreview ?  <div className="flex items-start justify-center"/> : (
+          {imageUrl || gifPreview ? (
+            <div className="flex items-start justify-center" />
+          ) : (
             <div className="flex items-start justify-center">
               {/* image section */}
               <div className="w-10 h-10 flex items-center justify-center text-blue-600 rounded-full hover:bg-blue-800/20">
@@ -203,6 +199,7 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
               <Link
                 href={`/?showModal=y`}
                 className="w-10 h-10 flex items-center justify-center text-blue-600 rounded-full hover:bg-blue-800/20"
+            
               >
                 <label htmlFor="files">
                   <BsFiletypeGif className="w-[100%] h-[100%]" />
@@ -213,10 +210,10 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
           {/* upload button */}
           <button
             onClick={async (e) => {
-              e.stopPropagation()
+              e.stopPropagation();
               e.preventDefault();
               if (file) {
-                const res = await edgestore.publicImages.upload( {file} );
+                const res = await edgestore.publicImages.upload({ file });
                 //send data to database
                 console.log(res);
               }
