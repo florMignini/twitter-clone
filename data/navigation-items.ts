@@ -4,14 +4,14 @@ import { BiSolidUser } from "react-icons/bi";
 import { BsBookmark, BsEnvelope } from "react-icons/bs";
 
 export const nav_items: navItem[] = [
-/*   {
+ /*  {
     icon: AiOutlineBell,
     title: "Notification",
-  },
+  }, */
   {
     icon: BsEnvelope,
     title: "Messages",
-  }, */
+  },
   {
     icon: BsBookmark,
     title: "Bookmarks",
