@@ -25,7 +25,7 @@ interface DecodedToken {
     const userQuery = await getUserData(req);
 
     const tweetdata = await req.body;
-    console.log(tweetdata);
+
 
     if (!userQuery) {
       return res.status(401).json({ error: `Unauthorized` });
@@ -41,7 +41,7 @@ interface DecodedToken {
       userImage: tweetdata.tweetUserImage ? tweetdata.tweetUserImage : null,
       userId: userQuery.id,
     }).save();
-    console.log(newTweet)
+
     //socket connection
     res?.socket?.server?.io?.emit("tweetPublish", newTweet)
      

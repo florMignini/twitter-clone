@@ -99,12 +99,12 @@ export const POST = async (req: NextRequest, response: NextResponse) => {
     });
     return googleResponse;
   } catch (error: any) {
-    NextResponse.json(
+    console.log(error);
+   return NextResponse.json(
       {
         error: error.message,
       },
       { status: 500 }
     );
-    console.log(error);
   }
 };

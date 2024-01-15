@@ -18,9 +18,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const cookieStore = cookies();
-  const isSession = cookieStore.get("sessionToken");
+  const isSession = cookieStore.get("sessionToken")?.value;
 
-  const isGoogleSession = cookieStore.get("next-auth.session-token");
+  const isGoogleSession = cookieStore.get("next-auth.session-token")?.value;
 
   return (
     <html lang="en" className="bg-black w-full h-screen">

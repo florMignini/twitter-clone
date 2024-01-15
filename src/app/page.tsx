@@ -27,21 +27,29 @@ const Page = () => {
   //login session
   const sessionProfile = useGetSessionData();
 
-
-   if(!sessionProfile){
-    router.push("/signin");
+  useEffect(() => {
+    if(!sessionProfile){
+      router.push("/signin");
+      router.refresh();
+    }
+    router.push("/")
     router.refresh();
-  }
-
-
+  }, [sessionProfile, router])
+  
   //google account session
-  const { data: session, status } = useSession();
+ /*  const { data: session, status } = useSession();
 
   useEffect(() => {
+    if(!session){
+      router.push("/signin");
+      router.refresh();
+    }
+ 
     const res = axios.post("/api/users/signin", session?.user);
     router.push("/");
     router.refresh();
-  }, [session, router]);
+  
+  }, [session, router]); */
 
   /* modal states */
   const onClose = () => {

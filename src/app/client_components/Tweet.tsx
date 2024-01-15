@@ -31,16 +31,15 @@ const Tweet = (tweet: tweetType) => {
   const router = useRouter();
   //bringing user session data && login session
   const userQuery = useGetSessionData();
-
-
- //google account session
+  
+  //google account session
   const { data: session, status } = useSession();
-
-// google session image
- const userImage = session?.user?.image!;
+  
+  // google session image
+  const userImage = session?.user?.image!;
   const { data } = useGetBookmarks(userQuery?._id);
   const bookmarkData = data?.data?.bookmarkByUser[0];
-
+  
   const likeTweet = async (userId: string, tweetId: string) => {
     await axios.post("/api/likes/like", { userId, tweetId });
 
