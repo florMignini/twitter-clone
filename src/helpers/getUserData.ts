@@ -1,5 +1,4 @@
 import { NextApiRequest } from "next";
-import { parse } from "cookie";
 import jwt from "jsonwebtoken";
 
 export const getUserData = (request: NextApiRequest) => {
