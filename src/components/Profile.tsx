@@ -8,10 +8,11 @@ import useGetUserInfo from "@/helpers/useGetUserInfo";
 import useGetTweetsByUser from "@/helpers/useGetTweetsByUser";
 import dayjs from "dayjs";
 import { BsCalendarWeek } from "react-icons/bs";
-import Tweet from "@/app/client_components/Tweet";
 import { Tweet as tweetType } from "../../interfaces";
 import {GiPhotoCamera} from "react-icons/gi"
 import axios from "axios";
+import { Tweet } from "@/app/client_components/Tweet";
+
 
 type FormProfileData = {
   profileImage: any,
@@ -29,7 +30,7 @@ const Profile = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   
-  const profileId = searchParams.get("profileId");
+  const profileId = searchParams?.get("profileId");
   
   const profileTweets = useGetTweetsByUser(profileId!);
   const profileInfoQuery = useGetUserInfo(profileId!);

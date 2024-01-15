@@ -176,8 +176,7 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
                   <div className="flex h-5 w-5 items-center justify-center rounded-md border border-solid border-gray-500 bg-white transition-all duration-300 hover:h-6 hover:w-6 dark:border-gray-400 dark:bg-black">
                     <Button
                       className="text-gray-80000 dark:text-gray-400"
-                      width={16}
-                      height={16}
+                      
                     >
                       X
                     </Button>
@@ -243,7 +242,7 @@ const Button = React.forwardRef<
         // color
         "border border-gray-400 text-gray-400 shadow hover:bg-gray-100 hover:text-gray-500 dark:border-gray-600 dark:text-gray-100 dark:hover:bg-gray-700",
         // size
-        "h-6 rounded-md px-2 text-xs",
+        "w-16 h-16 rounded-md px-2 text-xs",
         className
       )}
       ref={ref}

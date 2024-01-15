@@ -14,6 +14,7 @@ import { useGetSessionData } from "@/helpers";
 import Link from "next/link";
 import { Tweet as tweetType } from "../../../interfaces";
 import useGetBookmarks from "@/helpers/useGetBookmarks";
+import ImageTest from "../../assets/X_icon.png"
 
 import Image from "next/image";
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/react";
@@ -27,7 +28,8 @@ export interface Like {
   _id: string;
 }
 
-const Tweet = (tweet: tweetType) => {
+export const Tweet = (tweet: tweetType) => {
+
   const router = useRouter();
   //bringing user session data && login session
   const userQuery = useGetSessionData();
@@ -36,7 +38,7 @@ const Tweet = (tweet: tweetType) => {
   const { data: session, status } = useSession();
   
   // google session image
-  const userImage = session?.user?.image!;
+  const googleUserImage = session?.user?.image!;
   const { data } = useGetBookmarks(userQuery?._id);
   const bookmarkData = data?.data?.bookmarkByUser[0];
   
@@ -85,13 +87,16 @@ const Tweet = (tweet: tweetType) => {
       "
      
       >
+        {/* user image */}
       <div>
-      <Image 
-          width={50}
-          height={50}
-          className="rounded-full flex items-center justify-center"
-          alt="userAvatar"
-          src={tweet?.userImage!} />
+     {
+     tweet && tweet?.userImage &&  <Image 
+     width={50}
+     height={50}
+     className="rounded-full flex items-center justify-center"
+     alt="userAvatar"
+     src={ tweet?.userImage} />
+     }
 
       </div>{" "}
       {/* avatar section */}
@@ -162,7 +167,7 @@ const Tweet = (tweet: tweetType) => {
 
             {/* media content only displayed if it exist*/}
             {
-              tweet?.image ? (
+              tweet?.image ? ( tweet.userImage && 
                 
                 <Image
                     src={tweet?.image!}
@@ -305,4 +310,4 @@ items-center justify-center hover:bg-blue-800/20
   );
 };
 
-export default Tweet;
+

@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect } from "react";
 import { useGetSessionData, useGetTweets } from "@/helpers";
-import Tweet, { Like } from "@/app/client_components/Tweet";
+import  { Like, Tweet } from "@/app/client_components/Tweet";
 import PublishTweet from "../components/PublishTweet";
 import { Profile } from "../../interfaces";
 import { Tweet as tweetType } from "../../interfaces";
@@ -28,28 +28,27 @@ const Page = () => {
   const sessionProfile = useGetSessionData();
 
   useEffect(() => {
-    if(!sessionProfile){
+    if (!sessionProfile) {
       router.push("/signin");
       router.refresh();
     }
-    router.push("/")
+    router.push("/");
     router.refresh();
-  }, [sessionProfile, router])
-  
+  }, [sessionProfile, router]);
+
   //google account session
- /*  const { data: session, status } = useSession();
+  const { data: session, status } = useSession();
 
   useEffect(() => {
-    if(!session){
+    if (!session) {
       router.push("/signin");
       router.refresh();
     }
- 
+
     const res = axios.post("/api/users/signin", session?.user);
     router.push("/");
     router.refresh();
-  
-  }, [session, router]); */
+  }, [session, router]);
 
   /* modal states */
   const onClose = () => {
@@ -114,11 +113,19 @@ const Page = () => {
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center my-4">
-            {error ? <h1>Something goes wrong with server</h1> : null}
-            {data?.data.allTweets &&
-              data?.data.allTweets.map((tweet: tweetType) => (
-                <Tweet key={tweet._id} {...tweet} />
-              ))}
+            {error ? (
+              <h1>Something goes wrong with server</h1>
+            ) : 
+            (
+              <>
+                {data?.data.allTweets &&
+                  data?.data.allTweets.map((tweet: tweetType) => (
+                    <Tweet key={tweet._id} {...tweet} />
+                  ))}
+              </>
+            )
+            
+            }
           </div>
         )}
       </main>
