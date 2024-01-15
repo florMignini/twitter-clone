@@ -3,13 +3,13 @@ import { parse } from "cookie";
 import jwt from "jsonwebtoken";
 
 export const getUserData = (request: NextApiRequest) => {
- console.log(request)
+
+
     try {
-      const cookies = parse(request.headers.cookie || "");
-      console.log("cookies: ",cookies)
-      const sessionToken = cookies.sessionToken!;
+
+      const sessionToken = request?.cookies?.get("sessionToken")?.value;
       //google session
-      const googleToken = cookies.googleSessionToken!;
+      const googleToken = request?.cookies?.get("googleSessionToken")?.value;
 
       if (sessionToken) {
         const decodedToken: any = jwt.verify(
@@ -26,8 +26,9 @@ export const getUserData = (request: NextApiRequest) => {
 
         return decodedGoogleToken;
         }
-    } catch (error: any) {
-      throw new Error(error.message);
-    }
+   } catch (error: any) {
+     throw new Error(error.message);
+   }
+  
   
 };

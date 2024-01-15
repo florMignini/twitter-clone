@@ -10,7 +10,6 @@ connectDB();
 export async function GET (req: NextApiRequest, res:NextResponse)  {
   try {
     const profile = await getUserData(req);
-    console.log("profile: ", profile)
 
    if(profile){
     const profileInfo = await User.findOne({ _id: profile.id! }).select(
