@@ -1,4 +1,4 @@
-
+"use server"
 import { NextApiResponseServerIo } from "../../../../types";
 
 import Tweet from "../../../../models/tweet";
@@ -23,8 +23,8 @@ interface DecodedToken {
   ) => {
   try {
     const userQuery = await getUserData(req);
-
     const tweetdata = await req.body;
+
 
 
     if (!userQuery) {
@@ -43,7 +43,7 @@ interface DecodedToken {
     }).save();
 
     //socket connection
-    res?.socket?.server?.io?.emit("tweetPublish", newTweet)
+   await res?.socket?.server?.io?.emit("tweetPublish", newTweet)
      
     return res.status(200).json(newTweet)
   } catch (error: any) {

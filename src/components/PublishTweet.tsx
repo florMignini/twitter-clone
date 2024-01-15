@@ -1,5 +1,4 @@
-"use client";
-
+"use client"
 import { useGetSessionData } from "@/helpers";
 import { useEdgeStore } from "@/lib/edgestore";
 import axios from "axios";
@@ -47,7 +46,7 @@ type Props = {
 const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
   const router = useRouter();
   //socket events
-  const { socket }:any = useSocket();
+  const { socket }: any = useSocket();
 
   useEffect(() => {
     if (!socket) return;
@@ -59,7 +58,7 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
     tweetContent: "",
     tweetImage: "",
   });
-  const [file, setFile] = useState<any | string>();
+  const [file, setFile] = useState<any | string>("");
 
   const imageUrl = useMemo(() => {
     if (typeof file === "string") {
@@ -95,20 +94,25 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
 
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
+    
     e.preventDefault();
-    const res = await edgestore.publicImages.upload({ file });
+    if (file) {
+      const res = await edgestore.publicImages.upload({ file });
+      setUrl(res.url);
+    }
 
     //send data to database
-    const tweetContent = {
+    const tweetContentData = {
       tweetContent: formData.tweetContent,
-      tweetImage: res ? res.url : gifPreview,
+      tweetImage: url ,
       tweetUserImage: session
         ? session?.user?.image
         : userQuery?.profile_picture,
     };
- 
+
     try {
-      const content = await axios.post("/api/socket/tweets", tweetContent);
+     
+      const content = await axios.post("/api/socket/tweets", tweetContentData);
       setFormData({
         tweetContent: "",
         tweetImage: null,
@@ -148,15 +152,15 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
         <div className="px-2 py-6 m-auto">
           {imageUrl || gifPreview ? (
             <div className="relative">
-             {
-             imageUrl &&  <Image
-             src={imageUrl ? imageUrl : gifPreview}
-             alt="imagePreview"
-             width={400}
-             height={400}
-             className="relative object-contain"
-           />
-             }
+              {imageUrl && (
+                <Image
+                  src={imageUrl ? imageUrl : gifPreview}
+                  alt="imagePreview"
+                  width={400}
+                  height={400}
+                  className="relative object-contain"
+                />
+              )}
               {/* Remove Image Icon */}
               {imageUrl || gifPreview ? (
                 <div
@@ -174,10 +178,7 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
                   }}
                 >
                   <div className="flex h-5 w-5 items-center justify-center rounded-md border border-solid border-gray-500 bg-white transition-all duration-300 hover:h-6 hover:w-6 dark:border-gray-400 dark:bg-black">
-                    <Button
-                      className="text-gray-80000 dark:text-gray-400"
-                      
-                    >
+                    <Button className="text-gray-80000 dark:text-gray-400">
                       X
                     </Button>
                   </div>
@@ -204,6 +205,7 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
                 type="file"
                 onChange={(e) => {
                   setFile(e.target.files?.[0]);
+                 
                 }}
               />
 

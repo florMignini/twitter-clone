@@ -1,3 +1,4 @@
+"use server"
 import { connectDB } from "@/db/config";
 
 import { NextRequest, NextResponse } from "next/server";
