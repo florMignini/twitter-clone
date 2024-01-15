@@ -1,15 +1,17 @@
-"use client"
+"use client";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { io as ClientIO } from "socket.io-client";
 
 type SocketContextType = {
   socket: any | null;
   isConnected: boolean;
+  message: string;
 };
 
-const SocketContext = createContext<SocketContextType>({
+const SocketContext = createContext({
   socket: null,
   isConnected: false,
+  message: ""
 });
 
 // socket provider hook
@@ -20,6 +22,7 @@ export const useSocket = () => {
 export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
   const [socket, setSocket] = useState(null);
   const [isConnected, setIsConnected] = useState(false);
+  const [message, setMessage] = useState<string>("");
 
   useEffect(() => {
     const socketInstance = new (ClientIO as any)(
@@ -30,27 +33,24 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
       }
     );
 
-    socketInstance.on("connect", () => {
-      setIsConnected(true);
-    });
-    socketInstance.on("disconnect", () => {
-      setIsConnected(false);
-    });
-
     setSocket(socketInstance);
-
-    return ()=>{
-    socketInstance.disconnect();
-    }
+    
+    return () => {
+      socketInstance.disconnect();
+    };
   }, []);
 
-
-
   return (
-    <SocketContext.Provider value={{
-    socket, isConnected
-    }}>
-        {children}
+
+
+    <SocketContext.Provider
+      value={{
+        socket,
+        isConnected,
+        message
+      }}
+    >
+      {children}
     </SocketContext.Provider>
-    )
+  );
 };

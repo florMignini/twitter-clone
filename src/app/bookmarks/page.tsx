@@ -2,7 +2,7 @@
 import useGetBookmarks from "@/helpers/useGetBookmarks";
 import React from "react";
 import { BsThreeDots } from "react-icons/bs";
-import Bookmark, { bookmark_type } from "@/components/Bookmark";
+import Bookmark, { bookmark_type } from "../../components/Bookmark";
 import Link from "next/link";
 import { useGetSessionData } from "@/helpers";
 import { TailSpin } from "react-loader-spinner";

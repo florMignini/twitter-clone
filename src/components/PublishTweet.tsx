@@ -13,7 +13,7 @@ import { DropzoneOptions, useDropzone } from "react-dropzone";
 import { AiOutlinePicture } from "react-icons/ai";
 import { twMerge } from "tailwind-merge";
 import React from "react";
-import { undefined } from "zod";
+import { useSocket } from "@/context";
 
 const variants = {
   base: "relative rounded-md flex justify-center items-center flex-col cursor-pointer min-h-[150px] min-w-[200px] border border-dashed border-gray-400 dark:border-gray-300 transition-colors duration-200 ease-in-out",
@@ -46,12 +46,20 @@ type Props = {
 };
 const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
   const router = useRouter();
-  const [previewImage, setPreviewImage] = useState<any>(null); //cambiar tipo
+  //socket events
+  const { socket }:any = useSocket();
+
+  useEffect(() => {
+    if (!socket) return;
+    socket.on("tweetPublish", (newTweet: any) => {
+      console.log(newTweet);
+    });
+  }, [socket]);
   const [formData, setFormData] = useState<FormData>({
     tweetContent: "",
-    tweetImage: null,
+    tweetImage: "",
   });
-  const [file, setFile] = useState<File | string>();
+  const [file, setFile] = useState<any | string>();
 
   const imageUrl = useMemo(() => {
     if (typeof file === "string") {
@@ -85,28 +93,29 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
   const userQuery = useGetSessionData();
   const gifPreview: any = localStorage.getItem("gifPreview");
 
+
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    // e.stopPropagation();
-
     const res = await edgestore.publicImages.upload({ file });
+
     //send data to database
     const tweetContent = {
       tweetContent: formData.tweetContent,
       tweetImage: res ? res.url : gifPreview,
       tweetUserImage: session
-      ? session?.user?.image
-      : userQuery?.profile_picture,
+        ? session?.user?.image
+        : userQuery?.profile_picture,
     };
-
+ 
     try {
-      const content = await axios.post("/api/tweets/publish", tweetContent);
+      const content = await axios.post("/api/socket/tweets", tweetContent);
       setFormData({
         tweetContent: "",
         tweetImage: null,
       });
       setFile("");
       localStorage.removeItem("gifPreview");
+      router.refresh();
     } catch (error) {
       console.log(error);
     }
@@ -139,13 +148,15 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
         <div className="px-2 py-6 m-auto">
           {imageUrl || gifPreview ? (
             <div className="relative">
-              <Image
-                src={imageUrl ? imageUrl : gifPreview}
-                alt="imagePreview"
-                width={400}
-                height={400}
-                className="relative object-contain"
-              />
+             {
+             imageUrl &&  <Image
+             src={imageUrl ? imageUrl : gifPreview}
+             alt="imagePreview"
+             width={400}
+             height={400}
+             className="relative object-contain"
+           />
+             }
               {/* Remove Image Icon */}
               {imageUrl || gifPreview ? (
                 <div

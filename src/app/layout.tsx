@@ -1,9 +1,9 @@
-import { SocketProvider } from "@/providers/socket-provider";
+import { SocketProvider } from "@/context/socket-provider";
 import { Providers } from "./providers";
 import { EdgeStoreProvider } from "../lib/edgestore";
 import "./globals.css";
 import type { Metadata } from "next";
-import { LeftSidebar, RightSidebar } from "@/components";
+import { LeftSidebar, RightSidebar } from "../components";
 import { cookies } from "next/headers";
 
 
@@ -19,6 +19,7 @@ export default function RootLayout({
 }) {
   const cookieStore = cookies();
   const isSession = cookieStore.get("sessionToken");
+
   const isGoogleSession = cookieStore.get("next-auth.session-token");
 
   return (

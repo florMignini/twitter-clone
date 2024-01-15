@@ -11,6 +11,7 @@ export const config = {
 };
 
 const ioHandler = (req: NextApiRequest, res: NextApiResponseServerIo) => {
+
 if(!res.socket.server.io) {
     const path = "/api/socket/io";
     const httpsServer: NetServer = res.socket.server as any;
@@ -19,8 +20,10 @@ if(!res.socket.server.io) {
         addTrailingSlash: false,
     });
     res.socket.server.io = io;
-}
-res.end();
+    
+  }
+
+  res.end();
 };
 
 export default ioHandler;

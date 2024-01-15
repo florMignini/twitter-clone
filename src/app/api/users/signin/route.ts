@@ -5,7 +5,7 @@ import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 import User from "../../../../../models/user";
-import { useSession } from "next-auth/react";
+
 
 connectDB();
 
@@ -30,7 +30,7 @@ export const POST = async (req: NextRequest, response: NextResponse) => {
         password,
         userRes.password!
       );
-      console.log(validUserPassword)
+
       if (!validUserPassword) {
         return NextResponse.json(
           {

@@ -1,18 +1,27 @@
 "use client";
-import { useSocket } from '@/providers/socket-provider';
-import React from 'react'
+import { useSocket } from '@/context';
+import React, { useEffect } from 'react'
 
 const Messages = () => {
-    const {isConnected} = useSocket();
+    const {isConnected, socket, message} = useSocket();
 
- if(!isConnected){
+    useEffect(() => {
+        if(!socket){
+        return
+        }
+
+      }, [socket])
+ if(!socket){
     return (
     <h1 className='text-6xl text-red-600'> Not Connected</h1>
         )
 }
 
+
+
+
 return (
-    <h1 className='text-6xl text-emerald-600'> Connected</h1>
+    <h1 className='text-6xl text-emerald-600'> {message}</h1>
         )
 }
 

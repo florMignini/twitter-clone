@@ -14,9 +14,10 @@ import { useGetSessionData } from "@/helpers";
 import Link from "next/link";
 import { Tweet as tweetType } from "../../../interfaces";
 import useGetBookmarks from "@/helpers/useGetBookmarks";
-import { bookmark_type } from "@/components/Bookmark";
+
 import Image from "next/image";
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/react";
+
 
 dayjs.extend(relativeTime);
 export interface Like {
@@ -31,6 +32,7 @@ const Tweet = (tweet: tweetType) => {
   //bringing user session data && login session
   const userQuery = useGetSessionData();
 
+
  //google account session
   const { data: session, status } = useSession();
 
@@ -41,32 +43,27 @@ const Tweet = (tweet: tweetType) => {
 
   const likeTweet = async (userId: string, tweetId: string) => {
     await axios.post("/api/likes/like", { userId, tweetId });
-    router.refresh()
+
   };
 
   const unLikeTweet = async (userId: string, tweetId: string) => {
     await axios.post("/api/likes/unlike", { userId, tweetId });
-    router.refresh()
   };
   const addBookmark = async (userId: string, tweetId: string) => {
     await axios.post("/api/bookmarks/add", { userId, tweetId });
-    router.refresh()
 
   };
   const deleteBookmark = async (userId: string, tweetId: string) => {
     await axios.post("/api/bookmarks/deleteBookmark", { userId, tweetId });
-    router.refresh()
 
   };
   const addView = async(userId: string, tweetId: string) => {
     await axios.post("/api/tweets/addView", { userId, tweetId });
-    router.refresh()
   };
 
   //Follow action
   const follow = async(userToFollowId:string, userId:string) => {
     await axios.post("/api/users/following", { userToFollowId, userId });
-    router.refresh()
   }
 
 
