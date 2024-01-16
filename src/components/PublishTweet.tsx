@@ -90,6 +90,7 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
   const { data: session } = useSession();
   //bringing user session data && login session
   const userQuery = useGetSessionData();
+  console.log(userQuery);
   const gifPreview: any = localStorage.getItem("gifPreview");
 
 

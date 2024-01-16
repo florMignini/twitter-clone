@@ -26,7 +26,7 @@ const Page = () => {
   const { data, error, isLoading } = useGetTweets();
   //login session
   const sessionProfile = useGetSessionData();
-
+console.log(sessionProfile);
   useEffect(() => {
     if (!sessionProfile) {
       router.push("/signin");

@@ -5,6 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 connectDB();
 
 export const GET = async (req: NextRequest, context: { params: any }) => {
+
   try {
     const profileInfo = await User.findOne({ _id: context.params.id }).select(
       "-password"

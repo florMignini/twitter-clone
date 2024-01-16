@@ -2,7 +2,7 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import useGetTweet from "@/helpers/useGetTweet";
-import Tweet from "@/app/client_components/Tweet";
+import { Tweet } from "@/app/client_components/Tweet";
 import { Profile, PublishComment } from "../../../components";
 import CommentModal from "../../../components/CommentModal";
 import { Tweet as TweetType } from "@/app/page";
