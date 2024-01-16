@@ -1,4 +1,4 @@
-export * from './getUserData';
+export * from './GetUserData';
 export { default as useGetBookmarks } from './useGetBookmarks';
 export { default as useGetComments } from './useGetComments';
 export { default as useGetGiphy } from './useGetGiphy';

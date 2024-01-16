@@ -1,9 +1,11 @@
+
 import { connectDB } from "@/db/config";
 import Tweet from "../../../../../models/tweet";
 
 import { NextRequest, NextResponse } from "next/server";
 
-import { getUserData } from "@/helpers/getUserData";
+import { GetUserData } from "@/helpers/GetUserData";
+import { NextApiRequest } from "next";
 
 connectDB();
 
@@ -15,11 +17,11 @@ interface DecodedToken {
   exp: number;
 }
 
-export const POST = async (req: NextRequest) => {
+export const POST = async (req: NextApiRequest) => {
   try {
-    const userQuery = await getUserData(req);
+    const userQuery = await GetUserData(req);
 
-    const tweetdata = await req.json();
+    const tweetdata = await req.body;
 
     // create new Twitter
     const newTweet = new Tweet({

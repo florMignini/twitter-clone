@@ -3,7 +3,7 @@ import Tweet from "../../../../../models/tweet";
 
 import { NextRequest, NextResponse } from "next/server";
 
-import { getUserData } from "@/helpers/getUserData";
+import { getUserData } from "@/helpers/GetUserData";
 import Comment from "../../../../../models/comment";
 
 connectDB();

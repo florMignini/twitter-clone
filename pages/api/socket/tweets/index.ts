@@ -4,7 +4,7 @@ import { NextApiResponseServerIo } from "../../../../types";
 import Tweet from "../../../../models/tweet";
 import { connectDB } from "@/db/config";
 
-import { getUserData } from "@/helpers/getUserData";
+import { GetUserData } from "@/helpers/GetUserData";
 import { NextApiRequest } from "next";
 
 connectDB();
@@ -22,10 +22,8 @@ interface DecodedToken {
     res: NextApiResponseServerIo,
   ) => {
   try {
-    const userQuery = await getUserData(req);
+    const userQuery = await GetUserData(req);
     const tweetdata = await req.body;
-
-
 
     if (!userQuery) {
       return res.status(401).json({ error: `Unauthorized` });

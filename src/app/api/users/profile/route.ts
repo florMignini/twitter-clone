@@ -3,13 +3,13 @@ import User from "../../../../../models/user";
 import { NextRequest, NextResponse } from "next/server";
 import { NextApiRequest, NextApiResponse } from "next";
 
-import { getUserData } from "@/helpers/getUserData";
+import { GetUserData } from "@/helpers/GetUserData";
 
 connectDB();
 
 export async function GET (req: NextApiRequest, res:NextResponse)  {
   try {
-    const profile = await getUserData(req);
+    const profile = await GetUserData(req);
 
    if(profile){
     const profileInfo = await User.findOne({ _id: profile.id! }).select(

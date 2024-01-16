@@ -2,7 +2,7 @@ import { connectDB } from "@/db/config";
 import { NextRequest, NextResponse } from "next/server";
 import Bookmark from "../../../../../models/bookmark";
 
-import { getUserData } from "@/helpers/getUserData";
+import { getUserData } from "@/helpers/GetUserData";
 
 connectDB();
 

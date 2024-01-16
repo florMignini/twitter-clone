@@ -1,16 +1,17 @@
 "use server";
 import { NextApiRequest } from "next";
-import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
+import {parse} from "cookie"
 
-export const getUserData = (request: NextApiRequest) => {
+
+export const GetUserData = (request: any) => {
+  // console.log(parse(request.headers.cookie).sessionToken)
   try {
-    const cookieStore = cookies();
 
-    const sessionToken = cookieStore.get("sessionToken")?.value;
+    const sessionToken = parse(request.headers.cookie).sessionToken;
 
     //google session
-    const googleToken = cookieStore.get("googleSessionToken")?.value;
+    const googleToken = parse(request.headers.cookie).googleSessionToken;
 
     if (sessionToken) {
       const decodedToken: any = jwt.verify(
