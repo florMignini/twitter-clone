@@ -23,9 +23,7 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
   //@GET ALL TWEETS
   const getAllTweets = async () => {
     try {
-      
       const {data}  = await axios.get("/api/tweets/getAll");
-
       setTweets(data.allTweets);
       setLoading(false);
     } catch (error) {
@@ -39,11 +37,9 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
       const {data} = await axios.post("/api/socket/tweets", tweetContentData);
 
       setTweet({});
-      //SOCKET IO
-      //  socket?.emit("new tweet",  data)
-
       // update state once project is added
       setTweets([...tweets, data]);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -52,6 +48,7 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
     <TweetContext.Provider
       value={{
         //states
+        loading,
         tweet,
         tweets,
         //actions

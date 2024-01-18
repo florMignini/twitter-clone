@@ -40,11 +40,11 @@ interface DecodedToken {
       userId: userQuery.id,
     }).save();
 
-    /* //socket connection
-    res?.socket?.server?.io?.on("new tweet", (data)=>{
-    console.log("new", data)
+    //socket connection
+    res?.socket?.server?.io?.on("new tweet", (tweet)=>{
+    console.log("new", tweet)
     })
-      */
+     
     return res.status(200).json(newTweet)
   } catch (error: any) {
     return res.status(500).json({ error: error.message });

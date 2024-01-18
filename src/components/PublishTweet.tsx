@@ -48,12 +48,14 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
   //socket events
   const { socket }: any = useSocket();
 
+  //tweet provider state & actions
+  const {createTweet, tweet}:any = useTweet()
+
   useEffect(() => {
     if (!socket) return;
-    socket.on("tweetPublish", (newTweet: any) => {
-      console.log(newTweet);
-    });
-  }, [socket]);
+    socket.emit("new tweet", tweet);
+  }, [socket, tweet]);
+  
   const [formData, setFormData] = useState<FormData>({
     tweetContent: "",
     tweetImage: "",
@@ -91,8 +93,6 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
   //bringing user session data && login session
   const userQuery = useGetSessionData();
 
-  //tweet provider state & actions
-  const {createTweet}:any = useTweet()
   
   const gifPreview: any = localStorage.getItem("gifPreview");
 

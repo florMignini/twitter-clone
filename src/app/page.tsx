@@ -24,13 +24,13 @@ export interface Tweet {
 
 const Page = () => {
   const router = useRouter();
-  const { data, error, isLoading } = useGetTweets();
-  const {getAllTweets, tweets}:any = useTweet()
-  console.log(tweets)
+  const { error } = useGetTweets();
+  const {getAllTweets, tweets, loading}:any = useTweet()
+  
 
   useEffect(() => {
     getAllTweets();
-  }, [])
+  }, [getAllTweets])
   
   //login session
   const sessionProfile = useGetSessionData();
@@ -66,7 +66,7 @@ const Page = () => {
     console.log(`post clicked`);
   };
 
-  return isLoading ? (
+  return loading ? (
     <div className="w-full h-screen flex pt-[50%] items-start justify-center">
       <TailSpin
         height="40"
@@ -109,7 +109,7 @@ const Page = () => {
             <PublishTweet placeholder="What is happening?!" BtnTitle="Post" />
           </div>
         </div>
-        {isLoading ? (
+        {loading ? (
           <div className="w-full h-screen flex pt-[50%] items-start justify-center">
             <TailSpin
               height="40"
