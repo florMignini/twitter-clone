@@ -33,16 +33,18 @@ interface DecodedToken {
         return res.status(401).json({ error: `Tweet data missing` });
       }
     // create new Twitter
-    const newTweet = new Tweet({
+    const newTweet = await new Tweet({
       content: tweetdata.tweetContent,
       image: tweetdata.tweetImage || "",
       userImage: tweetdata.tweetUserImage ? tweetdata.tweetUserImage : null,
       userId: userQuery.id,
     }).save();
 
-    //socket connection
-   await res?.socket?.server?.io?.emit("tweetPublish", newTweet)
-     
+    /* //socket connection
+    res?.socket?.server?.io?.on("new tweet", (data)=>{
+    console.log("new", data)
+    })
+      */
     return res.status(200).json(newTweet)
   } catch (error: any) {
     return res.status(500).json({ error: error.message });

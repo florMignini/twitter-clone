@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import { useSocket } from "@/context";
 import { BsBookmarkFill, BsChat, BsDot, BsThreeDots } from "react-icons/bs";
 import { IoMdStats } from "react-icons/io";
 import { BsBookmark } from "react-icons/bs";
@@ -31,6 +32,7 @@ export interface Like {
 export const Tweet = (tweet: tweetType) => {
 
   const router = useRouter();
+  const { socket }:any = useSocket()
   //bringing user session data && login session
   const userQuery = useGetSessionData();
   
@@ -47,6 +49,12 @@ export const Tweet = (tweet: tweetType) => {
 
   };
 
+
+  //socket connection
+  useEffect(() => {
+    socket?.emit("open tweet", tweet._id )
+  }, [])
+  
   const unLikeTweet = async (userId: string, tweetId: string) => {
     await axios.post("/api/likes/unlike", { userId, tweetId });
   };

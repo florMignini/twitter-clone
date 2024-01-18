@@ -12,7 +12,7 @@ import { DropzoneOptions, useDropzone } from "react-dropzone";
 import { AiOutlinePicture } from "react-icons/ai";
 import { twMerge } from "tailwind-merge";
 import React from "react";
-import { useSocket } from "@/context";
+import { useSocket, useTweet } from "@/context";
 
 const variants = {
   base: "relative rounded-md flex justify-center items-center flex-col cursor-pointer min-h-[150px] min-w-[200px] border border-dashed border-gray-400 dark:border-gray-300 transition-colors duration-200 ease-in-out",
@@ -90,7 +90,10 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
   const { data: session } = useSession();
   //bringing user session data && login session
   const userQuery = useGetSessionData();
-  console.log(userQuery);
+
+  //tweet provider state & actions
+  const {createTweet}:any = useTweet()
+  
   const gifPreview: any = localStorage.getItem("gifPreview");
 
 
@@ -113,7 +116,7 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
 
     try {
      
-      const content = await axios.post("/api/socket/tweets", tweetContentData);
+     await createTweet( tweetContentData);
       setFormData({
         tweetContent: "",
         tweetImage: null,

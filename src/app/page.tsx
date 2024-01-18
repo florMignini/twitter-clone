@@ -11,6 +11,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import GifModal from "../components/GifModal";
+import { useTweet } from "@/context";
 
 export interface Tweet {
   comments: Comment[];
@@ -24,9 +25,16 @@ export interface Tweet {
 const Page = () => {
   const router = useRouter();
   const { data, error, isLoading } = useGetTweets();
+  const {getAllTweets, tweets}:any = useTweet()
+  console.log(tweets)
+
+  useEffect(() => {
+    getAllTweets();
+  }, [])
+  
   //login session
   const sessionProfile = useGetSessionData();
-console.log(sessionProfile);
+
   useEffect(() => {
     if (!sessionProfile) {
       router.push("/signin");
@@ -118,9 +126,9 @@ console.log(sessionProfile);
             ) : 
             (
               <>
-                {data?.data.allTweets &&
-                  data?.data.allTweets.map((tweet: tweetType) => (
-                    <Tweet key={tweet._id} {...tweet} />
+                {tweets &&
+                  tweets.map((tweet: tweetType) => (
+                    <Tweet key={tweet?._id} {...tweet} />
                   ))}
               </>
             )
