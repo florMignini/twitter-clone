@@ -1,6 +1,7 @@
 "use client";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { io as ClientIO } from "socket.io-client";
+import { DefaultEventsMap } from "@socket.io/component-emitter";
 
 type SocketContextType = {
   socket: any | null;
@@ -20,7 +21,7 @@ export const useSocket = () => {
 };
 
 export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
-  const [socket, setSocket] = useState(null);
+  const [socket, setSocket] = useState<any>(null);
   const [isConnected, setIsConnected] = useState(false);
   const [message, setMessage] = useState<string>("");
 
