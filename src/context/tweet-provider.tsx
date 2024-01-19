@@ -44,6 +44,44 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
       console.log(error);
     }
   };
+
+  //@LIKE TWEETS
+  const likeTweet = async ({ userId, tweetId }:any) => {
+
+    try {
+     
+      const { data }: any = await axios.post("/api/likes/like", { userId, tweetId });
+
+      // update state once project is edited
+      const updatedTweets = tweets.map((tweetToLike: any) =>
+        tweetToLike._id === data._id ? data : tweetToLike
+      );
+
+      setTweets(updatedTweets);
+     
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //@UNLIKE TWEETS
+  const unLikeTweet = async ({ userId, tweetId }:any) => {
+    try {
+     
+      const { data }: any = axios.post("/api/likes/unlike", { userId, tweetId });
+
+      // update state once project is edited
+      const updatedTweets = tweets.map((tweetToUnlike: any) =>
+        tweetToUnlike?._id === data?._id ? data : tweetToUnlike
+      );
+      setTweets(updatedTweets);
+     
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <TweetContext.Provider
       value={{
@@ -54,6 +92,8 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
         //actions
         createTweet,
         getAllTweets,
+        likeTweet,
+        unLikeTweet,
       }}
     >
       {children}

@@ -41,9 +41,7 @@ interface DecodedToken {
     }).save();
 
     //socket connection
-    res?.socket?.server?.io?.on("new tweet", (tweet)=>{
-    console.log("new", tweet)
-    })
+    res?.socket?.server?.io?.emit("new tweet",newTweet)
      
     return res.status(200).json(newTweet)
   } catch (error: any) {
