@@ -2,8 +2,10 @@ import mongoose from "mongoose";
 import User from "./user";
 import Like from "./like";
 import Comment from "./comment";
+import Bookmark from "./bookmark";
+import { Tweet } from "../interfaces";
 
-const tweetSchema = new mongoose.Schema(
+const tweetSchema:any = new mongoose.Schema(
   {
     content: { type: String, required: true },
     image: { type: String },
@@ -12,11 +14,12 @@ const tweetSchema = new mongoose.Schema(
     userId: { type: mongoose.Schema.Types.ObjectId, ref: User, required: true },
     likes: [{ type: mongoose.Schema.Types.ObjectId, ref: Like }],
     comments: [{ type: mongoose.Schema.Types.ObjectId, ref: Comment }],
+    bookmarks:[{ type: mongoose.Schema.Types.ObjectId, ref: Bookmark }]
   },
   {
     timestamps: true,
   }
 );
 
-const Tweet = mongoose.models.Tweet || mongoose.model("Tweet", tweetSchema);
+const Tweet = mongoose.models.Tweet<Tweet> || mongoose.model("Tweet", tweetSchema);
 export default Tweet;

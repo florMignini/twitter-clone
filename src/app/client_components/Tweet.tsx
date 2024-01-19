@@ -39,7 +39,7 @@ export const Tweet = (tweet: tweetType) => {
   //bringing user session data && login session
   const userQuery = useGetSessionData();
   //tweet provider imports
-  const { likeTweet, unLikeTweet }: any = useTweet();
+  const { likeTweet, unLikeTweet, addBookmark, deleteBookmark }: any = useTweet();
 
   //google account session
   const { data: session, status } = useSession();
@@ -59,28 +59,12 @@ export const Tweet = (tweet: tweetType) => {
     tweetId: string,
     action: string
   ) => {
-    console.log(action);
     if (action === "unlike") {
       await unLikeTweet({ userId, tweetId });
     }
-    if(action === "like"){
+    if (action === "like") {
       await likeTweet({ userId, tweetId });
     }
-  };
-
-  const addBookmark = async (userId: string, tweetId: string) => {
-    await axios.post("/api/bookmarks/add", { userId, tweetId });
-  };
-  const deleteBookmark = async (userId: string, tweetId: string) => {
-    await axios.post("/api/bookmarks/deleteBookmark", { userId, tweetId });
-  };
-  const addView = async (userId: string, tweetId: string) => {
-    await axios.post("/api/tweets/addView", { userId, tweetId });
-  };
-
-  //Follow action
-  const follow = async (userToFollowId: string, userId: string) => {
-    await axios.post("/api/users/following", { userToFollowId, userId });
   };
 
   //bring the userId from session like if it exist
@@ -89,6 +73,30 @@ export const Tweet = (tweet: tweetType) => {
     .map((bookmarkId: any) => {
       return bookmarkId?._id;
     });
+
+  const handleBookmark = async (
+    userId: string,
+    tweetId: string,
+    action: string
+  ) => {
+    console.log(action)
+    if (action === "addBookmark") {
+      await addBookmark({ userId, tweetId });
+    }
+    if (action === "deleteBookmark") {
+      await deleteBookmark({ userId, tweetId });
+    }
+  };
+  
+ 
+  const addView = async (userId: string, tweetId: string) => {
+    await axios.post("/api/tweets/addView", { userId, tweetId });
+  };
+
+  //Follow action
+  const follow = async (userToFollowId: string, userId: string) => {
+    await axios.post("/api/users/following", { userToFollowId, userId });
+  };
 
   return (
     <button
@@ -168,7 +176,7 @@ export const Tweet = (tweet: tweetType) => {
             <button
               className="p-2"
               onClick={() => {
-                addView(userQuery._id, tweet?._id);
+                addView(userQuery._id, tweet?._id as string);
               }}
             >
               {tweet?.content}
@@ -236,7 +244,7 @@ items-center justify-center hover:bg-blue-800/20
               <button
                 className="flex items-center justify-center gap-1 text-red-500"
                 onClick={() => {
-                  handleLikeTweet(userQuery._id, tweet?._id, "unlike");
+                  handleLikeTweet(userQuery._id, tweet?._id as string, "unlike");
                 }}
               >
                 <AiFillHeart />
@@ -244,7 +252,7 @@ items-center justify-center hover:bg-blue-800/20
             ) : (
               <button
                 onClick={() => {
-                  handleLikeTweet(userQuery._id, tweet?._id, "like");
+                  handleLikeTweet(userQuery._id, tweet?._id as string, "like");
                 }}
               >
                 <AiOutlineHeart />
@@ -278,7 +286,7 @@ items-center justify-center hover:bg-blue-800/20
           {bookmarksResult?.includes(tweet?._id) ? (
             <button
               onClick={() => {
-                deleteBookmark(userQuery._id, tweet?._id);
+                handleBookmark(userQuery._id, tweet?._id as string, "deleteBookmark");
               }}
               className="flex items-center justify-center 
             font-bold
@@ -293,7 +301,7 @@ items-center justify-center hover:bg-blue-800/20
           ) : (
             <button
               onClick={() => {
-                addBookmark(userQuery._id, tweet?._id);
+                handleBookmark(userQuery._id, tweet?._id as string, "addBookmark");
               }}
               className="flex items-center justify-center 
             font-bold

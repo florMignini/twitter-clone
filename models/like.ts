@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
-/* import User from "./user";
-import Tweet from "./tweet"; */
+
 
 const likeSchema = new mongoose.Schema(
   {
