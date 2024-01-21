@@ -33,7 +33,7 @@ const LoginPage = () => {
     }
     try {
       const res = await axios.post("/api/users/signup", formData);
-      router.push("/");
+      router.push("/signin");
     } catch (error) {
       console.log(error);
     }
