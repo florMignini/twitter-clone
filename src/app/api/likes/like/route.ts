@@ -23,7 +23,7 @@ export const POST = async (req: NextRequest) => {
     likedTweet.save();
 
     return NextResponse.json(
-      { message: `liked successfully` },
+      likedTweet,
       { status: 201 }
     );
   } catch (error: any) {

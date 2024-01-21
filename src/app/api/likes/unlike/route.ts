@@ -25,7 +25,7 @@ export const POST = async (req: NextRequest) => {
     unLikedTweet.save();
 
     return NextResponse.json(
-      { message: `like successfully deleted` },
+     unLikedTweet,
       { status: 200 }
     );
   } catch (error: any) {

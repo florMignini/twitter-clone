@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useSocket, useTweet } from "@/context";
 import { BsBookmarkFill, BsChat, BsDot, BsThreeDots } from "react-icons/bs";
 import { IoMdStats } from "react-icons/io";
@@ -66,12 +66,11 @@ export const Tweet = (tweet: tweetType) => {
       await likeTweet({ userId, tweetId });
     }
   };
-
+  
   //bring the userId from session like if it exist
-  const bookmarksResult = bookmarkData?.tweets
-    ?.filter((bookmark: any) => bookmark._id === tweet?._id)
+  const bookmarksResult =tweet?.bookmarks?.map((bookmark: any) => bookmark === tweet?._id)
     .map((bookmarkId: any) => {
-      return bookmarkId?._id;
+      return bookmarkId;
     });
 
   const handleBookmark = async (
@@ -79,7 +78,7 @@ export const Tweet = (tweet: tweetType) => {
     tweetId: string,
     action: string
   ) => {
-    console.log(action)
+
     if (action === "addBookmark") {
       await addBookmark({ userId, tweetId });
     }
@@ -283,7 +282,7 @@ items-center justify-center hover:bg-blue-800/20
               <IoMdStats />
             )}
           </div>
-          {bookmarksResult?.includes(tweet?._id) ? (
+          {bookmarksResult.length>0 ? (
             <button
               onClick={() => {
                 handleBookmark(userQuery._id, tweet?._id as string, "deleteBookmark");
