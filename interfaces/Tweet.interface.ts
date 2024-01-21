@@ -8,7 +8,7 @@ export interface Tweet {
   userImage?: string;
   userId: Profile;
   likes: Like[];
-  bookmarks: BookmarkInterface[];
+  bookmarks: BookmarkInterface[] | any;
   comments: Comment;
   timestamp: string;
   views: Profile[];

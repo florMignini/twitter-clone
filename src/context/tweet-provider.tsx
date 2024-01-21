@@ -7,7 +7,6 @@ import {
   useState,
 } from "react";
 import io, { Socket } from "socket.io-client";
-import { DefaultEventsMap } from "@socket.io/component-emitter";
 import { useSocket } from ".";
 import axios from "axios";
 
@@ -21,6 +20,7 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
   const { socket } = useSocket();
   const [loading, setLoading] = useState(true);
   const [tweets, setTweets] = useState<any>([]);
+  const [bookmarksByUser, setBookmarksByUser] = useState([]);
   const [tweet, setTweet] = useState({});
 
   //@GET ALL TWEETS
@@ -29,6 +29,17 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
       const { data } = await axios.get("/api/tweets/getAll");
       setTweets(data?.allTweets);
       setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //@GET BOOKMARS BY USER
+  const getBookmarsByUser = async (userId: string) => {
+    try {
+      const { data } = await axios.get(`/api/bookmarks/getAllByUser/${userId}`);
+
+      setBookmarksByUser(data.bookmarkByUser);
     } catch (error) {
       console.log(error);
     }
@@ -92,16 +103,18 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
   //@BOOKMARK TWEETS
   const addBookmark = async ({ userId, tweetId }: any) => {
     try {
-     const {data} = await axios.post("/api/bookmarks/add", {
+      const { data } = await axios.post("/api/bookmarks/add", {
         userId,
         tweetId,
       });
-     // update state once tweet is liked
-     const updatedTweets = tweets.map((tweetToBook: any) =>
-     tweetToBook._id === data._id ? tweets?.bookmarks.unshift(tweetId) : tweetToBook
-   );
 
-   setTweets(updatedTweets);
+      // update state once tweet is booked
+      const updatedTweets = tweets.map((tweetToBook: any) =>
+        tweetToBook._id === data._id
+          ? tweets?.bookmarks.unshift(tweetId)
+          : tweetToBook
+      );
+      setTweets(updatedTweets);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -109,11 +122,11 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
   };
   const deleteBookmark = async ({ userId, tweetId }: any) => {
     try {
-     const {data} = await axios.post("/api/bookmarks/deleteBookmark", {
+      const { data } = await axios.post("/api/bookmarks/deleteBookmark", {
         userId,
         tweetId,
       });
-      
+
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -126,6 +139,7 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
         loading,
         tweet,
         tweets,
+        bookmarksByUser,
         //actions
         createTweet,
         getAllTweets,
@@ -133,6 +147,7 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
         unLikeTweet,
         addBookmark,
         deleteBookmark,
+        getBookmarsByUser,
       }}
     >
       {children}

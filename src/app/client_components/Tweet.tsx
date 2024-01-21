@@ -39,15 +39,27 @@ export const Tweet = (tweet: tweetType) => {
   //bringing user session data && login session
   const userQuery = useGetSessionData();
   //tweet provider imports
-  const { likeTweet, unLikeTweet, addBookmark, deleteBookmark }: any = useTweet();
+  const {
+    //actions
+    likeTweet,
+    unLikeTweet,
+    addBookmark,
+    deleteBookmark,
+    getBookmarsByUser,
+    //states
+    bookmarksByUser,
+  }: any = useTweet();
 
   //google account session
   const { data: session, status } = useSession();
 
   // google session image
   const googleUserImage = session?.user?.image!;
-  const { data } = useGetBookmarks(userQuery?._id);
-  const bookmarkData = data?.data?.bookmarkByUser[0];
+  useEffect(() => {
+    getBookmarsByUser(userQuery?._id);
+  }, [getBookmarsByUser, tweet, userQuery?._id]);
+
+  const bookmarksResult = bookmarksByUser[0]?.tweets?.map((bookmark: any) => bookmark._id === tweet?._id ? true : false)
 
   //bring the userId from session like if it exist
   const likesResult = tweet?.likes?.filter(
@@ -66,19 +78,13 @@ export const Tweet = (tweet: tweetType) => {
       await likeTweet({ userId, tweetId });
     }
   };
-  
-  //bring the userId from session like if it exist
-  const bookmarksResult =tweet?.bookmarks?.map((bookmark: any) => bookmark === tweet?._id)
-    .map((bookmarkId: any) => {
-      return bookmarkId;
-    });
+
 
   const handleBookmark = async (
     userId: string,
     tweetId: string,
     action: string
   ) => {
-
     if (action === "addBookmark") {
       await addBookmark({ userId, tweetId });
     }
@@ -86,8 +92,7 @@ export const Tweet = (tweet: tweetType) => {
       await deleteBookmark({ userId, tweetId });
     }
   };
-  
- 
+
   const addView = async (userId: string, tweetId: string) => {
     await axios.post("/api/tweets/addView", { userId, tweetId });
   };
@@ -243,7 +248,11 @@ items-center justify-center hover:bg-blue-800/20
               <button
                 className="flex items-center justify-center gap-1 text-red-500"
                 onClick={() => {
-                  handleLikeTweet(userQuery._id, tweet?._id as string, "unlike");
+                  handleLikeTweet(
+                    userQuery._id,
+                    tweet?._id as string,
+                    "unlike"
+                  );
                 }}
               >
                 <AiFillHeart />
@@ -282,10 +291,14 @@ items-center justify-center hover:bg-blue-800/20
               <IoMdStats />
             )}
           </div>
-          {bookmarksResult.length>0 ? (
+          {bookmarksResult && bookmarksResult ? (
             <button
               onClick={() => {
-                handleBookmark(userQuery._id, tweet?._id as string, "deleteBookmark");
+                handleBookmark(
+                  userQuery._id,
+                  tweet?._id as string,
+                  "deleteBookmark"
+                );
               }}
               className="flex items-center justify-center 
             font-bold
@@ -300,7 +313,11 @@ items-center justify-center hover:bg-blue-800/20
           ) : (
             <button
               onClick={() => {
-                handleBookmark(userQuery._id, tweet?._id as string, "addBookmark");
+                handleBookmark(
+                  userQuery._id,
+                  tweet?._id as string,
+                  "addBookmark"
+                );
               }}
               className="flex items-center justify-center 
             font-bold

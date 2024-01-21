@@ -12,6 +12,7 @@ export const GET = async (req: NextRequest, context: { params: any }) => {
       .select("-__v")
       .populate("userId", "-password -__v")
       .populate("likes", "-tweetId -__v ")
+      .populate("Bookmars", "-__v ")
       .populate("comments", "-__v ");
 
     return NextResponse.json({ tweetsByUser }, { status: 200 });
