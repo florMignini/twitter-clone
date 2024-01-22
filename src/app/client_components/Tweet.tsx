@@ -14,8 +14,6 @@ import { useRouter } from "next/navigation";
 import { useGetSessionData } from "@/helpers";
 import Link from "next/link";
 import { Tweet as tweetType } from "../../../interfaces";
-import useGetBookmarks from "@/helpers/useGetBookmarks";
-import ImageTest from "../../assets/X_icon.png";
 
 import Image from "next/image";
 import {
@@ -45,9 +43,11 @@ export const Tweet = (tweet: tweetType) => {
     unLikeTweet,
     addBookmark,
     deleteBookmark,
+    getAllTweetsByUser,
     getBookmarsByUser,
     //states
     bookmarksByUser,
+    tweetsByUser,
   }: any = useTweet();
 
   //google account session
@@ -56,15 +56,21 @@ export const Tweet = (tweet: tweetType) => {
   // google session image
   const googleUserImage = session?.user?.image!;
   useEffect(() => {
+    getAllTweetsByUser(userQuery?._id);
     getBookmarsByUser(userQuery?._id);
-  }, [getBookmarsByUser, tweet, userQuery?._id]);
+  }, [userQuery?._id]);
 
-  const bookmarksResult = bookmarksByUser[0]?.tweets?.map((bookmark: any) => bookmark._id === tweet?._id ? true : false)
-
+  // console.log(tweetsByUser);
   //bring the userId from session like if it exist
   const likesResult = tweet?.likes?.filter(
     (like: Like) => like.userId === userQuery?._id
   )[0]?.userId;
+
+  const bookmarksTweetId: any[] = [];
+  const res = bookmarksByUser[0]?.tweets.map((t: any) => {
+    bookmarksTweetId.push(t._id);
+  });
+
 
   const handleLikeTweet = async (
     userId: string,
@@ -78,7 +84,6 @@ export const Tweet = (tweet: tweetType) => {
       await likeTweet({ userId, tweetId });
     }
   };
-
 
   const handleBookmark = async (
     userId: string,
@@ -291,7 +296,7 @@ items-center justify-center hover:bg-blue-800/20
               <IoMdStats />
             )}
           </div>
-          {bookmarksResult && bookmarksResult ? (
+          {bookmarksTweetId.includes(tweet._id) ? (
             <button
               onClick={() => {
                 handleBookmark(

@@ -18,14 +18,16 @@ export const POST = async (req: NextRequest) => {
       //pushing to Bookmark.tweetId arr the new bookmark-tweetId
       await userBookmarks.tweets.unshift(tweetId);
       userBookmarks.save();
+    }else{
+      // create new Bookmark  
+      const newBookmark = await new Bookmark({
+        userId,
+        tweetId,
+      }).save();
+      await newBookmark.tweets.unshift(tweetId);
+      newBookmark.save();
     }
-    // create new Bookmark  
-    const newBookmark = await new Bookmark({
-      userId,
-      tweetId,
-    }).save();
-    await newBookmark.tweets.unshift(tweetId);
-    newBookmark.save();
+    console.log(userBookmarks)
     const bookedTweet = await Tweet.findOne({
       _id: tweetId,
     });
@@ -34,7 +36,7 @@ export const POST = async (req: NextRequest) => {
     await bookedTweet.bookmarks.unshift(tweetId);
     bookedTweet.save();
 
-    return NextResponse.json(newBookmark, { status: 201 });
+  return NextResponse.json(bookedTweet, { status: 201 });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }

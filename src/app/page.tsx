@@ -42,7 +42,7 @@ const Page = () => {
     }
     router.push("/");
     router.refresh();
-  }, [sessionProfile, router]);
+  }, []);
 
   //google account session
   const { data: session, status } = useSession();
@@ -56,7 +56,7 @@ const Page = () => {
     const res = axios.post("/api/users/signin", session?.user);
     router.push("/");
     router.refresh();
-  }, [session, router]);
+  }, []);
 
   /* modal states */
   const onClose = () => {

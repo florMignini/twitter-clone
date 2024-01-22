@@ -10,10 +10,11 @@ export const POST = async (req: NextRequest) => {
   try {
     const { userId, tweetId } = await req.json();
 
-    const bookmarkToDelete = await Bookmark.findOneAndDelete({
+    const bookmarkToDelete = await Bookmark.findOne({
       userId,
     })
-
+    bookmarkToDelete.tweets.pull(tweetId)
+    bookmarkToDelete.save()
     // tweet to delete like
     const unBookedTweet = await Tweet.findById({
       _id: tweetId,

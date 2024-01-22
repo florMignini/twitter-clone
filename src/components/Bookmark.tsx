@@ -18,9 +18,10 @@ export interface bookmark_type {
     timestamp: string
   }
 
-const Bookmark = (bookmark:bookmark_type) => {
+const Bookmark = (bookmark:any) => {
+
     const searchParams = useSearchParams();
-    const profileId = searchParams.get("profileId");
+    const profileId = searchParams?.get("profileId");
   return (
     <div
     className="w-[95%] relative grid grid-cols-[8%_92%] gap-2

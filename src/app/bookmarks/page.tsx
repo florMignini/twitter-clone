@@ -1,20 +1,26 @@
 "use client";
 import useGetBookmarks from "@/helpers/useGetBookmarks";
-import React from "react";
+import React, { useEffect } from "react";
 import { BsThreeDots } from "react-icons/bs";
 import Bookmark, { bookmark_type } from "../../components/Bookmark";
 import Link from "next/link";
 import { useGetSessionData } from "@/helpers";
 import { TailSpin } from "react-loader-spinner";
+import { useTweet } from "@/context";
 
 const Bookmarks = () => {
+
+  
   const user = useGetSessionData();
-  const { data, isLoading } = useGetBookmarks(user?._id);
-  const bookmarkData = data?.data?.bookmarkByUser[0];
+  const {bookmarksByUser, getAllTweetsByUser, loading}:any = useTweet()
+  useEffect(() => {
+    getAllTweetsByUser(user?._id)
+  }, [])
+
 
   return (
     <div className="w-full pl-2 h-screen bg-black">
-      {isLoading ? (
+      {loading ? (
         <div className="w-full h-screen flex items-center justify-center">
           <TailSpin
             height="40"
@@ -41,7 +47,7 @@ const Bookmarks = () => {
               <BsThreeDots />
             </button>
           </header>
-          {bookmarkData?.tweets?.map((bookmark: bookmark_type) => (
+          {bookmarksByUser[0]?.tweets?.map((bookmark: bookmark_type) => (
             <Bookmark key={bookmark._id} {...bookmark} />
           ))}
         </>
