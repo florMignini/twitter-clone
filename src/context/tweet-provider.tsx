@@ -20,7 +20,8 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
   const { socket } = useSocket();
   const [loading, setLoading] = useState(true);
   const [tweets, setTweets] = useState<any>([]);
-  const [bookmarksByUser, setBookmarksByUser] = useState([]);
+  const [tweetsByUser, setTweetsByUser] = useState<any>([]);
+  const [bookmarksByUser, setBookmarksByUser] = useState<any>([]);
   const [tweet, setTweet] = useState({});
 
   //@GET ALL TWEETS
@@ -33,13 +34,24 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
       console.log(error);
     }
   };
+  //@GET ALL TWEETS BY USER
+  const getAllTweetsByUser = async (userId: string) => {
+    try {
+      const { data } = await axios.get(`/api/tweets/getAllByUser/${userId}`);
+      setTweetsByUser(data?.tweetsByUser);
 
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   //@GET BOOKMARS BY USER
   const getBookmarsByUser = async (userId: string) => {
     try {
       const { data } = await axios.get(`/api/bookmarks/getAllByUser/${userId}`);
 
       setBookmarksByUser(data.bookmarkByUser);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -67,13 +79,6 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
         tweetId,
       });
 
-      // update state once tweet is liked
-      const updatedTweets = tweets.map((tweetToLike: any) =>
-        tweetToLike._id === data._id ? data : tweetToLike
-      );
-
-      setTweets(updatedTweets);
-
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -87,13 +92,7 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
         userId,
         tweetId,
       });
-
-      // update state once tweet is unliked
-      const updatedTweets = tweets.map((tweetToUnlike: any) =>
-        tweetToUnlike?._id === data?._id ? data : tweetToUnlike
-      );
-      setTweets(updatedTweets);
-
+      console.log(data);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -111,7 +110,7 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
       // update state once tweet is booked
       const updatedTweets = tweets.map((tweetToBook: any) =>
         tweetToBook._id === data._id
-          ? tweets?.bookmarks.unshift(tweetId)
+          ? bookmarksByUser[0]?.tweets.unshift(tweetId)
           : tweetToBook
       );
       setTweets(updatedTweets);
@@ -126,7 +125,13 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
         userId,
         tweetId,
       });
-
+      // update state once tweet is booked
+      const updatedTweets = tweets.map((tweetToUnbook: any) =>
+        tweetToUnbook._id === data._id
+          ? bookmarksByUser[0]?.tweets.shift(tweetId)
+          : tweetToUnbook
+      );
+      setTweets(updatedTweets);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -140,6 +145,7 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
         tweet,
         tweets,
         bookmarksByUser,
+        tweetsByUser,
         //actions
         createTweet,
         getAllTweets,
@@ -148,6 +154,7 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
         addBookmark,
         deleteBookmark,
         getBookmarsByUser,
+        getAllTweetsByUser,
       }}
     >
       {children}
