@@ -86,16 +86,15 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
     multiple: false,
   });
   const [url, setUrl] = useState<string>();
-
+console.log(url);
   const { edgestore } = useEdgeStore();
   //google session
   const { data: session } = useSession();
   //bringing user session data && login session
   const userQuery = useGetSessionData();
 
-  
   const gifPreview: any = localStorage.getItem("gifPreview");
-
+console.log(gifPreview);
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     
@@ -156,7 +155,7 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
         <div className="px-2 py-6 m-auto">
           {imageUrl || gifPreview ? (
             <div className="relative">
-              {imageUrl && (
+              {imageUrl || gifPreview &&  (
                 <Image
                   src={imageUrl ? imageUrl : gifPreview}
                   alt="imagePreview"
@@ -168,7 +167,7 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
               {/* Remove Image Icon */}
               {imageUrl || gifPreview ? (
                 <div
-                  className="group absolute right-0 top-0 -translate-y-1/4 translate-x-1/4 transform"
+                  className="group absolute right-3 top-3 -translate-y-1/4 translate-x-1/4 transform"
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
@@ -181,8 +180,8 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
                     }
                   }}
                 >
-                  <div className="flex h-5 w-5 items-center justify-center rounded-md border border-solid border-gray-500 bg-white transition-all duration-300 hover:h-6 hover:w-6 dark:border-gray-400 dark:bg-black">
-                    <Button className="text-gray-80000 dark:text-gray-400">
+                  <div className="flex h-5 w-5 items-center justify-center rounded-md border border-solid border-gray-700 bg-white transition-all duration-300  dark:border-gray-400 dark:bg-black">
+                    <Button className="h-7 w-7 text-gray-800 dark:text-gray-400">
                       X
                     </Button>
                   </div>

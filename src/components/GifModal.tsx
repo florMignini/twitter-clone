@@ -17,7 +17,7 @@ const GifModal = ({ onClose, onPost }: Props) => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const modalRef = useRef<null | HTMLDialogElement>(null);
-  const showModal = searchParams.get("showModal");
+  const showModal = searchParams?.get("showModal");
   const [query, setQuery] = useState<string>("");
   useEffect(() => {
     if (showModal === "y") {

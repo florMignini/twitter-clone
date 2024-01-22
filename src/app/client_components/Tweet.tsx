@@ -32,6 +32,7 @@ export interface Like {
 }
 
 export const Tweet = (tweet: tweetType) => {
+
   const router = useRouter();
   const { socket }: any = useSocket();
   //bringing user session data && login session
