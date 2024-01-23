@@ -7,6 +7,8 @@ import Link from "next/link";
 import { useGetSessionData } from "@/helpers";
 import { TailSpin } from "react-loader-spinner";
 import { useTweet } from "@/context";
+import { Tweet as tweetType } from "../../../interfaces";
+import { Tweet } from "../client_components/Tweet";
 
 const Bookmarks = () => {
 
@@ -47,8 +49,8 @@ const Bookmarks = () => {
               <BsThreeDots />
             </button>
           </header>
-          {bookmarksByUser[0]?.tweets?.map((bookmark: bookmark_type) => (
-            <Bookmark key={bookmark._id} {...bookmark} />
+          {bookmarksByUser[0]?.tweets?.map((tweet: tweetType) => (
+            <Tweet key={tweet._id} {...tweet} />
           ))}
         </>
       )}
