@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useGetSessionData } from "@/helpers";
 import { useEdgeStore } from "@/lib/edgestore";
 import axios from "axios";
@@ -49,13 +49,13 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
   const { socket }: any = useSocket();
 
   //tweet provider state & actions
-  const {createTweet, tweet}:any = useTweet()
+  const { createTweet, tweet }: any = useTweet();
 
   useEffect(() => {
     if (!socket) return;
     socket.emit("new tweet", tweet);
   }, [socket, tweet]);
-  
+
   const [formData, setFormData] = useState<FormData>({
     tweetContent: "",
     tweetImage: "",
@@ -86,7 +86,7 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
     multiple: false,
   });
   const [url, setUrl] = useState<string>();
-console.log(url);
+
   const { edgestore } = useEdgeStore();
   //google session
   const { data: session } = useSession();
@@ -94,10 +94,8 @@ console.log(url);
   const userQuery = useGetSessionData();
 
   const gifPreview: any = localStorage.getItem("gifPreview");
-console.log(gifPreview);
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
-    
     e.preventDefault();
     if (file) {
       const res = await edgestore.publicImages.upload({ file });
@@ -107,15 +105,14 @@ console.log(gifPreview);
     //send data to database
     const tweetContentData = {
       tweetContent: formData.tweetContent,
-      tweetImage: url ,
+      tweetImage: url,
       tweetUserImage: session
         ? session?.user?.image
         : userQuery?.profile_picture,
     };
 
     try {
-     
-     await createTweet( tweetContentData);
+      await createTweet(tweetContentData);
       setFormData({
         tweetContent: "",
         tweetImage: null,
@@ -155,15 +152,16 @@ console.log(gifPreview);
         <div className="px-2 py-6 m-auto">
           {imageUrl || gifPreview ? (
             <div className="relative">
-              {imageUrl || gifPreview &&  (
-                <Image
-                  src={imageUrl ? imageUrl : gifPreview}
-                  alt="imagePreview"
-                  width={400}
-                  height={400}
-                  className="relative object-contain"
-                />
-              )}
+              {imageUrl ||
+                (gifPreview && (
+                  <Image
+                    src={imageUrl ? imageUrl : gifPreview}
+                    alt="imagePreview"
+                    width={400}
+                    height={400}
+                    className="relative object-contain"
+                  />
+                ))}
               {/* Remove Image Icon */}
               {imageUrl || gifPreview ? (
                 <div
@@ -208,7 +206,6 @@ console.log(gifPreview);
                 type="file"
                 onChange={(e) => {
                   setFile(e.target.files?.[0]);
-                 
                 }}
               />
 

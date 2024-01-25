@@ -26,50 +26,50 @@ export const LeftSidebar = () => {
     }
   };
   return (
-    <section className="px-1 w-[90%] md:w-[160px] lg:w-[190px] xl:w-[210px] fixed h-screen my-2 rounded-xl flex flex-col justify-between text-xl lg:py-2 ">
-      <div className="w-[90%] items-center justify-center flex flex-col mx-auto py-2">
+    <section className="px-1 w-[100%] md:w-[100px] lg:w-[210px] fixed h-screen my-2 rounded-xl flex flex-col justify-between text-xl lg:py-2 ">
+      <div className="w-[90%] md:w-[80%] items-center justify-center flex flex-col mx-auto py-2">
         <Link
           href={"/"}
-          className="w-[100%] flex items-center justify-center md:justify-start lg:mx-9 text-3xl mb-3 px-4 mt-2"
+          className="flex items-center md:w-[80%] w-[90%] h-fit lg:mx-auto justify-start lg:space-x-5 rounded-3xl md:rounded-full px-2 py-3 lg:py-4"
         >
           <Image src={xIcon} alt="xLogo" width={50} height={50}
-          className="p-1 hover:bg-[#16181C] rounded-full"
+          className="flex lg:mx-auto hover:bg-[#16181C] rounded-full"
           />
         </Link>
         <Link
-            className="hover:bg-[#16181C] flex items-center w-[100%] h-fit justify-start space-x-5 rounded-3xl mx-auto px-4 py-3 lg:py-4"
+            className="lg:w-[90%] hover:bg-[#16181C] flex items-center md:w-[70%] lg:mx-auto h-fit justify-start lg:space-x-5 rounded-3xl md:rounded-full px-2 py-3 lg:py-4"
             href={`/`}
             key="home"
           >
-            <div className="w-[90%] mx-auto lg:mx-0 text-3xl">
+            <div className=" w-[90%] mx-auto lg:mx-0 text-3xl">
               <AiOutlineHome />
             </div>
-            <div className="hidden lg:flex md:min-w-full">Home</div>
+            <div className="hidden w-fit lg:flex md:min-w-full">Home</div>
           </Link>
         {nav_items.map((nav_item) => (
           <Link
-            className="hover:bg-[#16181C] flex items-center w-[100%] h-fit justify-start space-x-5 rounded-3xl px-4 py-3 mx-auto lg:py-4"
+            className="lg:w-[100%] hover:bg-[#16181C] flex items-center md:w-[70%] h-fit justify-start lg:space-x-5 rounded-3xl md:rounded-full lg:mx-auto px-2 lg:py-5 md:py-2"
             href={`/${nav_item.title.toLowerCase()}?profileId=${userQuery?._id}`}
             key={nav_item.title}
           >
             <div className="w-[90%] mx-auto lg:mx-0 text-3xl">
               <nav_item.icon />
             </div>
-            <div className="hidden lg:flex md:min-w-full">{nav_item.title}</div>
+            <div className="hidden w-[100%] lg:flex md:min-w-full">{nav_item.title}</div>
           </Link>
         ))}
-        <button className="flex items-center justify-center mx-0 w-[100%] lg:mx-2 rounded-3xl bg-blue-500 py-2 text-xl hover:bg-opacity-70 transition duration-200 my-4">
+        <button className="w-[90%] flex items-center justify-center mx-0 lg:mx-2 md:mx-1 rounded-3xl bg-blue-500 py-2 text-xl hover:bg-opacity-70 transition duration-200 my-4">
           Tweet
         </button>
       </div>
-      <div className="w-[100%] flex flex-col">
+      <div className="w-[90%] flex flex-col">
         <Dropdown
         closeOnSelect={true}
         className="w-[90%] bg-black border-solid border-2 border-white"
         >
           <DropdownTrigger>
           <div
-          className="w-[95%] flex items-center justify-center space-x-1 rounded-full mx-auto hover:bg-white/10
+          className="w-[95%] flex items-center justify-center space-x-1 rounded-full mx-auto lg:hover:bg-white/10
    transition duration-200 my-5 cursor-pointer"
         >
           <UserAvatar />
