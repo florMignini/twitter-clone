@@ -161,7 +161,7 @@ export const Tweet = (tweet: tweetType) => {
               rounded-full h-8  font-bold
               text-md justify-center hover:bg-blue-800/20 
               hover:text-blue-600
-              transition duration-200 text-xl"
+              transition duration-200 z-0 text-xl"
                 >
                   <BsThreeDots />
                 </div>

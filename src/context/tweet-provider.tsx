@@ -137,6 +137,15 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
       console.log(error);
     }
   };
+
+  const createComment = async(commentContentData:any)=>{
+   try {
+    const {data} = await axios.post("/api/comments/publish", commentContentData);
+    console.log(data);
+   } catch (error) {
+    console.log(error);
+   }
+  }
   return (
     <TweetContext.Provider
       value={{
@@ -155,6 +164,7 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
         deleteBookmark,
         getBookmarsByUser,
         getAllTweetsByUser,
+        createComment,
       }}
     >
       {children}

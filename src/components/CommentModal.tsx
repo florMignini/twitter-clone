@@ -39,10 +39,10 @@ const clickPost = () => {
 
 const modal: JSX.Element | null = showModal === 'y' ? (
   //main modal structure
-    <div className="absolute z-10 top-0 left-0 w-full h-screen backdrop-blur-xl">
+    <div className="absolute top-0 left-0 w-full h-screen z-10 backdrop-contrast-50">
       <dialog
   ref={modalRef}
-  className="fixed top-50 backdrop-blur-xl left-50 -translate-x-50 -translate-y-50 rounded-2xl z-100 bg-slate-900"
+  className="fixed top-[14rem] backdrop-contrast-50 left-50 z-100 -translate-x-50 -translate-y-50 rounded-2xl bg-slate-900"
   >
     {/* main content */}
     <div className="w-[600px] max-w-full flex flex-col text-white ">

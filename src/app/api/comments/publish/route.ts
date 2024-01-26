@@ -3,7 +3,6 @@ import Tweet from "../../../../../models/tweet";
 
 import { NextRequest, NextResponse } from "next/server";
 
-import { getUserData } from "@/helpers/GetUserData";
 import Comment from "../../../../../models/comment";
 
 connectDB();
@@ -19,15 +18,15 @@ export const POST = async (req: NextRequest) => {
       userId,
       tweetId,
     }).save();
-
+console.log(newComment);
     const commentTweet = await Tweet.findOne({
-        _id: tweetId,
-      });
-      //pushing to Tweet.comments arr the new user-tweet comment
-      const res = await commentTweet.comments.unshift(newComment._id);
-      commentTweet.save();
+      _id: tweetId,
+    });
+    //pushing to Tweet.comments arr the new user-tweet comment
+    await commentTweet.comments.unshift(newComment._id);
+    commentTweet.save();
     return NextResponse.json(
-      { message: `comment successfully created` },
+      newComment,
       { status: 201 }
     );
   } catch (error: any) {

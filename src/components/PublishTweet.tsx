@@ -72,6 +72,7 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
     }
     return null;
   }, [file]);
+
   // dropzone configuration
   const {
     getRootProps,
@@ -232,7 +233,7 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
     </form>
   );
 };
-const Button = React.forwardRef<
+export const Button = React.forwardRef<
   HTMLButtonElement,
   React.ButtonHTMLAttributes<HTMLButtonElement>
 >(({ className, ...props }, ref) => {
