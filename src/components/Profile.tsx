@@ -64,7 +64,7 @@ const Profile = () => {
     }
   }
   return (
-    <div className="w-full h-full min-h-screen flex flex-col">
+    <div className="w-full h-full flex flex-col">
       <div className="sticky w-[100%] h-[10%] flex items-start justify-start py-1 px-2">
         {/* top section */}
         <button
@@ -142,7 +142,7 @@ const Profile = () => {
        }
       </div>
       {/* user twitter section */}
-      <div className="relative top-96 w-[90%] flex flex-col items-center justify-center">
+      <div className="relative h-full top-96 w-[90%] flex flex-col items-center justify-center">
         {
           profileTweets?.map((tweet: tweetType) => (
             <Tweet

@@ -45,6 +45,19 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
       console.log(error);
     }
   };
+
+  //@GET SINGLE TWEET
+  const getSingleTweet = async (tweetId: string) => {
+    try {
+      const { data } = await axios.get(`/api/tweets/getSingle/${tweetId}`);
+      
+      setTweet(data.singleTweet);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   //@GET BOOKMARS BY USER
   const getBookmarsByUser = async (userId: string) => {
     try {
@@ -138,14 +151,17 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  const createComment = async(commentContentData:any)=>{
-   try {
-    const {data} = await axios.post("/api/comments/publish", commentContentData);
-    console.log(data);
-   } catch (error) {
-    console.log(error);
-   }
-  }
+  const createComment = async (commentContentData: any) => {
+    try {
+      const { data } = await axios.post(
+        "/api/comments/publish",
+        commentContentData
+      );
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <TweetContext.Provider
       value={{
@@ -165,6 +181,7 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
         getBookmarsByUser,
         getAllTweetsByUser,
         createComment,
+        getSingleTweet,
       }}
     >
       {children}

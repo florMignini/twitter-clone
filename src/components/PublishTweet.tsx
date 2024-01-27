@@ -100,6 +100,7 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
     e.preventDefault();
     if (file) {
       const res = await edgestore.publicImages.upload({ file });
+      console.log(res);
       setUrl(res.url);
     }
 

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import useGetTweet from "@/helpers/useGetTweet";
 import { Tweet } from "@/app/client_components/Tweet";
@@ -8,6 +8,7 @@ import CommentModal from "../../../components/CommentModal";
 import { Tweet as TweetType } from "@/app/page";
 import { BiArrowBack } from "react-icons/bi";
 import Comment from "../../../components/Comment";
+import { useTweet } from "@/context";
 
 export interface CommentInterface {
   content: string;
@@ -29,8 +30,13 @@ interface Params {
 const SingleTweet = ({ params }: Params) => {
   const { id } = params;
   const router = useRouter();
+const {getSingleTweet, tweet}:any = useTweet()
 
-  const { data, error } = useGetTweet(id);
+
+  useEffect(() => {
+    getSingleTweet(id)
+  }, [id, getSingleTweet])
+  
 
   const onClose = () => {
     router.push(`/profile/${id}`);
@@ -42,14 +48,14 @@ const SingleTweet = ({ params }: Params) => {
     <>
       {/* modal section */}
       <CommentModal
-        tweet={data?.data.singleTweet}
+        tweet={tweet}
         onClose={onClose}
         onPost={onPost}
       >
         <PublishComment
           placeholder="Post your reply"
           BtnTitle="Reply"
-          tweet={data?.data.singleTweet}
+          tweet={tweet}
         />
       </CommentModal>
       <div className="w-full h-full flex flex-col">
@@ -63,13 +69,13 @@ const SingleTweet = ({ params }: Params) => {
           </button>
           <h1 className="text-2xl font-semibold">Post</h1>
         </div>
-        {error ? <h1>Something goes wrong with server</h1> : null}
+        {!tweet ? <h1>Something goes wrong with server</h1> : null}
 
-        <Tweet {...data?.data.singleTweet} />
+        <Tweet {...tweet} />
         <h6 className="p-2">
-          Replies to @{data?.data.singleTweet.userId.username}
+          Replies to @{tweet?.userId?.username}
         </h6>
-        {data?.data.singleTweet.comments.map((comment: CommentInterface) => (
+        {tweet?.comments?.map((comment: CommentInterface) => (
           <Comment key={comment._id} {...comment} />
         ))}
       </div>

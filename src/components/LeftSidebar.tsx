@@ -30,14 +30,14 @@ export const LeftSidebar = () => {
       <div className="w-[100%] md:w-[80%] items-center justify-center flex flex-col mx-auto py-2">
         <Link
           href={"/"}
-          className="flex items-center md:w-[80%] w-[90%] h-fit lg:mx-auto justify-start lg:space-x-5 rounded-3xl md:rounded-full px-2 py-3 lg:py-4"
+          className="flex items-center md:w-[80%] w-[90%] h-fit lg:mx-auto justify-start lg:space-x-5 rounded-3xl md:rounded-full px-2 py-2 lg:py-3"
         >
           <Image src={xIcon} alt="xLogo" width={50} height={50}
           className="flex mx-auto hover:bg-[#16181C] rounded-full"
           />
         </Link>
         <Link
-            className="lg:w-[90%] hover:bg-[#16181C] flex items-center md:w-[70%] lg:mx-auto h-fit justify-start lg:space-x-5 rounded-3xl md:rounded-full px-2 py-3 lg:py-4"
+            className="lg:w-[90%] hover:bg-[#16181C] flex items-center md:w-[70%] lg:mx-auto h-fit justify-start lg:space-x-3 rounded-3xl md:rounded-full px-2 py-2 lg:py-3"
             href={`/`}
             key="home"
           >
@@ -48,7 +48,7 @@ export const LeftSidebar = () => {
           </Link>
         {nav_items.map((nav_item) => (
           <Link
-            className="lg:w-[100%] hover:bg-[#16181C] flex items-center md:w-[70%] h-fit justify-start lg:space-x-5 rounded-3xl md:rounded-full lg:mx-auto px-2 lg:py-5 py-2"
+            className="lg:w-[100%] hover:bg-[#16181C] flex items-center md:w-[70%] h-fit justify-start lg:space-x-3 rounded-3xl md:rounded-full lg:mx-auto px-2 lg:py-3 py-2"
             href={`/${nav_item.title.toLowerCase()}?profileId=${userQuery?._id}`}
             key={nav_item.title}
           >

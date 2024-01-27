@@ -18,7 +18,6 @@ export const POST = async (req: NextRequest) => {
       userId,
       tweetId,
     }).save();
-console.log(newComment);
     const commentTweet = await Tweet.findOne({
       _id: tweetId,
     });

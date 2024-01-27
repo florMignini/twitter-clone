@@ -67,6 +67,7 @@ const PublishComment = ({ placeholder, BtnTitle, tweet }: Props) => {
       tweetId: tweet?._id,
       userId: sessionUser?._id,
     };
+
     try {
       await createComment(commentContentData)
 
