@@ -26,14 +26,14 @@ export const LeftSidebar = () => {
     }
   };
   return (
-    <section className="px-1 w-[100%] md:w-[100px] lg:w-[210px] fixed h-screen my-2 rounded-xl flex flex-col justify-between text-xl lg:py-2 ">
-      <div className="w-[90%] md:w-[80%] items-center justify-center flex flex-col mx-auto py-2">
+    <section className="px-1 w-[100px] lg:w-[210px] fixed h-screen my-2 rounded-xl flex flex-col justify-between text-xl lg:py-2 ">
+      <div className="w-[100%] md:w-[80%] items-center justify-center flex flex-col mx-auto py-2">
         <Link
           href={"/"}
           className="flex items-center md:w-[80%] w-[90%] h-fit lg:mx-auto justify-start lg:space-x-5 rounded-3xl md:rounded-full px-2 py-3 lg:py-4"
         >
           <Image src={xIcon} alt="xLogo" width={50} height={50}
-          className="flex lg:mx-auto hover:bg-[#16181C] rounded-full"
+          className="flex mx-auto hover:bg-[#16181C] rounded-full"
           />
         </Link>
         <Link
@@ -48,7 +48,7 @@ export const LeftSidebar = () => {
           </Link>
         {nav_items.map((nav_item) => (
           <Link
-            className="lg:w-[100%] hover:bg-[#16181C] flex items-center md:w-[70%] h-fit justify-start lg:space-x-5 rounded-3xl md:rounded-full lg:mx-auto px-2 lg:py-5 md:py-2"
+            className="lg:w-[100%] hover:bg-[#16181C] flex items-center md:w-[70%] h-fit justify-start lg:space-x-5 rounded-3xl md:rounded-full lg:mx-auto px-2 lg:py-5 py-2"
             href={`/${nav_item.title.toLowerCase()}?profileId=${userQuery?._id}`}
             key={nav_item.title}
           >
@@ -62,14 +62,13 @@ export const LeftSidebar = () => {
           Tweet
         </button>
       </div>
-      <div className="w-[90%] flex flex-col">
+      <div className="w-[90%] mx-auto flex flex-col">
         <Dropdown
         closeOnSelect={true}
-        className="w-[90%] bg-black border-solid border-2 border-white"
-        >
+        className="w-[90%] mx-auto bg-black border-solid border-2 border-white">
           <DropdownTrigger>
           <div
-          className="w-[95%] flex items-center justify-center space-x-1 rounded-full mx-auto lg:hover:bg-white/10
+          className="w-[100%] flex items-center justify-center space-x-1 rounded-full mx-auto lg:hover:bg-white/10
    transition duration-200 my-5 cursor-pointer"
         >
           <UserAvatar />

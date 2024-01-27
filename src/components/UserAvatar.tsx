@@ -18,7 +18,7 @@ export default function UserAvatar() {
   return (
     <div className="w-[100%] h-[10%] m-1 flex items-center justify-center">
       {sessionProfile && (
-        <div className="w-[100%] lg:grid lg:grid-cols-[20%,80%] md:flex md:justify-center items-center content-center gap-3">
+        <div className="w-[100%] lg:grid lg:grid-cols-[20%,80%] mx-auto flex justify-center items-center content-center gap-3">
           <Image 
           width={50}
           height={50}
