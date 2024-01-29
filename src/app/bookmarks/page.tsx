@@ -34,7 +34,7 @@ const Bookmarks = () => {
         </div>
       ) : (
         <>
-          <header className="w-[95%] flex items-center justify-between mb-2 p-1">
+          <header className="w-[95%] z-10 flex items-center justify-between mb-2 p-1 backdrop-blur-md sticky bg-black/10 top-0">
             <div className="w-[80%]">
               <h3 className="text-2xl font-semibold">Bookmarks</h3>
               <Link href={`/profile?profileId=${user?._id}`}>

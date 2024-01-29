@@ -68,7 +68,7 @@ export const LeftSidebar = () => {
         className="w-[90%] mx-auto bg-black border-solid border-2 border-white">
           <DropdownTrigger>
           <div
-          className="w-[100%] flex items-center justify-center space-x-1 rounded-full mx-auto lg:hover:bg-white/10
+          className="w-[90%] flex items-center justify-center space-x-1 rounded-full mx-auto lg:hover:bg-white/10
    transition duration-200 my-5 cursor-pointer"
         >
           <UserAvatar />
