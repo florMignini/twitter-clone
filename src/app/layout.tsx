@@ -6,6 +6,10 @@ import type { Metadata } from "next";
 import { LeftSidebar, RightSidebar } from "../components";
 import { cookies } from "next/headers";
 import { TweetProvider } from "@/context";
+import {Open_Sans} from "next/font/google"
+const font = Open_Sans({
+  subsets: ["latin"]
+})
 
 export const metadata: Metadata = {
   title: "X-Clone",
@@ -24,7 +28,7 @@ export default function RootLayout({
 
   return (
     <html lang="en" className="bg-black w-full h-screen">
-      <body>
+      <body className={font.className}>
         <SocketProvider>
           <TweetProvider>
             <Providers>
