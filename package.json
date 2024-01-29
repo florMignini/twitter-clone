@@ -10,6 +10,7 @@
     "migrate": "npx bun run src/lib/db/migration.ts"
   },
   "dependencies": {
+    "@clerk/nextjs": "^4.29.5",
     "@edgestore/react": "^0.1.6",
     "@edgestore/server": "^0.1.6",
     "@nextui-org/react": "^2.0.0",

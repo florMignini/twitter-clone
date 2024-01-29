@@ -11,6 +11,7 @@ import { AiOutlineHome } from "react-icons/ai";
 import { signOut } from "next-auth/react";
 import xIcon from "@/assets/X_icon.png"
 import Image from "next/image";
+import { UserButton } from "@clerk/nextjs";
 
 export const LeftSidebar = () => {
   const userQuery = useGetSessionData()
@@ -62,31 +63,9 @@ export const LeftSidebar = () => {
           Tweet
         </button>
       </div>
-      <div className="w-[90%] mx-auto flex flex-col">
-        <Dropdown
-        closeOnSelect={true}
-        className="w-[90%] mx-auto bg-black border-solid border-2 border-white">
-          <DropdownTrigger>
-          <div
-          className="w-[90%] flex items-center justify-center space-x-1 rounded-full mx-auto lg:hover:bg-white/10
-   transition duration-200 my-5 cursor-pointer"
-        >
-          <UserAvatar />
-        </div>
-          </DropdownTrigger>
-          <DropdownMenu
-            className=" text-white">
-            <DropdownItem
-            >
-              <Link
-              href={'/logout'}
-              onClick={logOut}
-              >
-              Log out
-              </Link>
-            </DropdownItem>
-          </DropdownMenu>
-        </Dropdown>
+      <div className="flex-col w-[90%] flex items-center justify-center space-x-1 rounded-full mx-auto lg:hover:bg-white/10
+   transition duration-200 my-5 cursor-pointer">
+        <UserButton afterSignOutUrl="/"/>
       </div>
     </section>
   );

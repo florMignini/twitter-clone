@@ -1,26 +1,10 @@
-import { useSession } from "next-auth/react";
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
-
-export function middleware(request: NextRequest) {
-  const path = request.nextUrl.pathname;
-  const publicPaths = path === "/signin" || path === "/signup";
-
-  //getting token session if it exist
-  const token = request.cookies.get("sessionToken")?.value || "";
-  //google session
-  const googleToken = request.cookies.get("next-auth.session-token")?.value;
-
-  //redirect logged user
-  if (publicPaths && token && googleToken) {
-    return NextResponse.redirect(new URL("/", request.nextUrl));
-  }
-  //otherwise
-  if (!publicPaths && !token && !googleToken) {
-    return NextResponse.redirect(new URL("/signin", request.nextUrl));
-  }
-}
-
+import { authMiddleware } from "@clerk/nextjs";
+ 
+// This example protects all routes including api/trpc routes
+// Please edit this to allow other routes to be public as needed.
+// See https://clerk.com/docs/references/nextjs/auth-middleware for more information about configuring your Middleware
+export default authMiddleware({});
+ 
 export const config = {
-  matcher: ["/", "/signin", "/signup","/logout", "/profile/:path*", "/bookmarks/:path*"],
-}; 
+  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
+};
