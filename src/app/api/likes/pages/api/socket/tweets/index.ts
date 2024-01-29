@@ -1,7 +1,7 @@
 "use server"
-import { NextApiResponseServerIo } from "../../../../types";
+import { NextApiResponseServerIo } from "../../../../../../../../types";
 
-import Tweet from "../../../../models/tweet";
+import Tweet from "../../../../../../../../models/tweet";
 import { connectDB } from "@/db/config";
 
 import { GetUserData } from "@/helpers/GetUserData";

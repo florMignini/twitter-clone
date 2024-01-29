@@ -1,10 +1,10 @@
 import { connectDB } from "@/db/config";
-import User from "../../../../../models/user";
+import User from "../../../../../../../../../models/user";
 import { NextRequest, NextResponse } from "next/server";
 import { NextApiRequest, NextApiResponse } from "next";
 
 import { GetUserData } from "@/helpers/GetUserData";
-import { NextApiResponseServerIo } from "../../../../../types";
+import { NextApiResponseServerIo } from "../../../../../../../../../types";
 
 connectDB();
 

@@ -1,7 +1,7 @@
 import { connectDB } from "@/db/config";
-import Tweet from "../../../../../models/tweet";
+import Tweet from "../../../../../../../../../models/tweet";
 import { NextApiRequest } from "next";
-import { NextApiResponseServerIo } from "../../../../../types";
+import { NextApiResponseServerIo } from "../../../../../../../../../types";
 
 connectDB();
 const handler = async (req: NextApiRequest, res: NextApiResponseServerIo) => {

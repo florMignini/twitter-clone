@@ -2,15 +2,15 @@
 import React, { useEffect } from "react";
 import { useGetSessionData, useGetTweets } from "@/helpers";
 import  { Like, Tweet } from "@/app/client_components/Tweet";
-import PublishTweet from "../components/PublishTweet";
-import { Profile } from "../../interfaces";
-import { Tweet as tweetType } from "../../interfaces";
+import PublishTweet from "../../../components/PublishTweet";
+import { Profile } from "../../../../interfaces";
+import { Tweet as tweetType } from "../../../../interfaces";
 import { TailSpin } from "react-loader-spinner";
 import { useSession } from "next-auth/react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import GifModal from "../components/GifModal";
+import GifModal from "../../../components/GifModal";
 import { useTweet } from "@/context";
 
 export interface Tweet {

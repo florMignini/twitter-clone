@@ -1,7 +1,7 @@
 import { connectDB } from "@/db/config";
 import { NextApiRequest } from "next";
-import { NextApiResponseServerIo } from "../../../../../types";
-import User from "../../../../../models/user";
+import { NextApiResponseServerIo } from "../../../../../../../../../types";
+import User from "../../../../../../../../../models/user";
 
 connectDB();
 
