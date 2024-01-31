@@ -5,7 +5,7 @@ const useGetSessionData = () => {
   const userSessionQuery = useQuery({
     queryKey: ["userData"],
     queryFn: async () => {
-      const response = await axios.get("/api/socket/users/profile");
+      const response = await axios.get("/api/users/signup");
 
       return response;
     },

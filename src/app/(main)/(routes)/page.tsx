@@ -6,12 +6,12 @@ import PublishTweet from "../../../components/PublishTweet";
 import { Profile } from "../../../../interfaces";
 import { Tweet as tweetType } from "../../../../interfaces";
 import { TailSpin } from "react-loader-spinner";
-import { useSession } from "next-auth/react";
-import axios from "axios";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 import GifModal from "../../../components/GifModal";
 import { useTweet } from "@/context";
+import { initialProfile } from "@/lib/initial-profile";
+import axios from "axios";
+
 
 export interface Tweet {
   comments: Comment[];
@@ -33,30 +33,15 @@ const Page = () => {
   }, [getAllTweets])
   
   //login session
-  const sessionProfile = useGetSessionData();
-
   useEffect(() => {
-    if (!sessionProfile) {
-      router.push("/signin");
-      router.refresh();
+    const getUserData = async()=>{
+      const data = await axios.get(`api/users/signup`)
+      console.log(data)
     }
-    router.push("/");
-    router.refresh();
-  }, [sessionProfile]);
+    getUserData()
+  }, [])
+  
 
-  //google account session
-  const { data: session, status } = useSession();
-
-  useEffect(() => {
-    if (!session) {
-      router.push("/signin");
-      router.refresh();
-    }
-
-    const res = axios.post("/api/users/signin", session?.user);
-    router.push("/");
-    router.refresh();
-  }, [session]);
 
   /* modal states */
   const onClose = () => {
@@ -93,8 +78,8 @@ const Page = () => {
         </h1>
 
         {/* Avatar */}
-        <div className="h-auto border-b-[0.3px] border-t-[0.3px] px-3 pt-3 pb-0 border-slate-700 relative grid grid-cols-[8%,92%] gap-1 bg-[#16181C]">
-          {sessionProfile && (
+        {<div className="h-auto border-b-[0.3px] border-t-[0.3px] px-3 pt-3 pb-0 border-slate-700 relative grid grid-cols-[8%,92%] gap-1 bg-[#16181C]">
+          {/* {sessionProfile && (
             <Image
               width={50}
               height={50}
@@ -102,13 +87,13 @@ const Page = () => {
               alt="userAvatar"
               src={sessionProfile?.profile_picture}
             />
-          )}
+          )} */}
           {/* Input */}
           <div className="">
             {/* input & everyone can reply section*/}
             <PublishTweet placeholder="What is happening?!" BtnTitle="Post" />
           </div>
-        </div>
+        </div>}
         {loading ? (
           <div className="w-full h-screen flex pt-[50%] items-start justify-center">
             <TailSpin

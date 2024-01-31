@@ -6,35 +6,21 @@ const userSchema = new mongoose.Schema(
       type: String,
       unique: true,
       trim: true,
-      minlength: 6,
-      maxlength: 50,
+    },
+    userId: {
+      type: String,
+      unique: true,
     },
     email: {
       type: String,
       unique: true,
     },
-    password: {
-      type: String,
-      unique: true,
-    },
-    isGoogleSession: {
-      type: Boolean,
-      default: false,
-    },
-    is_verify: {
-      type: Boolean,
-      default: false,
-    },
-    profile_picture: {
+    imageUrl: {
       type: String,
       trim: true,
     },
     following: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
     tweets: { type: mongoose.Schema.Types.ObjectId, ref: "Tweet" },
-    forgot_password_token: String,
-    forgot_password_token_expired: Date,
-    verify_token: String,
-    verify_token_expired: Date,
   },
   {
     timestamps: true,

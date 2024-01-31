@@ -3,7 +3,7 @@ import { useSocket } from '@/context';
 import React, { useEffect } from 'react'
 
 const Messages = () => {
-    const {isConnected, socket, message} = useSocket();
+/*     const {isConnected, socket, message} = useSocket();
 
     useEffect(() => {
         if(!socket){
@@ -19,9 +19,9 @@ const Messages = () => {
 
 
 
-
+ */
 return (
-    <h1 className='text-6xl text-emerald-600'> {message}</h1>
+    <h1 className='text-6xl text-emerald-600'> Hello</h1>
         )
 }
 

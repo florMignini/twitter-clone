@@ -1,39 +1,37 @@
 import { connectDB } from "@/db/config";
 import User from "../../../../../models/user";
 import { NextRequest, NextResponse } from "next/server";
-import bcryptjs from "bcryptjs";
+import { currentUser, redirectToSignIn } from "@clerk/nextjs";
+
 
 connectDB();
 
 export const POST = async (req: NextRequest) => {
   try {
-    const body = await req.json();
-    const { username, email, password } = body;
+    
+    const user = await currentUser();
 
-    // checking if user is already in db
-    const alreadyExist = await User.findOne({ email });
-    if (alreadyExist) {
-      return NextResponse.json(
-        { error: `user with email ${email} already exist` },
-        { status: 400 }
-      );
+    if (!user) {
+      return redirectToSignIn();
     }
-
-    //   if the user is not in db
-    // hash password
-    const salt = await bcryptjs.genSalt(10);
-    const passwordHashed = await bcryptjs.hash(password, salt);
-
-    // create new user
-    const newUser = new User({
-      username,
-      email,
-      profile_picture: `https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png`,
-      password: passwordHashed,
+  
+    const profile = await User.findOne({userId: user.id! })
+      
+  
+    if (profile) {
+      return profile;
+    }
+   // create new user
+   const newUser = await new User({
+      userId: user.id,
+      username: user.emailAddresses[0].emailAddress.split("@")[0],
+      imageUrl: user.imageUrl,
+      email: user.emailAddresses[0].emailAddress,
     }).save();
-
+   
+   
     return NextResponse.json(
-      { message: `user ${(await newUser).username} successfully created` },
+      newUser,
       { status: 201 }
     );
   } catch (error: any) {

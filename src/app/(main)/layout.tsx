@@ -1,4 +1,5 @@
 import { LeftSidebar, RightSidebar } from "@/components";
+import { TweetProvider } from "@/context";
 
 export default function MainLayout({
   children,
@@ -6,7 +7,8 @@ export default function MainLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="p-0 w-full h-screen grid grid-cols-[15%,85%] lg:grid-cols-[20%,50%,30%] gap-1 relative md:px-4 2xl:px-72">
+    <TweetProvider>
+      <div className="p-0 w-full h-screen grid grid-cols-[15%,85%] lg:grid-cols-[20%,50%,30%] gap-1 relative md:px-4 2xl:px-72">
       {/* Sidebar and notification section  */}
       <div className="">
         <LeftSidebar />
@@ -18,5 +20,6 @@ export default function MainLayout({
         <RightSidebar />
       </div>
     </div>
+    </TweetProvider>
   );
 }

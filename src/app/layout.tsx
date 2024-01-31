@@ -27,13 +27,11 @@ export default function RootLayout({
       <html lang="en" className="bg-black w-full h-screen">
       <body className={font.className}>
         <SocketProvider>
-          <TweetProvider>
             <Providers>
               <EdgeStoreProvider>
                 {children}
               </EdgeStoreProvider>
             </Providers>
-          </TweetProvider>
         </SocketProvider>
       </body>
     </html>
