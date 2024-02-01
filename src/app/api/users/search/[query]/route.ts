@@ -5,6 +5,7 @@ import User from "../../../../../../models/user";
 connectDB();
 
 export const GET = async (req: NextRequest, context: { params: any }) => {
+
   try {
       const querySearch = await User.find({
         "$or":[

@@ -2,13 +2,13 @@
 import useGetBookmarks from "@/helpers/useGetBookmarks";
 import React, { useEffect } from "react";
 import { BsThreeDots } from "react-icons/bs";
-import Bookmark, { bookmark_type } from "../../components/Bookmark";
+import Bookmark, { bookmark_type } from "../../../components/Bookmark";
 import Link from "next/link";
 import { useGetSessionData } from "@/helpers";
 import { TailSpin } from "react-loader-spinner";
 import { useTweet } from "@/context";
-import { Tweet as tweetType } from "../../../interfaces";
-import { Tweet } from "../client_components/Tweet";
+import { Tweet as tweetType } from "../../../../interfaces";
+import { Tweet } from "../../client_components/Tweet";
 
 const Bookmarks = () => {
 

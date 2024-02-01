@@ -7,7 +7,7 @@ import {
   useState,
 } from "react";
 import io, { Socket } from "socket.io-client";
-import { useSocket } from ".";
+
 import axios from "axios";
 
 const TweetContext = createContext({});
@@ -17,7 +17,7 @@ export const useTweet = () => {
 };
 export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
   //socket import
-  const { socket } = useSocket();
+
   const [loading, setLoading] = useState(true);
   const [tweets, setTweets] = useState<any>([]);
   const [tweetsByUser, setTweetsByUser] = useState<any>([]);
@@ -73,7 +73,7 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
   //@CREATE TWEET
   const createTweet = async (tweetContentData: any) => {
     try {
-      const { data } = await axios.post("/api/socket/tweets", tweetContentData);
+      const { data } = await axios.post("/api/tweets/publish", tweetContentData);
 
       setTweet({});
       // update state once project is added

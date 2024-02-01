@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useMemo, useState } from "react";
-import { useSocket, useTweet } from "@/context";
+import { useTweet } from "@/context";
 import { BsBookmarkFill, BsChat, BsDot, BsThreeDots } from "react-icons/bs";
 import { IoMdStats } from "react-icons/io";
 import { BsBookmark } from "react-icons/bs";
@@ -34,7 +34,7 @@ export interface Like {
 export const Tweet = (tweet: tweetType) => {
 
   const router = useRouter();
-  const { socket }: any = useSocket();
+
   //bringing user session data && login session
   const userQuery = useGetSessionData();
   //tweet provider imports
