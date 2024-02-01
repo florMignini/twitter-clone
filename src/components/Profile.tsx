@@ -3,7 +3,6 @@ import { useState } from "react";
 import { BiArrowBack } from "react-icons/bi";
 import { Avatar } from "@nextui-org/react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useSession } from "next-auth/react";
 import useGetUserInfo from "@/helpers/useGetUserInfo";
 import useGetTweetsByUser from "@/helpers/useGetTweetsByUser";
 import dayjs from "dayjs";
@@ -26,14 +25,12 @@ const Profile = () => {
 
   const router = useRouter();
   const searchParams = useSearchParams();
-
   const profileId = searchParams?.get("profileId");
 
   const profileTweets = useGetTweetsByUser(profileId!);
   const profileInfoQuery = useGetUserInfo(profileId!);
 
-  //google account session
-  const { data: session, status } = useSession();
+  const userSession = profileInfoQuery?.profileInfo
 
   const handleProfileImage = async () => {
     try {
@@ -70,10 +67,10 @@ const Profile = () => {
         >
           <BiArrowBack className="w-5 h-5" />
         </button>
-        {profileInfoQuery && profileTweets && (
+        {userSession && profileTweets && (
           <div className="flex flex-col">
             <h1 className="text-2xl font-semibold">
-              {profileInfoQuery?.username}
+              {userSession?.username}
             </h1>
             <p className="text-base font-thin ">
               {`${profileTweets?.length} `}{" "}
@@ -87,29 +84,13 @@ const Profile = () => {
         {/* front page */}
         <div className="absolute top-0 w-[100%] h-auto flex flex-col items-start justify-start rounded-md bg-slate-600">
           <Avatar
-            src={profileInfoQuery?.profile_picture}
+            src={userSession?.imageUrl}
             className="w-44 h-44 
             object-contain
             md:w-70 md:h-70 lg:w-70 lg:h-70
             xl:w-200
             xl:h-200 rounded-full mt-14 ml-4"
           />
-          {/* change user avatar btn */}
-          <button className=" w-8 h-8 absolute z-10 bottom-6 left-36 border-1 border-gray-600 hover:border-black rounded-full hover:bg-slate-600/25">
-            <label htmlFor="files">
-              <GiPhotoCamera className="text-gray-600 hover:text-black w-[100%] h-[100%] p-1" />
-            </label>
-            <input
-              className="hidden w-8 h-8"
-              id="files"
-              type="file"
-              onChange={(e) => {
-                if (!e.target.files) return;
-                setFormData({ ...formData, profileImage: e.target.files[0] });
-              }}
-              onClick={handleProfileImage}
-            />
-          </button>
           {/* change cover btn */}
           <button className="w-8 h-8 absolute z-10 bottom-2 right-8 border-1 border-gray-400 hover:border-black rounded-full hover:bg-slate-600/25">
             <label htmlFor="files">
@@ -127,14 +108,14 @@ const Profile = () => {
             />
           </button>
         </div>
-        {profileInfoQuery ? (
+        {userSession ? (
           <div className="absolute top-72 w-[100%] h-[30%] flex flex-col items-start justify-center pl-2 mt-5 mb-10">
-            <h3 className="text-xl">{profileInfoQuery?.username}</h3>
-            <p className="font-thin text-xs">{`@${profileInfoQuery?.username}`}</p>
+            <h3 className="text-xl">{userSession?.username}</h3>
+            <p className="font-thin text-xs">{`@${userSession?.username}`}</p>
             <div className="flex items-center justify-center gap-2 pt-2 mb-2">
               <BsCalendarWeek className="flex items-center justify-center w-4 h-4" />
               <p className="font-thin text-md">{`Joined ${dayjs(
-                profileInfoQuery?.created_at
+                userSession?.created_at
               ).format("MMMM YYYY")}`}</p>
             </div>
           </div>
