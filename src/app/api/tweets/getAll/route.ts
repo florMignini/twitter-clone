@@ -13,7 +13,8 @@ export const GET = async (req: NextRequest) => {
       .select("-__v")
       .populate("userId", "-password -__v")
       .populate("likes", "-tweetId -__v ");
-    return NextResponse.json({ allTweets }, { status: 200 });
+
+    return NextResponse.json( allTweets , { status: 200 });
   } catch (error: any) {
     console.log(error);
     return NextResponse.json({ error: error.message }, { status: 500 });

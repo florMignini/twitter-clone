@@ -9,10 +9,10 @@ export const connectDB = async() => {
         dbConn.on('connected', ()=>{
             console.log(`connected successfully to DB`)
         })
-        /* dbConn.on('error', (error)=>{
+        dbConn.on('error', (error)=>{
             console.log(`Connection error, please reestart the proccess ${error}`)
             process.exit();
-        }) */
+        })
     } catch (error) {
        console.log(error)
     }

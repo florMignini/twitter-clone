@@ -8,7 +8,7 @@ const useGetUserInfo = (userId:string) => {
         queryKey: ['userInfo'],
         queryFn: async () => {
       
-          const response = await axios.get(`/api/socket/users/info/${userId}`)
+          const response = await axios.get(`/api/users/info/${userId}`)
           return response
         },
       });

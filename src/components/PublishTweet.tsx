@@ -12,7 +12,7 @@ import { DropzoneOptions, useDropzone } from "react-dropzone";
 import { AiOutlinePicture } from "react-icons/ai";
 import { twMerge } from "tailwind-merge";
 import React from "react";
-import { useSocket, useTweet } from "@/context";
+import { useTweet } from "@/context";
 
 const variants = {
   base: "relative rounded-md flex justify-center items-center flex-col cursor-pointer min-h-[150px] min-w-[200px] border border-dashed border-gray-400 dark:border-gray-300 transition-colors duration-200 ease-in-out",
@@ -45,16 +45,10 @@ type Props = {
 };
 const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
   const router = useRouter();
-  //socket events
-  const { socket }: any = useSocket();
+
 
   //tweet provider state & actions
   const { createTweet, tweet }: any = useTweet();
-
-  useEffect(() => {
-    if (!socket) return;
-    socket.emit("new tweet", tweet);
-  }, [socket, tweet]);
 
   const [formData, setFormData] = useState<FormData>({
     tweetContent: "",

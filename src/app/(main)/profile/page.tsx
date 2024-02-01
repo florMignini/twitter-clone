@@ -1,5 +1,6 @@
+import { Profile } from '@/components'
 import React from 'react'
-import { Profile } from '../../components'
+
 
 const profile = () => {
 

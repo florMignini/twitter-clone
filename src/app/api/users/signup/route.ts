@@ -6,20 +6,21 @@ import { currentUser, redirectToSignIn } from "@clerk/nextjs";
 
 connectDB();
 
-export const POST = async (req: NextRequest) => {
+export const GET = async (req: NextRequest) => {
   try {
     
     const user = await currentUser();
-
     if (!user) {
       return redirectToSignIn();
     }
-  
+    
     const profile = await User.findOne({userId: user.id! })
-      
   
     if (profile) {
-      return profile;
+      return NextResponse.json(
+        profile,
+        { status: 201 }
+      );
     }
    // create new user
    const newUser = await new User({

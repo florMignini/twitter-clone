@@ -2,14 +2,13 @@
 import React, { useEffect } from "react";
 import { useGetSessionData, useGetTweets } from "@/helpers";
 import  { Like, Tweet } from "@/app/client_components/Tweet";
-import PublishTweet from "../../../components/PublishTweet";
-import { Profile } from "../../../../interfaces";
-import { Tweet as tweetType } from "../../../../interfaces";
+import PublishTweet from "../../components/PublishTweet";
+import { Profile } from "../../../interfaces";
+import { Tweet as tweetType } from "../../../interfaces";
 import { TailSpin } from "react-loader-spinner";
 import { useRouter } from "next/navigation";
-import GifModal from "../../../components/GifModal";
+import GifModal from "../../components/GifModal";
 import { useTweet } from "@/context";
-import { initialProfile } from "@/lib/initial-profile";
 import axios from "axios";
 
 
@@ -35,8 +34,7 @@ const Page = () => {
   //login session
   useEffect(() => {
     const getUserData = async()=>{
-      const data = await axios.get(`api/users/signup`)
-      console.log(data)
+      const {data} = await axios.get(`api/users/signup`)
     }
     getUserData()
   }, [])
