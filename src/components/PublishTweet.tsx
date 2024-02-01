@@ -1,8 +1,7 @@
 "use client";
 import { useGetSessionData } from "@/helpers";
 import { useEdgeStore } from "@/lib/edgestore";
-import axios from "axios";
-import { useSession } from "next-auth/react";
+
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -83,8 +82,7 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
   const [url, setUrl] = useState<string>();
 
   const { edgestore } = useEdgeStore();
-  //google session
-  const { data: session } = useSession();
+ 
   //bringing user session data && login session
   const userQuery = useGetSessionData();
 
@@ -102,9 +100,9 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
     const tweetContentData = {
       tweetContent: formData.tweetContent,
       tweetImage: url,
-      tweetUserImage: session
+      /* tweetUserImage: session
         ? session?.user?.image
-        : userQuery?.profile_picture,
+        : userQuery?.profile_picture, */
     };
 
     try {

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { BiArrowBack } from "react-icons/bi";
 import { Avatar } from "@nextui-org/react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useSession } from "next-auth/react";
+
 import useGetUserInfo from "@/helpers/useGetUserInfo";
 import useGetTweetsByUser from "@/helpers/useGetTweetsByUser";
 import dayjs from "dayjs";
@@ -32,8 +32,6 @@ const Profile = () => {
   const profileTweets = useGetTweetsByUser(profileId!);
   const profileInfoQuery = useGetUserInfo(profileId!);
 
-  //google account session
-  const { data: session, status } = useSession();
 
   const handleProfileImage = async () => {
     try {

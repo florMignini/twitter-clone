@@ -1,14 +1,13 @@
 'use client'
 import Link from "next/link";
-import axios from 'axios';
+
 import { useRouter } from "next/navigation";
 import { BsTwitter } from "react-icons/bs";
 import { nav_items } from "../../data/navigation-items";
-import UserAvatar from "./UserAvatar";
-import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/react";
+
 import { useGetSessionData } from "@/helpers";
 import { AiOutlineHome } from "react-icons/ai";
-import { signOut } from "next-auth/react";
+
 import xIcon from "@/assets/X_icon.png"
 import Image from "next/image";
 import { UserButton } from "@clerk/nextjs";
@@ -16,16 +15,7 @@ import { UserButton } from "@clerk/nextjs";
 export const LeftSidebar = () => {
   const userQuery = useGetSessionData()
   const router = useRouter();
-  const logOut = async () => {
-    try {
-      const logout = await axios.get('/api/users/logout')
-      signOut()
-      router.refresh()
-      router.push('/signin')
-    } catch (error) {
-      console.log(error)
-    }
-  };
+ 
   return (
     <section className="px-1 w-[100px] lg:w-[210px] fixed h-screen my-2 rounded-xl flex flex-col justify-between text-xl lg:py-2 ">
       <div className="w-[100%] md:w-[80%] items-center justify-center flex flex-col mx-auto py-2">

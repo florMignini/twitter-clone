@@ -1,7 +1,7 @@
 "use client";
 import { useGetSessionData, useGetUsers } from "@/helpers";
 import axios from "axios";
-import { useSession } from "next-auth/react";
+
 import Image from "next/image";
 import Link from "next/link";
 import { BsSearch, BsThreeDots } from "react-icons/bs";
@@ -20,7 +20,6 @@ type userType = {
 const RightSidebar = () => {
   //bringing user session data && login session
   const userQuery = useGetSessionData();
-  const { data: session, status } = useSession();
 
   //get all Users
   const { data, isLoading } = useGetUsers();

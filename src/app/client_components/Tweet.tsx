@@ -4,7 +4,7 @@ import { useTweet } from "@/context";
 import { BsBookmarkFill, BsChat, BsDot, BsThreeDots } from "react-icons/bs";
 import { IoMdStats } from "react-icons/io";
 import { BsBookmark } from "react-icons/bs";
-import { useSession } from "next-auth/react";
+
 // dayjs import
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -51,11 +51,9 @@ export const Tweet = (tweet: tweetType) => {
     tweetsByUser,
   }: any = useTweet();
 
-  //google account session
-  const { data: session, status } = useSession();
 
   // google session image
-  const googleUserImage = session?.user?.image!;
+
   useEffect(() => {
     getAllTweetsByUser(userQuery?._id);
     getBookmarsByUser(userQuery?._id);
