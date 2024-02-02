@@ -17,14 +17,16 @@ export const POST = async (req: NextRequest) => {
     }).save();
     const likedTweet = await Tweet.findOne({
       _id: tweetId,
-    });
-
+    })
+    .populate("userId", " -__v")
+    .populate("likes", "-tweetId -__v ");
     //pushing to Tweet.likes arr the new user-tweet like
-    const res = await likedTweet.likes.unshift(newLike._id);
-    likedTweet.save();
+     await likedTweet?.likes.unshift(newLike._id);
+    likedTweet?.save();
+
 
     return NextResponse.json(
-      newLike,
+      likedTweet._doc,
       { status: 201 }
     );
   } catch (error: any) {

@@ -94,6 +94,15 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
         tweetId,
       });
 
+       // update state once tweet is booked
+      const updatedTweets = tweets.map((tweetToLike: any) =>
+        tweetToLike._id === data._id
+          ? data
+          : tweetToLike
+      );
+
+      setTweets(updatedTweets);
+     
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -103,11 +112,18 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
   //@UNLIKE TWEETS
   const unLikeTweet = async ({ userId, tweetId }: any) => {
     try {
-      const { data }: any = axios.post("/api/likes/unlike", {
+      const {data}: any = await axios.post("/api/likes/unlike", {
         userId,
         tweetId,
       });
-      console.log(data);
+
+       // update state once tweet is booked
+      const updatedTweets = tweets.map((tweetToUnlike: any) =>
+        tweetToUnlike._id === data._id
+          ? data
+          : tweetToUnlike
+      );
+      setTweets(updatedTweets);
       setLoading(false);
     } catch (error) {
       console.log(error);

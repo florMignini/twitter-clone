@@ -51,25 +51,21 @@ export const Tweet = (tweet: tweetType) => {
     tweetsByUser,
   }: any = useTweet();
 
-
-  // google session image
-
   useEffect(() => {
     getAllTweetsByUser(userQuery?._id);
     getBookmarsByUser(userQuery?._id);
   }, [userQuery?._id]);
 
-  // console.log(tweetsByUser);
   //bring the userId from session like if it exist
-  const likesResult = tweet?.likes?.filter(
-    (like: Like) => like.userId === userQuery?._id
-  )[0]?.userId;
+const likesResult = useMemo(()=>tweet?.likes?.filter(
+  (like: Like) => like.userId === userQuery?._id
+)[0],[tweet])
+
 
   const bookmarksTweetId: any[] = [];
   const res = bookmarksByUser[0]?.tweets.map((t: any) => {
     bookmarksTweetId.push(t._id);
   });
-
 
   const handleLikeTweet = async (
     userId: string,
