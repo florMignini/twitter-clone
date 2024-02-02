@@ -1,16 +1,16 @@
 "use client";
 import React, { useEffect } from "react";
-import { useGetSessionData, useGetTweets } from "@/helpers";
-import  { Like, Tweet } from "@/app/client_components/Tweet";
-import PublishTweet from "../../components/PublishTweet";
-import { Profile } from "../../../interfaces";
-import { Tweet as tweetType } from "../../../interfaces";
-import { TailSpin } from "react-loader-spinner";
 import { useRouter } from "next/navigation";
-import GifModal from "../../components/GifModal";
+import { useGetSessionData, useGetTweets } from "@/helpers";
 import { useTweet } from "@/context";
-import axios from "axios";
+import { Like, Tweet } from "@/app/client_components/Tweet";
+import PublishTweet from "../../components/PublishTweet";
+import GifModal from "../../components/GifModal";
+import { TailSpin } from "react-loader-spinner";
+import { Tweet as tweetType } from "../../../interfaces";
+import { Profile } from "../../../interfaces";
 
+import Image from "next/image";
 
 export interface Tweet {
   comments: Comment[];
@@ -24,22 +24,14 @@ export interface Tweet {
 const Page = () => {
   const router = useRouter();
   const { error } = useGetTweets();
-  const {getAllTweets, tweets, loading}:any = useTweet()
-  
+  const { getAllTweets, tweets, loading }: any = useTweet();
 
   useEffect(() => {
     getAllTweets();
-  }, [getAllTweets])
-  
-  //login session
-  useEffect(() => {
-    const getUserData = async()=>{
-      const {data} = await axios.get(`api/users/signup`)
-    }
-    getUserData()
-  }, [])
-  
+  }, []);
 
+  //bringing user session data && login session
+  const userQuery = useGetSessionData();
 
   /* modal states */
   const onClose = () => {
@@ -76,22 +68,26 @@ const Page = () => {
         </h1>
 
         {/* Avatar */}
-        {<div className="h-auto border-b-[0.3px] border-t-[0.3px] px-3 pt-3 pb-0 border-slate-700 relative grid grid-cols-[8%,92%] gap-1 bg-[#16181C]">
-          {/* {sessionProfile && (
-            <Image
-              width={50}
-              height={50}
-              className="rounded-full flex items-center justify-center"
-              alt="userAvatar"
-              src={sessionProfile?.profile_picture}
-            />
-          )} */}
-          {/* Input */}
-          <div className="">
-            {/* input & everyone can reply section*/}
-            <PublishTweet placeholder="What is happening?!" BtnTitle="Post" />
+        {
+          <div className="w-full h-auto border-b-[0.3px] border-t-[0.3px] px-3 pt-3 pb-0 border-slate-700 relative grid grid-cols-[8%,92%] gap-1 bg-[#16181C]">
+            <div className="">
+              {userQuery && (
+                <Image
+                  src={userQuery?.imageUrl}
+                  alt="userImage"
+                  width={80}
+                  height={80}
+                  className="relative object-contain rounded-full"
+                />
+              )}
+            </div>
+            {/* Input */}
+            <div className="">
+              {/* input & everyone can reply section*/}
+              <PublishTweet placeholder="What is happening?!" BtnTitle="Post" />
+            </div>
           </div>
-        </div>}
+        }
         {loading ? (
           <div className="w-full h-screen flex pt-[50%] items-start justify-center">
             <TailSpin
@@ -106,17 +102,14 @@ const Page = () => {
           <div className="flex flex-col items-center justify-center my-4">
             {error ? (
               <h1>Something goes wrong with server</h1>
-            ) : 
-            (
+            ) : (
               <>
                 {tweets &&
                   tweets.map((tweet: tweetType) => (
                     <Tweet key={tweet?._id} {...tweet} />
                   ))}
               </>
-            )
-            
-            }
+            )}
           </div>
         )}
       </main>

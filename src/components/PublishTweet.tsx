@@ -92,7 +92,6 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
     e.preventDefault();
     if (file) {
       const res = await edgestore.publicImages.upload({ file });
-      console.log(res);
       setUrl(res.url);
     }
 
@@ -100,9 +99,8 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
     const tweetContentData = {
       tweetContent: formData.tweetContent,
       tweetImage: url,
-      /* tweetUserImage: session
-        ? session?.user?.image
-        : userQuery?.profile_picture, */
+      tweetUserImage: userQuery?.imageUrl,
+      userId: userQuery?._id
     };
 
     try {
@@ -132,7 +130,7 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
           value={formData.tweetContent}
           placeholder={placeholder}
           autoComplete="off"
-          className=" w-full h-[90%] bg-transparent 
+          className="w-full h-[90%] bg-transparent 
         placeholder:text-gray-600 overflow-clip
         outline-none border-none border-b-[0.1px] px-2 py-2 text-xl font-light"
           id="tweetInput"

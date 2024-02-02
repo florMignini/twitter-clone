@@ -4,8 +4,6 @@ import Tweet from "../../../../../models/tweet";
 
 import { NextRequest, NextResponse } from "next/server";
 
-import { GetUserData } from "@/helpers/GetUserData";
-import { NextApiRequest } from "next";
 
 connectDB();
 
@@ -17,22 +15,21 @@ interface DecodedToken {
   exp: number;
 }
 
-export const POST = async (req: NextApiRequest) => {
+export const POST = async (req: Request) => {
   try {
-    const userQuery = await GetUserData(req);
-
-    const tweetdata = await req.body;
-
+    
+    const tweetdata = await req.json();
     // create new Twitter
-    const newTweet = new Tweet({
+    const newTweet:any = await new Tweet({
       content: tweetdata.tweetContent,
       image: tweetdata.tweetImage || "",
       userImage: tweetdata.tweetUserImage ? tweetdata.tweetUserImage : null,
-      userId: userQuery.id,
+      userId: tweetdata.userId,
     }).save();
 
+
     return NextResponse.json(
-      { message: `tweet successfully created` },
+      newTweet,
       { status: 201 }
     );
   } catch (error: any) {

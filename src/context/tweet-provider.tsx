@@ -28,7 +28,7 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
   const getAllTweets = async () => {
     try {
       const { data } = await axios.get("/api/tweets/getAll");
-      setTweets(data?.allTweets);
+      setTweets(data);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -50,7 +50,7 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
   const getSingleTweet = async (tweetId: string) => {
     try {
       const { data } = await axios.get(`/api/tweets/getSingle/${tweetId}`);
-      
+
       setTweet(data.singleTweet);
       setLoading(false);
     } catch (error) {
@@ -73,11 +73,13 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
   //@CREATE TWEET
   const createTweet = async (tweetContentData: any) => {
     try {
-      const { data } = await axios.post("/api/tweets/publish", tweetContentData);
-
-      setTweet({});
+      const { data } = await axios.post(
+        "/api/tweets/publish",
+        tweetContentData
+      );
       // update state once project is added
       setTweets([...tweets, data]);
+      setTweet({});
       setLoading(false);
     } catch (error) {
       console.log(error);

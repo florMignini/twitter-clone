@@ -7,6 +7,7 @@ const nextConfig = {
   images: {
     domains: [
       "https://res.cloudinary.com",
+      "img.clerk.com",
       "media1.giphy.com",
       "media2.giphy.com",
       "media3.giphy.com",
