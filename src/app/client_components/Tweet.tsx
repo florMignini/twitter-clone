@@ -63,7 +63,7 @@ const likesResult = useMemo(()=>tweet?.likes?.filter(
 
 
   const bookmarksTweetId = useMemo(() => bookmarksByUser[0]?.tweets.filter((bookmark: any) => bookmark._id === tweet._id), [tweet])
-console.log(bookmarksTweetId)
+
   const handleLikeTweet = async (
     userId: string,
     tweetId: string,
@@ -288,7 +288,7 @@ items-center justify-center hover:bg-blue-800/20
               <IoMdStats />
             )}
           </div>
-          {bookmarksTweetId?.includes(tweet._id) ? (
+          {bookmarksTweetId && bookmarksTweetId[0]?._id === tweet._id ? (
             <button
               onClick={() => {
                 handleBookmark(
