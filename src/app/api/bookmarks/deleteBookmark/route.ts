@@ -15,7 +15,7 @@ export const POST = async (req: NextRequest) => {
     })
     bookmarkToDelete.tweets.pull(tweetId)
     bookmarkToDelete.save()
-    // tweet to delete like
+    // tweet to delete bookmark
     const unBookedTweet = await Tweet.findById({
       _id: tweetId,
     });
@@ -23,7 +23,7 @@ export const POST = async (req: NextRequest) => {
 
     unBookedTweet.save();
 
-    return NextResponse.json(unBookedTweet, { status: 200 });
+    return NextResponse.json(unBookedTweet._doc, { status: 200 });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }

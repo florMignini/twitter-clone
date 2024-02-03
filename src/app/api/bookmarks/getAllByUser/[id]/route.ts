@@ -11,7 +11,6 @@ export const GET = async (req: NextRequest, context: { params: any }) => {
     
     const bookmarkByUser = await Bookmark.find({ userId: context.params.id })
       .select("-__v")
-      // .populate("userId", "-password -__v")
       .populate({
         path: "tweets",
         select: "-__v",

@@ -94,7 +94,7 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
         tweetId,
       });
 
-       // update state once tweet is booked
+       // update state once tweet is liked
       const updatedTweets = tweets.map((tweetToLike: any) =>
         tweetToLike._id === data._id
           ? data
@@ -139,12 +139,13 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
       });
 
       // update state once tweet is booked
-      const updatedTweets = tweets.map((tweetToBook: any) =>
-        tweetToBook._id === data._id
-          ? bookmarksByUser[0]?.tweets.unshift(tweetId)
-          : tweetToBook
-      );
-      setTweets(updatedTweets);
+     const updatedTweets = tweets.map((tweetToBook: any) =>
+     tweetToBook._id === data._id
+       ? data
+       : tweetToBook
+   );
+
+   setTweets(updatedTweets);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -156,13 +157,13 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
         userId,
         tweetId,
       });
-      // update state once tweet is booked
-      const updatedTweets = tweets.map((tweetToUnbook: any) =>
-        tweetToUnbook._id === data._id
-          ? bookmarksByUser[0]?.tweets.shift(tweetId)
-          : tweetToUnbook
-      );
-      setTweets(updatedTweets);
+          // update state once tweet is booked
+          const updatedTweets = tweets.map((tweetToUnBook: any) =>
+          tweetToUnBook._id === data._id
+            ? data
+            : tweetToUnBook
+        );
+        setTweets(updatedTweets);
       setLoading(false);
     } catch (error) {
       console.log(error);

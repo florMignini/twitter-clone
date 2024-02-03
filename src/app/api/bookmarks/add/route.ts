@@ -27,16 +27,15 @@ export const POST = async (req: NextRequest) => {
       await newBookmark.tweets.unshift(tweetId);
       newBookmark.save();
     }
-    console.log(userBookmarks)
     const bookedTweet = await Tweet.findOne({
       _id: tweetId,
     });
-
-    //pushing to Tweet.likes arr the new user-tweet like
+    
+    //pushing to Tweet.bookmark arr the new user-tweet bookmarkId
     await bookedTweet.bookmarks.unshift(tweetId);
     bookedTweet.save();
 
-  return NextResponse.json(bookedTweet, { status: 201 });
+  return NextResponse.json(bookedTweet._doc, { status: 201 });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
