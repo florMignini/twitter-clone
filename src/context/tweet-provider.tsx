@@ -95,10 +95,13 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
       });
 
       // update state once tweet is liked
-      const updatedTweets = tweets.map((tweetToLike: any) =>
-        tweetToLike._id === data._id ? data : tweetToLike
-      );
-
+      const updatedTweets = tweets.map((tweetToLike: any) => {
+        const stateToUpdate = { ...tweetToLike };
+        tweetToLike._id === data.tweetId
+          ? stateToUpdate.likes.unshift(data)
+          : stateToUpdate;
+        return stateToUpdate;
+      });
       setTweets(updatedTweets);
 
       setLoading(false);
@@ -152,7 +155,7 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
         tweetId,
       });
 
-       // update state once tweet is booked
+      // update state once tweet is booked
       const updatedTweets = tweets.map((tweetToUnBook: any) =>
         tweetToUnBook._id === data._id ? data : tweetToUnBook
       );

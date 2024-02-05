@@ -19,14 +19,13 @@ export const POST = async (req: NextRequest) => {
       _id: tweetId,
     })
     .populate("userId", " -__v")
-    .populate("likes", "-tweetId -__v ");
+    .populate("likes","-__v")
     //pushing to Tweet.likes arr the new user-tweet like
      await likedTweet?.likes.unshift(newLike._id);
     likedTweet?.save();
 
-
     return NextResponse.json(
-      likedTweet._doc,
+      newLike,
       { status: 201 }
     );
   } catch (error: any) {

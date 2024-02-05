@@ -2,7 +2,6 @@
 export { default as useGetBookmarks } from './useGetBookmarks';
 export { default as useGetComments } from './useGetComments';
 export { default as useGetGiphy } from './useGetGiphy';
-export { default as useGetLikes } from './useGetLikes';
 export { default as useGetQuerySearch } from './useGetQuerySearch';
 export { default as useGetSessionData } from './useGetSessionData';
 export { default as useGetTweet } from './useGetTweet';
