@@ -32,11 +32,11 @@ export interface Like {
 }
 
 export const Tweet = (tweet: tweetType) => {
-
   const router = useRouter();
 
   //bringing user session data && login session
   const userQuery = useGetSessionData();
+
   //tweet provider imports
   const {
     //actions
@@ -57,12 +57,21 @@ export const Tweet = (tweet: tweetType) => {
   }, [userQuery?._id]);
 
   //bring the userId from session like if it exist
-const likesResult = useMemo(()=>tweet?.likes?.filter(
-  (like: Like) => like.userId === userQuery?._id
-)[0],[tweet])
+  const likesResult = useMemo(
+    () =>
+      tweet?.likes?.filter((like: Like) => like.userId === userQuery?._id)[0],
+    [tweet]
+  );
 
-
-  const bookmarksTweetId = useMemo(() => bookmarksByUser[0]?.tweets.filter((bookmark: any) => bookmark._id === tweet._id), [tweet])
+  const bookmarksTweetId = useMemo(
+    () =>
+      bookmarksByUser?.map(
+        (bookmark: any) =>  {
+        return bookmark?.tweets?.map((element:any) => element._id)
+        }
+      ),
+    [tweet]
+  );
 
   const handleLikeTweet = async (
     userId: string,
@@ -114,7 +123,7 @@ const likesResult = useMemo(()=>tweet?.likes?.filter(
             height={50}
             className="rounded-full flex items-center justify-center"
             alt="userAvatar"
-            src={tweet?.userImage}
+            src={userQuery?.imageUrl}
           />
         )}
       </div>{" "}
@@ -127,12 +136,8 @@ const likesResult = useMemo(()=>tweet?.likes?.filter(
               className=" w-full flex items-center content-center"
               href={`/profile?profileId=${tweet?.userId?._id}`}
             >
-              <p className="font-bold text-md">
-                {tweet?.userId?.username || ""}
-              </p>
-              <p className="font-thin text-md mx-1">
-                @{tweet?.userId?.username}
-              </p>
+              <p className="font-bold text-md">{userQuery?.username || ""}</p>
+              <p className="font-thin text-md mx-1">@{userQuery?.username}</p>
               <div className="flex">
                 <BsDot />
               </div>
@@ -288,7 +293,7 @@ items-center justify-center hover:bg-blue-800/20
               <IoMdStats />
             )}
           </div>
-          {bookmarksTweetId && bookmarksTweetId[0]?._id === tweet._id ? (
+          {bookmarksTweetId && bookmarksTweetId[0]?.includes(tweet._id) ? (
             <button
               onClick={() => {
                 handleBookmark(

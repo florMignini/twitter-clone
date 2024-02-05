@@ -4,16 +4,8 @@ import Tweet from "../../../../../models/tweet";
 
 import { NextRequest, NextResponse } from "next/server";
 
-
 connectDB();
 
-interface DecodedToken {
-  id: string;
-  username: string;
-  email: string;
-  iat: number;
-  exp: number;
-}
 
 export const POST = async (req: Request) => {
   try {

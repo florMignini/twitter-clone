@@ -11,7 +11,6 @@ const tweetBookmarkSchema = new mongoose.Schema(
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Tweet",
-        required: true,
       },
     ],
   },

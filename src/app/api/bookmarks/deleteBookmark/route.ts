@@ -18,12 +18,12 @@ export const POST = async (req: NextRequest) => {
     // tweet to delete bookmark
     const unBookedTweet = await Tweet.findById({
       _id: tweetId,
-    });
-    unBookedTweet.bookmarks.pull(unBookedTweet._id);
-
+    })
+    .populate("bookmarks", "-__v");
+    unBookedTweet.bookmarks.pull(bookmarkToDelete._id)
     unBookedTweet.save();
 
-    return NextResponse.json(unBookedTweet._doc, { status: 200 });
+    return NextResponse.json(bookmarkToDelete, { status: 200 });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }

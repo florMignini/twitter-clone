@@ -28,7 +28,7 @@ const Page = () => {
 
   useEffect(() => {
     getAllTweets();
-  }, [tweets]);
+  }, []);
 
   //bringing user session data && login session
   const userQuery = useGetSessionData();

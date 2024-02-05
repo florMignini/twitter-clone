@@ -11,31 +11,33 @@ export const POST = async (req: NextRequest) => {
     // first find the user bookmarks if it already exist
     const userBookmarks = await Bookmark.findOne({
       userId,
-    });
+    }).populate("tweets", "-__v");
+    const bookedTweet = await Tweet.findOne({
+      _id: tweetId,
+    }).populate("bookmarks", "-__v");
 
     if (userBookmarks) {
       // if it exist
       //pushing to Bookmark.tweetId arr the new bookmark-tweetId
       await userBookmarks.tweets.unshift(tweetId);
       userBookmarks.save();
-    }else{
-      // create new Bookmark  
+      return NextResponse.json(userBookmarks, { status: 201 });
+    } else {
+      // create new Bookmark
       const newBookmark = await new Bookmark({
         userId,
         tweetId,
       }).save();
       await newBookmark.tweets.unshift(tweetId);
       newBookmark.save();
-    }
-    const bookedTweet = await Tweet.findOne({
-      _id: tweetId,
-    });
-    
-    //pushing to Tweet.bookmark arr the new user-tweet bookmarkId
-    await bookedTweet.bookmarks.unshift(tweetId);
-    bookedTweet.save();
 
-  return NextResponse.json(bookedTweet._doc, { status: 201 });
+      //pushing to Tweet.bookmark arr the new user-tweet bookmarkId
+      await bookedTweet.bookmarks.unshift(newBookmark._id);
+      bookedTweet.save();
+
+      return NextResponse.json(newBookmark, { status: 201 });
+    }
+
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }

@@ -94,15 +94,13 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
         tweetId,
       });
 
-       // update state once tweet is liked
+      // update state once tweet is liked
       const updatedTweets = tweets.map((tweetToLike: any) =>
-        tweetToLike._id === data._id
-          ? data
-          : tweetToLike
+        tweetToLike._id === data._id ? data : tweetToLike
       );
 
       setTweets(updatedTweets);
-     
+
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -112,16 +110,14 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
   //@UNLIKE TWEETS
   const unLikeTweet = async ({ userId, tweetId }: any) => {
     try {
-      const {data}: any = await axios.post("/api/likes/unlike", {
+      const { data }: any = await axios.post("/api/likes/unlike", {
         userId,
         tweetId,
       });
 
-       // update state once tweet is booked
+      // update state once tweet is booked
       const updatedTweets = tweets.map((tweetToUnlike: any) =>
-        tweetToUnlike._id === data._id
-          ? data
-          : tweetToUnlike
+        tweetToUnlike._id === data._id ? data : tweetToUnlike
       );
       setTweets(updatedTweets);
       setLoading(false);
@@ -139,13 +135,11 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
       });
 
       // update state once tweet is booked
-     const updatedTweets = tweets.map((tweetToBook: any) =>
-     tweetToBook._id === data._id
-       ? data
-       : tweetToBook
-   );
+      const updatedTweets = bookmarksByUser.map((tweetToBook: any) =>
+        tweetToBook._id === data._id ? data : tweetToBook
+      );
 
-   setTweets(updatedTweets);
+      setBookmarksByUser(updatedTweets);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -157,13 +151,13 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
         userId,
         tweetId,
       });
-          // update state once tweet is booked
-          const updatedTweets = tweets.map((tweetToUnBook: any) =>
-          tweetToUnBook._id === data._id
-            ? data
-            : tweetToUnBook
-        );
-        setTweets(updatedTweets);
+
+       // update state once tweet is booked
+      const updatedTweets = tweets.map((tweetToUnBook: any) =>
+        tweetToUnBook._id === data._id ? data : tweetToUnBook
+      );
+
+      setBookmarksByUser(updatedTweets);
       setLoading(false);
     } catch (error) {
       console.log(error);
