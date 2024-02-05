@@ -22,7 +22,8 @@ export const POST = async (req: NextRequest) => {
     .populate("bookmarks", "-__v");
     unBookedTweet.bookmarks.pull(bookmarkToDelete._id)
     unBookedTweet.save();
-
+    console.log(unBookedTweet)
+console.log(bookmarkToDelete)
     return NextResponse.json(bookmarkToDelete, { status: 200 });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });

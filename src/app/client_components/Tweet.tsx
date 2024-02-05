@@ -66,7 +66,7 @@ export const Tweet = (tweet: tweetType) => {
   const bookmarksTweetId = useMemo(
     () =>
       bookmarksByUser?.map((bookmark: any) => {
-        return bookmark?.tweets?.map((element: any) => element._id);
+        return bookmark?.tweets?.map((element: any) => element._id ? element._id : element);
       }),
     [tweet]
   );

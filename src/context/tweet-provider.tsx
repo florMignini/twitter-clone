@@ -154,9 +154,9 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
         userId,
         tweetId,
       });
-
+console.log(data);
       // update state once tweet is booked
-      const updatedTweets = tweets.map((tweetToUnBook: any) =>
+      const updatedTweets = bookmarksByUser.map((tweetToUnBook: any) =>
         tweetToUnBook._id === data._id ? data : tweetToUnBook
       );
 
