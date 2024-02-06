@@ -33,10 +33,9 @@ export interface Like {
 
 export const Tweet = (tweet: tweetType) => {
   const router = useRouter();
-
   //bringing user session data && login session
   const userQuery = useGetSessionData();
-
+  
   //tweet provider imports
   const {
     //actions
@@ -44,17 +43,10 @@ export const Tweet = (tweet: tweetType) => {
     unLikeTweet,
     addBookmark,
     deleteBookmark,
-    getAllTweetsByUser,
-    getBookmarsByUser,
+
     //states
     bookmarksByUser,
-    tweetsByUser,
   }: any = useTweet();
-
-  useEffect(() => {
-    getAllTweetsByUser(userQuery?._id);
-    getBookmarsByUser(userQuery?._id);
-  }, [userQuery?._id]);
 
   //bring the userId from session like if it exist
   const likesResult = useMemo(

@@ -63,7 +63,7 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
     try {
       const { data } = await axios.get(`/api/bookmarks/getAllByUser/${userId}`);
 
-      setBookmarksByUser(data.bookmarkByUser);
+      setBookmarksByUser(data);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -154,7 +154,7 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
         userId,
         tweetId,
       });
-console.log(data);
+
       // update state once tweet is booked
       const updatedTweets = bookmarksByUser.map((tweetToUnBook: any) =>
         tweetToUnBook._id === data._id ? data : tweetToUnBook
@@ -173,7 +173,7 @@ console.log(data);
         "/api/comments/publish",
         commentContentData
       );
-      console.log(data);
+
     } catch (error) {
       console.log(error);
     }

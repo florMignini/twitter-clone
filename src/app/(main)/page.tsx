@@ -22,16 +22,21 @@ export interface Tweet {
 }
 
 const Page = () => {
+
+  const userQuery = useGetSessionData();
   const router = useRouter();
   const { error } = useGetTweets();
-  const { getAllTweets, tweets, loading }: any = useTweet();
+  const { getAllTweets, tweets, loading, getBookmarsByUser, getAllTweetsByUser }: any = useTweet();
 
   useEffect(() => {
     getAllTweets();
   }, []);
 
-  //bringing user session data && login session
-  const userQuery = useGetSessionData();
+  useEffect(() => {
+    getAllTweetsByUser(userQuery?._id)
+    getBookmarsByUser(userQuery?._id)
+  }, [userQuery?._id])
+ 
 
   /* modal states */
   const onClose = () => {

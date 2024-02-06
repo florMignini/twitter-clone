@@ -1,6 +1,6 @@
 "use client";
 import useGetBookmarks from "@/helpers/useGetBookmarks";
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { BsThreeDots } from "react-icons/bs";
 import Bookmark, { bookmark_type } from "../../../components/Bookmark";
 import Link from "next/link";
@@ -11,13 +11,18 @@ import { Tweet as tweetType } from "../../../../interfaces";
 import { Tweet } from "../../client_components/Tweet";
 
 const Bookmarks = () => {
-
   
   const user = useGetSessionData();
-  const {bookmarksByUser, getAllTweetsByUser, loading}:any = useTweet()
+  const {bookmarksByUser, getBookmarsByUser, tweetsByUser, getAllTweetsByUser, loading}:any = useTweet()
+
   useEffect(() => {
     getAllTweetsByUser(user?._id)
-  }, [])
+    getBookmarsByUser(user?._id)
+  }, [user?._id, bookmarksByUser, tweetsByUser])
+
+const tweetBookmarksByUser = useMemo(() => bookmarksByUser[0]?.tweets.map((tweetBookmark:any) => {
+  return tweetsByUser.filter((tweet:any) => tweetBookmark._id === tweet._id)
+}), [tweetsByUser, bookmarksByUser])
 
 
   return (
@@ -49,8 +54,8 @@ const Bookmarks = () => {
               <BsThreeDots />
             </button>
           </header>
-          {bookmarksByUser[0]?.tweets?.map((tweet: tweetType) => (
-            <Tweet key={tweet._id} {...tweet} />
+          {tweetBookmarksByUser && tweetBookmarksByUser?.map((tweet: [tweetType]) => (
+            <Tweet key={tweet[0]?._id} {...tweet[0]} />
           ))}
         </>
       )}
