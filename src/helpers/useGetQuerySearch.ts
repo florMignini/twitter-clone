@@ -2,6 +2,7 @@ import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 
 const useGetQuerySearch = (query:string) => {
+console.log(query)
   const querySearch = useQuery({
     queryKey: ["querySearch"],
     queryFn: async () => {

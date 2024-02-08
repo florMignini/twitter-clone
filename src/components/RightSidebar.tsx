@@ -1,11 +1,10 @@
 "use client";
-import { useGetSessionData, useGetUsers } from "@/helpers";
 import axios from "axios";
+import { useGetSessionData, useGetUsers } from "@/helpers";
+import { Search } from ".";
 
 import Image from "next/image";
 import Link from "next/link";
-import { BsSearch, BsThreeDots } from "react-icons/bs";
-import { Search } from ".";
 
 type userType = {
   _id: string;
