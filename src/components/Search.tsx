@@ -8,7 +8,6 @@ import {
 } from "@nextui-org/react";
 import React, { useEffect, useState } from "react";
 import { BsSearch } from "react-icons/bs";
-import { UserAvatar } from ".";
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";

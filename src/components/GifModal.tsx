@@ -2,7 +2,7 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useRef, useEffect, useState } from "react";
-import { useGetGiphy } from "@/helpers";
+import { useDebounce, useGetGiphy } from "@/helpers";
 import { ThreeDots } from "react-loader-spinner";
 import Image from "next/image";
 import { Search } from ".";
@@ -19,6 +19,7 @@ const GifModal = ({ onClose, onPost }: Props) => {
   const modalRef = useRef<null | HTMLDialogElement>(null);
   const showModal = searchParams?.get("showModal");
   const [query, setQuery] = useState<string>("");
+  const debouncedSearch = useDebounce(query)
   useEffect(() => {
     if (showModal === "y") {
       modalRef.current?.showModal();
@@ -38,7 +39,7 @@ const GifModal = ({ onClose, onPost }: Props) => {
     closeModal();
   };
   //gif hook
-  const { data, isLoading } = useGetGiphy(query ? query : "laugh");
+  const { data, isLoading } = useGetGiphy(debouncedSearch ? debouncedSearch : "laugh");
 
   const clearInput = () => {
     setQuery("");
