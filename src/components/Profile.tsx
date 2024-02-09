@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BiArrowBack } from "react-icons/bi";
 import { Avatar } from "@nextui-org/react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -11,6 +11,7 @@ import { Tweet as tweetType } from "../../interfaces";
 import { GiPhotoCamera } from "react-icons/gi";
 import axios from "axios";
 import { Tweet } from "@/app/client_components/Tweet";
+import { useTweet } from "@/context";
 
 type FormProfileData = {
   profileImage: any;
@@ -22,30 +23,18 @@ const Profile = () => {
     profileImage: null,
     coverImage: null,
   });
-
+  const { getAllTweetsByUser, getUserInfo, userProfile, tweetsByUser }: any = useTweet();
   const router = useRouter();
   const searchParams = useSearchParams();
   const profileId = searchParams?.get("profileId");
 
-  const profileTweets = useGetTweetsByUser(profileId!);
-  const profileInfoQuery = useGetUserInfo(profileId!);
+    
+  useEffect(() => {
+    getAllTweetsByUser(profileId);
+    getUserInfo(profileId);
+  }, [profileId]);
 
-  const userSession = profileInfoQuery?.profileInfo
 
-
-  const handleProfileImage = async () => {
-    try {
-      const formProfileDataImage = new FormData();
-      formProfileDataImage.append("profile-image", formData.profileImage);
-      formProfileDataImage.append("profile-id", profileInfoQuery._id);
-      const profileImage = await axios.post(
-        `/api/users/imageProfile`,
-        formProfileDataImage
-      );
-    } catch (error) {
-      console.log(error);
-    }
-  };
   const handleCoverImage = async () => {
     try {
       const formCoverDataImage = new FormData();
@@ -68,14 +57,12 @@ const Profile = () => {
         >
           <BiArrowBack className="w-5 h-5" />
         </button>
-        {userSession && profileTweets && (
+        {userProfile && tweetsByUser && (
           <div className="flex flex-col">
-            <h1 className="text-2xl font-semibold">
-              {userSession?.username}
-            </h1>
+            <h1 className="text-2xl font-semibold">{userProfile?.username}</h1>
             <p className="text-base font-thin ">
-              {`${profileTweets?.length} `}{" "}
-              {profileTweets?.length > 1 ? `posts` : `post`}
+              {`${tweetsByUser?.length} `}{" "}
+              {tweetsByUser?.length > 1 ? `posts` : `post`}
             </p>
           </div>
         )}
@@ -85,7 +72,7 @@ const Profile = () => {
         {/* front page */}
         <div className="absolute top-0 w-[100%] h-auto flex flex-col items-start justify-start rounded-md bg-slate-600">
           <Avatar
-            src={userSession?.imageUrl}
+            src={userProfile?.imageUrl}
             className="w-44 h-44 
             object-contain
             md:w-70 md:h-70 lg:w-70 lg:h-70
@@ -109,14 +96,14 @@ const Profile = () => {
             />
           </button>
         </div>
-        {userSession ? (
+        {userProfile ? (
           <div className="absolute top-72 w-[100%] h-[30%] flex flex-col items-start justify-center pl-2 mt-5 mb-10">
-            <h3 className="text-xl">{userSession?.username}</h3>
-            <p className="font-thin text-xs">{`@${userSession?.username}`}</p>
+            <h3 className="text-xl">{userProfile?.username}</h3>
+            <p className="font-thin text-xs">{`@${userProfile?.username}`}</p>
             <div className="flex items-center justify-center gap-2 pt-2 mb-2">
               <BsCalendarWeek className="flex items-center justify-center w-4 h-4" />
               <p className="font-thin text-md">{`Joined ${dayjs(
-                userSession?.created_at
+                userProfile?.created_at
               ).format("MMMM YYYY")}`}</p>
             </div>
           </div>
@@ -124,7 +111,7 @@ const Profile = () => {
       </div>
       {/* user twitter section */}
       <div className="relative h-full top-96 w-[90%] flex flex-col items-center justify-center">
-        {profileTweets?.map((tweet: tweetType) => (
+        {tweetsByUser?.map((tweet: tweetType) => (
           <Tweet key={tweet._id} {...tweet} />
         ))}
       </div>

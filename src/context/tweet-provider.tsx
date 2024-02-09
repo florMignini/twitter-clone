@@ -23,6 +23,19 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
   const [tweetsByUser, setTweetsByUser] = useState<any>([]);
   const [bookmarksByUser, setBookmarksByUser] = useState<any>([]);
   const [tweet, setTweet] = useState({});
+  const [userProfile, setUserProfile] = useState()
+
+
+//@GET USER INFORMATION
+const getUserInfo = async (userId:string) => {
+  try {
+    const { data } = await axios.get(`/api/users/info/${userId}`);
+    setUserProfile(data.profileInfo);
+    setLoading(false);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
   //@GET ALL TWEETS
   const getAllTweets = async () => {
@@ -187,7 +200,9 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
         tweets,
         bookmarksByUser,
         tweetsByUser,
+        userProfile,
         //actions
+        getUserInfo,
         createTweet,
         getAllTweets,
         likeTweet,
