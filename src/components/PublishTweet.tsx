@@ -54,13 +54,13 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
     tweetImage: "",
   });
   const [file, setFile] = useState<any | string>("");
-
   const imageUrl = useMemo(() => {
     if (typeof file === "string") {
       // in case a url is passed in, use it to display the image
       return file;
     } else if (file) {
       // in case a file is passed in, create a base64 url to display the image
+      
       return URL.createObjectURL(file);
     }
     return null;
