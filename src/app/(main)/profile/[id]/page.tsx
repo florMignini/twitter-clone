@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import useGetTweet from "@/helpers/useGetTweet";
-import { Tweet } from "@/app/client_components/Tweet";
+import { Tweet } from "../../../client_components/Tweet";
 import { Profile, PublishComment, Comment } from "@/components";
 
 
@@ -10,6 +10,7 @@ import { BiArrowBack } from "react-icons/bi";
 
 import { useTweet } from "@/context";
 import { CommentModal } from "@/components";
+import { Tweet as TweetType } from "../../../../../interfaces";
 
 export interface CommentInterface {
   content: string;
@@ -31,13 +32,13 @@ interface Params {
 const SingleTweet = ({ params }: Params) => {
   const { id } = params;
   const router = useRouter();
-const {getSingleTweet, tweet}:any = useTweet()
+const {getSingleTweet, tweet, loading }:any = useTweet()
 
 
   useEffect(() => {
     getSingleTweet(id)
   }, [id, getSingleTweet])
-  
+  console.log(tweet?.comments)
 
   const onClose = () => {
     router.push(`/profile/${id}`);
@@ -70,15 +71,21 @@ const {getSingleTweet, tweet}:any = useTweet()
           </button>
           <h1 className="text-2xl font-semibold">Post</h1>
         </div>
-        {!tweet ? <h1>Something goes wrong with server</h1> : null}
 
-        <Tweet {...tweet} />
-        <h6 className="p-2">
+        
+  {
+  !loading ? (
+    <>
+    {tweet ? <Tweet {...tweet} /> : <h1>Something goes wrong with server</h1>}
+         <h6 className="p-2">
           Replies to @{tweet?.userId?.username}
         </h6>
-        {tweet?.comments?.map((comment: CommentInterface) => (
-          <Comment key={comment._id} {...comment} />
+        {tweet?.comments?.map((comment: TweetType) => (
+          <Tweet key={comment._id} {...comment} />
         ))}
+   </> 
+    ): null
+  }
       </div>
     </>
   );

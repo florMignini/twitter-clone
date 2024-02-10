@@ -7,7 +7,7 @@ import axios from "axios";
 import { BsDot, BsThreeDots } from "react-icons/bs";
 import dayjs from "dayjs";
 import Link from "next/link";
-import { CommentInterface } from "@/app/(main)/profile/[id]/page";
+import { CommentInterface } from "../app/(main)/profile/[id]/page";
 
 const Comment = (tweet: CommentInterface) => {
   //comment user info

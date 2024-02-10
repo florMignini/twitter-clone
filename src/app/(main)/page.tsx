@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useGetSessionData, useGetTweets } from "@/helpers";
 import { useTweet } from "@/context";
-import { Like, Tweet } from "@/app/client_components/Tweet";
+import { Like, Tweet } from "../client_components/Tweet";
 import PublishTweet from "../../components/PublishTweet";
 import GifModal from "../../components/GifModal";
 import { TailSpin } from "react-loader-spinner";

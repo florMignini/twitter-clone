@@ -1,4 +1,4 @@
-import { Like } from "@/app/client_components/Tweet";
+import { Like } from "../src/app/client_components/Tweet";
 import { BookmarkInterface, Profile } from ".";
 
 export interface Tweet {

@@ -10,7 +10,7 @@ import { BsCalendarWeek } from "react-icons/bs";
 import { Tweet as tweetType } from "../../interfaces";
 import { GiPhotoCamera } from "react-icons/gi";
 import axios from "axios";
-import { Tweet } from "@/app/client_components/Tweet";
+import { Tweet } from "../app/client_components/Tweet";
 import { useTweet } from "@/context";
 
 type FormProfileData = {
