@@ -12,6 +12,7 @@ import { GiPhotoCamera } from "react-icons/gi";
 import axios from "axios";
 import { Tweet } from "../app/client_components/Tweet";
 import { useTweet } from "@/context";
+import { ThreeDots } from "react-loader-spinner";
 
 type FormProfileData = {
   profileImage: any;
@@ -23,17 +24,22 @@ const Profile = () => {
     profileImage: null,
     coverImage: null,
   });
-  const { getAllTweetsByUser, getUserInfo, userProfile, tweetsByUser }: any = useTweet();
+  const {
+    getAllTweetsByUser,
+    getUserInfo,
+    userProfile,
+    tweetsByUser,
+    loading,
+  }: any = useTweet();
   const router = useRouter();
   const searchParams = useSearchParams();
   const profileId = searchParams?.get("profileId");
+  console.log(loading);
 
-    
   useEffect(() => {
     getAllTweetsByUser(profileId);
     getUserInfo(profileId);
   }, [profileId]);
-
 
   const handleCoverImage = async () => {
     try {
@@ -47,74 +53,88 @@ const Profile = () => {
       console.log(error);
     }
   };
-  return (
-    <div className="w-full h-full flex flex-col z-0">
-      <div className="w-[100%] h-[10%] flex items-start justify-start py-1 px-2 sticky z-20 backdrop-blur-md top-0 bg-black/40">
-        {/* top section */}
-        <button
-          className="w-5 h-10 mr-4 cursor-pointer"
-          onClick={() => router.back()}
-        >
-          <BiArrowBack className="w-5 h-5" />
-        </button>
-        {userProfile && tweetsByUser && (
-          <div className="flex flex-col">
-            <h1 className="text-2xl font-semibold">{userProfile?.username}</h1>
-            <p className="text-base font-thin ">
-              {`${tweetsByUser?.length} `}{" "}
-              {tweetsByUser?.length > 1 ? `posts` : `post`}
-            </p>
-          </div>
-        )}
-      </div>
-      {/* user section */}
-      <div className="relative w-[100%] h-auto flex flex-col items-start justify-center ">
-        {/* front page */}
-        <div className="absolute top-0 w-[100%] h-auto flex flex-col items-start justify-start rounded-md bg-slate-600">
-          <Avatar
-            src={userProfile?.imageUrl}
-            className="w-44 h-44 
+  return !loading ? (
+    <>
+      <div className="w-full h-screen flex flex-col z-0">
+        <div className="w-[100%] h-[10%] flex items-start justify-start py-1 px-2 sticky z-20 backdrop-blur-md top-0 bg-black/40">
+          {/* top section */}
+          <button
+            className="w-5 h-10 mr-4 cursor-pointer"
+            onClick={() => router.back()}
+          >
+            <BiArrowBack className="w-5 h-5" />
+          </button>
+          {userProfile && tweetsByUser && (
+            <div className="flex flex-col">
+              <h1 className="text-2xl font-semibold">
+                {userProfile?.username}
+              </h1>
+              <p className="text-base font-thin ">
+                {`${tweetsByUser?.length} `}{" "}
+                {tweetsByUser?.length > 1 ? `posts` : `post`}
+              </p>
+            </div>
+          )}
+        </div>
+        {/* user section */}
+        <div className="relative w-[100%] h-auto flex flex-col items-start justify-center ">
+          {/* front page */}
+          <div className="absolute top-0 w-[100%] h-auto flex flex-col items-start justify-start rounded-md bg-slate-600">
+            <Avatar
+              src={userProfile?.imageUrl}
+              className="w-44 h-44 
             object-contain
             md:w-70 md:h-70 lg:w-70 lg:h-70
             xl:w-200
             xl:h-200 rounded-full mt-14 ml-4"
-          />
-          {/* change cover btn */}
-          <button className="w-8 h-8 absolute z-10 bottom-2 right-8 border-1 border-gray-400 hover:border-black rounded-full hover:bg-slate-600/25">
-            <label htmlFor="files">
-              <GiPhotoCamera className="text-gray-400 hover:text-black w-[100%] h-[100%] p-1" />
-            </label>
-            <input
-              className="hidden w-8 h-8"
-              id="files"
-              type="file"
-              onChange={(e) => {
-                if (!e.target.files) return;
-                setFormData({ ...formData, coverImage: e.target.files[0] });
-              }}
-              onClick={handleCoverImage}
             />
-          </button>
-        </div>
-        {userProfile ? (
-          <div className="absolute top-72 w-[100%] h-[30%] flex flex-col items-start justify-center pl-2 mt-5 mb-10">
-            <h3 className="text-xl">{userProfile?.username}</h3>
-            <p className="font-thin text-xs">{`@${userProfile?.username}`}</p>
-            <div className="flex items-center justify-center gap-2 pt-2 mb-2">
-              <BsCalendarWeek className="flex items-center justify-center w-4 h-4" />
-              <p className="font-thin text-md">{`Joined ${dayjs(
-                userProfile?.created_at
-              ).format("MMMM YYYY")}`}</p>
-            </div>
+            {/* change cover btn */}
+            <button className="w-8 h-8 absolute z-10 bottom-2 right-8 border-1 border-gray-400 hover:border-black rounded-full hover:bg-slate-600/25">
+              <label htmlFor="files">
+                <GiPhotoCamera className="text-gray-400 hover:text-black w-[100%] h-[100%] p-1" />
+              </label>
+              <input
+                className="hidden w-8 h-8"
+                id="files"
+                type="file"
+                onChange={(e) => {
+                  if (!e.target.files) return;
+                  setFormData({ ...formData, coverImage: e.target.files[0] });
+                }}
+                onClick={handleCoverImage}
+              />
+            </button>
           </div>
-        ) : null}
+          {userProfile ? (
+            <div className="absolute top-72 w-[100%] h-[30%] flex flex-col items-start justify-center pl-2 mt-5 mb-10">
+              <h3 className="text-xl">{userProfile?.username}</h3>
+              <p className="font-thin text-xs">{`@${userProfile?.username}`}</p>
+              <div className="flex items-center justify-center gap-2 pt-2 mb-2">
+                <BsCalendarWeek className="flex items-center justify-center w-4 h-4" />
+                <p className="font-thin text-md">{`Joined ${dayjs(
+                  userProfile?.created_at
+                ).format("MMMM YYYY")}`}</p>
+              </div>
+            </div>
+          ) : null}
+        </div>
+        {/* user twitter section */}
+        <div className="relative h-full top-96 w-[90%] flex flex-col items-center justify-center">
+          {tweetsByUser?.map((tweet: tweetType) => (
+            <Tweet key={tweet._id} {...tweet} />
+          ))}
+        </div>
       </div>
-      {/* user twitter section */}
-      <div className="relative h-full top-96 w-[90%] flex flex-col items-center justify-center">
-        {tweetsByUser?.map((tweet: tweetType) => (
-          <Tweet key={tweet._id} {...tweet} />
-        ))}
-      </div>
+    </>
+  ) : (
+    <div className="w-full h-screen flex items-center justify-center">
+      <ThreeDots
+      visible={true}
+      height="40"
+      width="40"
+      color="#6bc3f9"
+      radius="9"
+    />
     </div>
   );
 };

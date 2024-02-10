@@ -10,7 +10,7 @@ connectDB();
 export const POST = async (req: NextRequest) => {
   try {
     const { userId, tweetId } = await req.json();
-    console.log(userId)
+
     const tweetToAddView = await Tweet.findOne({
        _id: tweetId
     })

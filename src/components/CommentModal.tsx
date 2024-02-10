@@ -22,7 +22,7 @@ const CommentModal = ({ tweet, onClose, onPost, children }: Props) => {
   const router = useRouter();
   const modalRef = useRef<null | HTMLDialogElement>(null);
   const showModal = searchParams?.get("showModal");
-
+  console.log(tweet);
   useEffect(() => {
     if (showModal === "y") {
       modalRef.current?.showModal();
@@ -46,21 +46,23 @@ const CommentModal = ({ tweet, onClose, onPost, children }: Props) => {
           className="fixed top-[14rem] backdrop-contrast-50 left-50 z-100 -translate-x-50 -translate-y-20 rounded-2xl bg-[#16181C]"
         >
           {/* main content */}
-          <div className="w-[600px] max-w-full flex flex-col text-white ">
-            <div className="flex flex-col items-center justify-center">
-              <div className="w-full h-[40px] flex items-start pl-5 pt-2">
-                <button
-                  onClick={closeModal}
-                  className="w-[10px] h-[10px] border-spacing-1 flex items-start bg-transparent border-black text-lg "
-                >
-                  X
-                </button>
+          {tweet?._id ? (
+            <div className="w-[600px] max-w-full flex flex-col text-white ">
+              <div className="flex flex-col items-center justify-center">
+                <div className="w-full h-[40px] flex items-start pl-5 pt-2">
+                  <button
+                    onClick={closeModal}
+                    className="w-[10px] h-[10px] border-spacing-1 flex items-start bg-transparent border-black text-lg "
+                  >
+                    X
+                  </button>
+                </div>
+                {/* tweet content */}
+                <Tweet {...tweet} />
               </div>
-              {/* tweet content */}
-              <Tweet {...tweet} />
+              <div className="p-2">{children}</div>
             </div>
-            <div className="p-2">{children}</div>
-          </div>
+          ) : null}
         </dialog>
       </div>
     ) : null;
