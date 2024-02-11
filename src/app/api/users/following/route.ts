@@ -9,7 +9,7 @@ connectDB();
 export const POST = async (req: NextRequest) => {
   try {
     const { userToFollowId, userId } = await req.json();
-console.log(userToFollowId, userId)
+
     const follower = await User.findOne({
       _id: userId,
     });
