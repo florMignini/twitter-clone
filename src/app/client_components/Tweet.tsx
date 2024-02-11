@@ -52,7 +52,7 @@ export const Tweet = (tweet: tweetType) => {
   const likesResult = useMemo(
     () =>
       tweet?.likes?.filter((like: Like) => like.userId === userQuery?._id)[0],
-    [tweet]
+    [tweet, userQuery?._id]
   );
 
   const bookmarksTweetId = useMemo(
@@ -60,7 +60,7 @@ export const Tweet = (tweet: tweetType) => {
       bookmarksByUser?.map((bookmark: any) => {
         return bookmark?.tweets?.map((element: any) => element._id ? element._id : element);
       }),
-    [tweet]
+    [ bookmarksByUser]
   );
 
   const handleLikeTweet = async (
@@ -94,10 +94,10 @@ export const Tweet = (tweet: tweetType) => {
   };
 
   //Follow action
-  const follow = async (userToFollowId: string, userId: string) => {
+  const follow = async (userToFollowId: string | undefined, userId: string) => {
     await axios.post("/api/users/following", { userToFollowId, userId });
   };
-
+console.log(tweet)
   return (
     <button
       key={tweet?._id}
@@ -206,8 +206,8 @@ items-center justify-center hover:bg-blue-800/20
           "
           >
             <BsChat />
-            {tweet?.comments?.length > 0 ? (
-              <p className="ml-1 text-xs">{tweet?.comments.length}</p>
+            {tweet?.comments && tweet?.comments?.length > 0 ? (
+              <p className="ml-1 text-xs">{tweet?.comments?.length}</p>
             ) : (
               " "
             )}
@@ -258,7 +258,7 @@ items-center justify-center hover:bg-blue-800/20
                 <AiOutlineHeart />
               </button>
             )}
-            {tweet?.likes?.length > 0 ? (
+            {tweet?.likes && tweet?.likes?.length > 0 ? (
               <p className="ml-1 text-xs">{tweet.likes?.length}</p>
             ) : (
               ""
