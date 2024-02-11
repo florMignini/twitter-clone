@@ -4,6 +4,7 @@ import Tweet from "../../../../../models/tweet";
 
 import { NextRequest, NextResponse } from "next/server";
 
+
 connectDB();
 
 
@@ -12,7 +13,7 @@ export const POST = async (req: Request) => {
     
     const tweetdata = await req.json();
     // create new Twitter
-    const newTweet:any = await new Tweet({
+    const newTweet = await new Tweet({
       content: tweetdata.tweetContent,
       image: tweetdata.tweetImage || "",
       userImage: tweetdata.tweetUserImage ? tweetdata.tweetUserImage : null,

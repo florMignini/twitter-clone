@@ -6,10 +6,10 @@ export interface Tweet {
   content: string;
   image?: string;
   userImage?: string;
-  userId: Profile;
-  likes: Like[];
-  bookmarks: BookmarkInterface[] | any;
-  comments: Comment;
-  timestamp: string;
-  views: Profile[];
+  userId?: Profile;
+  likes?: Like[];
+  bookmarks?: BookmarkInterface[] | any;
+  comments?: Comment;
+  timestamp?: string;
+  views?: Profile[];
 }

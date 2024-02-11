@@ -11,7 +11,7 @@ const tweetSchema:any = new mongoose.Schema(
     image: { type: String },
     userImage: { type: String },
     views: [{ type: mongoose.Schema.Types.ObjectId, ref: User }],
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: User, required: true },
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: User },
     likes: [{ type: mongoose.Schema.Types.ObjectId, ref: Like }],
     comments: [{ type: mongoose.Schema.Types.ObjectId, ref: Comment }],
     bookmarks:[{ type: mongoose.Schema.Types.ObjectId, ref: Bookmark }]
