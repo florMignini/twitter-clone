@@ -53,7 +53,13 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
     tweetContent: "",
     tweetImage: "",
   });
+  
+  const { edgestore } = useEdgeStore();
+  
+  //bringing user session data && login session
+  const userQuery = useGetSessionData();
   const [file, setFile] = useState<any | string>("");
+  const [url, setUrl] = useState<string>();
   const imageUrl = useMemo(() => {
     if (typeof file === "string") {
       // in case a url is passed in, use it to display the image
@@ -79,12 +85,7 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
     accept: { "image/*": [] },
     multiple: false,
   });
-  const [url, setUrl] = useState<string>();
 
-  const { edgestore } = useEdgeStore();
- 
-  //bringing user session data && login session
-  const userQuery = useGetSessionData();
 
   const gifPreview: any = localStorage.getItem("gifPreview");
 
