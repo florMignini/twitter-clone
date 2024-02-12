@@ -38,10 +38,10 @@ const UpdateProfileModal = ({ onClose, onPost }: Props) => {
   const modal: JSX.Element | null =
     showModal === "updateProfile" ? (
       //main modal structure
-      <div className="absolute top-0 left-0 w-full h-screen z-50 backdrop-blur-lg">
+      <div className="absolute top-0 left-0 w-full h-screen z-50 backdrop-blur-sm">
         <dialog
           ref={modalRef}
-          className="fixed top-[14rem] backdrop-blur-lg left-50 -translate-x-50 -translate-y-20 rounded-2xl bg-[#16181C]"
+          className="fixed top-[14rem] backdrop-blur-sm left-50 -translate-x-50 -translate-y-20 rounded-2xl bg-[#16181C]"
         >
           <h1 className="text-white">Update Profile Component</h1>
         </dialog>
