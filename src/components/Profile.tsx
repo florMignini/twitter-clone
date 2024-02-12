@@ -55,8 +55,8 @@ const Profile = () => {
   };
   return !loading ? (
     <>
-      <div className="w-full h-screen flex flex-col z-0">
-        <div className="w-[100%] h-[10%] flex items-start justify-start py-1 px-2 sticky z-20 backdrop-blur-md top-0 bg-black/40">
+      <div className="w-full h-[30%] flex items-start justify-start flex-col z-0">
+        <div className="w-[100%] h-24 flex items-start justify-start py-1 px-2 sticky z-20 backdrop-blur-md top-0 bg-black/40">
           {/* top section */}
           <button
             className="w-5 h-10 mr-4 cursor-pointer"
@@ -77,12 +77,12 @@ const Profile = () => {
           )}
         </div>
         {/* user section */}
-        <div className="relative w-[100%] h-auto flex flex-col items-start justify-center ">
+        <div className="relative w-[100%] h-[25%] flex flex-col items-start justify-start ">
           {/* front page */}
           <div className="absolute top-0 w-[100%] h-auto flex flex-col items-start justify-start rounded-md bg-slate-600">
             <Avatar
               src={userProfile?.imageUrl}
-              className="w-44 h-44 
+              className="w-36 h-36 relative top-14 m-1
             object-contain
             md:w-70 md:h-70 lg:w-70 lg:h-70
             xl:w-200
@@ -106,7 +106,7 @@ const Profile = () => {
             </button>
           </div>
           {userProfile ? (
-            <div className="absolute top-72 w-[100%] h-[30%] flex flex-col items-start justify-center pl-2 mt-5 mb-10">
+            <div className="absolute top-72 w-[100%] h-[25%] flex flex-col items-start justify-center pl-2 mt-5 mb-10">
               <h3 className="text-xl">{userProfile?.username}</h3>
               <p className="font-thin text-xs">{`@${userProfile?.username}`}</p>
               <div className="flex items-center justify-center gap-2 pt-2 mb-2">
@@ -118,13 +118,13 @@ const Profile = () => {
             </div>
           ) : null}
         </div>
+      </div>
         {/* user twitter section */}
-        <div className="relative h-full top-96 w-[90%] flex flex-col items-center justify-center">
+        <div className="h-full w-[95%] flex flex-col items-center justify-start">
           {tweetsByUser?.map((tweet: tweetType) => (
             <Tweet key={tweet._id} {...tweet} />
           ))}
         </div>
-      </div>
     </>
   ) : (
     <div className="w-full h-screen flex items-center justify-center">

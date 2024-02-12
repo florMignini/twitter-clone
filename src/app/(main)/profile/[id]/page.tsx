@@ -37,8 +37,8 @@ const {getSingleTweet, tweet, loading }:any = useTweet()
 
   useEffect(() => {
     getSingleTweet(id)
-  }, [id, getSingleTweet])
-  console.log(tweet?.comments)
+  }, [id])
+  
 
   const onClose = () => {
     router.push(`/profile/${id}`);
