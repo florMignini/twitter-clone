@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 import {nextui} from "@nextui-org/react";
-import { withUt } from "uploadthing/tw";
+
 module.exports = {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -20,10 +20,3 @@ module.exports = {
   darkMode: "class",
   plugins: [nextui()],
 }
-
- 
-export default withUt({
-  // Your existing Tailwind config
-  content: ["./src/**/*.{ts,tsx,mdx}"],
-
-});
