@@ -35,7 +35,6 @@ const Profile = () => {
   const searchParams = useSearchParams();
   const profileId = searchParams?.get("profileId");
 
-
   useEffect(() => {
     getAllTweetsByUser(profileId);
     getUserInfo(profileId);
@@ -89,52 +88,44 @@ const Profile = () => {
             xl:h-200 rounded-full mt-14 ml-4"
             />
             {/* change cover btn */}
-            <button className="w-8 h-8 absolute z-10 bottom-2 right-8 border-1 border-gray-400 hover:border-black rounded-full hover:bg-slate-600/25">
-              <label htmlFor="files">
-                <GiPhotoCamera className="text-gray-400 hover:text-black w-[100%] h-[100%] p-1" />
-              </label>
-              <input
-                className="hidden w-8 h-8"
-                id="files"
-                type="file"
-                onChange={(e) => {
-                  if (!e.target.files) return;
-                  setFormData({ ...formData, coverImage: e.target.files[0] });
-                }}
-                onClick={handleCoverImage}
-              />
-            </button>
           </div>
           {userProfile ? (
             <div className="absolute top-72 w-[100%] h-[25%] flex flex-col items-start justify-center pl-2 mt-5 mb-10">
-              <h3 className="text-xl">{userProfile?.username}</h3>
-              <p className="font-thin text-xs">{`@${userProfile?.username}`}</p>
-              <div className="flex items-center justify-center gap-2 pt-2 mb-2">
-                <BsCalendarWeek className="flex items-center justify-center w-4 h-4" />
-                <p className="font-thin text-md">{`Joined ${dayjs(
-                  userProfile?.created_at
-                ).format("MMMM YYYY")}`}</p>
+              <div>
+                <h3 className="text-xl">{userProfile?.username}</h3>
+                <p className="font-thin text-xs">{`@${userProfile?.username}`}</p>
+                <div className="flex items-center justify-center gap-2 pt-2 mb-2">
+                  <BsCalendarWeek className="flex items-center justify-center w-4 h-4" />
+                  <p className="font-thin text-md">{`Joined ${dayjs(
+                    userProfile?.created_at
+                  ).format("MMMM YYYY")}`}</p>
+                </div>
+              </div>
+              <div>
+                <button className="w-auto h-auto absolute z-10 px-3 py-1 right-4 bottom-20 border-1 border-gray-400 hover:border-black rounded-2xl font-semibold hover:bg-slate-600/25">
+                  Edit Profile
+                </button>
               </div>
             </div>
           ) : null}
         </div>
       </div>
-        {/* user twitter section */}
-        <div className="h-full w-[95%] flex flex-col items-center justify-start">
-          {tweetsByUser?.map((tweet: tweetType) => (
-            <Tweet key={tweet._id} {...tweet} />
-          ))}
-        </div>
+      {/* user twitter section */}
+      <div className="h-full w-[95%] flex flex-col items-center justify-start">
+        {tweetsByUser?.map((tweet: tweetType) => (
+          <Tweet key={tweet._id} {...tweet} />
+        ))}
+      </div>
     </>
   ) : (
     <div className="w-full h-screen flex items-center justify-center">
       <ThreeDots
-      visible={true}
-      height="40"
-      width="40"
-      color="#6bc3f9"
-      radius="9"
-    />
+        visible={true}
+        height="40"
+        width="40"
+        color="#6bc3f9"
+        radius="9"
+      />
     </div>
   );
 };
