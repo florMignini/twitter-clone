@@ -49,6 +49,7 @@ const getUserInfo = async (userId:string) => {
   };
   //@GET ALL TWEETS BY USER
   const getAllTweetsByUser = async (userId: string) => {
+    console.log(userId)
     try {
       const { data } = await axios.get(`/api/tweets/getAllByUser/${userId}`);
       setTweetsByUser(data?.tweetsByUser);

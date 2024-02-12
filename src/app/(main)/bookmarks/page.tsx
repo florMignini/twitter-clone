@@ -18,13 +18,13 @@ const Bookmarks = () => {
   useEffect(() => {
     getAllTweetsByUser(user?._id)
     getBookmarsByUser(user?._id)
-  }, [user?._id, bookmarksByUser, tweetsByUser])
+  }, [user?._id])
 
 const tweetBookmarksByUser = useMemo(() => bookmarksByUser[0]?.tweets.map((tweetBookmark:any) => {
   return tweetsByUser.filter((tweet:any) => tweetBookmark._id === tweet._id)
 }), [tweetsByUser, bookmarksByUser])
-
-
+console.log(bookmarksByUser)
+console.log(tweetsByUser)
   return (
     <div className="w-full pl-2 bg-black h-full min-h-screen border-l-[0.1px] border-r-[0.1px] border-slate-700 mx-1">
       {loading ? (

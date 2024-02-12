@@ -4,4 +4,5 @@ export interface Profile {
   email: string;
   created_at: string;
   is_verify: boolean;
+  imageUrl: string;
 }

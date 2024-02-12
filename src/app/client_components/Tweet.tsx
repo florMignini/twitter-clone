@@ -60,7 +60,7 @@ export const Tweet = (tweet: tweetType) => {
       bookmarksByUser?.map((bookmark: any) => {
         return bookmark?.tweets?.map((element: any) => element._id ? element._id : element);
       }),
-    [ bookmarksByUser]
+    [ tweet]
   );
 
   const handleLikeTweet = async (
@@ -97,7 +97,7 @@ export const Tweet = (tweet: tweetType) => {
   const follow = async (userToFollowId: string | undefined, userId: string) => {
     await axios.post("/api/users/following", { userToFollowId, userId });
   };
-console.log(tweet)
+
   return (
     <button
       key={tweet?._id}
@@ -107,13 +107,13 @@ console.log(tweet)
     >
       {/* user image */}
       <div>
-        {tweet && tweet?.userImage && (
+        {tweet?.userId && tweet?.userId?.imageUrl && (
           <Image
             width={50}
             height={50}
             className="rounded-full flex items-center justify-center"
             alt="userAvatar"
-            src={userQuery?.imageUrl}
+            src={tweet?.userId?.imageUrl}
           />
         )}
       </div>{" "}
@@ -126,8 +126,8 @@ console.log(tweet)
               className=" w-full flex items-center content-center"
               href={`/profile?profileId=${tweet?.userId?._id}`}
             >
-              <p className="font-bold text-md">{userQuery?.username || ""}</p>
-              <p className="font-thin text-md mx-1">@{userQuery?.username}</p>
+              <p className="font-bold text-md">{tweet?.userId?.username || ""}</p>
+              <p className="font-thin text-md mx-1">@{tweet?.userId?.username}</p>
               <div className="flex">
                 <BsDot />
               </div>
