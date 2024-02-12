@@ -22,7 +22,7 @@ const CommentModal = ({ tweet, onClose, onPost, children }: Props) => {
   const router = useRouter();
   const modalRef = useRef<null | HTMLDialogElement>(null);
   const showModal = searchParams?.get("showModal");
-  console.log(tweet);
+
   useEffect(() => {
     if (showModal === "y") {
       modalRef.current?.showModal();

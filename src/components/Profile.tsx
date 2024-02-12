@@ -13,6 +13,8 @@ import axios from "axios";
 import { Tweet } from "../app/client_components/Tweet";
 import { useTweet } from "@/context";
 import { ThreeDots } from "react-loader-spinner";
+import Link from "next/link";
+
 
 type FormProfileData = {
   profileImage: any;
@@ -54,6 +56,7 @@ const Profile = () => {
   };
   return !loading ? (
     <>
+  
       <div className="w-full h-[30%] flex items-start justify-start flex-col z-0">
         <div className="w-[100%] h-24 flex items-start justify-start py-1 px-2 sticky z-20 backdrop-blur-md top-0 bg-black/40">
           {/* top section */}
@@ -78,7 +81,7 @@ const Profile = () => {
         {/* user section */}
         <div className="relative w-[100%] h-[25%] flex flex-col items-start justify-start ">
           {/* front page */}
-          <div className="absolute top-0 w-[100%] h-auto flex flex-col items-start justify-start rounded-md bg-slate-600">
+          <div className="absolute z-10 top-0 w-[100%] h-auto flex flex-col items-start justify-start rounded-md bg-slate-600">
             <Avatar
               src={userProfile?.imageUrl}
               className="w-36 h-36 relative top-14 m-1
@@ -102,9 +105,11 @@ const Profile = () => {
                 </div>
               </div>
               <div>
-                <button className="w-auto h-auto absolute z-10 px-3 py-1 right-4 bottom-20 border-1 border-gray-400 hover:border-black rounded-2xl font-semibold hover:bg-slate-600/25">
+                <Link 
+                href={`/profile?showModal=updateProfile`}
+                className="w-auto h-auto absolute z-10 px-3 py-1 right-4 bottom-20 border-1 border-gray-400 hover:border-black rounded-2xl font-semibold hover:bg-slate-600/25">
                   Edit Profile
-                </button>
+                </Link>
               </div>
             </div>
           ) : null}
