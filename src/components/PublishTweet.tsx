@@ -12,6 +12,7 @@ import { AiOutlinePicture } from "react-icons/ai";
 import { twMerge } from "tailwind-merge";
 import React from "react";
 import { useTweet } from "@/context";
+import axios from "axios";
 
 const variants = {
   base: "relative rounded-md flex justify-center items-center flex-col cursor-pointer min-h-[150px] min-w-[200px] border border-dashed border-gray-400 dark:border-gray-300 transition-colors duration-200 ease-in-out",
@@ -45,7 +46,6 @@ type Props = {
 const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
   const router = useRouter();
 
-
   //tweet provider state & actions
   const { createTweet, tweet }: any = useTweet();
 
@@ -53,44 +53,28 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
     tweetContent: "",
     tweetImage: "",
   });
-  
+
   const { edgestore } = useEdgeStore();
-  
+
   //bringing user session data && login session
   const userQuery = useGetSessionData();
   const [file, setFile] = useState<any | string>("");
   const [url, setUrl] = useState<string>();
+
   const imageUrl = useMemo(() => {
     if (typeof file === "string") {
-      // in case a url is passed in, use it to display the image
       return file;
     } else if (file) {
-      // in case a file is passed in, create a base64 url to display the image
-      
       return URL.createObjectURL(file);
     }
     return null;
   }, [file]);
 
-  // dropzone configuration
-  const {
-    getRootProps,
-    getInputProps,
-    acceptedFiles,
-    fileRejections,
-    isFocused,
-    isDragAccept,
-    isDragReject,
-  } = useDropzone({
-    accept: { "image/*": [] },
-    multiple: false,
-  });
-
-
   const gifPreview: any = localStorage.getItem("gifPreview");
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
+
     if (file) {
       const res = await edgestore.publicImages.upload({ file });
       setUrl(res.url);
@@ -101,7 +85,7 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
       tweetContent: formData.tweetContent,
       tweetImage: url,
       tweetUserImage: userQuery?.imageUrl,
-      userId: userQuery?._id
+      userId: userQuery?._id,
     };
 
     try {
@@ -145,16 +129,14 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
         <div className="px-2 py-6 m-auto">
           {imageUrl || gifPreview ? (
             <div className="relative">
-              {imageUrl ||
-                (gifPreview && (
-                  <Image
-                    src={imageUrl ? imageUrl : gifPreview}
-                    alt="imagePreview"
-                    width={400}
-                    height={400}
-                    className="relative object-contain"
-                  />
-                ))}
+              <Image
+                src={imageUrl ? imageUrl : gifPreview}
+                alt="imagePreview"
+                width={400}
+                height={400}
+                className="relative object-contain rounded-lg"
+              />
+
               {/* Remove Image Icon */}
               {imageUrl || gifPreview ? (
                 <div
@@ -193,14 +175,25 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
                   <AiOutlinePicture className="w-[100%] h-[100%]" />
                 </label>
               </div>
-              <input
-                className="hidden w-8 h-8"
-                id="files"
-                type="file"
-                onChange={(e) => {
-                  setFile(e.target.files?.[0]);
+              <form
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  const formData = new FormData();
+                  formData.append("tweet-image-preview", file);
+
+                  const { data } = await axios.post(`/api/tweets/preview`);
+                  console.log(data);
                 }}
-              />
+              >
+                <input
+                  className="hidden w-8 h-8"
+                  id="files"
+                  type="file"
+                  onChange={(e) => {
+                    setFile(e.target.files?.[0]);
+                  }}
+                />
+              </form>
 
               {/* gif section */}
               <Link
