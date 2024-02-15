@@ -75,15 +75,13 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
-    if (file) {
       const res = await edgestore.publicImages.upload({ file });
-      setUrl(res.url);
-    }
 
+    
     //send data to database
     const tweetContentData = {
       tweetContent: formData.tweetContent,
-      tweetImage: url,
+      tweetImage: res.url,
       tweetUserImage: userQuery?.imageUrl,
       userId: userQuery?._id,
     };

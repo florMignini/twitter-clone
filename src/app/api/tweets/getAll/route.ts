@@ -8,7 +8,7 @@ connectDB();
 
 export const GET = async (req: NextRequest) => {
   try {
-    const allTweets = await Tweet.find({}).sort({timestamp:'ascending'})
+    const allTweets = await Tweet.find({}).sort({timestamp:'descending'})
       .select("-__v")
       .populate("userId", "-password -__v")
       .populate("likes", "-__v ")

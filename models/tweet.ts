@@ -7,7 +7,7 @@ import { Tweet } from "../interfaces";
 
 const tweetSchema:any = new mongoose.Schema(
   {
-    content: { type: String, required: true },
+    content: { type: String },
     image: { type: String },
     userImage: { type: String },
     views: [{ type: mongoose.Schema.Types.ObjectId, ref: User }],

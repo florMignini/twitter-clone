@@ -87,10 +87,12 @@ const getUserInfo = async (userId:string) => {
   //@CREATE TWEET
   const createTweet = async (tweetContentData: any) => {
     try {
+      console.log(tweetContentData)
       const { data } = await axios.post(
         "/api/tweets/publish",
         tweetContentData
       );
+
       // update state once project is added
       setTweets([...tweets, data]);
       setTweet({});
