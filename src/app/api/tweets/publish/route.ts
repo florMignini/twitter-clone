@@ -3,12 +3,15 @@ import { connectDB } from "@/db/config";
 import Tweet from "../../../../../models/tweet";
 
 import { NextRequest, NextResponse } from "next/server";
+import { currentUser } from "@clerk/nextjs";
 
 
 connectDB();
 
 
 export const POST = async (req: Request) => {
+  const userData = await currentUser()
+
   try {
     
     const tweetdata = await req.json();
@@ -18,8 +21,7 @@ export const POST = async (req: Request) => {
       image: tweetdata.tweetImage || "",
       userImage: tweetdata.tweetUserImage ? tweetdata.tweetUserImage : null,
       userId: tweetdata.userId,
-    }).save();
-
+    }).save()
 
     return NextResponse.json(
       newTweet,

@@ -35,7 +35,7 @@ export const Tweet = (tweet: tweetType) => {
   const router = useRouter();
   //bringing user session data && login session
   const userQuery = useGetSessionData();
-  
+
   //tweet provider imports
   const {
     //actions
@@ -58,9 +58,11 @@ export const Tweet = (tweet: tweetType) => {
   const bookmarksTweetId = useMemo(
     () =>
       bookmarksByUser?.map((bookmark: any) => {
-        return bookmark?.tweets?.map((element: any) => element._id ? element._id : element);
+        return bookmark?.tweets?.map((element: any) =>
+          element._id ? element._id : element
+        );
       }),
-    [ tweet]
+    [tweet]
   );
 
   const handleLikeTweet = async (
@@ -106,17 +108,17 @@ export const Tweet = (tweet: tweetType) => {
       "
     >
       {/* user image */}
-      <div>
-        {tweet?.userId && tweet?.userId?.imageUrl && (
-          <Image
-            width={50}
-            height={50}
-            className="rounded-full flex items-center justify-center"
-            alt="userAvatar"
-            src={tweet?.userId?.imageUrl}
-          />
-        )}
-      </div>{" "}
+
+      <Image
+        width={50}
+        height={50}
+        className="rounded-full flex items-center justify-center"
+        alt="userAvatar"
+        src={
+          tweet?.userId?.imageUrl ? tweet?.userId?.imageUrl : userQuery.imageUrl
+        }
+      />
+
       {/* avatar section */}
       <div>
         <div className=" flex flex-col items-center">
@@ -126,13 +128,18 @@ export const Tweet = (tweet: tweetType) => {
               className=" w-full flex items-center content-center"
               href={`/profile?profileId=${tweet?.userId?._id}`}
             >
-              <p className="font-bold text-md">{tweet?.userId?.username || ""}</p>
-              <p className="font-thin text-md mx-1">@{tweet?.userId?.username}</p>
+              <p className="font-bold text-md">
+                {tweet?.userId?.username || userQuery.username}
+              </p>
+              <p className="font-thin text-md mx-1">
+                @{tweet?.userId?.username || userQuery.username}
+              </p>
               <div className="flex">
                 <BsDot />
               </div>
               <p className="font-thin text-sm mx-1">
-                {dayjs(tweet?.timestamp).fromNow()}
+                {/* {dayjs(tweet?.timestamp).fromNow(true)} */}
+                {dayjs().to(dayjs(tweet?.timestamp))}
               </p>
             </Link>
             {/* follow button section */}

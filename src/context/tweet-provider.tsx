@@ -49,7 +49,7 @@ const getUserInfo = async (userId:string) => {
   };
   //@GET ALL TWEETS BY USER
   const getAllTweetsByUser = async (userId: string) => {
-    console.log(userId)
+
     try {
       const { data } = await axios.get(`/api/tweets/getAllByUser/${userId}`);
       setTweetsByUser(data?.tweetsByUser);
@@ -87,11 +87,11 @@ const getUserInfo = async (userId:string) => {
   //@CREATE TWEET
   const createTweet = async (tweetContentData: any) => {
     try {
-      console.log(tweetContentData)
       const { data } = await axios.post(
         "/api/tweets/publish",
         tweetContentData
-      );
+        );
+        console.log(data)
 
       // update state once project is added
       setTweets([...tweets, data]);
