@@ -13,6 +13,7 @@ import { twMerge } from "tailwind-merge";
 import React from "react";
 import { useTweet } from "@/context";
 import axios from "axios";
+import { edgestoreType } from "../../interfaces";
 
 const variants = {
   base: "relative rounded-md flex justify-center items-center flex-col cursor-pointer min-h-[150px] min-w-[200px] border border-dashed border-gray-400 dark:border-gray-300 transition-colors duration-200 ease-in-out",
@@ -74,14 +75,15 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
+    let edgestoreRes: edgestoreType = {};
+    if (file) {
+      edgestoreRes = await edgestore.publicImages.upload({ file });
+    }
 
-      const res = await edgestore.publicImages.upload({ file });
-
-    
     //send data to database
     const tweetContentData = {
       tweetContent: formData.tweetContent,
-      tweetImage: res.url,
+      tweetImage: edgestoreRes?.url,
       tweetUserImage: userQuery?.imageUrl,
       userId: userQuery?._id,
     };
@@ -173,25 +175,15 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
                   <AiOutlinePicture className="w-[100%] h-[100%]" />
                 </label>
               </div>
-              <form
-                onSubmit={async (e) => {
-                  e.preventDefault();
-                  const formData = new FormData();
-                  formData.append("tweet-image-preview", file);
 
-                  const { data } = await axios.post(`/api/tweets/preview`);
-                  console.log(data);
+              <input
+                className="hidden w-8 h-8"
+                id="files"
+                type="file"
+                onChange={(e) => {
+                  setFile(e.target.files?.[0]);
                 }}
-              >
-                <input
-                  className="hidden w-8 h-8"
-                  id="files"
-                  type="file"
-                  onChange={(e) => {
-                    setFile(e.target.files?.[0]);
-                  }}
-                />
-              </form>
+              />
 
               {/* gif section */}
               <Link
