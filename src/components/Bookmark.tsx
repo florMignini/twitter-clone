@@ -19,7 +19,7 @@ export interface bookmark_type {
 }
 
 const Bookmark = (bookmark: any) => {
-  console.log(bookmark);
+
   const searchParams = useSearchParams();
   const profileId = searchParams?.get("profileId");
   return (

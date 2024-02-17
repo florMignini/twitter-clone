@@ -1,4 +1,5 @@
 export { default as Bookmark } from './Bookmark';
+export * from './CloseIcon';
 export { default as Comment } from './Comment';
 export { default as CommentModal } from './CommentModal';
 export { default as GifModal } from './GifModal';
@@ -8,3 +9,4 @@ export { default as PublishComment } from './PublishComment';
 export { default as PublishTweet } from './PublishTweet';
 export { default as RightSidebar } from './RightSidebar';
 export * from './Search';
+export { default as UpdateProfileModal } from './UpdateProfileModal';
