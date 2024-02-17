@@ -111,16 +111,17 @@ const Profile = () => {
                   Edit Profile
                 </Link>
               </div>
-            </div>
-          ) : null}
-        </div>
-      </div>
-      {/* user twitter section */}
-      <div className="h-full w-[95%] flex flex-col items-center justify-start">
+               {/* user twitter section */}
+      <div className="absolute top-14 h-full w-[95%] flex flex-col items-center justify-start">
         {tweetsByUser?.map((tweet: tweetType) => (
           <Tweet key={tweet._id} tweet={tweet} component="profile" />
         ))}
       </div>
+            </div>
+          ) : null}
+        </div>
+      </div>
+     
     </>
   ) : (
     <div className="w-full h-screen flex items-center justify-center">
