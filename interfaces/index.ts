@@ -1,4 +1,5 @@
 export * from './Gif.interfae';
+export * from './Tweet-component';
 export * from './Tweet.interface';
 export * from './bookmark.interface';
 export * from './edgestoreRes.interface';

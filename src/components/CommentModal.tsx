@@ -58,7 +58,7 @@ const CommentModal = ({ tweet, onClose, onPost, children }: Props) => {
                   </button>
                 </div>
                 {/* tweet content */}
-                <Tweet {...tweet} />
+                <Tweet tweet={tweet} component="comment modal" />
               </div>
               <div className="p-2">{children}</div>
             </div>

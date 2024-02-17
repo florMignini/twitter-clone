@@ -118,7 +118,7 @@ const Profile = () => {
       {/* user twitter section */}
       <div className="h-full w-[95%] flex flex-col items-center justify-start">
         {tweetsByUser?.map((tweet: tweetType) => (
-          <Tweet key={tweet._id} {...tweet} />
+          <Tweet key={tweet._id} tweet={tweet} component="profile" />
         ))}
       </div>
     </>

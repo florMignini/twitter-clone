@@ -111,7 +111,7 @@ const Page = () => {
               <>
                 {tweets &&
                   tweets.map((tweet: tweetType) => (
-                    <Tweet key={tweet?._id} {...tweet} />
+                    <Tweet tweet={tweet} key={tweet?._id} component="home" />
                   ))}
               </>
             )}

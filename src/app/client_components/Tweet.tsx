@@ -13,7 +13,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useGetSessionData } from "@/helpers";
 import Link from "next/link";
-import { Tweet as tweetType } from "../../../interfaces";
+import { tweetComponent, Tweet as tweetType } from "../../../interfaces";
 
 import Image from "next/image";
 import {
@@ -31,7 +31,7 @@ export interface Like {
   _id: string;
 }
 
-export const Tweet = (tweet: tweetType) => {
+export const Tweet = ({ tweet, component }: tweetComponent) => {
   const router = useRouter();
   //bringing user session data && login session
   const userQuery = useGetSessionData();
@@ -115,7 +115,9 @@ export const Tweet = (tweet: tweetType) => {
         className="rounded-full flex items-center justify-center"
         alt="userAvatar"
         src={
-          tweet?.userId?.imageUrl ? tweet?.userId?.imageUrl : userQuery.imageUrl
+          tweet?.userId?.imageUrl
+            ? tweet?.userId?.imageUrl
+            : userQuery?.imageUrl
         }
       />
 
@@ -202,23 +204,25 @@ export const Tweet = (tweet: tweetType) => {
         {/* bottom icons */}
         <div className="flex items-center justify-around space-x-2 w-full cursor-pointer">
           {/* comment button */}
-          <Link
-            href={`/profile/${tweet?._id}?showModal=y`}
-            className="flex 
-          rounded-full h-8 w-8  font-bold
-          text-md
+          {component === "home" ? (
+            <Link
+              href={`/profile/${tweet?._id}?showModal=y`}
+              className="flex 
+        rounded-full h-8 w-8  font-bold
+        text-md
 items-center justify-center hover:bg-blue-800/20 
-          hover:text-blue-600
-          transition duration-200
-          "
-          >
-            <BsChat />
-            {tweet?.comments && tweet?.comments?.length > 0 ? (
-              <p className="ml-1 text-xs">{tweet?.comments?.length}</p>
-            ) : (
-              " "
-            )}
-          </Link>
+        hover:text-blue-600
+        transition duration-200
+        "
+            >
+              <BsChat />
+              {tweet?.comments && tweet?.comments?.length > 0 ? (
+                <p className="ml-1 text-xs">{tweet?.comments?.length}</p>
+              ) : (
+                " "
+              )}
+            </Link>
+          ) : null}
           {/* retweet button */}
           <div
             className="flex items-center justify-center 
@@ -290,7 +294,7 @@ items-center justify-center hover:bg-blue-800/20
               <IoMdStats />
             )}
           </div>
-          {bookmarksTweetId && bookmarksTweetId[0]?.includes(tweet._id) ? (
+          {bookmarksTweetId && bookmarksTweetId[0]?.includes(tweet?._id) ? (
             <button
               onClick={() => {
                 handleBookmark(

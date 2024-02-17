@@ -54,7 +54,7 @@ const tweetBookmarksByUser = useMemo(() => bookmarksByUser[0]?.tweets.map((tweet
             </button>
           </header>
           {tweetBookmarksByUser && tweetBookmarksByUser?.map((tweet: [tweetType]) => (
-            <Tweet key={tweet[0]?._id} {...tweet[0]} />
+            <Tweet key={tweet[0]?._id} tweet={tweet[0]} component="bookmark" />
           ))}
         </>
       )}

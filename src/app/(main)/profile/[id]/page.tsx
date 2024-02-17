@@ -76,12 +76,12 @@ const {getSingleTweet, tweet, loading }:any = useTweet()
   {
   !loading ? (
     <>
-    {tweet ? <Tweet {...tweet} /> : <h1>Something goes wrong with server</h1>}
+    {tweet ? <Tweet tweet={tweet} component="profile" /> : <h1>Something goes wrong with server</h1>}
          <h6 className="p-2">
           Replies to @{tweet?.userId?.username}
         </h6>
         {tweet?.comments?.map((comment: TweetType) => (
-          <Tweet key={comment._id} {...comment} />
+          <Tweet key={comment._id} tweet={comment} component="comment" />
         ))}
    </> 
     ): null
