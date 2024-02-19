@@ -1,16 +1,12 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { useRef, useEffect } from "react";
-import { Tweet as TweetInterface } from "../../interfaces";
-import axios from "axios";
+import { useRef, useEffect, useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { BsDot } from "react-icons/bs";
-import dayjs from "dayjs";
-import { Tweet } from "../app/client_components/Tweet";
 import { CameraIcon, CloseIcon } from ".";
 import { useGetSessionData } from "@/helpers";
+import DefaultCover from "@/assets/AFAFAF-bg.png";
 
 interface Props {
   onClose: () => void;
@@ -36,7 +32,21 @@ const UpdateProfileModal = ({ onClose, onPost }: Props) => {
     modalRef.current?.close();
     onClose();
   };
-  const handleCoverImage = async () => {
+
+  const [file, setFile] = useState<any | string>("");
+  const [url, setUrl] = useState<string>();
+
+  const imageUrl = useMemo(() => {
+    if (typeof file === "string") {
+      return file;
+    } else if (file) {
+      return URL.createObjectURL(file);
+    }
+    return null;
+  }, [file]);
+
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
     try {
       /* const formCoverDataImage = new FormData();
       formCoverDataImage.append("cover-image", formData.coverImage);
@@ -55,11 +65,11 @@ const UpdateProfileModal = ({ onClose, onPost }: Props) => {
       <div className=" absolute top-0 left-0 w-full h-screen z-50 backdrop-blur-sm ">
         <dialog
           ref={modalRef}
-          className="w-[40%] md:w-[60%] h-[90%] p-1 fixed top-12 backdrop-blur-sm left-50 -translate-x-50  rounded-2xl bg-[#08090a]"
+          className="w-[40%] md:w-[60%] h-[90%] fixed top-12 backdrop-blur-sm left-50 -translate-x-50  rounded-2xl bg-[#08090a]"
         >
           <form className="w-[95%] h-auto mx-auto flex flex-col items-center justify-center gap-3">
             {/* top section */}
-            <div className="w-[100%] h-10 pt-3 grid grid-cols-[10%,80%,10%] gap-2 text-white">
+            <div className="w-[100%] pt-3 grid grid-cols-[10%,70%,20%] gap-2 text-white z-10 backdrop-blur-md sticky h-24">
               {/* close button */}
               <div className="">
                 <Link
@@ -78,22 +88,49 @@ const UpdateProfileModal = ({ onClose, onPost }: Props) => {
               </div>
               {/* submit button */}
               <div className="">
-                <button
-                  type="submit"
-                  className="w-auto h-auto flex items-center justify-end bg-white rounded-2xl font-bold px-3 md:pr-3 py-1 text-black capitalize"
-                >
-                  save
-                </button>
+                <div className="flex items-center justify-center h-full mx-auto">
+                  <button
+                    type="submit"
+                    className="w-auto h-auto flex items-center justify-end bg-white rounded-2xl font-bold px-3 md:pr-3 py-1 text-black capitalize"
+                    onClick={handleSubmit}
+                  >
+                    save
+                  </button>
+                </div>
               </div>
             </div>
             {/* cover image */}
-            <div className="w-[100%] h-56 flex items-center justify-center rounded-md bg-transparent">
-              <button className="flex items-center justify-center p-2 w-10 h-10 rounded-full hover:text-zinc-700"
-              onClick={handleCoverImage}
-              >
-                <CameraIcon />
-              </button>
+            <div className="w-[99%] h-[150px] rounded-lg flex items-center justify-center bg-transparent">
+              {imageUrl ? (
+                <Image
+                  alt="profileCover"
+                  src={imageUrl}
+                  width={0}
+                  height={0}
+                  className="w-[95%] rounded-lg top-32 h-80 absolute object-cover"
+                />
+              ) : (
+                <Image
+                  alt="profileCover"
+                  src={DefaultCover}
+                  className="w-[95%] rounded-lg top-32 h-80 absolute object-cover"
+                />
+              )}
+              <div className="relative top-24 flex items-center justify-center p-2 w-10 h-10 rounded-full hover:text-zinc-700 cursor-pointer">
+                <label htmlFor="files">
+                  <CameraIcon />
+                </label>
+                <input
+                  className="hidden w-8 h-8"
+                  id="files"
+                  type="file"
+                  onChange={(e) => {
+                    setFile(e.target.files?.[0]);
+                  }}
+                />
+              </div>
             </div>
+            {/* BIO */}
           </form>
         </dialog>
       </div>

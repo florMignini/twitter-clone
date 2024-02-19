@@ -6,7 +6,7 @@ export const CameraIcon = () => {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className="w-6 h-6 text-zinc-500"
+      className="w-6 h-6 text-slate-900"
     >
       <path
         strokeLinecap="round"
