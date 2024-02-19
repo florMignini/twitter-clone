@@ -23,19 +23,18 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
   const [tweetsByUser, setTweetsByUser] = useState<any>([]);
   const [bookmarksByUser, setBookmarksByUser] = useState<any>([]);
   const [tweet, setTweet] = useState({});
-  const [userProfile, setUserProfile] = useState()
+  const [userProfile, setUserProfile] = useState();
 
-
-//@GET USER INFORMATION
-const getUserInfo = async (userId:string) => {
-  try {
-    const { data } = await axios.get(`/api/users/info/${userId}`);
-    setUserProfile(data.profileInfo);
-    setLoading(false);
-  } catch (error) {
-    console.log(error);
-  }
-};
+  //@GET USER INFORMATION
+  const getUserInfo = async (userId: string) => {
+    try {
+      const { data } = await axios.get(`/api/users/info/${userId}`);
+      setUserProfile(data.profileInfo);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   //@GET ALL TWEETS
   const getAllTweets = async () => {
@@ -49,7 +48,6 @@ const getUserInfo = async (userId:string) => {
   };
   //@GET ALL TWEETS BY USER
   const getAllTweetsByUser = async (userId: string) => {
-
     try {
       const { data } = await axios.get(`/api/tweets/getAllByUser/${userId}`);
       setTweetsByUser(data?.tweetsByUser);
@@ -90,8 +88,8 @@ const getUserInfo = async (userId:string) => {
       const { data } = await axios.post(
         "/api/tweets/publish",
         tweetContentData
-        );
-        console.log(data)
+      );
+      console.log(data);
 
       // update state once project is added
       setTweets([...tweets, data]);
@@ -189,6 +187,17 @@ const getUserInfo = async (userId:string) => {
         "/api/comments/publish",
         commentContentData
       );
+      // update state once tweet is booked
+      const updatedTweets = tweets.map((tweetToLike: any) => {
+        const stateToUpdate = { ...tweetToLike };
+        tweetToLike._id === data.tweetId
+          ? stateToUpdate.comments.unshift(data.tweetId)
+          : stateToUpdate;
+        return stateToUpdate;
+      });
+      setTweets(updatedTweets);
+
+      setLoading(false);
 
     } catch (error) {
       console.log(error);

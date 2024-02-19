@@ -40,10 +40,10 @@ const CommentModal = ({ tweet, onClose, onPost, children }: Props) => {
   const modal: JSX.Element | null =
     showModal === "y" ? (
       //main modal structure
-      <div className="absolute top-0 left-0 w-full h-screen z-10 backdrop-contrast-50">
+      <div className="absolute top-0 left-0 w-full h-screen z-10 backdrop-blur-md">
         <dialog
           ref={modalRef}
-          className="fixed top-[14rem] backdrop-contrast-50 left-50 z-100 -translate-x-50 -translate-y-20 rounded-2xl bg-[#16181C]"
+          className="fixed top-[10rem] backdrop-blur-md left-50 z-100 -translate-x-50 -translate-y-20 rounded-2xl bg-[#16181C]"
         >
           {/* main content */}
           {tweet?._id ? (
