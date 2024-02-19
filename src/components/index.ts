@@ -1,4 +1,5 @@
 export { default as Bookmark } from './Bookmark';
+export * from './CameraIcon';
 export * from './CloseIcon';
 export { default as Comment } from './Comment';
 export { default as CommentModal } from './CommentModal';

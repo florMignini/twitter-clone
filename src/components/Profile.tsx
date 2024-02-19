@@ -36,24 +36,13 @@ const Profile = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const profileId = searchParams?.get("profileId");
-console.log(userProfile)
+
   useEffect(() => {
     getAllTweetsByUser(profileId);
     getUserInfo(profileId);
   }, [profileId]);
 
-  const handleCoverImage = async () => {
-    try {
-      const formCoverDataImage = new FormData();
-      formCoverDataImage.append("cover-image", formData.coverImage);
-      const coverImage = await axios.post(
-        `/api/users/imageCover`,
-        formCoverDataImage
-      );
-    } catch (error) {
-      console.log(error);
-    }
-  };
+ 
   return !loading ? (
     <>
   
