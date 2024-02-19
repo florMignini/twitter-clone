@@ -19,6 +19,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
+    coverImg:{
+      type: String,
+      trim: true
+    },
     following: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
     tweets: { type: mongoose.Schema.Types.ObjectId, ref: "Tweet" },
   },

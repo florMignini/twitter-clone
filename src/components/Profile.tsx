@@ -36,7 +36,7 @@ const Profile = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const profileId = searchParams?.get("profileId");
-
+console.log(userProfile)
   useEffect(() => {
     getAllTweetsByUser(profileId);
     getUserInfo(profileId);
