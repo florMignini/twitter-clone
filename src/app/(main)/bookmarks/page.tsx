@@ -18,7 +18,7 @@ const Bookmarks = () => {
   useEffect(() => {
     getAllTweets()
     getBookmarsByUser(user?._id)
-  }, [user?._id, bookmarksByUser])
+  }, [user?._id, bookmarksByUser, getAllTweets, getBookmarsByUser])
 
 const tweetBookmarksByUser = useMemo(() => bookmarksByUser[0]?.tweets.map((tweetBookmark:any) => {
   return tweets.filter((tweet:any) => tweetBookmark._id === tweet._id)

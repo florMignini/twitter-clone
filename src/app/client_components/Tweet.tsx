@@ -62,7 +62,7 @@ export const Tweet = ({ tweet, component }: tweetComponent) => {
           element._id ? element._id : element
         );
       }),
-    [tweet]
+    [bookmarksByUser]
   );
 
   const handleLikeTweet = async (

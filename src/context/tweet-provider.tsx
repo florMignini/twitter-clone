@@ -89,7 +89,6 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
         "/api/tweets/publish",
         tweetContentData
       );
-      console.log(data);
 
       // update state once project is added
       setTweets([...tweets, data]);
@@ -150,7 +149,7 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
         userId,
         tweetId,
       });
-
+      console.log(data);
       // update state once tweet is booked
       const updatedTweets = bookmarksByUser.map((tweetToBook: any) =>
         tweetToBook._id === data._id ? data : tweetToBook
@@ -198,7 +197,6 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
       setTweets(updatedTweets);
 
       setLoading(false);
-
     } catch (error) {
       console.log(error);
     }
