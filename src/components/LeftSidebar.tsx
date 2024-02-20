@@ -18,33 +18,33 @@ export const LeftSidebar = () => {
   const router = useRouter();
 
   return (
-    <section className="px-1 w-[100px] lg:w-[250px] fixed h-screen flex flex-col justify-between text-xl border-r-1 border-zinc-700">
-      <div className="w-[100%] md:w-[80%] items-center justify-center flex flex-col mx-auto py-2">
+    <section className="px-1 w-[100px] lg:w-[200px] xl:w-[250px] fixed h-screen flex flex-col justify-between text-xl border-r-1 border-zinc-700">
+      <div className="w-[100%] items-center justify-end flex flex-col py-2">
         <Link
           href={"/"}
-          className="flex items-center md:w-[80%] w-[90%] h-fit lg:mx-auto justify-start lg:space-x-5 rounded-3xl md:rounded-full px-2 py-2 lg:py-3"
+          className="flex items-center w-[100%] h-fit lg:mx-auto justify-start lg:space-x-5 rounded-3xl md:rounded-full py-2 lg:py-3"
         >
           <Image
             src={xIcon}
             alt="xLogo"
             width={50}
             height={50}
-            className="flex mx-auto hover:bg-[#16181C] rounded-full"
+            className="flex hover:bg-[#16181C] rounded-full"
           />
         </Link>
         <Link
-          className="lg:w-[90%] hover:bg-[#16181C] flex items-center md:w-[70%] lg:mx-auto h-fit justify-start lg:space-x-3 rounded-3xl md:rounded-full px-2 py-2 lg:py-3"
+          className="w-[40%] lg:w-[90%] hover:bg-[#16181C] flex items-center md:w-[70%] lg:mx-auto h-fit justify-start lg:space-x-3 rounded-3xl md:rounded-full py-2 lg:py-3"
           href={`/`}
           key="home"
         >
           <div className=" w-[90%] mx-auto lg:mx-0 text-3xl">
             <AiOutlineHome />
           </div>
-          <div className="hidden w-fit lg:flex md:min-w-full">Home</div>
+          <div className="hidden w-auto xl:flex md:min-w-full">Home</div>
         </Link>
         {nav_items.map((nav_item) => (
           <Link
-            className="lg:w-[100%] hover:bg-[#16181C] flex items-center md:w-[70%] h-fit justify-start lg:space-x-3 rounded-3xl md:rounded-full lg:mx-auto px-2 lg:py-3 py-2"
+            className="w-[40%] lg:w-[90%] hover:bg-[#16181C] flex items-center md:w-[70%] h-fit justify-start lg:space-x-3 rounded-3xl md:rounded-full lg:mx-auto lg:py-3 py-2"
             href={`/${nav_item.title.toLowerCase()}?profileId=${
               userQuery?._id
             }`}
@@ -53,14 +53,16 @@ export const LeftSidebar = () => {
             <div className="w-[90%] mx-auto lg:mx-0 text-3xl">
               <nav_item.icon />
             </div>
-            <div className="hidden w-[100%] lg:flex md:min-w-full">
+            <div className="hidden w-fit xl:flex md:min-w-full">
               {nav_item.title}
             </div>
           </Link>
         ))}
-        <button className="w-[90%] flex items-center justify-center mx-0 lg:mx-2 md:mx-1 rounded-3xl bg-blue-500 py-2 text-xl hover:bg-opacity-70 transition duration-200 my-4">
+        <div className="w-[100%] xl:w-[90%] flex items-center justify-start">
+        <button className="w-auto xl:w-[100px] px-3 flex items-center justify-center mx-0 xl:mx-2 md:mx-1 rounded-3xl bg-blue-500 py-2 text-xl hover:bg-opacity-70 transition duration-200 my-4">
           Tweet
         </button>
+        </div>
       </div>
       {userQuery ? (
         <div
