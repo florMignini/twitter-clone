@@ -37,7 +37,6 @@ const Page = () => {
     getBookmarsByUser(userQuery?._id)
   }, [userQuery?._id])
  
-console.log(tweets)
   /* modal states */
   const onClose = () => {
     router.push("/");

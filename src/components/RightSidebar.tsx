@@ -38,9 +38,11 @@ const RightSidebar = () => {
   };
 
   return (
-    <section className="hidden fixed lg:flex top-2 flex-col px-5 my-4">
+    <section className="hidden fixed border-l-1 border-zinc-700 h-screen lg:flex flex-col px-5">
       {/* Search bar section */}
-      <Search placeholder="Search for people" section="rightsidebar" />
+     <div className="mt-4">
+     <Search placeholder="Search for people" section="rightsidebar" />
+     </div>
       {/* Who to Follow */}
       {isLoading ? null : (
         <div className="w-fill flex flex-col rounded-2xl  bg-[#16181C] mt-2">

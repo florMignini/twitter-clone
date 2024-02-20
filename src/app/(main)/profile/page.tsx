@@ -12,7 +12,7 @@ const profile = () => {
       } } onPost={function (): void {
         throw new Error("Function not implemented.");
       } }></UpdateProfileModal>
-    <div className="w-full h-full z-0 bg-black border-l-[0.1px] border-r-[0.1px] border-slate-700 px-1">
+    <div className="w-full h-screen z-0 bg-black px-1">
       <Profile />
     </div>
    </>
