@@ -103,7 +103,7 @@ const Page = () => {
             />
           </div>
         ) : (
-          <div className="flex flex-col items-center justify-center my-4">
+          <div className="w-[100%] flex flex-col items-center justify-center my-4">
             {error ? (
               <h1>Something goes wrong with server</h1>
             ) : (

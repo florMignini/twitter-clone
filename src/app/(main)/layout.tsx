@@ -8,7 +8,7 @@ export default function MainLayout({
 }) {
   return (
     <TweetProvider>
-      <div className="p-0 w-full h-screen grid grid-cols-[15%,85%] lg:grid-cols-[20%,50%,30%] gap-1 relative md:px-4 2xl:px-72">
+      <div className="p-0 w-full h-screen grid grid-cols-[15%,85%] lg:grid-cols-[20%,50%,30%] gap-1 relative md:px-10 2xl:px-72">
       {/* Sidebar and notification section  */}
       <div className="">
         <LeftSidebar />

@@ -7,6 +7,7 @@ import Link from "next/link";
 import { ThreeDots } from "react-loader-spinner";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { CloseIcon } from ".";
 type Props = {
   placeholder: string;
   section: string;
@@ -40,8 +41,7 @@ export const Search = ({ placeholder, section }: Props) => {
 
   return (
     <div className="w-full h-auto shadow-xl">
-      <div className="sticky h-15 top-0 rounded-full bg-[#16181C] backdrop-blur-lg text-gray-600 p-1 mt-1">
-        <div className="h-full w-full relative grid grid-cols-[10%,80%,10%] gap-2 p-3 text-sm">
+      <div className="h-full w-full relative grid grid-cols-[10%,75%,15%] rounded-3xl gap-2 p-3 text-sm bg-[#16181c]">
           <label
             htmlFor="searchItem"
             className="flex items-center justify-center"
@@ -59,20 +59,17 @@ export const Search = ({ placeholder, section }: Props) => {
             autoComplete="off"
             onChange={({ target }) => setQuery(target.value)}
           />
-          <div className="w-full">
-            {debouncedSearch ? (
+          {debouncedSearch ? (
               <div className="">
                 <button
                   onClick={clearInput}
-                  className="w-5 h-5 font-bold border-1 border-gray-600 rounded-full flex items-center justify-center"
+                  className="w-4 h-4 font-bold border-1 border-gray-600 rounded-full flex items-center justify-center"
                 >
-                  X
+                  <CloseIcon/>
                 </button>
               </div>
-            ) : null}
-          </div>
+            ) : <div></div>}
         </div>
-      </div>
           {query && loading ? (
        <div className="flex items-center justify-center">
          <ThreeDots
@@ -88,9 +85,12 @@ export const Search = ({ placeholder, section }: Props) => {
           className="w-[99%] flex items-start justify-center
                       transition duration-200 m-1 rounded-md"
         >
-          {debouncedSearch ? (
+          {debouncedSearch && (
             <div className="w-[90%] flex flex-col items-center justify-center ">
-              {users.map((user: any) => (
+              {
+              users.length > 0 ? (
+                <>
+                {users.map((user: any) => (
                 <Link
                   key={user._id}
                   href={`/profile?profileId=${user?._id}`}
@@ -114,8 +114,13 @@ export const Search = ({ placeholder, section }: Props) => {
                   </div>
                 </Link>
               ))}
+                </>
+                ) : (
+                  <p className="text-base font-bold text-white"> No result found</p>
+                  )
+              }
             </div>
-          ) : null}
+          )}
         </div>
       )}
     </div>
