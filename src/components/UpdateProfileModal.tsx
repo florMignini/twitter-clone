@@ -100,7 +100,7 @@ const UpdateProfileModal = ({ onClose, onPost }: Props) => {
               </div>
             </div>
             {/* cover image */}
-            <div className="w-[99%] h-[150px] rounded-lg flex items-center justify-center bg-transparent">
+            <div className="w-[99%] h-96 rounded-lg flex items-center justify-center bg-transparent">
               {imageUrl ? (
                 <Image
                   alt="profileCover"
@@ -116,7 +116,7 @@ const UpdateProfileModal = ({ onClose, onPost }: Props) => {
                   className="w-[95%] rounded-lg top-32 h-80 absolute object-cover"
                 />
               )}
-              <div className="relative top-24 flex items-center justify-center p-2 w-10 h-10 rounded-full hover:text-zinc-700 cursor-pointer">
+              <div className="relative  flex items-center justify-center p-2 w-10 h-10 rounded-full hover:text-zinc-700 cursor-pointer">
                 <label htmlFor="files">
                   <CameraIcon />
                 </label>
@@ -131,6 +131,19 @@ const UpdateProfileModal = ({ onClose, onPost }: Props) => {
               </div>
             </div>
             {/* BIO */}
+            <div className="bg-black border-1 border-white w-full h-[150px] p-1 rounded-lg">
+              <label className="w-[100%] h-[20%] pl-3 pt-2 font-medium text-base text-zinc-600">Bio</label>
+              <textarea maxLength={160}
+              className="w-[100%] h-[80%] px-2 py-3 bg-black outline-none text-white rounded-text-base rounded-t-none"
+               />
+            </div>
+            {/* LOCATION */}
+            <div className="bg-black border-1 border-white w-full h-[80px] p-1 rounded-lg">
+              <label className="w-[100%] h-[20%] pl-3 pt-2 font-medium text-base text-zinc-600">Location</label>
+              <input
+              className="w-[100%] h-[50%] px-2 py-3 bg-black outline-none text-white rounded-lg rounded-t-none"
+               />
+            </div>
           </form>
         </dialog>
       </div>
