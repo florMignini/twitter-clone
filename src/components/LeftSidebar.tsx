@@ -18,7 +18,7 @@ export const LeftSidebar = () => {
   const router = useRouter();
 
   return (
-    <section className="px-1 w-[100px] lg:w-[200px] xl:w-[250px] fixed h-screen flex flex-col justify-between text-xl border-r-1 border-zinc-700">
+    <section className="px-1 md:w-[115px] lg:w-[196px] xl:w-[243px] fixed h-screen flex flex-col justify-between text-xl border-r-1 border-zinc-700">
       <div className="w-[100%] items-center justify-end flex flex-col py-2">
         <Link
           href={"/"}
