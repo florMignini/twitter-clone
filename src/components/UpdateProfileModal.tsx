@@ -141,6 +141,7 @@ const UpdateProfileModal = ({ onClose, onPost }: Props) => {
             <div className="bg-black border-1 border-white w-full h-[80px] p-1 rounded-lg">
               <label className="w-[100%] h-[20%] pl-3 pt-2 font-medium text-base text-zinc-600">Location</label>
               <input
+              maxLength={30}
               className="w-[100%] h-[50%] px-2 py-3 bg-black outline-none text-white rounded-lg rounded-t-none"
                />
             </div>

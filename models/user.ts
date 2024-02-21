@@ -15,11 +15,20 @@ const userSchema = new mongoose.Schema(
       type: String,
       unique: true,
     },
+    bio: {
+      type: String,
+      lowercase: true,
+      maxLength: 160,
+    },
+    location: {
+      type: String,
+      maxLength: 30,
+    },
     imageUrl: {
       type: String,
       trim: true,
     },
-    coverImg:{
+    coverImg: {
       type: String,
       trim: true,
     },
