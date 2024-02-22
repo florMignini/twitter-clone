@@ -35,36 +35,40 @@ export const LeftSidebar = () => {
         </Link>
        <div className="w-[100%] flex items-center h-fit justify-start">
        <Link
-          className="w-[90%] flex items-center h-fit justify-center space-x-1 rounded-3xl md:rounded-full px-6 lg:py-3 hover:bg-[#16181C] text-white"
+          className="w-[50px] lg:w-auto flex items-center h-[50px] lg:h-fit justify-start lg:justify-center space-x-1 rounded-3xl md:rounded-full px-2 lg:px-6 lg:py-3 hover:bg-[#16181C] text-white"
           href={`/`}
           key="home"
         >
-          <div className="w-auto">
+          <div className="mx-auto lg:mx-0">
           <HomeIcon/>
           </div>
-          <h5 className="hidden w-[70%] px-2 lg:flex md:min-w-full">Home</h5>
+          <h5 className="hidden w-auto px-2 lg:flex md:min-w-full">Home</h5>
         </Link>
        </div>
-       <div className="w-[100%] flex items-center h-fit justify-start flex-col">
        {nav_items.map((nav_item) => (
+       <div className="w-[100%] flex items-center h-fit justify-start"
+       key={nav_item.title}
+       >
           <Link
-            className="w-[100%] flex items-center h-fit justify-center space-x-1 rounded-3xl md:rounded-full px-6 lg:py-3 hover:bg-[#16181C] text-white"
+            className="w-[50px] lg:w-auto flex items-center h-[50px] lg:h-fit justify-start lg:justify-center space-x-1 rounded-3xl md:rounded-full px-2 lg:px-6 lg:py-3 hover:bg-[#16181C] text-white"
             href={`/${nav_item.title.toLowerCase()}?profileId=${
               userQuery?._id
             }`}
-            key={nav_item.title}
+            
           >
-            <div className="w-auto">
+            <div className="mx-auto lg:mx-0">
               <nav_item.icon />
             </div>
             <h5 className="hidden w-[70%] px-2 lg:flex md:min-w-full">{nav_item.title}</h5>
           </Link>
-        ))}
        </div>
+        ))}
         <div className="w-[100%] xl:w-[90%] flex items-center justify-start">
+          <div className="w-[90%] flex items-center justify-start">
           <button className="w-auto xl:w-[100px] px-3 flex items-center justify-center mx-0 xl:mx-2 md:mx-1 rounded-3xl bg-blue-500 py-2 text-xl hover:bg-opacity-70 transition duration-200 my-4">
             Tweet
           </button>
+          </div>
         </div>
       </div>
       {userQuery ? (
