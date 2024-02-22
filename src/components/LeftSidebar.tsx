@@ -50,7 +50,7 @@ export const LeftSidebar = () => {
        key={nav_item.title}
        >
           <Link
-            className="w-[50px] lg:w-auto flex items-center h-[50px] lg:h-fit justify-start lg:justify-center space-x-1 rounded-3xl md:rounded-full px-2 lg:px-6 lg:py-3 hover:bg-[#16181C] text-white"
+            className="w-[50px] lg:w-[90%] flex items-center h-[50px] lg:h-fit justify-start lg:justify-center space-x-1 rounded-3xl md:rounded-full px-2 lg:px-6 lg:py-3 hover:bg-[#16181C] text-white"
             href={`/${nav_item.title.toLowerCase()}?profileId=${
               userQuery?._id
             }`}
@@ -59,13 +59,13 @@ export const LeftSidebar = () => {
             <div className="mx-auto lg:mx-0">
               <nav_item.icon />
             </div>
-            <h5 className="hidden w-[70%] px-2 lg:flex md:min-w-full">{nav_item.title}</h5>
+            <h5 className="hidden w-[50%] px-2 lg:flex md:min-w-full">{nav_item.title}</h5>
           </Link>
        </div>
         ))}
         <div className="w-[100%] xl:w-[90%] flex items-center justify-start">
-          <div className="w-[90%] flex items-center justify-start">
-          <button className="w-auto xl:w-[100px] px-3 flex items-center justify-center mx-0 xl:mx-2 md:mx-1 rounded-3xl bg-blue-500 py-2 text-xl hover:bg-opacity-70 transition duration-200 my-4">
+          <div className=" lg:w-[90%] flex items-center justify-start">
+          <button className="w-[80%] md:w-auto xl:w-[100px] px-3 flex items-center justify-center mx-0 xl:mx-2 md:mx-1 rounded-3xl bg-blue-500 py-2 text-base font-bold md:font-normal md:text-xl hover:bg-opacity-70 transition duration-200 my-4">
             Tweet
           </button>
           </div>
@@ -77,7 +77,7 @@ export const LeftSidebar = () => {
    transition duration-200 my-3 p-2 cursor-pointer"
         >
           <UserButton afterSignOutUrl="/" />
-          <div className="text-xs capitalize flex flex-col">
+          <div className="hidden text-xs capitalize md:flex flex-col">
             <p className="font-semibold">{userQuery?.username}</p>
             <p className="font-thin">{`@${userQuery?.username}`}</p>
           </div>
