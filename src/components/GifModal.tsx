@@ -5,7 +5,6 @@ import { useRef, useEffect, useState } from "react";
 import { useDebounce, useGetGiphy } from "@/helpers";
 import { ThreeDots } from "react-loader-spinner";
 import Image from "next/image";
-import { Search } from ".";
 import { BsSearch } from "react-icons/bs";
 
 interface Props {

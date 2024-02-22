@@ -7,7 +7,8 @@ import Link from "next/link";
 import { ThreeDots } from "react-loader-spinner";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { CloseIcon } from ".";
+import { CloseIcon } from "@/icons";
+
 type Props = {
   placeholder: string;
   section: string;
