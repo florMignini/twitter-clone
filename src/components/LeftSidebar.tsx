@@ -11,6 +11,7 @@ import { AiOutlineHome } from "react-icons/ai";
 import xIcon from "@/assets/X_icon.png";
 import Image from "next/image";
 import { UserButton } from "@clerk/nextjs";
+import { HomeIcon } from "@/icons";
 
 export const LeftSidebar = () => {
   const userQuery = useGetSessionData();
@@ -18,8 +19,8 @@ export const LeftSidebar = () => {
   const router = useRouter();
 
   return (
-    <section className="px-1 md:w-[115px] lg:w-[196px] xl:w-[243px] fixed h-screen flex flex-col justify-between text-xl border-r-1 border-zinc-700">
-      <div className="w-[100%] items-center justify-end flex flex-col py-2">
+    <section className="w-[95px] px-1 md:w-[110px] lg:w-[196px] xl:w-[243px] fixed h-screen flex flex-col justify-between text-xl">
+      <div className="w-[100%] items-center justify-start flex flex-col py-2">
         <Link
           href={"/"}
           className="flex items-center w-[100%] h-fit lg:mx-auto justify-start lg:space-x-5 rounded-3xl md:rounded-full py-2 lg:py-3"
@@ -32,36 +33,38 @@ export const LeftSidebar = () => {
             className="flex hover:bg-[#16181C] rounded-full"
           />
         </Link>
-        <Link
-          className="w-[40%] lg:w-[90%] hover:bg-[#16181C] flex items-center md:w-[70%] lg:mx-auto h-fit justify-start lg:space-x-3 rounded-3xl md:rounded-full py-2 lg:py-3"
+       <div className="w-[100%] flex items-center h-fit justify-start">
+       <Link
+          className="w-[50%] flex items-center h-fit justify-center space-x-1 rounded-3xl md:rounded-full px-6 lg:py-3 hover:bg-[#16181C] text-white"
           href={`/`}
           key="home"
         >
-          <div className=" w-[90%] mx-auto lg:mx-0 text-3xl">
-            <AiOutlineHome />
+          <div className="w-auto">
+          <HomeIcon/>
           </div>
-          <div className="hidden w-auto xl:flex md:min-w-full">Home</div>
+          <h5 className="hidden w-[70%] px-2 lg:flex md:min-w-full">Home</h5>
         </Link>
-        {nav_items.map((nav_item) => (
+       </div>
+       <div className="w-[100%] flex items-center h-fit justify-start flex-col">
+       {nav_items.map((nav_item) => (
           <Link
-            className="w-[40%] lg:w-[90%] hover:bg-[#16181C] flex items-center md:w-[70%] h-fit justify-start lg:space-x-3 rounded-3xl md:rounded-full lg:mx-auto lg:py-3 py-2"
+            className="w-[50%] flex items-center h-fit justify-start space-x-1 rounded-3xl md:rounded-full px-6 lg:py-3 hover:bg-[#16181C] text-white"
             href={`/${nav_item.title.toLowerCase()}?profileId=${
               userQuery?._id
             }`}
             key={nav_item.title}
           >
-            <div className="w-[90%] mx-auto lg:mx-0 text-3xl">
+            <div className="w-auto">
               <nav_item.icon />
             </div>
-            <div className="hidden w-fit xl:flex md:min-w-full">
-              {nav_item.title}
-            </div>
+            <h5 className="hidden w-[70%] px-2 lg:flex md:min-w-full">{nav_item.title}</h5>
           </Link>
         ))}
+       </div>
         <div className="w-[100%] xl:w-[90%] flex items-center justify-start">
-        <button className="w-auto xl:w-[100px] px-3 flex items-center justify-center mx-0 xl:mx-2 md:mx-1 rounded-3xl bg-blue-500 py-2 text-xl hover:bg-opacity-70 transition duration-200 my-4">
-          Tweet
-        </button>
+          <button className="w-auto xl:w-[100px] px-3 flex items-center justify-center mx-0 xl:mx-2 md:mx-1 rounded-3xl bg-blue-500 py-2 text-xl hover:bg-opacity-70 transition duration-200 my-4">
+            Tweet
+          </button>
         </div>
       </div>
       {userQuery ? (

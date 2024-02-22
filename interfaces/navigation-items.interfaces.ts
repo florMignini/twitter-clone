@@ -1,6 +1,7 @@
-import { IconType } from "react-icons";
+import { ReactNode } from "react";
+
 
 export interface navItem {
-    icon: IconType,
+    icon: any,
     title: string
 }
