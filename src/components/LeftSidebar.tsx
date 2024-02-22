@@ -35,7 +35,7 @@ export const LeftSidebar = () => {
         </Link>
        <div className="w-[100%] flex items-center h-fit justify-start">
        <Link
-          className="w-[50%] flex items-center h-fit justify-center space-x-1 rounded-3xl md:rounded-full px-6 lg:py-3 hover:bg-[#16181C] text-white"
+          className="w-[90%] flex items-center h-fit justify-center space-x-1 rounded-3xl md:rounded-full px-6 lg:py-3 hover:bg-[#16181C] text-white"
           href={`/`}
           key="home"
         >
@@ -48,7 +48,7 @@ export const LeftSidebar = () => {
        <div className="w-[100%] flex items-center h-fit justify-start flex-col">
        {nav_items.map((nav_item) => (
           <Link
-            className="w-[50%] flex items-center h-fit justify-start space-x-1 rounded-3xl md:rounded-full px-6 lg:py-3 hover:bg-[#16181C] text-white"
+            className="w-[100%] flex items-center h-fit justify-center space-x-1 rounded-3xl md:rounded-full px-6 lg:py-3 hover:bg-[#16181C] text-white"
             href={`/${nav_item.title.toLowerCase()}?profileId=${
               userQuery?._id
             }`}
