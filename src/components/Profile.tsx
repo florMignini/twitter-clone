@@ -14,6 +14,8 @@ import { Tweet } from "../app/client_components/Tweet";
 import { useTweet } from "@/context";
 import { ThreeDots } from "react-loader-spinner";
 import Link from "next/link";
+import DefaultCover from "@/assets/AFAFAF-bg.png"
+import Image from "next/image";
 
 type FormProfileData = {
   profileImage: any;
@@ -40,7 +42,7 @@ const Profile = () => {
     getAllTweetsByUser(profileId);
     getUserInfo(profileId);
   }, [profileId]);
-
+console.log(userProfile)
   return !loading ? (
     <>
       <div className="w-full h-screen flex items-start justify-start flex-col z-0">
@@ -67,27 +69,44 @@ const Profile = () => {
         {/* user section */}
         <div className="relative w-[100%] h-screen flex flex-col items-start justify-start ">
           {/* front page */}
-          <div className="absolute z-10 top-0 w-[100%] h-auto flex flex-col items-start justify-start rounded-md bg-slate-600">
-            <Avatar
+          
+              <div className="absolute z-10 top-0 w-[100%] h-auto flex flex-col items-start justify-start rounded-md">
+              { userProfile?.coverImg ? (
+                <Image
+                  alt="profileCover"
+                  src={userProfile.coverImg}
+                  width={0}
+                  height={0}
+                  className="w-[100%] rounded-lg top-0 h-64 absolute object-cover"
+                />
+              ) : (
+                <Image
+                  alt="profileCover"
+                  src={DefaultCover}
+                  className="w-[95%] rounded-lg top-32 h-80 absolute object-cover"
+                />
+              )}
+              <Avatar
               src={userProfile?.imageUrl}
-              className="w-36 h-36 relative top-14 m-1
+              className="w-36 h-36 relative top-24 m-1
             object-contain
             md:w-70 md:h-70 lg:w-70 lg:h-70
             xl:w-200
             xl:h-200 rounded-full mt-14 ml-4"
             />
              {/* edit profile button */}
-             <div className="absolute z-10 right-3 md:bottom-20 top-56">
+             <div className="absolute z-10 right-3 md:bottom-20 top-72">
              <Link
                   href={`/profile?showModal=updateProfile`}
                   className="w-auto h-auto  border-1 border-gray-400 px-3 py-1 hover:border-black rounded-2xl font-semibold hover:bg-slate-600/25"
                 >
                   Edit Profile
                 </Link>
-             </div>
+             </div>   
+            
           </div>
           {userProfile ? (
-            <div className="absolute top-72 w-[100%] h-32 flex flex-col items-start justify-center pl-2">
+            <div className="absolute top-80 w-[100%] h-32 flex flex-col items-start justify-center pl-2">
                 <h2 className="text-xl font-bold text-white capitalize">
                   {userProfile?.username}
                 </h2>
@@ -95,7 +114,7 @@ const Profile = () => {
                 {/* bio section */}
                 <div className="w-[90%] h-32 flex items-center justify-start ">
                   <p className="text-base font-normal text-white mt-2">
-                    this is my bio
+                    {userProfile.bio}
                   </p>
                 </div>
                 {/* joined and location section*/}
@@ -103,7 +122,7 @@ const Profile = () => {
                   {/* location */}
                   <div className="w-[50%] flex items-center justify-start gap-1 pt-2 mb-2">
                     <CiLocationOn className="flex items-center justify-center w-4 h-4 font-bold" />
-                    <p className="">Mar del Plata, Argentina</p>
+                    <p className="">{userProfile.location}</p>
                   </div>
                   {/* joined */}
                   <div className="w-[50%] flex items-center justify-start gap-2 pt-2 mb-2">
