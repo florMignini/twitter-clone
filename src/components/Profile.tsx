@@ -75,15 +75,15 @@ console.log(userProfile)
                 <Image
                   alt="profileCover"
                   src={userProfile.coverImg}
-                  width={0}
-                  height={0}
-                  className="w-[100%] rounded-lg top-0 h-64 absolute object-cover"
+                  width={500}
+                  height={500}
+                  className="w-[100%] rounded-lg top-0 h-64 absolute object-s"
                 />
               ) : (
                 <Image
                   alt="profileCover"
                   src={DefaultCover}
-                  className="w-[95%] rounded-lg top-32 h-80 absolute object-cover"
+                  className="w-[100%] rounded-lg top-0 h-64 absolute object-cover"
                 />
               )}
               <Avatar
