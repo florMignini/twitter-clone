@@ -115,10 +115,10 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
           value={formData.tweetContent}
           placeholder={placeholder}
           autoComplete="off"
+          id="tweetInput"
           className="w-full h-[90%] bg-transparent 
         placeholder:text-gray-600 overflow-clip
         outline-none border-none border-b-[0.1px] px-2 py-2 text-xl font-light"
-          id="tweetInput"
           onChange={(e) =>
             setFormData({ ...formData, tweetContent: e.target.value })
           }

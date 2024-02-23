@@ -35,7 +35,19 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
       console.log(error);
     }
   };
+  // @POST UPDATE USER INFO
+  const updateUserInfo = async ({ tweetContentData, userId}: any) => {
 
+    try {
+      const { data }: any = await axios.post(`/api/users/updateProfile/${userId}`, {
+        tweetContentData,
+      });
+      console.log(data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   //@GET ALL TWEETS
   const getAllTweets = async () => {
     try {
@@ -213,6 +225,7 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
         userProfile,
         //actions
         getUserInfo,
+        updateUserInfo,
         createTweet,
         getAllTweets,
         likeTweet,

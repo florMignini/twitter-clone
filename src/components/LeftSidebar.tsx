@@ -50,7 +50,7 @@ export const LeftSidebar = () => {
        key={nav_item.title}
        >
           <Link
-            className="w-[50px] lg:w-[90%] flex items-center h-[50px] lg:h-fit justify-start lg:justify-center space-x-1 rounded-3xl md:rounded-full px-2 lg:px-6 lg:py-3 hover:bg-[#16181C] text-white"
+            className="w-[50px] lg:w-auto flex items-center h-[50px] lg:h-fit justify-start lg:justify-center space-x-1 rounded-3xl md:rounded-full px-2 lg:px-6 lg:py-3 hover:bg-[#16181C] text-white"
             href={`/${nav_item.title.toLowerCase()}?profileId=${
               userQuery?._id
             }`}

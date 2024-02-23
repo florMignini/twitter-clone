@@ -2,11 +2,14 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useRef, useEffect, useState, useMemo } from "react";
+import { useEdgeStore } from "@/lib/edgestore";
 import Image from "next/image";
 import Link from "next/link";
 import { CameraIcon, CloseIcon } from ".";
 import { useGetSessionData } from "@/helpers";
 import DefaultCover from "@/assets/AFAFAF-bg.png";
+import { edgestoreType } from "../../interfaces";
+import { useTweet } from "@/context";
 
 interface Props {
   onClose: () => void;
@@ -19,6 +22,12 @@ const UpdateProfileModal = ({ onClose, onPost }: Props) => {
   const modalRef = useRef<null | HTMLDialogElement>(null);
   const showModal = searchParams?.get("showModal");
   const userData = useGetSessionData();
+  const { updateUserInfo }: any = useTweet();
+
+  const [formData, setFormData] = useState({
+    bio: "",
+    location: "",
+  });
 
   useEffect(() => {
     if (showModal === "updateProfile") {
@@ -30,9 +39,9 @@ const UpdateProfileModal = ({ onClose, onPost }: Props) => {
 
   const closeModal = () => {
     modalRef.current?.close();
-    onClose();
+    router.push(`/profile?profileId=${userData._id}`);
   };
-
+  const { edgestore } = useEdgeStore();
   const [file, setFile] = useState<any | string>("");
   const [url, setUrl] = useState<string>();
 
@@ -47,13 +56,30 @@ const UpdateProfileModal = ({ onClose, onPost }: Props) => {
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
+    let edgestoreRes: edgestoreType = {};
+    if (file) {
+      edgestoreRes = await edgestore.publicImages.upload({ file });
+    }
+    //send data to database
+    const tweetContentData = {
+      bio: formData.bio,
+      location: formData.location,
+      coverImg: edgestoreRes?.url,
+    };
+
     try {
-      /* const formCoverDataImage = new FormData();
-      formCoverDataImage.append("cover-image", formData.coverImage);
-      const coverImage = await axios.post(
-        `/api/users/imageCover`,
-        formCoverDataImage
-      ); */
+      const userContentData = { tweetContentData, userId: userData._id };
+      console.log(userContentData);
+      await updateUserInfo(userContentData);
+      // clear state
+      setFormData({
+        bio: "",
+        location: "",
+      });
+      setFile("");
+      router.refresh();
+      // close modal
+      closeModal();
     } catch (error) {
       console.log(error);
     }
@@ -132,18 +158,38 @@ const UpdateProfileModal = ({ onClose, onPost }: Props) => {
             </div>
             {/* BIO */}
             <div className="bg-black border-1 border-white w-full h-[150px] p-1 rounded-lg">
-              <label className="w-[100%] h-[20%] pl-3 pt-2 font-medium text-base text-zinc-600">Bio</label>
-              <textarea maxLength={160}
-              className="w-[100%] h-[80%] px-2 py-3 bg-black outline-none text-white rounded-text-base rounded-t-none"
-               />
+              <label className="w-[100%] h-[20%] pl-3 pt-2 font-medium text-base text-zinc-600">
+                Bio
+              </label>
+              <textarea
+                name="bio"
+                value={formData.bio}
+                autoComplete="off"
+                id="bioInput"
+                maxLength={160}
+                className="w-[100%] h-[80%] px-2 py-3 bg-black outline-none text-white rounded-text-base rounded-t-none"
+                onChange={(e) =>
+                  setFormData({ ...formData, bio: e.target.value })
+                }
+              />
             </div>
             {/* LOCATION */}
             <div className="bg-black border-1 border-white w-full h-[80px] p-1 rounded-lg">
-              <label className="w-[100%] h-[20%] pl-3 pt-2 font-medium text-base text-zinc-600">Location</label>
+              <label className="w-[100%] h-[20%] pl-3 pt-2 font-medium text-base text-zinc-600">
+                Location
+              </label>
               <input
-              maxLength={30}
-              className="w-[100%] h-[50%] px-2 py-3 bg-black outline-none text-white rounded-lg rounded-t-none"
-               />
+                maxLength={30}
+                type="text"
+                name="location"
+                value={formData.location}
+                autoComplete="off"
+                id="locationInput"
+                className="w-[100%] h-[50%] px-2 py-3 bg-black outline-none text-white rounded-lg rounded-t-none"
+                onChange={(e) =>
+                  setFormData({ ...formData, location: e.target.value })
+                }
+              />
             </div>
           </form>
         </dialog>
