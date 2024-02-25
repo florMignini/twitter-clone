@@ -1,9 +1,10 @@
 "use client";
 
+import { useSocket } from '@/context';
 import React, { useEffect } from 'react'
 
 const Messages = () => {
-/*     const {isConnected, socket, message} = useSocket();
+    const {isConnected, socket, message}:any = useSocket();
 
     useEffect(() => {
         if(!socket){
@@ -11,7 +12,7 @@ const Messages = () => {
         }
 
       }, [socket])
- if(!socket){
+ if(!isConnected){
     return (
     <h1 className='text-6xl text-red-600'> Not Connected</h1>
         )
@@ -19,7 +20,7 @@ const Messages = () => {
 
 
 
- */
+
 return (
     <h1 className='text-6xl text-emerald-600'> Hello</h1>
         )

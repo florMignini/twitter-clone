@@ -131,10 +131,10 @@ export const Tweet = ({ tweet, component }: tweetComponent) => {
               href={`/profile?profileId=${tweet?.userId?._id}`}
             >
               <p className="font-bold text-md">
-                {tweet?.userId?.username || userQuery.username}
+                {tweet?.userId?.username || userQuery?.username}
               </p>
               <p className="font-thin text-md mx-1">
-                @{tweet?.userId?.username || userQuery.username}
+                @{tweet?.userId?.username || userQuery?.username}
               </p>
               <div className="flex">
                 <BsDot />
