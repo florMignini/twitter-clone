@@ -7,10 +7,10 @@ export const nav_items: navItem[] = [
     icon: AiOutlineBell,
     title: "Notification",
   }, */
-  {
+ /*  {
     icon: EnvelopeIcon,
     title: "Messages",
-  },
+  }, */
   {
     icon: BookmarkIcon,
     title: "Bookmarks",

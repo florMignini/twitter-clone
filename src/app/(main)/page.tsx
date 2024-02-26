@@ -30,11 +30,13 @@ const Page = () => {
 
   useEffect(() => {
     getAllTweets();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     getAllTweetsByUser(userQuery?._id)
     getBookmarsByUser(userQuery?._id)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userQuery?._id])
  
   /* modal states */

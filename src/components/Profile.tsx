@@ -41,6 +41,7 @@ const Profile = () => {
   useEffect(() => {
     getAllTweetsByUser(profileId);
     getUserInfo(profileId);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [profileId]);
 console.log(userProfile)
   return !loading ? (
