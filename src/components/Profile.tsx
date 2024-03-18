@@ -100,7 +100,7 @@ console.log(userProfile)
              {/* edit profile button */}
              <div className="absolute z-10 right-3 md:bottom-20 top-72">
              {
-              userProfile._id === userSession._id ? (
+              userProfile?._id === userSession?._id ? (
                 <Link
                   href={`/profile?showModal=updateProfile`}
                   className="w-auto h-auto  border-1 border-gray-400 px-3 py-1 hover:border-black rounded-2xl font-semibold hover:bg-slate-600/25"
