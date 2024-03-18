@@ -12,7 +12,7 @@ import { CiLocationOn } from "react-icons/ci";
 import axios from "axios";
 import { Tweet } from "../app/client_components/Tweet";
 import { useTweet } from "@/context";
-import { ThreeDots } from "react-loader-spinner";
+import { TailSpin } from "react-loader-spinner";
 import Link from "next/link";
 import DefaultCover from "@/assets/AFAFAF-bg.png";
 import Image from "next/image";
@@ -39,7 +39,7 @@ const Profile = () => {
   const searchParams = useSearchParams();
   const profileId = searchParams?.get("profileId");
   const userSession = useGetSessionData();
-  console.log(userSession);
+
   useEffect(() => {
     getAllTweetsByUser(profileId);
     getUserInfo(profileId);
@@ -139,14 +139,16 @@ const Profile = () => {
                 </div>
               </div>
               {userProfile.following ? (
-                <div className="w-[50%] flex items-center justify-start gap-1 pt-2 text-sm cursor-pointer hover:underline">
+                <Link
+                href={`/following`}
+                className="w-[50%] flex items-center justify-start gap-1 pt-2 text-sm cursor-pointer hover:underline">
                   <p className="font-thin">
                     <strong className="font-bold">
                       {userProfile.following.length}
                     </strong>{" "}
                     following
                   </p>
-                </div>
+                </Link>
               ) : null}
               {/* user twitter section */}
               <div className="absolute top-36 h-screen w-[100%] flex flex-col items-center justify-start mx-auto">
@@ -161,13 +163,13 @@ const Profile = () => {
     </>
   ) : (
     <div className="w-full h-screen flex items-center justify-center">
-      <ThreeDots
-        visible={true}
-        height="40"
-        width="40"
-        color="#6bc3f9"
-        radius="9"
-      />
+      <TailSpin
+            height="40"
+            width="40"
+            color="#319bf0"
+            radius="1"
+            visible={true}
+          />
     </div>
   );
 };
