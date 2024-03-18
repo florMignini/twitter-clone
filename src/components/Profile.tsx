@@ -16,6 +16,7 @@ import { ThreeDots } from "react-loader-spinner";
 import Link from "next/link";
 import DefaultCover from "@/assets/AFAFAF-bg.png"
 import Image from "next/image";
+import { useGetSessionData } from "@/helpers";
 
 type FormProfileData = {
   profileImage: any;
@@ -37,7 +38,8 @@ const Profile = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const profileId = searchParams?.get("profileId");
-
+const userSession = useGetSessionData()
+console.log(userSession)
   useEffect(() => {
     getAllTweetsByUser(profileId);
     getUserInfo(profileId);
@@ -97,12 +99,16 @@ console.log(userProfile)
             />
              {/* edit profile button */}
              <div className="absolute z-10 right-3 md:bottom-20 top-72">
-             <Link
+             {
+              userProfile._id === userSession._id ? (
+                <Link
                   href={`/profile?showModal=updateProfile`}
                   className="w-auto h-auto  border-1 border-gray-400 px-3 py-1 hover:border-black rounded-2xl font-semibold hover:bg-slate-600/25"
                 >
                   Edit Profile
                 </Link>
+              ) : null
+             }
              </div>   
             
           </div>
@@ -121,10 +127,14 @@ console.log(userProfile)
                 {/* joined and location section*/}
               <div className="w-[80%] md:w-[60%] lg:w-[70%] h-10 flex items-start justify-start md:text-[13px] text-[12px] font-thin gap-2 text-zinc-600">
                   {/* location */}
-                  <div className="w-[50%] flex items-center justify-start gap-1 pt-2 mb-2">
+                  {
+                    userProfile.location ? (
+                      <div className="w-[50%] flex items-center justify-start gap-1 pt-2 mb-2">
                     <CiLocationOn className="flex items-center justify-center w-4 h-4 font-bold" />
                     <p className="">{userProfile.location}</p>
                   </div>
+                    ): null
+                  }
                   {/* joined */}
                   <div className="w-[50%] flex items-center justify-start gap-2 pt-2 mb-2">
                     <BsCalendarWeek className="flex items-center justify-center w-4 h-4 font-bold" />

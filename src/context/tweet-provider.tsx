@@ -26,7 +26,7 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
 
   //@GET USER INFORMATION
   const getUserInfo = async (userId: string) => {
-    try {
+    try { 
       const { data } = await axios.get(`/api/users/info/${userId}`);
       setUserProfile(data.profileInfo);
       setLoading(false);

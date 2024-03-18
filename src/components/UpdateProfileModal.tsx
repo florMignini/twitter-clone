@@ -22,7 +22,7 @@ const UpdateProfileModal = ({ onClose, onPost }: Props) => {
   const modalRef = useRef<null | HTMLDialogElement>(null);
   const showModal = searchParams?.get("showModal");
   const userData = useGetSessionData();
-  const { updateUserInfo }: any = useTweet();
+  const { updateUserInfo, userProfile }: any = useTweet();
 
   const [formData, setFormData] = useState({
     bio: "",
@@ -39,7 +39,7 @@ const UpdateProfileModal = ({ onClose, onPost }: Props) => {
 
   const closeModal = () => {
     modalRef.current?.close();
-    router.push(`/profile?profileId=${userData._id}`);
+    router.push(`/profile?profileId=${userProfile._id}`);
   };
   const { edgestore } = useEdgeStore();
   const [file, setFile] = useState<any | string>("");
