@@ -15,7 +15,7 @@ export const GET = async (req: NextRequest) => {
     }
     
     const profile = await User.findOne({userId: user.id! })
-  
+    .populate("following", "-password -__v")
     if (profile) {
       return NextResponse.json(
         profile,

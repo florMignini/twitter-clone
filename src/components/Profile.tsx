@@ -14,7 +14,7 @@ import { Tweet } from "../app/client_components/Tweet";
 import { useTweet } from "@/context";
 import { ThreeDots } from "react-loader-spinner";
 import Link from "next/link";
-import DefaultCover from "@/assets/AFAFAF-bg.png"
+import DefaultCover from "@/assets/AFAFAF-bg.png";
 import Image from "next/image";
 import { useGetSessionData } from "@/helpers";
 
@@ -38,14 +38,14 @@ const Profile = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const profileId = searchParams?.get("profileId");
-const userSession = useGetSessionData()
-console.log(userSession)
+  const userSession = useGetSessionData();
+  console.log(userSession);
   useEffect(() => {
     getAllTweetsByUser(profileId);
     getUserInfo(profileId);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [profileId]);
-console.log(userProfile)
+
   return !loading ? (
     <>
       <div className="w-full h-screen flex items-start justify-start flex-col z-0">
@@ -72,24 +72,24 @@ console.log(userProfile)
         {/* user section */}
         <div className="relative w-[100%] h-screen flex flex-col items-start justify-start ">
           {/* front page */}
-          
-              <div className="absolute z-10 top-0 w-[100%] h-auto flex flex-col items-start justify-start rounded-md">
-              { userProfile?.coverImg ? (
-                <Image
-                  alt="profileCover"
-                  src={userProfile.coverImg}
-                  width={500}
-                  height={500}
-                  className="w-[100%] rounded-lg top-0 h-64 absolute object-s"
-                />
-              ) : (
-                <Image
-                  alt="profileCover"
-                  src={DefaultCover}
-                  className="w-[100%] rounded-lg top-0 h-64 absolute object-cover"
-                />
-              )}
-              <Avatar
+
+          <div className="absolute z-10 top-0 w-[100%] h-auto flex flex-col items-start justify-start rounded-md">
+            {userProfile?.coverImg ? (
+              <Image
+                alt="profileCover"
+                src={userProfile.coverImg}
+                width={500}
+                height={500}
+                className="w-[100%] rounded-lg top-0 h-64 absolute object-s"
+              />
+            ) : (
+              <Image
+                alt="profileCover"
+                src={DefaultCover}
+                className="w-[100%] rounded-lg top-0 h-64 absolute object-cover"
+              />
+            )}
+            <Avatar
               src={userProfile?.imageUrl}
               className="w-36 h-36 relative top-24 m-1
             object-contain
@@ -97,54 +97,57 @@ console.log(userProfile)
             xl:w-200
             xl:h-200 rounded-full mt-14 ml-4"
             />
-             {/* edit profile button */}
-             <div className="absolute z-10 right-3 md:bottom-20 top-72">
-             {
-              userProfile?._id === userSession?._id ? (
+            {/* edit profile button */}
+            <div className="absolute z-10 right-3 md:bottom-20 top-72">
+              {userProfile?._id === userSession?._id ? (
                 <Link
                   href={`/profile?showModal=updateProfile`}
                   className="w-auto h-auto  border-1 border-gray-400 px-3 py-1 hover:border-black rounded-2xl font-semibold hover:bg-slate-600/25"
                 >
                   Edit Profile
                 </Link>
-              ) : null
-             }
-             </div>   
-            
+              ) : null}
+            </div>
           </div>
           {userProfile ? (
             <div className="absolute top-80 w-[100%] h-32 flex flex-col items-start justify-center pl-2">
-                <h2 className="text-xl font-bold text-white capitalize">
-                  {userProfile?.username}
-                </h2>
-                <p className="font-thin text-[15px] text-zinc-600">{`@${userProfile?.username}`}</p>
-                {/* bio section */}
-                <div className="w-[90%] h-32 flex items-center justify-start ">
-                  <p className="text-base font-normal text-white mt-2">
-                    {userProfile.bio}
-                  </p>
-                </div>
-                {/* joined and location section*/}
+              <h2 className="text-xl font-bold text-white capitalize">
+                {userProfile?.username}
+              </h2>
+              <p className="font-thin text-[15px] text-zinc-600">{`@${userProfile?.username}`}</p>
+              {/* bio section */}
+              <div className="w-[90%] h-32 flex items-center justify-start ">
+                <p className="text-base font-normal text-white mt-2">
+                  {userProfile.bio}
+                </p>
+              </div>
+              {/* joined and location section*/}
               <div className="w-[80%] md:w-[60%] lg:w-[70%] h-10 flex items-start justify-start md:text-[13px] text-[12px] font-thin gap-2 text-zinc-600">
-                  {/* location */}
-                  {
-                    userProfile.location ? (
-                      <div className="w-[50%] flex items-center justify-start gap-1 pt-2 mb-2">
+                {/* location */}
+                {userProfile.location ? (
+                  <div className="w-[50%] flex items-center justify-start gap-1 pt-2 mb-2">
                     <CiLocationOn className="flex items-center justify-center w-4 h-4 font-bold" />
                     <p className="">{userProfile.location}</p>
                   </div>
-                    ): null
-                  }
-                  {/* joined */}
-                  <div className="w-[50%] flex items-center justify-start gap-2 pt-2 mb-2">
-                    <BsCalendarWeek className="flex items-center justify-center w-4 h-4 font-bold" />
-                    <p className="">{`Joined ${dayjs(
-                      userProfile?.created_at
-                    ).format("MMMM YYYY")}`}</p>
-                  </div>
-                
+                ) : null}
+                {/* joined */}
+                <div className="w-[50%] flex items-center justify-start gap-2 pt-2 mb-2">
+                  <BsCalendarWeek className="flex items-center justify-center w-4 h-4 font-bold" />
+                  <p className="">{`Joined ${dayjs(
+                    userProfile?.created_at
+                  ).format("MMMM YYYY")}`}</p>
+                </div>
               </div>
-             
+              {userProfile.following ? (
+                <div className="w-[50%] flex items-center justify-start gap-1 pt-2 text-sm cursor-pointer hover:underline">
+                  <p className="font-thin">
+                    <strong className="font-bold">
+                      {userProfile.following.length}
+                    </strong>{" "}
+                    following
+                  </p>
+                </div>
+              ) : null}
               {/* user twitter section */}
               <div className="absolute top-36 h-screen w-[100%] flex flex-col items-center justify-start mx-auto">
                 {tweetsByUser?.map((tweet: tweetType) => (
