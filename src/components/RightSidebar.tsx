@@ -10,7 +10,7 @@ type userType = {
   _id: string;
   username: string;
   email: string;
-  profile_picture: string;
+  imageUrl: string;
   isGoogleSession: boolean;
   is_verify: boolean;
   following: string[];
@@ -19,7 +19,7 @@ type userType = {
 const RightSidebar = () => {
   //bringing user session data && login session
   const userQuery = useGetSessionData();
-
+  // console.log(userQuery);
   //get all Users
   const { data, isLoading } = useGetUsers();
 
@@ -28,10 +28,14 @@ const RightSidebar = () => {
       ? data?.data?.allUsers?.filter(
           (user: userType) =>
             user._id !== userQuery._id &&
-            !userQuery.following.includes(user._id)
+            userQuery.following.forEach((el: any) => {
+              el?._id === user?._id;
+              /* console.log(el);
+              console.log(user); */
+            })
         )
       : null;
-
+  // console.log(suggestionsArray);
   //Follow action
   const follow = async (userToFollowId: string, userId: string) => {
     await axios.post("/api/users/following", { userToFollowId, userId });
@@ -40,9 +44,9 @@ const RightSidebar = () => {
   return (
     <section className="w-[300px] hidden fixed border-l-1 border-zinc-700 h-screen lg:flex flex-col px-5">
       {/* Search bar section */}
-     <div className="mt-4">
-     <Search placeholder="Search for people" section="rightsidebar" />
-     </div>
+      <div className="mt-4">
+        <Search placeholder="Search for people" section="rightsidebar" />
+      </div>
       {/* Who to Follow */}
       {isLoading ? null : (
         <div className="w-fill flex flex-col rounded-2xl  bg-[#16181C] mt-2">
@@ -50,24 +54,24 @@ const RightSidebar = () => {
           <div>
             {suggestionsArray?.map((suggestion: userType) => (
               <button
-                className="w-full my-2 flex items-center justify-between space-x-1 px-3 py-1 hover:bg-white/10
+                className="w-full my-2 flex items-center justify-between px-3 py-1 hover:bg-white/10
                       transition duration-200"
                 key={suggestion._id}
               >
-                <div className="flex">
+                <div className="w-[70%] flex items-center justify-start">
                   <Image
                     width={50}
                     height={50}
                     className="rounded-full flex items-center justify-center"
                     alt="userAvatar"
-                    src={suggestion?.profile_picture}
+                    src={suggestion?.imageUrl}
                   />
-                  <div className="flex flex-col items-center justify-start w-[100%] pl-1">
-                    <p className="w-[100%] text-sm font-thin">
+                  <div className="flex flex-col items-center justify-start w-[100%] truncate pl-2">
+                    <p className="w-[100%] text-sm font-thin flex items-center justify-start">
                       {`${suggestion?.username}`}
                     </p>
                     <Link
-                      className="w-[100%] text-sm text-blue-300"
+                      className="w-[100%] text-sm text-blue-300 flex items-center justify-start"
                       href={`/profile?profileId=${suggestion?._id}`}
                     >
                       {`@${suggestion?.username}`}
@@ -75,7 +79,7 @@ const RightSidebar = () => {
                   </div>
                 </div>
                 <button
-                  className="w-1/3 flex items-center justify-center mr-2 px-5 py-1 bg-white rounded-2xl text-sm font-semibold text-black hover:opacity-80 lg:mb-2"
+                  className="w-1/3 flex items-center justify-center px-5 py-1 bg-white rounded-2xl text-sm font-semibold text-black hover:opacity-80 lg:mb-2"
                   onClick={() => follow(suggestion?._id, userQuery?._id)}
                 >
                   Follow

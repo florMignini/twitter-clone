@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import useGetTweet from "@/helpers/useGetTweet";
 import { Tweet } from "../../../client_components/Tweet";
-import { Profile, PublishComment, Comment } from "@/components";
+import { PublishComment } from "@/components";
 
 
 import { BiArrowBack } from "react-icons/bi";
