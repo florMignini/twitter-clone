@@ -19,22 +19,20 @@ type userType = {
 const RightSidebar = () => {
   //bringing user session data && login session
   const userQuery = useGetSessionData();
-console.log(userQuery?.following);
+
   //get all Users
   const { data, isLoading } = useGetUsers();
-  
-   const userList = data && data?.data?.allUsers?.filter((user: userType) => user?._id !== userQuery?._id)
-   console.log(userList)
 
-  const suggestionsArray =userList?.filter((user: userType) =>
-  userQuery?.following?.forEach((el: any) => {
-              // el?._id === user?._id;
-              console.log(el);
-              console.log(user);
-            })
-        )
-      
-  console.log(suggestionsArray);
+  const res: string[] = [];
+
+  const followingList = data?.data?.allUsers?.filter((user:userType)=> user._id !== userQuery?._id);
+
+  const userList = userQuery && followingList?.map((user: userType) => res.push(userQuery?.following[0]?._id));
+
+  const suggestionsArray = followingList?.filter((user: userType) =>
+    !res.includes(user?._id)
+  );
+
   //Follow action
   const follow = async (userToFollowId: string, userId: string) => {
     await axios.post("/api/users/following", { userToFollowId, userId });
