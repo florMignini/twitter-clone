@@ -37,7 +37,8 @@ const RightSidebar = () => {
   const follow = async (userToFollowId: string, userId: string) => {
     await axios.post("/api/users/following", { userToFollowId, userId });
   };
-
+  
+  
   return (
     <section className="w-[300px] hidden fixed border-l-1 border-zinc-700 h-screen lg:flex flex-col px-5">
       {/* Search bar section */}
@@ -76,7 +77,7 @@ const RightSidebar = () => {
                   </div>
                 </div>
                 <button
-                  className="w-1/3 flex items-center justify-center px-5 py-1 bg-white rounded-2xl text-sm font-semibold text-black hover:opacity-80 lg:mb-2"
+                  className="w-1/3 flex items-center justify-center px-5 py-1 bg-white rounded-2xl text-sm font-semibold text-black hover:opacity-80 lg:mb-2 "
                   onClick={() => follow(suggestion?._id, userQuery?._id)}
                 >
                   Follow

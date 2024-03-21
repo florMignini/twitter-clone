@@ -1,9 +1,10 @@
 "use client";
+import React from "react";
+import axios from "axios";
 import { useTweet } from "@/context";
 import { useGetSessionData } from "@/helpers";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React from "react";
 import { BiArrowBack } from "react-icons/bi";
 import { TailSpin } from "react-loader-spinner";
 
@@ -11,7 +12,12 @@ const Following = () => {
   const router = useRouter();
   const userSession = useGetSessionData();
   const { userProfile, loading }: any = useTweet();
-  console.log(userSession?.following);
+console.log(userSession)
+  //Unfollow action
+  const unfollow = async (userToUnfollowId: string, userId: string) => {
+    await axios.post("/api/users/unfollowing", { userToUnfollowId, userId });
+  };
+
   return !loading ? (
     <div className="w-full h-screen flex items-start justify-start flex-col z-0">
       <div className="w-[100%] h-24 flex items-start justify-start py-1 px-2 sticky z-20 backdrop-blur-md top-0 bg-black/40">
@@ -55,8 +61,11 @@ const Following = () => {
                   <p className="w-[100%] text-base font-thin">{`@${follower?.username}`}</p>
                 </div>
                 <div className="w-[50%] h-full flex items-center justify-end">
-                  <button className="w-1/3 flex items-center justify-center mr-2 px-5 py-1 bg-white rounded-2xl text-sm font-semibold text-black hover:opacity-80">
-                    Following
+                  <button
+                    className="w-1/3 flex items-center justify-center mr-2 px-5 py-1 bg-red-400 rounded-2xl text-sm font-semibold text-red-600 hover:opacity-80"
+                    onClick={() => unfollow(follower?._id, userSession?._id)}
+                  >
+                    Unfollow
                   </button>
                 </div>
               </div>
