@@ -19,8 +19,8 @@ export const LeftSidebar = () => {
   const router = useRouter();
 
   return (
-    <section className="w-[50px] px-1 pb-4 md:w-[110px] lg:w-[196px] xl:w-[243px] fixed h-screen flex flex-col justify-between text-xl">
-      <div className="w-[100%] items-center justify-start flex flex-col py-2">
+    <section className="w-[60px] px-1 pb-4 md:w-[110px] lg:w-[196px] xl:w-[243px] fixed h-full flex flex-col justify-between text-xl">
+      <div className="w-[100%] items-center justify-start flex flex-col ">
         <Link
           href={"/"}
           className="flex items-center w-[100%] h-fit lg:mx-auto justify-start lg:space-x-5 rounded-3xl md:rounded-full py-2 lg:py-3"
@@ -73,8 +73,8 @@ export const LeftSidebar = () => {
       </div>
       {userQuery ? (
         <div
-          className="w-[90%] flex items-center justify-center space-x-3 rounded-full mx-auto lg:hover:bg-white/10
-   transition duration-200 my-3 p-2 cursor-pointer"
+          className="w-[90%] flex items-center justify-center lg:justify-start space-x-3 rounded-full mx-auto lg:hover:bg-white/10
+   transition duration-200 p-2 cursor-pointer"
         >
           <UserButton afterSignOutUrl="/" />
           <div className="hidden text-xs capitalize md:flex flex-col">

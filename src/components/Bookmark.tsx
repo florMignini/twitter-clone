@@ -24,7 +24,7 @@ const Bookmark = (bookmark: any) => {
   const profileId = searchParams?.get("profileId");
   return (
     <div
-      className="w-[95%] relative grid grid-cols-[8%_92%] gap-2
+      className="w-[95%] relative grid gap-2
 bg-slate-900 rounded-xl p-3 my-3
 "
     >

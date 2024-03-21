@@ -22,7 +22,7 @@ export default function RootLayout({
 
   return (
     <ClerkProvider>
-      <html lang="en" className="bg-black w-full h-screen">
+      <html lang="en" className="bg-black w-full h-full">
       <body className={font.className}>
             <Providers>
               <EdgeStoreProvider>

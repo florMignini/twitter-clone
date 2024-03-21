@@ -22,23 +22,28 @@ export interface Tweet {
 }
 
 const Page = () => {
-
   const userQuery = useGetSessionData();
   const router = useRouter();
   const { error } = useGetTweets();
-  const { getAllTweets, tweets, loading, getBookmarsByUser, getAllTweetsByUser }: any = useTweet();
+  const {
+    getAllTweets,
+    tweets,
+    loading,
+    getBookmarsByUser,
+    getAllTweetsByUser,
+  }: any = useTweet();
 
   useEffect(() => {
     getAllTweets();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    getAllTweetsByUser(userQuery?._id)
-    getBookmarsByUser(userQuery?._id)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userQuery?._id])
- 
+    getAllTweetsByUser(userQuery?._id);
+    getBookmarsByUser(userQuery?._id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userQuery?._id]);
+
   /* modal states */
   const onClose = () => {
     router.push("/");
@@ -68,14 +73,14 @@ const Page = () => {
         }}
       ></GifModal>
 
-      <main className="w-full h-full z-0 min-h-screen rounded-lg">
+      <main className="w-full h-full border-r-1 border-l-1 border-zinc-700 z-0">
         <h1 className="text-2xl text-left px-5 py-3 font-bold z-10 backdrop-blur-md sticky w-full h-32 bg-black/10 top-0 bg-black">
           Home
         </h1>
 
         {/* Avatar */}
         {
-          <div className="w-full h-auto px-3 pt-3 pb-0 relative grid grid-cols-[8%,92%] gap-1 bg-[#16181C]">
+          <div className="w-full h-auto px-3 pb-0 relative grid grid-cols-[8%,92%] gap-1 bg-[#16181C]">
             <div className="">
               {userQuery && (
                 <Image
@@ -105,7 +110,7 @@ const Page = () => {
             />
           </div>
         ) : (
-          <div className="w-[100%] flex flex-col items-center justify-center my-4">
+          <div className="w-[100%] flex flex-col items-center justify-center">
             {error ? (
               <h1>Something goes wrong with server</h1>
             ) : (
