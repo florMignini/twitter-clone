@@ -73,7 +73,7 @@ const Page = () => {
         }}
       ></GifModal>
 
-      <main className="w-full h-full border-r-1 border-l-1 border-zinc-700 z-0">
+      <main className="w-[99%] h-full z-0 min-h-screen mx-auto">
         <h1 className="text-2xl text-left px-5 py-3 font-bold z-10 backdrop-blur-md sticky w-full h-32 bg-black/10 top-0 bg-black">
           Home
         </h1>

@@ -40,7 +40,7 @@ const RightSidebar = () => {
   
   
   return (
-    <section className="w-[300px] hidden fixed border-l-1 border-zinc-700 h-screen lg:flex flex-col px-5">
+    <section className="w-[300px] hidden fixed h-screen lg:flex flex-col px-5">
       {/* Search bar section */}
       <div className="mt-4">
         <Search placeholder="Search for people" section="rightsidebar" />

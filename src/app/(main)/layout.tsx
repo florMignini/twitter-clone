@@ -17,7 +17,7 @@ export default function MainLayout({
           {/* Main content ---> Tweets  */}
           <div className="">{children}</div>
           {/* What's happening & Who to follow section */}
-          <div className="border-l-1 border-zinc-700">
+          <div className="w-full border-l-1 border-zinc-700">
             <RightSidebar />
           </div>
         </div>
