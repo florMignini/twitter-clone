@@ -11,18 +11,31 @@ import { Tweet as tweetType } from "../../../../interfaces";
 import { Tweet } from "../../client_components/Tweet";
 
 const Bookmarks = () => {
-  
   const user = useGetSessionData();
-  const {bookmarksByUser, getBookmarsByUser, getAllTweets, loading, tweets, deleteAllBookmarks}:any = useTweet()
+  const {
+    bookmarksByUser,
+    getBookmarsByUser,
+    getAllTweets,
+    loading,
+    tweets,
+    deleteAllBookmarks,
+  }: any = useTweet();
 
   useEffect(() => {
-    getAllTweets()
-    getBookmarsByUser(user?._id)
-  }, [user?._id, bookmarksByUser, getAllTweets, getBookmarsByUser])
+    getAllTweets();
+    getBookmarsByUser(user?._id);
+  }, [user?._id, bookmarksByUser, getAllTweets, getBookmarsByUser]);
 
-const tweetBookmarksByUser = useMemo(() => bookmarksByUser[0]?.tweets.map((tweetBookmark:any) => {
-  return tweets.filter((tweet:any) => tweetBookmark._id === tweet._id)
-}), [ bookmarksByUser])
+  const tweetBookmarksByUser = useMemo(
+    () =>
+      bookmarksByUser[0]?.tweets.map((tweetBookmark: any) => {
+        return tweets.filter((tweet: any) => tweetBookmark._id === tweet._id);
+      }),
+    [bookmarksByUser]
+  );
+
+  const [deleteAllBookmarksState, setDeleteAllBookmarksState] =
+    useState<boolean>(false);
 
   return (
     <div className="w-full pl-2 bg-black h-full min-h-screen mx-1">
@@ -45,18 +58,34 @@ const tweetBookmarksByUser = useMemo(() => bookmarksByUser[0]?.tweets.map((tweet
                 <h4 className="font-thin">@{user?.username}</h4>
               </Link>
             </div>
-            <button
+              {deleteAllBookmarksState ? (
+                <button 
+                onClick={() => {
+                  deleteAllBookmarks( {userId:user?._id} )
+                  setDeleteAllBookmarksState(!deleteAllBookmarksState)
+                }}
+                className="w-auto border-red-700 bg-red-400/20 rounded-xl p-1 font-bolds text-xs text-red-500">
+                  Clear all bookmarks
+                </button>
+                  ) : (
+                    <button
               className="w-[30px] h-[30px] flex items-center justify-center cursor-pointer hover:bg-slate-400/20
                rounded-full"
-              // onClick={() => deleteAllBookmarks( {userId:user?._id} )}
-              // onClick={()=}
+              onClick={() => setDeleteAllBookmarksState(!deleteAllBookmarksState)}
             >
-              <BsThreeDots />
-            </button>
+                <BsThreeDots />
+                </button>
+              )}
+            
           </header>
-          {tweetBookmarksByUser && tweetBookmarksByUser?.map((tweet: [tweetType]) => (
-            <Tweet key={tweet[0]?._id} tweet={tweet[0]} component="bookmark" />
-          ))}
+          {tweetBookmarksByUser &&
+            tweetBookmarksByUser?.map((tweet: [tweetType]) => (
+              <Tweet
+                key={tweet[0]?._id}
+                tweet={tweet[0]}
+                component="bookmark"
+              />
+            ))}
         </>
       )}
     </div>
