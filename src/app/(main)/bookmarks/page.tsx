@@ -13,7 +13,7 @@ import { Tweet } from "../../client_components/Tweet";
 const Bookmarks = () => {
   
   const user = useGetSessionData();
-  const {bookmarksByUser, getBookmarsByUser, getAllTweets, loading, tweets}:any = useTweet()
+  const {bookmarksByUser, getBookmarsByUser, getAllTweets, loading, tweets, deleteAllBookmarks}:any = useTweet()
 
   useEffect(() => {
     getAllTweets()
@@ -48,7 +48,8 @@ const tweetBookmarksByUser = useMemo(() => bookmarksByUser[0]?.tweets.map((tweet
             <button
               className="w-[30px] h-[30px] flex items-center justify-center cursor-pointer hover:bg-slate-400/20
                rounded-full"
-              onClick={() => console.log(`clear all bookmarks`)}
+              // onClick={() => deleteAllBookmarks( {userId:user?._id} )}
+              // onClick={()=}
             >
               <BsThreeDots />
             </button>

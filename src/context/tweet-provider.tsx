@@ -191,6 +191,25 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
+  const deleteAllBookmarks = async ( {userId} : any) => {
+    
+    try {
+      const { data } = await axios.post("/api/bookmarks/deleteAllBookmarks", {
+        userId
+      });
+
+      // update state once tweet is booked
+      const updatedTweets = bookmarksByUser.map((tweetToUnBook: any) =>
+        tweetToUnBook._id === data._id ? data : tweetToUnBook
+      );
+
+      setBookmarksByUser(updatedTweets);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const createComment = async (commentContentData: any) => {
     try {
       const { data } = await axios.post(
@@ -223,6 +242,7 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
         tweetsByUser,
         userProfile,
         //actions
+        deleteAllBookmarks,
         getUserInfo,
         updateUserInfo,
         createTweet,
