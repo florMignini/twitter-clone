@@ -35,7 +35,7 @@ export const LeftSidebar = () => {
         </Link>
        <div className="w-[100%] flex items-center h-fit justify-start">
        <Link
-          className="w-[50px] lg:w-auto flex items-center h-[50px] lg:h-fit justify-start lg:justify-center space-x-1 rounded-3xl md:rounded-full px-2 lg:px-6 lg:py-3 hover:bg-[#16181C] text-white"
+          className="w-[50%] lg:w-auto flex items-center h-[50px] lg:h-fit justify-start lg:justify-center space-x-1 rounded-3xl md:rounded-full px-2 lg:px-6 lg:py-3 hover:bg-[#16181C] text-white"
           href={`/`}
           key="home"
         >
@@ -50,7 +50,7 @@ export const LeftSidebar = () => {
        key={nav_item.title}
        >
           <Link
-            className="w-fill lg:w-auto flex items-center h-[50px] lg:h-fit justify-start lg:justify-center space-x-1 rounded-3xl md:rounded-full lg:px-6 lg:py-3 hover:bg-[#16181C] text-white"
+            className="w-[50%] lg:w-auto flex items-center h-[50px] lg:h-fit justify-start lg:justify-center space-x-1 rounded-3xl md:rounded-full lg:px-6 lg:py-3 hover:bg-[#16181C] text-white"
             href={`/${nav_item.title.toLowerCase()}?profileId=${
               userQuery?._id
             }`}
