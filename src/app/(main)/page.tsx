@@ -73,14 +73,14 @@ const Page = () => {
         }}
       ></GifModal>
 
-      <main className="w-[99%] h-full z-0 min-h-screen mx-auto">
+      <main className="w-[99,5%] h-full z-0 min-h-screen mx-auto">
         <h1 className="text-2xl text-left px-5 py-3 font-bold z-10 backdrop-blur-md sticky w-full h-32 bg-black/10 top-0 bg-black">
           Home
         </h1>
 
         {/* Avatar */}
         {
-          <div className="w-full h-auto px-3 pb-0 relative grid grid-cols-[8%,92%] gap-1 bg-[#16181C]">
+          <div className="w-full h-auto px-3 pt-2 pb-0 relative grid grid-cols-[8%,92%] gap-1 bg-[#16181C]">
             <div className="">
               {userQuery && (
                 <Image
