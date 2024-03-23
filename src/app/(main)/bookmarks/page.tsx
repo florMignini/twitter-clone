@@ -20,11 +20,11 @@ const Bookmarks = () => {
     tweets,
     deleteAllBookmarks,
   }: any = useTweet();
-
+  
   useEffect(() => {
     getAllTweets();
     getBookmarsByUser(user?._id);
-  }, [user?._id, bookmarksByUser, getAllTweets, getBookmarsByUser]);
+  }, []);
 
   const tweetBookmarksByUser = useMemo(
     () =>
