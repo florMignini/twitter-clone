@@ -40,9 +40,9 @@ const RightSidebar = () => {
   );
 
   //Follow action
-  const follow = async (userToFollowId: string, userId: string) => {
-    await axios.post("/api/users/following", { userToFollowId, userId });
-    await axios.post(`/api/notification/add`, { userToFollowId, userId });
+  const follow = async (followId: string, userId: string) => {
+    await axios.post("/api/users/following", { followId, userId });
+    await axios.post(`/api/notification`, { followId, userId, route:"follow" });
   };
 
   return (

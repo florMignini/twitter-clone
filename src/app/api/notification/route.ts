@@ -1,26 +1,26 @@
 import { connectDB } from "@/db/config";
 
 import { NextRequest, NextResponse } from "next/server";
-import User from "../../../../../models/user";
-import Notification from "../../../../../models/notification";
+import User from "../../../../models/user";
+import Notification from "../../../../models/notification";
 
 connectDB();
 
 export const POST = async (req: NextRequest) => {
   try {
-    const { userToFollowId, userId } = await req.json();
+    const { followId, userId, route } = await req.json();
 
     const follower = await User.findOne({
       _id: userId,
     });
     const following = await User.findOne({
-      _id: userToFollowId,
+      _id: followId,
     });
-
     const newNotification = await new Notification({
       recipient: userId,
-      content: `you start to follow ${following?.username}`,
+      content: `you ${route} ${following?.username}`,
     }).save();
+    console.log(newNotification)
 
     return NextResponse.json(newNotification, { status: 201 });
   } catch (error: any) {

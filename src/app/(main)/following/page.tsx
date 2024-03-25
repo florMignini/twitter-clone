@@ -12,10 +12,11 @@ const Following = () => {
   const router = useRouter();
   const userSession = useGetSessionData();
   const { userProfile, loading }: any = useTweet();
-console.log(userSession)
+
   //Unfollow action
-  const unfollow = async (userToUnfollowId: string, userId: string) => {
-    await axios.post("/api/users/unfollowing", { userToUnfollowId, userId });
+  const unfollow = async (followId: string, userId: string) => {
+    await axios.post("/api/users/unfollowing", { followId, userId });
+    await axios.post(`/api/notification`, { followId, userId, route:"unfollow" });
   };
 
   return !loading ? (
