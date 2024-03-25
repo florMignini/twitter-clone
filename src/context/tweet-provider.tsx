@@ -21,6 +21,7 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
   const [tweets, setTweets] = useState<any>([]);
   const [tweetsByUser, setTweetsByUser] = useState<any>([]);
   const [bookmarksByUser, setBookmarksByUser] = useState<any>([]);
+  const [notificationsByUser, setNotificationsByUser] = useState<any>([]);
   const [tweet, setTweet] = useState({});
   const [userProfile, setUserProfile] = useState();
 
@@ -87,6 +88,17 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
       const { data } = await axios.get(`/api/bookmarks/getAllByUser/${userId}`);
 
       setBookmarksByUser(data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  //@GET NOTIFICATIONS BY USER
+  const getNotificationsByUser = async (userId: string) => {
+    try {
+      const { data } = await axios.get(`/api/notification/getAllByUser/${userId}`);
+
+      setNotificationsByUser(data);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -238,6 +250,7 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
         loading,
         tweet,
         tweets,
+        notificationsByUser,
         bookmarksByUser,
         tweetsByUser,
         userProfile,
@@ -252,6 +265,7 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
         addBookmark,
         deleteBookmark,
         getBookmarsByUser,
+        getNotificationsByUser,
         getAllTweetsByUser,
         createComment,
         getSingleTweet,

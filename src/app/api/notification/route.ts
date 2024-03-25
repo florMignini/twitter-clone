@@ -20,7 +20,6 @@ export const POST = async (req: NextRequest) => {
       recipient: userId,
       content: `you ${route} ${following?.username}`,
     }).save();
-    console.log(newNotification)
 
     return NextResponse.json(newNotification, { status: 201 });
   } catch (error: any) {
