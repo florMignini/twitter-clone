@@ -1,12 +1,8 @@
 import { navItem } from "../interfaces/navigation-items.interfaces";
-import { BookmarkIcon, UserIcon, EnvelopeIcon } from "@/icons"
+import { BookmarkIcon, UserIcon, BellIcon } from "@/icons"
 
 
 export const nav_items: navItem[] = [
- /*  {
-    icon: AiOutlineBell,
-    title: "Notification",
-  }, */
  /*  {
     icon: EnvelopeIcon,
     title: "Messages",
@@ -14,6 +10,10 @@ export const nav_items: navItem[] = [
   {
     icon: BookmarkIcon,
     title: "Bookmarks",
+  },
+  {
+    icon: BellIcon,
+    title: "Notification",
   },
   {
     icon: UserIcon,

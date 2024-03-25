@@ -20,7 +20,7 @@ export interface CommentInterface {
   userId: string;
   _id: string;
 }
-interface Params {
+export interface Params {
   params: {
     id: string;
   };

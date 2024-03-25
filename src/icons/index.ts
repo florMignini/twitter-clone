@@ -1,3 +1,4 @@
+export * from './BellIcon';
 export * from './BookmarkIcon';
 export * from './CameraIcon';
 export * from './CloseIcon';
