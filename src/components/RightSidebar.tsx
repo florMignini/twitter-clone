@@ -25,20 +25,26 @@ const RightSidebar = () => {
 
   const res: string[] = [];
 
-  const followingList = data?.data?.allUsers?.filter((user:userType)=> user._id !== userQuery?._id);
+  const followingList = data?.data?.allUsers?.filter(
+    (user: userType) => user._id !== userQuery?._id
+  );
 
-  const userList = userQuery && followingList?.map((user: userType) => res.push(userQuery?.following[0]?._id));
+  const userList =
+    userQuery &&
+    followingList?.map((user: userType) =>
+      res.push(userQuery?.following[0]?._id)
+    );
 
-  const suggestionsArray = followingList?.filter((user: userType) =>
-    !res.includes(user?._id)
+  const suggestionsArray = followingList?.filter(
+    (user: userType) => !res.includes(user?._id)
   );
 
   //Follow action
   const follow = async (userToFollowId: string, userId: string) => {
     await axios.post("/api/users/following", { userToFollowId, userId });
+    await axios.post(`/api/notification/add`, { userToFollowId, userId });
   };
-  
-  
+
   return (
     <section className="w-[300px] hidden fixed h-screen lg:flex flex-col px-5">
       {/* Search bar section */}
