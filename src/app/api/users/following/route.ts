@@ -8,14 +8,13 @@ connectDB();
 
 export const POST = async (req: NextRequest) => {
   try {
-    const { userToFollowId, userId } = await req.json();
+    const { followId, userId } = await req.json();
 
     const follower = await User.findOne({
       _id: userId,
     });
     //pushing to User.following arr the new user id
-    follower.following = []
-    await follower.following.unshift(userToFollowId);
+    await follower.following.push(followId);
     follower.save();
 
     return NextResponse.json(

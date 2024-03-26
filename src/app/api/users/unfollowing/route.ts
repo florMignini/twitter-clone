@@ -7,7 +7,7 @@ connectDB();
 
 export const POST = async (req: NextRequest) => {
   try {
-    const { userToUnfollowId, userId } = await req.json();
+    const { followId, userId } = await req.json();
 
     const unfollower = await User.findOne({
       _id: userId,
@@ -19,7 +19,7 @@ export const POST = async (req: NextRequest) => {
       return NextResponse.json({ message: error.message }, { status: 404 });
     }
     //delete collaborator
-    unfollower.following.pull(userToUnfollowId);
+    unfollower.following.pull(followId);
 
     await unfollower.save();
 
