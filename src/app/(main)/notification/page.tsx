@@ -17,7 +17,7 @@ import { TailSpin } from 'react-loader-spinner';
 
       
 console.log(notificationsByUser)
-  return !loading ? (
+  return !loading  ? (
     <div className="w-full h-screen flex items-start justify-start flex-col z-0">
          <div className="w-[100%] h-24 flex items-start justify-start py-1 px-2 sticky z-20 backdrop-blur-md top-0 bg-black/40">
         {/* top section */}
@@ -39,21 +39,21 @@ console.log(notificationsByUser)
       </div>
       {
         notificationsByUser && notificationsByUser.length>0 ? (
-            <div className="w-[99%] flex items-center justify-start flex-col h-screen mx-auto">
+            <div className="w-[100%] flex items-center justify-start flex-col h-screen mx-auto gap-1">
             {notificationsByUser?.map((notification: any) => (
-                <div
-                  className="w-[100%] h-auto flex items-center justify-start gap-2 hover:bg-zinc-800/20 p-2 rounded-lg"
+                <button
+                  className={`w-[100%] h-auto flex items-center justify-start gap-2 hover:bg-zinc-800/20 p-2 ${ notification.seen ? 'bg-slate-400' : 'bg-zinc-600' } `}
                   key={notification?._id}
                 >
                   <div className="w-[100%] h-auto flex items-center justify-between">
-                    <div className="w-[50%] h-auto flex flex-col">
-                      <p className="w-[100%] text-base font-bold truncate">
+                    <div className="w-[50%] h-auto items-center justify-center flex flex-col">
+                      <p className="w-[100%] text-base text-left font-bold truncate">
                         {notification?.content}
                       </p>
                       
                     </div>
                   </div>
-                </div>
+                </button>
               ))}
           </div>
             ):(
