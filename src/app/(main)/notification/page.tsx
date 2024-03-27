@@ -38,7 +38,7 @@ console.log(notificationsByUser)
        
       </div>
       {
-        notificationsByUser && (
+        notificationsByUser && notificationsByUser.length>0 ? (
             <div className="w-[99%] flex items-center justify-start flex-col h-screen mx-auto">
             {notificationsByUser?.map((notification: any) => (
                 <div
@@ -50,12 +50,18 @@ console.log(notificationsByUser)
                       <p className="w-[100%] text-base font-bold truncate">
                         {notification?.content}
                       </p>
-                      {/* <p className="w-[100%] text-base font-thin">{`@${notification?.username}`}</p> */}
+                      
                     </div>
                   </div>
                 </div>
               ))}
           </div>
+            ):(
+              <div className="w-[99%] flex items-center justify-start pt-28 flex-col h-screen mx-auto">
+                <h1 className='w-[60%] font-bold text-4xl '>Nothing to see here -</h1>
+                <h1 className='w-[60%] font-bold text-4xl '>yet</h1>
+                <p className='w-[60%] text-base font-thin pt-5'>Likes, follows, and a whole lot more — when it comes from a verified account, you’ll find it here.</p>
+              </div>
             )
         }
     </div>
