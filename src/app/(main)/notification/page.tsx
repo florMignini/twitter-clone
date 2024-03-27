@@ -16,7 +16,6 @@ import { TailSpin } from 'react-loader-spinner';
       }, []);
 
       
-console.log(notificationsByUser)
   return !loading  ? (
     <div className="w-full h-screen flex items-start justify-start flex-col z-0">
          <div className="w-[100%] h-24 flex items-start justify-start py-1 px-2 sticky z-20 backdrop-blur-md top-0 bg-black/40">
