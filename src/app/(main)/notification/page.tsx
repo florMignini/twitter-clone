@@ -43,8 +43,8 @@ const Notification = () => {
         <div className="w-[100%] flex items-center justify-start flex-col h-screen mx-auto gap-1">
           {notificationsByUser?.map((notification: any) => (
             <button
-              className={`w-[100%] h-auto flex items-center justify-start gap-2 hover:bg-zinc-800/20 p-2 ${
-                notification.seen ? "bg-slate-400" : "bg-zinc-600"
+              className={`w-[100%] h-auto flex items-center justify-start gap-2  p-2 ${
+                notification.seen ? "bg-zinc-800/20" : "bg-zinc-600/50"
               } `}
               key={notification?._id}
               onClick={() =>
