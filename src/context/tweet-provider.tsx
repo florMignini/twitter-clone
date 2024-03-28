@@ -57,7 +57,13 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
       const { data }: any = await axios.post(
         `/api/notification/updateSeen/${userId}`,{notificationId}
       );
-      console.log(data);
+      
+      // update state once notification is edited
+      const updatedNotifications = notificationsByUser.map((notificationToUpdate: any) =>
+      notificationToUpdate._id === data._id ? data : notificationToUpdate
+      );
+
+      setNotificationsByUser(updatedNotifications);
       setLoading(false);
     } catch (error) {
       console.log(error);
