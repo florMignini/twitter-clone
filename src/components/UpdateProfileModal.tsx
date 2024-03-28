@@ -69,7 +69,7 @@ const UpdateProfileModal = ({ onClose, onPost }: Props) => {
 
     try {
       const userContentData = { tweetContentData, userId: userData._id };
-      console.log(userContentData);
+
       await updateUserInfo(userContentData);
       // clear state
       setFormData({

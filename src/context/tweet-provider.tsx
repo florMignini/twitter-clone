@@ -27,7 +27,7 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
 
   //@GET USER INFORMATION
   const getUserInfo = async (userId: string) => {
-    try { 
+    try {
       const { data } = await axios.get(`/api/users/info/${userId}`);
       setUserProfile(data.profileInfo);
       setLoading(false);
@@ -36,18 +36,34 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
   // @POST UPDATE USER INFO
-  const updateUserInfo = async ({ tweetContentData, userId}: any) => {
-
+  const updateUserInfo = async ({ tweetContentData, userId }: any) => {
     try {
-      const { data }: any = await axios.post(`/api/users/updateProfile/${userId}`, {
-        tweetContentData,
-      });
+      const { data }: any = await axios.post(
+        `/api/users/updateProfile/${userId}`,
+        {
+          tweetContentData,
+        }
+      );
       console.log(data);
       setLoading(false);
     } catch (error) {
       console.log(error);
     }
   };
+
+  // @POST UPDATE SEEN INFO
+  const updateUserSeen = async ({notificationId, userId }: any) => {
+    try {
+      const { data }: any = await axios.post(
+        `/api/notification/updateSeen/${userId}`,{notificationId}
+      );
+      console.log(data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   //@GET ALL TWEETS
   const getAllTweets = async () => {
     try {
@@ -96,7 +112,9 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
   //@GET NOTIFICATIONS BY USER
   const getNotificationsByUser = async (userId: string) => {
     try {
-      const { data } = await axios.get(`/api/notification/getAllByUser/${userId}`);
+      const { data } = await axios.get(
+        `/api/notification/getAllByUser/${userId}`
+      );
 
       setNotificationsByUser(data);
       setLoading(false);
@@ -203,11 +221,10 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  const deleteAllBookmarks = async ( {userId} : any) => {
-    
+  const deleteAllBookmarks = async ({ userId }: any) => {
     try {
       const { data } = await axios.post("/api/bookmarks/deleteAllBookmarks", {
-        userId
+        userId,
       });
 
       // update state once tweet is booked
@@ -255,6 +272,7 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
         tweetsByUser,
         userProfile,
         //actions
+        updateUserSeen,
         deleteAllBookmarks,
         getUserInfo,
         updateUserInfo,
