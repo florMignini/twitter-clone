@@ -244,7 +244,14 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
       console.log(error);
     }
   };
+const deleteAllNotifications = async({ userId }: any) => {
+try {
+  const { data } = await axios.post(`/api/notification/clearAllNotificationByUser/${userId}`);
 
+} catch (error) {
+  console.log(error);
+}
+};
   const createComment = async (commentContentData: any) => {
     try {
       const { data } = await axios.post(
@@ -293,6 +300,7 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
         getAllTweetsByUser,
         createComment,
         getSingleTweet,
+        deleteAllNotifications,
       }}
     >
       {children}

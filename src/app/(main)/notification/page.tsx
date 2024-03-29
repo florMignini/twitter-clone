@@ -1,10 +1,11 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { useTweet } from "@/context";
 import { useGetSessionData } from "@/helpers";
-import { useRouter } from "next/navigation";
-import { BiArrowBack } from "react-icons/bi";
 import { TailSpin } from "react-loader-spinner";
+import { BiArrowBack } from "react-icons/bi";
+import { BsThreeDots } from "react-icons/bs";
 
 const Notification = () => {
   const userSession = useGetSessionData();
@@ -13,18 +14,22 @@ const Notification = () => {
     loading,
     getNotificationsByUser,
     notificationsByUser,
+    deleteAllNotifications,
   }: any = useTweet();
   const router = useRouter();
+
+  const [showNotificationsAction, setShowNotificationsAction] = useState<boolean>(false);
 
   useEffect(() => {
     getNotificationsByUser(userSession?._id);
   }, []);
-
+console.log(notificationsByUser)
   return !loading ? (
     <div className="w-full h-screen flex items-start justify-start flex-col z-0">
-      <div className="w-[100%] h-24 flex items-start justify-start py-1 px-2 sticky z-20 backdrop-blur-md top-0 bg-black/40">
+      <div className="w-[100%] h-24 flex items-center justify-between  py-1 px-2 sticky z-20 backdrop-blur-md top-0 bg-black/40">
         {/* top section */}
-        <button
+      <div className="flex items-center justify-center">
+      <button
           className="w-5 h-10 mr-4 cursor-pointer"
           onClick={() => router.back()}
         >
@@ -38,6 +43,25 @@ const Notification = () => {
             </p>
           </div>
         )}
+      </div>
+      {showNotificationsAction ? (
+                <button 
+                onClick={() => {
+                  deleteAllNotifications( {userId:userSession?._id} )
+                  setShowNotificationsAction(!showNotificationsAction)
+                }}
+                className="w-auto border-red-700 bg-red-400/20 rounded-xl p-1 font-bolds text-xs text-red-500">
+                  Clear all notifications
+                </button>
+                  ) : (
+                    <button
+              className="w-[30px] h-[30px] flex items-center justify-center cursor-pointer hover:bg-slate-400/20
+               rounded-full"
+              onClick={() => setShowNotificationsAction(!showNotificationsAction)}
+            >
+                <BsThreeDots />
+                </button>
+              )}
       </div>
       {notificationsByUser && notificationsByUser.length > 0 ? (
         <div className="w-[100%] flex items-center justify-start flex-col h-screen mx-auto gap-1">

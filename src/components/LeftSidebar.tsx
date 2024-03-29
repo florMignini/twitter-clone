@@ -17,7 +17,7 @@ export const LeftSidebar = () => {
   const unSeenNotification = notificationsByUser.filter(
     (noti: any) => noti.seen === false
   ).length;
-  console.log(unSeenNotification);
+  
   return (
     <section className="w-[60px] px-1 pb-4 md:w-[110px] lg:w-[196px] xl:w-[243px] fixed h-full flex flex-col justify-between text-xl">
       <div className="w-[100%] items-center justify-start flex flex-col ">
@@ -60,7 +60,7 @@ export const LeftSidebar = () => {
                 <nav_item.icon />
               </div>
               {nav_item.title === "Notification" && unSeenNotification > 0 ? (
-                <div className="absolute flex items-center justify-center bg-white border-1 border-black rounded-full w-4 h-4 left-6">
+                <div className="absolute flex items-center justify-center p-2 bg-white border-1 border-black rounded-full w-4 h-4 left-6">
                   <small className="mx-auto text-black flex text-xs items-center justify-center">
                     {unSeenNotification}
                   </small>
