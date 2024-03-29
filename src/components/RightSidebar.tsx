@@ -23,26 +23,28 @@ const RightSidebar = () => {
   //get all Users
   const { data, isLoading } = useGetUsers();
 
-  const res: string[] = [];
-
   const followingList = data?.data?.allUsers?.filter(
     (user: userType) => user._id !== userQuery?._id
   );
 
   const userList =
     userQuery &&
-    followingList?.map((user: userType) =>
-      res.push(userQuery?.following[0]?._id)
-    );
+    userQuery?.following?.map((user: userType) => {
+      return user._id;
+    });
 
   const suggestionsArray = followingList?.filter(
-    (user: userType) => !res.includes(user?._id)
+    (user: userType) => !userList?.includes(user?._id)
   );
 
   //Follow action
   const follow = async (followId: string, userId: string) => {
     await axios.post("/api/users/following", { followId, userId });
-    await axios.post(`/api/notification`, { followId, userId, route:"follow" });
+    await axios.post(`/api/notification`, {
+      followId,
+      userId,
+      route: "follow",
+    });
   };
 
   return (
