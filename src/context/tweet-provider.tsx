@@ -52,15 +52,17 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   // @POST UPDATE SEEN INFO
-  const updateUserSeen = async ({notificationId, userId }: any) => {
+  const updateUserSeen = async ({ notificationId, userId }: any) => {
     try {
       const { data }: any = await axios.post(
-        `/api/notification/updateSeen/${userId}`,{notificationId}
+        `/api/notification/updateSeen/${userId}`,
+        { notificationId }
       );
-      
+
       // update state once notification is edited
-      const updatedNotifications = notificationsByUser.map((notificationToUpdate: any) =>
-      notificationToUpdate._id === data._id ? data : notificationToUpdate
+      const updatedNotifications = notificationsByUser.map(
+        (notificationToUpdate: any) =>
+          notificationToUpdate._id === data._id ? data : notificationToUpdate
       );
 
       setNotificationsByUser(updatedNotifications);
@@ -244,14 +246,16 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
       console.log(error);
     }
   };
-const deleteAllNotifications = async({ userId }: any) => {
-try {
-  const { data } = await axios.post(`/api/notification/clearAllNotificationByUser/${userId}`);
-
-} catch (error) {
-  console.log(error);
-}
-};
+  const deleteAllNotifications = async ({ userId }: any) => {
+    try {
+      await axios.post(
+        `/api/notification/clearAllNotificationByUser/${userId}`
+      );
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const createComment = async (commentContentData: any) => {
     try {
       const { data } = await axios.post(

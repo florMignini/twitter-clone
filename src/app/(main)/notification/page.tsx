@@ -22,8 +22,8 @@ const Notification = () => {
 
   useEffect(() => {
     getNotificationsByUser(userSession?._id);
-  }, []);
-console.log(notificationsByUser)
+  }, [showNotificationsAction]);
+
   return !loading ? (
     <div className="w-full h-screen flex items-start justify-start flex-col z-0">
       <div className="w-[100%] h-24 flex items-center justify-between  py-1 px-2 sticky z-20 backdrop-blur-md top-0 bg-black/40">
@@ -71,11 +71,13 @@ console.log(notificationsByUser)
                 notification.seen ? "bg-zinc-800/20" : "bg-zinc-600/50"
               } `}
               key={notification?._id}
-              onClick={() =>
+              onClick={() =>{
                 updateUserSeen({
                   notificationId: notification?._id,
                   userId: userSession?._id,
                 })
+                
+              }
               }
             >
               <div className="w-[100%] h-auto flex items-center justify-between">
