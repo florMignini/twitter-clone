@@ -92,6 +92,7 @@ export const Search = ({ placeholder, section }: Props) => {
               users.length > 0 ? (
                 <>
                 {users.map((user: any) => (
+
                 <Link
                   key={user._id}
                   href={`/profile?profileId=${user?._id}`}
@@ -103,7 +104,7 @@ export const Search = ({ placeholder, section }: Props) => {
                     height={50}
                     className="rounded-full flex items-center justify-center"
                     alt="userAvatar"
-                    src={user?.profile_picture}
+                    src={user?.imageUrl}
                   />
                   <div className="flex flex-col items-center justify-start w-[100%] ">
                     <p className="w-[100%] text-sm font-thin">

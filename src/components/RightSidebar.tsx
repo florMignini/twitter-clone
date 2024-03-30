@@ -36,7 +36,7 @@ const RightSidebar = () => {
   const suggestionsArray = followingList?.filter(
     (user: userType) => !userList?.includes(user?._id)
   );
-
+// TODO: create a 3 element array list for suggestions and extend list button for get the full list of suggestions
   //Follow action
   const follow = async (followId: string, userId: string) => {
     await axios.post("/api/users/following", { followId, userId });
