@@ -261,15 +261,16 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
       const { data } = await axios.post(
         "/api/comments/publish",
         commentContentData
-      );
-      // update state once tweet is booked
-      const updatedTweets = tweets.map((tweetToLike: any) => {
-        const stateToUpdate = { ...tweetToLike };
-        tweetToLike._id === data.tweetId
+        );
+        // update state once tweet is booked
+        const updatedTweets = tweets.map((tweetToLike: any) => {
+          const stateToUpdate = { ...tweetToLike };
+          tweetToLike._id === data.tweetId
           ? stateToUpdate.comments.unshift(data.tweetId)
           : stateToUpdate;
-        return stateToUpdate;
-      });
+          return stateToUpdate;
+        });
+
       setTweets(updatedTweets);
 
       setLoading(false);

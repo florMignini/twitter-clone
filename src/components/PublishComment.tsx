@@ -95,7 +95,8 @@ const PublishComment = ({ placeholder, BtnTitle, tweet }: Props) => {
               height={80}
               className="relative object-contain rounded-full"
             />
-          )}
+            )}
+            <div className="w-1 h-full text-white"></div>
         </div>
         {/* Input */}
 
