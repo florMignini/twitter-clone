@@ -60,7 +60,7 @@ const {getSingleTweet, tweet, loading }:any = useTweet()
           tweet={tweet}
         />
       </CommentModal>
-      <div className="w-full h-full flex flex-col">
+      <div className="w-full h-screen flex items-start justify-start flex-col z-0">
         <div className="sticky w-[100%] h-[10%] flex items-start justify-start  px-2">
           {/* top section */}
           <button
