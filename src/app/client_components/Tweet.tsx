@@ -35,7 +35,7 @@ export const Tweet = ({ tweet, component }: tweetComponent) => {
   const router = useRouter();
   //bringing user session data && login session
   const userQuery = useGetSessionData();
-
+console.log(tweet)
   //tweet provider imports
   const {
     //actions

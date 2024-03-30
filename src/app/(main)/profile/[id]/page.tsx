@@ -61,7 +61,7 @@ const {getSingleTweet, tweet, loading }:any = useTweet()
         />
       </CommentModal>
       <div className="w-full h-full flex flex-col">
-        <div className="sticky w-[100%] h-[10%] flex items-start justify-start py-1 px-2">
+        <div className="sticky w-[100%] h-[10%] flex items-start justify-start  px-2">
           {/* top section */}
           <button
             className="w-5 h-10 mr-4 cursor-pointer"
@@ -75,7 +75,7 @@ const {getSingleTweet, tweet, loading }:any = useTweet()
         
   {
   !loading ? (
-    <>
+    <div className="w-full pl-2 bg-black h-full min-h-screen mx-1">
     {tweet ? <Tweet tweet={tweet} component="profile" /> : <h1>Something goes wrong with server</h1>}
          <h6 className="p-2">
           Replies to @{tweet?.userId?.username}
@@ -83,7 +83,7 @@ const {getSingleTweet, tweet, loading }:any = useTweet()
         {tweet?.comments?.map((comment: TweetType) => (
           <Tweet key={comment._id} tweet={comment} component="comment" />
         ))}
-   </> 
+   </div> 
     ): null
   }
       </div>
