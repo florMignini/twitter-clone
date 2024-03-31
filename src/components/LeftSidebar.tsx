@@ -10,10 +10,14 @@ import Image from "next/image";
 import { UserButton } from "@clerk/nextjs";
 import { HomeIcon } from "@/icons";
 import { useTweet } from "@/context";
+import { useEffect } from "react";
 
 export const LeftSidebar = () => {
   const userQuery = useGetSessionData();
-  const { notificationsByUser }: any = useTweet();
+  const { notificationsByUser, getNotificationsByUser }: any = useTweet();
+  useEffect(() => {
+    getNotificationsByUser(userQuery?._id);
+  }, [notificationsByUser]);
   const unSeenNotification = notificationsByUser.filter(
     (noti: any) => noti.seen === false
   ).length;
