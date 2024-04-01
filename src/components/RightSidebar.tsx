@@ -7,7 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-type userType = {
+export type userType = {
   _id: string;
   username: string;
   email: string;
@@ -24,7 +24,7 @@ const RightSidebar = () => {
   const [fullArray, setFullArray] = useState<boolean>(false);
   //get all Users
   const {status, data, isLoading } = useGetUsers();
-console.log(userArray)
+
   useEffect(() => {
     if (status === 'success') {
       setUserArray(data?.data?.allUsers);

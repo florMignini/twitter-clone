@@ -1,17 +1,26 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import axios from "axios";
 import { useTweet } from "@/context";
+import { userType } from "@/components/RightSidebar";
 import { useGetSessionData } from "@/helpers";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { BiArrowBack } from "react-icons/bi";
 import { TailSpin } from "react-loader-spinner";
 
 const Following = () => {
   const router = useRouter();
   const userSession = useGetSessionData();
+  
   const { userProfile, loading }: any = useTweet();
+
+const [userState, setUserState] = useState<userType>()
+const [updateState, setUpdateState] = useState<boolean>(false)
+
+useEffect(() => {
+  setUserState(userSession)
+}, [updateState])
 
   //Unfollow action
   const unfollow = async (followId: string, userId: string) => {
@@ -39,8 +48,8 @@ const Following = () => {
         )}
       </div>
       <div className="w-[99%] flex items-center justify-start flex-col h-screen mx-auto">
-        {userSession &&
-          userSession?.following?.map((follower: any) => (
+        {userState &&
+          userState?.following?.map((follower: any) => (
             <div
               className="w-[100%] h-auto flex items-center justify-start gap-2 hover:bg-zinc-800/20 p-2 rounded-lg"
               key={follower?._id}
@@ -64,7 +73,10 @@ const Following = () => {
                 <div className="w-[50%] h-full flex items-center justify-end">
                   <button
                     className="w-1/3 flex items-center justify-center mr-2 px-5 py-1 bg-red-400 rounded-2xl text-sm font-semibold text-red-600 hover:opacity-80"
-                    onClick={() => unfollow(follower?._id, userSession?._id)}
+                    onClick={() => {
+                      unfollow(follower?._id, userSession?._id)
+                      setUpdateState(!updateState)
+                    }}
                   >
                     Unfollow
                   </button>
