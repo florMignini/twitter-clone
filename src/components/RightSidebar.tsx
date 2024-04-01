@@ -24,14 +24,14 @@ const RightSidebar = () => {
   const [fullArray, setFullArray] = useState<boolean>(false);
   //get all Users
   const {status, data, isLoading } = useGetUsers();
-
+console.log(userArray)
   useEffect(() => {
     if (status === 'success') {
       setUserArray(data?.data?.allUsers);
     }
   }, [status, data]);
 
-  const followingList = data?.data?.allUsers?.filter(
+  const followingList = userArray?.filter(
     (user: userType) => user._id !== userQuery?._id
   );
 
