@@ -5,7 +5,7 @@ import { Search } from ".";
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type userType = {
   _id: string;
@@ -20,9 +20,16 @@ type userType = {
 const RightSidebar = () => {
   //bringing user session data && login session
   const userQuery = useGetSessionData();
+  const [userArray, setUserArray] = useState<userType[]>([]);
   const [fullArray, setFullArray] = useState<boolean>(false);
   //get all Users
-  const { data, isLoading } = useGetUsers();
+  const {status, data, isLoading } = useGetUsers();
+
+  useEffect(() => {
+    if (status === 'success') {
+      setUserArray(data?.data?.allUsers);
+    }
+  }, [status, data]);
 
   const followingList = data?.data?.allUsers?.filter(
     (user: userType) => user._id !== userQuery?._id
