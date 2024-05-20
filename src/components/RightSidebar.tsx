@@ -84,12 +84,12 @@ const RightSidebar = () => {
                         alt="userAvatar"
                         src={suggestion?.imageUrl}
                       />
-                      <div className="flex flex-col items-center justify-start w-[100%] truncate pl-2">
-                        <p className="w-[100%] text-sm font-thin flex items-center justify-start">
+                      <div className="flex flex-col items-center justify-start w-[100%] pl-2 truncate">
+                        <p className="w-[100%] text-sm font-thin flex items-center justify-start ">
                           {`${suggestion?.username}`}
                         </p>
                         <Link
-                          className="w-[100%] text-sm text-blue-300 flex items-center justify-start"
+                          className="w-[100%] text-sm text-blue-300 flex items-center justify-start "
                           href={`/profile?profileId=${suggestion?._id}`}
                         >
                           {`@${suggestion?.username}`}
