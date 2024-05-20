@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 
 const useGetGiphy = (query?: string) => {
 
-
+  
   const gifsQuery = useQuery({
     queryKey: [query],
     queryFn: async () => {
@@ -14,7 +14,6 @@ const useGetGiphy = (query?: string) => {
       return response;
     },
   });
-
   return gifsQuery;
 };
 

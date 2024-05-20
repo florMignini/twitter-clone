@@ -1,18 +1,19 @@
 "use client";
+import React from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
+import Link from "next/link";
+import { DropzoneOptions } from "react-dropzone";
+import { AiOutlinePicture } from "react-icons/ai";
+import { BsFiletypeGif } from "react-icons/bs";
+import { twMerge } from "tailwind-merge";
+
 import { useGetSessionData } from "@/helpers";
 import { useEdgeStore } from "@/lib/edgestore";
 
-import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
-import { BsFiletypeGif } from "react-icons/bs";
-import { DropzoneOptions, useDropzone } from "react-dropzone";
-import { AiOutlinePicture } from "react-icons/ai";
-import { twMerge } from "tailwind-merge";
-import React from "react";
 import { useTweet } from "@/context";
-import axios from "axios";
+
 import { edgestoreType } from "../../interfaces";
 
 const variants = {
@@ -83,7 +84,7 @@ const PublishTweet = ({ placeholder, BtnTitle }: Props) => {
     //send data to database
     const tweetContentData = {
       tweetContent: formData.tweetContent,
-      tweetImage: edgestoreRes?.url,
+      tweetImage: edgestoreRes?.url || gifPreview,
       tweetUserImage: userQuery?.imageUrl,
       userId: userQuery?._id,
     };

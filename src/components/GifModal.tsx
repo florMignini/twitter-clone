@@ -39,7 +39,6 @@ const GifModal = ({ onClose, onPost }: Props) => {
   };
   //gif hook
   const { data, isLoading } = useGetGiphy(debouncedSearch ? debouncedSearch : "laugh");
-
   const clearInput = () => {
     setQuery("");
   };
