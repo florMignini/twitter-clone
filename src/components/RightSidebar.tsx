@@ -22,14 +22,27 @@ const RightSidebar = () => {
   const userQuery = useGetSessionData();
   const [userArray, setUserArray] = useState<userType[]>([]);
   const [fullArray, setFullArray] = useState<boolean>(false);
+  const [userUpdate, setUserUpdate] = useState<boolean>(false);
   //get all Users
-  const {status, data, isLoading } = useGetUsers();
+  const { status, data, isLoading } = useGetUsers();
 
   useEffect(() => {
-    if (status === 'success') {
+    if (status === "success") {
       setUserArray(data?.data?.allUsers);
     }
-  }, [status, data]);
+  }, [status, data, userUpdate]);
+
+  //Follow action
+  const follow = async (followId: string, userId: string) => {
+    setUserUpdate(true);
+    await axios.post("/api/users/following", { followId, userId });
+    await axios.post(`/api/notification`, {
+      followId,
+      userId,
+      route: "follow",
+    });
+    setUserUpdate(false);
+  };
 
   const followingList = userArray?.filter(
     (user: userType) => user._id !== userQuery?._id
@@ -47,16 +60,6 @@ const RightSidebar = () => {
   const suggestionsArray = followingList
     ?.filter((user: userType) => !userList?.includes(user?._id))
     .slice(0, 3);
-  
-  //Follow action
-  const follow = async (followId: string, userId: string) => {
-    await axios.post("/api/users/following", { followId, userId });
-    await axios.post(`/api/notification`, {
-      followId,
-      userId,
-      route: "follow",
-    });
-  };
 
   return (
     <section className="w-[300px] hidden fixed h-screen lg:flex flex-col px-5">
