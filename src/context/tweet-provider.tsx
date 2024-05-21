@@ -263,9 +263,9 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
         commentContentData
         );
         // update state once tweet is booked
-        const updatedTweets = tweets.map((tweetToLike: any) => {
-          const stateToUpdate = { ...tweetToLike };
-          tweetToLike._id === data.tweetId
+        const updatedTweets = tweets.map((tweetToComment: any) => {
+          const stateToUpdate = { ...tweetToComment };
+          tweetToComment._id === data.tweetId
           ? stateToUpdate.comments.unshift(data.tweetId)
           : stateToUpdate;
           return stateToUpdate;
