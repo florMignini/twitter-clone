@@ -32,7 +32,6 @@ export interface Like {
 }
 
 export const Tweet = ({ tweet, component }: tweetComponent) => {
-  console.log(tweet)
   const router = useRouter();
   //bringing user session data && login session
   const userQuery = useGetSessionData();
