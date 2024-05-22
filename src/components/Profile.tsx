@@ -70,7 +70,7 @@ const Profile = () => {
           )}
         </div>
         {/* user section */}
-        <div className="relative w-[100%] h-screen flex flex-col items-start justify-start ">
+        <div className="relative w-[100%] h-auto flex flex-col items-start justify-start ">
           {/* front page */}
 
           <div className="absolute z-10 top-0 w-[100%] h-auto flex flex-col items-start justify-start rounded-md">
@@ -140,8 +140,9 @@ const Profile = () => {
               </div>
               {userProfile.following ? (
                 <Link
-                href={`/following`}
-                className="w-[50%] flex items-center justify-start gap-1 pt-2 text-sm cursor-pointer hover:underline">
+                  href={`/following`}
+                  className="w-[50%] flex items-center justify-start gap-1 pt-2 text-sm cursor-pointer hover:underline"
+                >
                   <p className="font-thin">
                     <strong className="font-bold">
                       {userProfile.following.length}
@@ -151,7 +152,7 @@ const Profile = () => {
                 </Link>
               ) : null}
               {/* user twitter section */}
-              <div className="absolute top-36 h-screen w-[100%] flex flex-col items-center justify-start mx-auto">
+              <div className="absolute top-36 h-auto w-[100%] flex flex-col items-center justify-start mx-auto">
                 {tweetsByUser?.map((tweet: tweetType) => (
                   <Tweet key={tweet._id} tweet={tweet} component="profile" />
                 ))}
@@ -164,12 +165,12 @@ const Profile = () => {
   ) : (
     <div className="w-full h-screen flex items-center justify-center">
       <TailSpin
-            height="40"
-            width="40"
-            color="#319bf0"
-            radius="1"
-            visible={true}
-          />
+        height="40"
+        width="40"
+        color="#319bf0"
+        radius="1"
+        visible={true}
+      />
     </div>
   );
 };
