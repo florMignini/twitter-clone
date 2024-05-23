@@ -4,7 +4,6 @@ const nextConfig = {
     serverActions: true,
   },
   reactStrictMode: true,
-  output: 'export',
   images: {
     domains: [
       "https://res.cloudinary.com",
