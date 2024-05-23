@@ -151,15 +151,26 @@ const Profile = () => {
                   </p>
                 </Link>
               ) : null}
-              {/* user twitter section */}
-              <div className="absolute top-36 h-auto w-[100%] flex flex-col items-center justify-start mx-auto">
-                {tweetsByUser?.map((tweet: tweetType) => (
-                  <Tweet key={tweet._id} tweet={tweet} component="profile" />
-                ))}
-              </div>
             </div>
           ) : null}
         </div>
+      </div>
+      {/* user twitter section */}
+
+      <div className="w-full flex flex-col items-center justify-center">
+        {tweetsByUser && tweetsByUser ? (
+          tweetsByUser?.map((tweet: tweetType) => (
+            <Tweet key={tweet._id} tweet={tweet} component="profile" />
+          ))
+        ) : (
+          <TailSpin
+            height="40"
+            width="40"
+            color="#319bf0"
+            radius="1"
+            visible={true}
+          />
+        )}
       </div>
     </>
   ) : (
