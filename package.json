@@ -3,12 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "migrate": "npx bun run src/lib/db/migration.ts"
-  },
+    "export": "next export",
+    "deploy": "npm run build && npm run export",
+    "start": "next start"
+},
   "dependencies": {
     "@clerk/nextjs": "^4.29.5",
     "@edgestore/react": "^0.1.6",
