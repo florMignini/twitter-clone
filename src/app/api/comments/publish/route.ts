@@ -24,7 +24,7 @@ export const POST = async (req: NextRequest) => {
     //pushing to Tweet.comments arr the new user-tweet comment
     await commentTweet.comments.unshift(newComment._id);
     commentTweet.save();
-    return NextResponse.json(commentTweet, { status: 201 });
+    return NextResponse.json(newComment, { status: 201 });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }

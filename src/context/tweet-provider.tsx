@@ -266,7 +266,7 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
         const updatedTweets = tweets.map((tweetToComment: any) => {
           const stateToUpdate = { ...tweetToComment };
           tweetToComment._id === data.tweetId
-          ? stateToUpdate.comments.unshift(data.tweetId)
+          ? stateToUpdate.comments.unshift(data._id)
           : stateToUpdate;
           return stateToUpdate;
         });
