@@ -27,7 +27,7 @@ export const LeftSidebar = () => {
       <div className="w-[100%] items-center justify-start flex flex-col ">
         <Link
           href={"/"}
-          className="flex items-center w-[100%] h-fit lg:mx-auto justify-start lg:space-x-5 rounded-3xl md:rounded-full py-2 lg:py-3"
+          className="flex items-center w-[90%] lg:w-[100%] h-fit lg:mx-auto justify-center lg:justify-start lg:space-x-5 rounded-3xl md:rounded-full py-2 lg:py-3"
         >
           <Image
             src={xIcon}
@@ -39,11 +39,11 @@ export const LeftSidebar = () => {
         </Link>
         <div className="w-[100%] flex items-center h-fit justify-start">
           <Link
-            className="w-[50%] lg:w-auto flex items-center h-[50px] lg:h-fit justify-start lg:justify-center space-x-1 rounded-3xl md:rounded-full px-2 lg:px-6 lg:py-3 hover:bg-[#16181C] text-white"
+            className="w-[100%] lg:w-[90%] flex items-center h-[50px] lg:h-fit justify-start lg:justify-center space-x-1 rounded-3xl md:rounded-full px-2 lg:px-3 lg:py-3 hover:bg-[#16181C] text-white"
             href={`/`}
             key="home"
           >
-            <div className="mx-auto lg:mx-0">
+            <div className="mx-auto lg:ml-5">
               <HomeIcon />
             </div>
             <h5 className="hidden w-auto px-2 lg:flex md:min-w-full">Home</h5>
@@ -51,16 +51,16 @@ export const LeftSidebar = () => {
         </div>
         {nav_items.map((nav_item) => (
           <div
-            className="w-[100%] flex items-center h-fit justify-start"
+            className="w-[100%] flex items-center h-fit justify-start mx-auto"
             key={nav_item.title}
           >
             <Link
-              className="w-[50%] lg:w-auto flex items-center h-[50px] lg:h-fit justify-start lg:justify-center space-x-1 rounded-3xl md:rounded-full lg:px-6 lg:py-3 hover:bg-[#16181C] text-white"
+              className="w-[100%] lg:w-[90%] flex items-center h-[50px] lg:h-fit justify-start lg:justify-center space-x-1 rounded-3xl md:rounded-full lg:px-3 lg:py-3 hover:bg-[#16181C] text-white"
               href={`/${nav_item.title.toLowerCase()}?profileId=${
                 userQuery?._id
               }`}
             >
-              <div className="relative mx-auto lg:mx-0">
+              <div className="mx-auto lg:ml-5">
                 <nav_item.icon />
               </div>
               {nav_item.title === "Notification" && unSeenNotification > 0 ? (
