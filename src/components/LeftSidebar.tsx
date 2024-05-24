@@ -24,7 +24,7 @@ export const LeftSidebar = () => {
   
   return (
     <section className="w-[60px] px-1 pb-4 md:w-[110px] lg:w-[196px] xl:w-[243px] fixed h-full flex flex-col justify-between text-xl">
-      <div className="w-[100%] items-center justify-start flex flex-col ">
+      <div className="w-[80%] lg:w-[100%] items-center justify-start flex flex-col ">
         <Link
           href={"/"}
           className="flex items-center w-[90%] lg:w-[100%] h-fit lg:mx-auto justify-center lg:justify-start lg:space-x-5 rounded-3xl md:rounded-full py-2 lg:py-3"
@@ -37,9 +37,9 @@ export const LeftSidebar = () => {
             className="flex hover:bg-[#16181C] rounded-full"
           />
         </Link>
-        <div className="w-[100%] flex items-center h-fit justify-start">
+        <div className="w-[80%] lg:w-[100%] flex items-center h-fit justify-start">
           <Link
-            className="w-[100%] lg:w-[90%] flex items-center h-[50px] lg:h-fit justify-start lg:justify-center space-x-1 rounded-3xl md:rounded-full px-2 lg:px-3 lg:py-3 hover:bg-[#16181C] text-white"
+            className="w-[100%] lg:w-[70%] flex items-center h-[50px] lg:h-fit justify-start lg:justify-center space-x-1 rounded-3xl md:rounded-full px-2 lg:px-3 lg:py-3 hover:bg-[#16181C] text-white"
             href={`/`}
             key="home"
           >
@@ -51,7 +51,7 @@ export const LeftSidebar = () => {
         </div>
         {nav_items.map((nav_item) => (
           <div
-            className="w-[100%] flex items-center h-fit justify-start mx-auto"
+            className="w-[80%] lg:w-[100%] flex items-center h-fit justify-start mx-auto"
             key={nav_item.title}
           >
             <Link

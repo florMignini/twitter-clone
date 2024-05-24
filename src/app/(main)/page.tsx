@@ -32,7 +32,7 @@ const Page = () => {
     getBookmarsByUser,
     getAllTweetsByUser,
   }: any = useTweet();
-
+console.log(tweets)
   useEffect(() => {
     getAllTweets();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -44,13 +44,6 @@ const Page = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userQuery?._id]);
 
-  /* modal states */
-  const onClose = () => {
-    router.push("/");
-  };
-  const onPost = () => {
-    console.log(`post clicked`);
-  };
 
   return loading ? (
     <div className="w-full h-screen flex pt-[50%] items-start justify-center">
