@@ -33,7 +33,8 @@ const Bookmarks = () => {
       }),
     [bookmarksByUser]
   );
-
+console.log(bookmarksByUser)
+console.log(tweetBookmarksByUser);
   const [deleteAllBookmarksState, setDeleteAllBookmarksState] =
     useState<boolean>(false);
 

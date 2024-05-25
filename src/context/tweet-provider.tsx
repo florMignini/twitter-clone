@@ -155,7 +155,7 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
         userId,
         tweetId,
       });
-
+console.log(data);
       // update state once tweet is liked
       const updatedTweets = tweets.map((tweetToLike: any) => {
         const stateToUpdate = { ...tweetToLike };
@@ -198,7 +198,6 @@ export const TweetProvider = ({ children }: { children: React.ReactNode }) => {
         userId,
         tweetId,
       });
-      console.log(data);
       // update state once tweet is booked
       const updatedTweets = bookmarksByUser.map((tweetToBook: any) =>
         tweetToBook._id === data._id ? data : tweetToBook

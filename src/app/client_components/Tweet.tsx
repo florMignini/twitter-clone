@@ -53,7 +53,8 @@ export const Tweet = ({ tweet, component }: tweetComponent) => {
       tweet?.likes?.filter((like: Like) => like.userId === userQuery?._id)[0],
     [tweet, userQuery?._id]
   );
-
+console.log(tweet);
+console.log(component);
   const bookmarksTweetId = useMemo(
     () =>
       bookmarksByUser?.map((bookmark: any) => {
