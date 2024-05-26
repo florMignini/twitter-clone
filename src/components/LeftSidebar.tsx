@@ -76,13 +76,6 @@ export const LeftSidebar = () => {
             </Link>
           </div>
         ))}
-        <div className="w-[100%] xl:w-[90%] flex items-center justify-start">
-          <div className=" lg:w-[90%] flex items-center justify-start">
-            <button className="w-[80%] md:w-auto xl:w-[100px] px-3 flex items-center justify-center mx-0 xl:mx-2 md:mx-1 rounded-3xl bg-blue-500 py-2 text-base font-bold md:font-normal md:text-xl hover:bg-opacity-70 transition duration-200 my-4">
-              Tweet
-            </button>
-          </div>
-        </div>
       </div>
       {userQuery ? (
         <div
