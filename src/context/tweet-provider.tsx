@@ -263,11 +263,11 @@ console.log(data);
         );
         // update state once tweet is booked
         const updatedTweets = tweets.map((tweetToComment: any) => {
-          // const stateToUpdate = { ...tweetToComment };
-          tweetToComment._id === data.tweetId
-          ? tweetToComment.comments.unshift(data._id)
-          : tweetToComment;
-          return tweetToComment;
+          const stateToUpdate = { ...tweetToComment };
+          stateToUpdate._id === data.tweetId
+          ? stateToUpdate.comments.unshift(data._id)
+          : stateToUpdate;
+          return stateToUpdate;
         });
 
       setTweets(updatedTweets);

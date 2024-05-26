@@ -32,7 +32,7 @@ const Page = () => {
     getBookmarsByUser,
     getAllTweetsByUser,
   }: any = useTweet();
-console.log(tweets)
+
   useEffect(() => {
     getAllTweets();
     // eslint-disable-next-line react-hooks/exhaustive-deps

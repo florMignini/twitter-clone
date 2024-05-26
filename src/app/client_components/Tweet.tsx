@@ -54,7 +54,7 @@ export const Tweet = ({ tweet, component }: tweetComponent) => {
     [tweet, userQuery?._id]
   );
 console.log(tweet);
-console.log(component);
+
   const bookmarksTweetId = useMemo(
     () =>
       bookmarksByUser?.map((bookmark: any) => {
