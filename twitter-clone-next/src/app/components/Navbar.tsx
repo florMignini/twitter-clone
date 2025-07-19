@@ -1,21 +1,30 @@
 "use client";
 
+import { usePathname, useRouter } from "next/navigation";
 import { signOut } from "firebase/auth";
 import { auth } from "../../../lib/firebase";
-import useAuth from "../../../hooks/useAuth";
-import { useRouter } from "next/navigation";
+
 import Image from "next/image";
+import useAuth from "../../../hooks/useAuth";
+import Loader from "./Loader";
 
 export default function Navbar() {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
+  const pathname = usePathname();
   const router = useRouter();
 
-  const handleLogout = async () => {
-    await signOut(auth);
-    router.push("/login");
-  };
+  if (pathname === "/login") return null;
 
-  if (!user) return null;
+  if (loading) {
+    return (
+     <Loader />
+    );
+  }
+
+  if (!user) {
+    router.push("/login");
+    return null;
+  }
 
   return (
     <nav className="w-full px-4 py-3 bg-black border-b border-white/10 flex justify-between items-center text-white">
@@ -35,7 +44,10 @@ export default function Navbar() {
           />
         )}
         <button
-          onClick={handleLogout}
+          onClick={async () => {
+            await signOut(auth);
+            router.push("/login");
+          }}
           className="ml-2 px-4 py-2 rounded bg-white text-black text-sm hover:bg-gray-200 transition"
         >
           Cerrar sesión
