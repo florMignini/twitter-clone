@@ -1,7 +1,40 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  /* config options here */
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  experimental: {
+    serverActions: true,
+  },
+  reactStrictMode: true,
+  images: {
+    domains: [
+      "lh3.googleusercontent.com",
+      "firebasestorage.googleapis.com",
+      "images.unsplash.com",
+      "cdn.pixabay.com",
+      "https://res.cloudinary.com",
+      "img.clerk.com",
+      "media1.giphy.com",
+      "media2.giphy.com",
+      "media3.giphy.com",
+      "media4.giphy.com",
+      "media5.giphy.com",
+      "media6.giphy.com",
+      "media7.giphy.com",
+      "media8.giphy.com",
+      "media0.giphy.com",
+      "giphy.com",
+      "gph.is",
+      "res.cloudinary.com",
+      "https:/lh3.googleusercontent.com",
+      "lh3.googleusercontent.com",
+      "upload.wikimedia.org",
+      "https://upload.wikimedia.org",
+      "avatars.githubusercontent.com",
+      "images.pexels.com",
+      "www.vecteezy.com",
+      "helios-i.mashable.com",
+      "files.edgestore.dev",
+    ],
+  }
 };
 
-export default nextConfig;
+module.exports = nextConfig;
