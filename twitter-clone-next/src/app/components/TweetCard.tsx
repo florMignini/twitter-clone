@@ -24,7 +24,6 @@ export default function TweetCard({
   avatar,
   content,
   date,
-  createdAt,
 }: TweetProps) {
   const { user } = useAuth();
 
@@ -42,10 +41,7 @@ export default function TweetCard({
       alert("No se pudo eliminar el tweet.");
     }
   };
-  console.log("Usuario actual:", user);
-  console.log("UID del tweet:", uid);
-  console.log("Coinciden:", user?.uid === uid);
-  
+
   return (
     <div className="bg-black/90 text-white rounded-xl p-4 shadow-sm hover:shadow-md transition mb-4">
      <div className="w-full flex gap-4 items-center justify-end mb-2">

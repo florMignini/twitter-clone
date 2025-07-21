@@ -35,7 +35,7 @@ export default function Feed() {
   }, []);
 
   if (!user) return null;
-console.log(tweets)
+
   return (
     <section className="max-w-xl mx-auto px-4 py-6">
       <NewTweetForm user={user} onAddTweet={() => {}} />
